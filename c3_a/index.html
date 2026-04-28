@@ -49,7 +49,7 @@
     .screen {
       display: none;
       flex-direction: column;
-      min-height: 100dvh;
+      height: 100dvh;
       background: var(--acuity-bg-base);
       padding-top: env(safe-area-inset-top);
     }
@@ -129,7 +129,7 @@
     .s1-body {
       flex: 1;
       min-height: 0;
-      padding: 16px 22px 0;
+      padding: 16px 22px;
       display: flex;
       flex-direction: column;
       gap: 22px;
@@ -310,14 +310,14 @@
     .wizard-heading {
       font-family: var(--acuity-font-family-serif);
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.4;
       color: var(--acuity-fg-default);
     }
 
     .wizard-subheading {
       font-family: var(--acuity-font-family-sans);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 400;
       line-height: 1.5;
       color: var(--acuity-fg-muted);
@@ -609,6 +609,20 @@
       width: 100%;
     }
 
+    @keyframes appt-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #s5-available.stagger .appt-card {
+      animation: appt-in 0.28s ease both;
+      animation-delay: calc(var(--appt-i, 0) * 75ms);
+    }
+
+    /* Suggestion that was removed from “Selected” — re-enters the list */
+    .appt-card--re-enter {
+      animation: appt-in 0.32s ease both;
+    }
+
     /* Individual appointment card */
     .appt-card {
       display: flex;
@@ -714,6 +728,13 @@
       gap: 8px;
     }
     .selected-section[hidden] { display: none; }
+
+    .selected-section__sizer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
 
     .selected-label {
       font-family: var(--acuity-font-family-sans);
@@ -2987,7 +3008,7 @@
     .home-preview-area {
       background: #f9f9f9;
       border-bottom: 1px solid #e7e7e7;
-      height: 100px;
+      height: 160px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -3035,7 +3056,7 @@
     .home-mini-nav {
       background: #ffffff;
       text-align: center;
-      padding: 7px 10px;
+      padding: 16px 16px;
       font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
       font-size: 5.5px;
       font-weight: 700;
@@ -3467,7 +3488,7 @@
     /* ─── AI skeleton cards (S5 loading state) ──────────────────────────── */
     .appt-card--skeleton {
       background: #f0f0f0;
-      height: 64px;
+      height: 44px;
       border-radius: 8px;
       pointer-events: none;
     }
@@ -3514,9 +3535,9 @@
     .s1-asset-area {
       position: relative;
       flex: 1;
-      min-height: 210px;
+      min-height: 180px;
       width: 100%;
-      max-width: 400px;
+      max-width: 320px;
       margin: 0 auto;
     }
     .s1-card {
@@ -3531,19 +3552,19 @@
     .s1-card--front  { z-index: 3; box-shadow: var(--acuity-shadow-light-300); }
 
     /* Slide 0: appointments — stacked fan, wide horizontal cards */
-    .s1-asset-area[data-slide="0"] .s1-card--behind { width: 230px; left: 84px;  top: 120px; }
-    .s1-asset-area[data-slide="0"] .s1-card--center { width: 255px; left: 68px;  top: 64px;  transform: rotate(-5deg); }
-    .s1-asset-area[data-slide="0"] .s1-card--front  { width: 280px; left: 56px;  top: 6px;  transform: rotate(5deg); }
+    .s1-asset-area[data-slide="0"] .s1-card--behind { width: 195px; left: 50%;  top: 70%; transform: translate(-50%, -50%);}
+    .s1-asset-area[data-slide="0"] .s1-card--center { width: 216px; left: 50%;  top: 50%;  transform: translate(-50%, -50%) rotate(-5deg); }
+    .s1-asset-area[data-slide="0"] .s1-card--front  { width: 238px; left: 50%;  top: 30%;  transform: translate(-50%, -50%) rotate(5deg); }
 
     /* Slide 1: availability — 3 square cards; behind center-back, center right +15°, front left −15° */
-    .s1-asset-area[data-slide="1"] .s1-card--behind { width: 150px; left: 124px; top: 6px; }
-    .s1-asset-area[data-slide="1"] .s1-card--center { width: 150px; left: 173px; top: 40px;  transform: rotate(15deg); }
-    .s1-asset-area[data-slide="1"] .s1-card--front  { width: 150px; left: 75px;  top: 40px;  transform: rotate(-15deg); }
+    .s1-asset-area[data-slide="1"] .s1-card--behind { width: 120px; left: 50%; top: 40%; transform: translate(-50%, -50%);}
+    .s1-asset-area[data-slide="1"] .s1-card--center { width: 120px; left: 70%; top: 55%;  transform: translate(-50%, -50%) rotate(15deg); }
+    .s1-asset-area[data-slide="1"] .s1-card--front  { width: 120px; left: 30%;  top: 55%;  transform: translate(-50%, -50%) rotate(-15deg); }
 
     /* Slide 2: palette — diagonal staircase, no rotation */
-    .s1-asset-area[data-slide="2"] .s1-card--behind { width: 164px; left: 102px; top: 6px; }
-    .s1-asset-area[data-slide="2"] .s1-card--center { width: 164px; left: 146px; top: 60px; }
-    .s1-asset-area[data-slide="2"] .s1-card--front  { width: 164px; left: 88px;  top: 120px; }
+    .s1-asset-area[data-slide="2"] .s1-card--behind { width: 144px; left: 50%; top: 30%; transform: translate(-50%, -50%);}
+    .s1-asset-area[data-slide="2"] .s1-card--center { width: 144px; left: 65%; top: 50%; transform: translate(-50%, -50%);}
+    .s1-asset-area[data-slide="2"] .s1-card--front  { width: 144px; left: 45%;  top: 70%; transform: translate(-50%, -50%);}
 
     .s1-dots {
       display: flex;
@@ -3573,8 +3594,8 @@
       gap: 4px;
       text-align: center;
     }
-    .s1-text-title { font-family: var(--acuity-font-family-serif); font-size: 20px; line-height: 1.4; color: var(--acuity-fg-default); }
-    .s1-text-desc { font-family: var(--acuity-font-family-sans); font-size: 14px; line-height: 22px; color: var(--acuity-fg-muted); margin: 0; }
+    .s1-text-title { font-family: var(--acuity-font-family-serif); font-size: 18px; line-height: 1.4; color: var(--acuity-fg-default); }
+    .s1-text-desc { font-family: var(--acuity-font-family-sans); font-size: 14px; line-height: 1.5; color: var(--acuity-fg-muted); margin: 0; }
 
     /* ─── S1.5: business name screen — uses same s3-body/s3-textarea layout ── */
 
@@ -3823,13 +3844,34 @@
       }
       .section-reveal { animation: sectionReveal 260ms ease; }
 
+      /* S5 — “Selected” block: expand from 0 while label + list fade in */
+      .selected-section.s5-selected-reveal {
+        display: grid;
+        grid-template-rows: 0fr;
+        gap: 0;
+        transition: grid-template-rows 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .selected-section.s5-selected-reveal .selected-section__sizer { min-height: 0; }
+      .selected-section.s5-selected-reveal.s5-selected-reveal--open { grid-template-rows: 1fr; }
+      .selected-section.s5-selected-reveal .selected-label,
+      .selected-section.s5-selected-reveal .appt-list#s5-selected {
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.38s ease 0.08s, transform 0.4s ease 0.08s;
+      }
+      .selected-section.s5-selected-reveal.s5-selected-reveal--open .selected-label,
+      .selected-section.s5-selected-reveal.s5-selected-reveal--open .appt-list#s5-selected {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* AI badge */
       @keyframes badgeSpin { to { --badge-angle: 360deg; } }
       .ai-badge { animation: badgeSpin 4s linear infinite; }
 
       /* AI skeleton shimmer */
       @keyframes shimmer { 0%,100%{ opacity:0.4 } 50%{ opacity:0.8 } }
-      .appt-card--skeleton { animation: shimmer 1.2s ease-in-out infinite; }
+      .appt-card--skeleton { animation: shimmer 0.8s ease-in-out infinite; }
 
       /* Interactive transitions */
       .chip                 { transition: opacity 0.1s ease; }
@@ -4139,8 +4181,10 @@
 
           <!-- Selected section — shown when 1+ appointments added (rendered first) -->
           <div id="s5-selected-section" class="selected-section" hidden>
-            <p class="selected-label">Selected</p>
-            <div id="s5-selected" class="appt-list"></div>
+            <div class="selected-section__sizer">
+              <p class="selected-label">Selected</p>
+              <div id="s5-selected" class="appt-list"></div>
+            </div>
           </div>
 
           <!-- AI badge — text updated by JS once items are selected -->
@@ -5283,7 +5327,8 @@
     let selectedAppts      = [];   // array of appt objects the user has added
     let editingApptId      = null; // id of the appt currently open in the edit sheet
     const apptEdits        = {};   // id → {name, duration, price} — local overrides from Save
-    let selectedHoursLabel = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
+    let selectedHoursLabel  = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
+    let _availStaggerDone   = false; // true after the first suggestions render on a given S5 visit
 
     // ─── SVG icon strings ─────────────────────────────────────────────────────
     const ICON_PENCIL = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -5308,11 +5353,12 @@
       return apptEdits[appt.id] ? { ...appt, ...apptEdits[appt.id] } : appt;
     }
 
-    function apptCardHTML(appt, isSelected) {
+    function apptCardHTML(appt, isSelected, idx = 0, opts = {}) {
       const cls     = isSelected ? 'appt-card--selected-item' : 'appt-card--ai';
+      const reEnter = opts.reEnter ? ' appt-card--re-enter' : '';
       const actions = isSelected
         ? `<button class="appt-icon-btn" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
-           <button class="appt-icon-btn" onclick="event.stopPropagation();removeAppt('${appt.id}')" aria-label="Remove">${ICON_TRASH}</button>`
+           <button class="appt-icon-btn" onclick="event.stopPropagation();removeAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Remove">${ICON_TRASH}</button>`
         : `<button class="appt-icon-btn" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
            <button class="appt-icon-btn" onclick="event.stopPropagation();addAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Add">${ICON_PLUS}</button>`;
 
@@ -5321,7 +5367,7 @@
       const imgHtml  = hasImg  ? `<img class="appt-thumb" src="${appt.image}" alt="">` : '';
       const descHtml = hasDesc ? `<span class="appt-desc">${appt.description}</span>` : '';
 
-      return `<div class="appt-card ${cls}${hasImg ? ' appt-card--has-image' : ''}" data-appt-id="${appt.id}" onclick="openEdit('${appt.id}')">
+      return `<div class="appt-card ${cls}${reEnter}${hasImg ? ' appt-card--has-image' : ''}" style="--appt-i:${idx}" data-appt-id="${appt.id}" onclick="openEdit('${appt.id}')">
         ${imgHtml}
         <div class="appt-card-info">
           <span class="appt-name">${appt.name}</span>
@@ -5377,7 +5423,7 @@
       });
     }
 
-    function refreshSuggestions() {
+    function refreshSuggestions(restoredId = null) {
       const all      = catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty;
       const selIds   = new Set(selectedAppts.map(a => a.id));
       const selNames = selectedAppts.map(a => a.name);
@@ -5386,28 +5432,56 @@
         ? getRelatedSuggestions(selNames, avail)
         : avail;
 
-      document.getElementById('s5-available').innerHTML =
-        ordered.map(a => apptCardHTML(applyEdits(a), false)).join('');
+      const availEl = document.getElementById('s5-available');
+      if (!_availStaggerDone) {
+        availEl.classList.add('stagger');
+        _availStaggerDone = true;
+      } else {
+        availEl.classList.remove('stagger');
+      }
+      availEl.innerHTML =
+        ordered.slice(0, 3).map((a, i) => apptCardHTML(applyEdits(a), false, i, {
+          reEnter: restoredId != null && a.id === restoredId
+        })).join('');
 
       const badgeLabel = document.getElementById('s5-badge-label');
       if (badgeLabel) badgeLabel.textContent = 'For your business';
     }
 
-    function renderCatalog() {
+    function renderCatalog({ restoredId = null } = {}) {
       // Available list (via suggestions engine)
-      refreshSuggestions();
+      refreshSuggestions(restoredId);
 
       // Selected section — only visible when 1+ items selected
       const selectedSection = document.getElementById('s5-selected-section');
       const wasHidden = selectedSection.hidden;
-      if (selectedAppts.length > 0) {
+        if (selectedAppts.length > 0) {
         selectedSection.hidden = false;
         document.getElementById('s5-selected').innerHTML =
           selectedAppts.map(a => apptCardHTML(applyEdits(a), true)).join('');
-        // Animate in only when transitioning from hidden → visible
         if (wasHidden) {
-          selectedSection.classList.add('section-reveal');
-          setTimeout(() => { selectedSection.classList.remove('section-reveal'); }, 350);
+          selectedSection.classList.remove('s5-selected-reveal--open', 's5-selected-reveal');
+          selectedSection.classList.add('s5-selected-reveal');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              selectedSection.classList.add('s5-selected-reveal--open');
+            });
+          });
+          let revealDone = false;
+          const endReveal = () => {
+            if (revealDone) return;
+            revealDone = true;
+            clearTimeout(revealFallback);
+            selectedSection.removeEventListener('transitionend', onRevealEnd);
+            selectedSection.classList.remove('s5-selected-reveal', 's5-selected-reveal--open');
+          };
+          const onRevealEnd = (e) => {
+            if (e.target !== selectedSection) return;
+            if (e.propertyName !== 'grid-template-rows') return;
+            endReveal();
+          };
+          selectedSection.addEventListener('transitionend', onRevealEnd);
+          const revealFallback = setTimeout(endReveal, 600);
         }
       } else {
         selectedSection.hidden = true;
@@ -5442,7 +5516,7 @@
         const h = cardEl.offsetHeight;
         cardEl.style.overflow = 'hidden';
         cardEl.style.maxHeight = h + 'px';
-        cardEl.style.transition = 'max-height 220ms ease, opacity 200ms ease, padding-top 220ms ease, padding-bottom 220ms ease';
+        cardEl.style.transition = 'max-height 620ms ease, opacity 600ms ease, padding-top 620ms ease, padding-bottom 620ms ease';
         requestAnimationFrame(() => {
           cardEl.style.maxHeight = '0';
           cardEl.style.opacity = '0';
@@ -5458,9 +5532,37 @@
       }
     }
 
-    function removeAppt(id) {
-      selectedAppts = selectedAppts.filter(a => a.id !== id);
-      renderCatalog();
+    function removeAppt(id, cardEl) {
+      if (!selectedAppts.find(a => a.id === id)) return;
+
+      if (cardEl && cardEl.dataset.exiting) return;
+      if (cardEl) cardEl.dataset.exiting = '1';
+
+      if (navigator.vibrate) navigator.vibrate(30);
+
+      const finish = () => {
+        selectedAppts = selectedAppts.filter(a => a.id !== id);
+        renderCatalog({ restoredId: id });
+      };
+
+      if (cardEl) {
+        const h = cardEl.offsetHeight;
+        cardEl.style.overflow = 'hidden';
+        cardEl.style.maxHeight = h + 'px';
+        cardEl.style.transition = 'max-height 620ms ease, opacity 600ms ease, padding-top 620ms ease, padding-bottom 620ms ease';
+        requestAnimationFrame(() => {
+          cardEl.style.maxHeight = '0';
+          cardEl.style.opacity = '0';
+          cardEl.style.paddingTop = '0';
+          cardEl.style.paddingBottom = '0';
+        });
+        let done = false;
+        const guard = () => { if (!done) { done = true; finish(); } };
+        cardEl.addEventListener('transitionend', guard, { once: true });
+        setTimeout(guard, 350);
+      } else {
+        finish();
+      }
     }
 
     // ─── Edit overlay ─────────────────────────────────────────────────────────
@@ -5980,6 +6082,7 @@
       // S5: try AI suggestions; falls back to static catalog on error/timeout
       if (id === 's5') {
         catalogOverride = null;
+        _availStaggerDone = false;
         generateAISuggestions();
       }
 
@@ -7534,14 +7637,14 @@
     function generateAISuggestions() {
       const availEl = document.getElementById('s5-available');
 
-      // Show 4 skeleton cards briefly for animation continuity
-      if (availEl) availEl.innerHTML = Array(4).fill('<div class="appt-card appt-card--skeleton"></div>').join('');
+      // Show 3 skeleton cards briefly for animation continuity
+      if (availEl) availEl.innerHTML = Array(3).fill('<div class="appt-card appt-card--skeleton"></div>').join('');
 
       // Always resolve from template — _generic guarantees there is always a value
       catalogOverride = getTemplateFallback();
 
       // Small delay so the skeleton flash is visible before cards render
-      setTimeout(renderCatalog, 400);
+      setTimeout(renderCatalog, 600);
     }
 
     // ─── AI: pricing suggestion (panel-c4) ───────────────────────────────────
