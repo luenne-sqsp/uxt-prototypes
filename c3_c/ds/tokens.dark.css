@@ -1,0 +1,43 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-theme="dark"] {
+  --acuity-fg-default: #ffffff;
+  --acuity-fg-muted: #b7b7b7;
+  --acuity-fg-disabled: #7b7b7b;
+  --acuity-fg-on-strong: #151515;
+  --acuity-fg-danger: #ef8280;
+  --acuity-fg-success: #67b28d;
+  --acuity-fg-warning: #f2d173;
+  --acuity-fg-info: #6ca4f4;
+  --acuity-fg-accent: #adc6ff;
+  --acuity-fg-brand: #fafdff;
+  --acuity-bg-base: #151515;
+  --acuity-bg-inset: #171717;
+  --acuity-bg-default: #1f1f1f;
+  --acuity-bg-strong: #ffffff;
+  --acuity-bg-danger-default: #2a1214;
+  --acuity-bg-danger-strong: #c32d38;
+  --acuity-bg-success-default: #0f2319;
+  --acuity-bg-success-strong: #1b754f;
+  --acuity-bg-warning-default: #241a08;
+  --acuity-bg-warning-strong: #925b20;
+  --acuity-bg-info-default: #0d1a33;
+  --acuity-bg-info-strong: #0862d1;
+  --acuity-bg-accent-default: #172850;
+  --acuity-bg-accent-strong: #adc6ff;
+  --acuity-bg-brand-subtle: #253848;
+  --acuity-bg-brand-default: #3c5165;
+  --acuity-bg-brand-strong: #fafdff;
+  --acuity-bg-brand-on-strong: #151515;
+  --acuity-border-default: #2b2b2b;
+  --acuity-border-muted: #1f1f1f;
+  --acuity-border-strong: #ffffff;
+  --acuity-border-danger: #c32d38;
+  --acuity-border-success: #1b754f;
+  --acuity-border-warning: #925b20;
+  --acuity-border-info: #0862d1;
+  --acuity-border-accent: #92b2fa;
+  --acuity-border-brand: #a4bfda;
+}
