@@ -7162,12 +7162,13 @@
 
     function serializeForSchedulingPage() {
       const params = new URLSearchParams();
+      const images = selectedAppts.map(a => a.image || '');
+      try { localStorage.setItem('acuityServiceImages', JSON.stringify(images)); } catch(_) {}
       params.set('services', JSON.stringify(selectedAppts.map(a => ({
         name:        a.name,
         duration:    a.duration,
         price:       a.price,
         description: a.description || '',
-        image:       a.image || '',
       }))));
       params.set('businessName', (document.getElementById('business-name-input')?.value || '').trim() || '');
       params.set('hours',   selectedHoursLabel || '');

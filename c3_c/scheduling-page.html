@@ -264,6 +264,10 @@
       let font     = "'Source Sans Pro', sans-serif";
 
       try { services = JSON.parse(params.get('services') || '[]'); } catch(e) {}
+      try {
+        const imgs = JSON.parse(localStorage.getItem('acuityServiceImages') || '[]');
+        services = services.map((s, i) => imgs[i] ? { ...s, image: imgs[i] } : s);
+      } catch(_) {}
       try { palette  = JSON.parse(params.get('palette')  || '[]') || palette; } catch(e) {}
       hours = params.get('hours') || '';
       font  = params.get('font')  || font;
