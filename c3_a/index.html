@@ -3700,13 +3700,21 @@
     }
     .s9-drawer-day-row {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 11px;
       padding: 11px 0;
       border-bottom: 1px solid #e7e7e7;
     }
     .s9-drawer-day-row:last-child { border-bottom: none; }
 
+    .s9-day-circle-wrap {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      flex-shrink: 0;
+    }
     .s9-day-circle {
       width: 40px;
       height: 40px;
@@ -3782,7 +3790,7 @@
       box-sizing: border-box;
     }
     .s9-range-row-actions.s9-range-row-actions--tail {
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
     .s9-range-icon-btn {
       width: auto;
@@ -6668,13 +6676,15 @@
           bodyHtml = '<span class="s9-unavailable">Unavailable</span>';
         }
         return `<div class="s9-drawer-day-row" data-day="${dayIdx}">
-          <button class="s9-day-circle${isActive ? ' active' : ''}"
-                  data-day="${dayIdx}"
-                  type="button"
-                  onclick="s9ToggleDay(${dayIdx})"
-                  aria-label="${isActive ? 'Disable ' : 'Enable '}${_S9_DAYS_FULL[dayIdx]}">
-            ${letter}
-          </button>
+          <div class="s9-day-circle-wrap">
+            <button class="s9-day-circle${isActive ? ' active' : ''}"
+                    data-day="${dayIdx}"
+                    type="button"
+                    onclick="s9ToggleDay(${dayIdx})"
+                    aria-label="${isActive ? 'Disable ' : 'Enable '}${_S9_DAYS_FULL[dayIdx]}">
+              ${letter}
+            </button>
+          </div>
           <div class="s9-day-body" id="s9-day-body-${dayIdx}">${bodyHtml}</div>
         </div>`;
       }).join('');
