@@ -730,9 +730,6 @@
     .selected-section[hidden] { display: none; }
 
     .selected-section__sizer {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
       min-width: 0;
     }
 
@@ -741,12 +738,14 @@
       font-size: 10px;
       font-weight: 500;
       line-height: 16px;
+      min-height: 16px; /* reserved line box — stable while list area opens */
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--acuity-color-dawn-purple-100);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* "+ New appointment type" secondary button */
@@ -3844,25 +3843,23 @@
       }
       .section-reveal { animation: sectionReveal 260ms ease; }
 
-      /* S5 — “Selected” block: expand from 0 while label + list fade in */
-      .selected-section.s5-selected-reveal {
+      /* S5 — “Selected”: label row sits outside the 0fr→1fr list shell so it’s in place first; only #s5-selected expands and fades in */
+      .selected-section.s5-selected-reveal .selected-section__sizer {
         display: grid;
         grid-template-rows: 0fr;
-        gap: 0;
+        min-width: 0;
         transition: grid-template-rows 0.45s cubic-bezier(0.32, 0.72, 0, 1);
       }
-      .selected-section.s5-selected-reveal .selected-section__sizer { min-height: 0; }
-      .selected-section.s5-selected-reveal.s5-selected-reveal--open { grid-template-rows: 1fr; }
-      .selected-section.s5-selected-reveal .selected-label,
-      .selected-section.s5-selected-reveal .appt-list#s5-selected {
-        opacity: 0;
-        transform: translateY(4px);
-        transition: opacity 0.38s ease 0.08s, transform 0.4s ease 0.08s;
+      .selected-section.s5-selected-reveal.s5-selected-reveal--open .selected-section__sizer {
+        grid-template-rows: 1fr;
       }
-      .selected-section.s5-selected-reveal.s5-selected-reveal--open .selected-label,
-      .selected-section.s5-selected-reveal.s5-selected-reveal--open .appt-list#s5-selected {
+      .selected-section.s5-selected-reveal .selected-section__sizer .appt-list#s5-selected {
+        min-height: 0;
+        opacity: 0;
+        transition: opacity 0.45s cubic-bezier(0.32, 0.72, 0, 1) 0s;
+      }
+      .selected-section.s5-selected-reveal.s5-selected-reveal--open .selected-section__sizer .appt-list#s5-selected {
         opacity: 1;
-        transform: translateY(0);
       }
 
       /* AI badge */
@@ -4181,8 +4178,8 @@
 
           <!-- Selected section — shown when 1+ appointments added (rendered first) -->
           <div id="s5-selected-section" class="selected-section" hidden>
+            <p class="selected-label">Selected</p>
             <div class="selected-section__sizer">
-              <p class="selected-label">Selected</p>
               <div id="s5-selected" class="appt-list"></div>
             </div>
           </div>
@@ -5357,10 +5354,10 @@
       const cls     = isSelected ? 'appt-card--selected-item' : 'appt-card--ai';
       const reEnter = opts.reEnter ? ' appt-card--re-enter' : '';
       const actions = isSelected
-        ? `<button class="appt-icon-btn" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
-           <button class="appt-icon-btn" onclick="event.stopPropagation();removeAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Remove">${ICON_TRASH}</button>`
-        : `<button class="appt-icon-btn" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
-           <button class="appt-icon-btn" onclick="event.stopPropagation();addAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Add">${ICON_PLUS}</button>`;
+        ? `<button class="appt-icon-btn appt-icon-btn--edit" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
+           <button class="appt-icon-btn appt-icon-btn--remove" onclick="event.stopPropagation();removeAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Remove">${ICON_TRASH}</button>`
+        : `<button class="appt-icon-btn appt-icon-btn--edit" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
+           <button class="appt-icon-btn appt-icon-btn--add" onclick="event.stopPropagation();addAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Add">${ICON_PLUS}</button>`;
 
       const hasImg  = isSelected && !!appt.image;
       const hasDesc = isSelected && !!appt.description;
@@ -5455,11 +5452,12 @@
       // Selected section — only visible when 1+ items selected
       const selectedSection = document.getElementById('s5-selected-section');
       const wasHidden = selectedSection.hidden;
-        if (selectedAppts.length > 0) {
+      if (selectedAppts.length > 0) {
         selectedSection.hidden = false;
         document.getElementById('s5-selected').innerHTML =
           selectedAppts.map(a => apptCardHTML(applyEdits(a), true)).join('');
         if (wasHidden) {
+          const sizer = selectedSection.querySelector('.selected-section__sizer');
           selectedSection.classList.remove('s5-selected-reveal--open', 's5-selected-reveal');
           selectedSection.classList.add('s5-selected-reveal');
           requestAnimationFrame(() => {
@@ -5472,15 +5470,15 @@
             if (revealDone) return;
             revealDone = true;
             clearTimeout(revealFallback);
-            selectedSection.removeEventListener('transitionend', onRevealEnd);
+            if (sizer) sizer.removeEventListener('transitionend', onRevealEnd);
             selectedSection.classList.remove('s5-selected-reveal', 's5-selected-reveal--open');
           };
           const onRevealEnd = (e) => {
-            if (e.target !== selectedSection) return;
+            if (e.target !== sizer) return;
             if (e.propertyName !== 'grid-template-rows') return;
             endReveal();
           };
-          selectedSection.addEventListener('transitionend', onRevealEnd);
+          if (sizer) sizer.addEventListener('transitionend', onRevealEnd);
           const revealFallback = setTimeout(endReveal, 600);
         }
       } else {
