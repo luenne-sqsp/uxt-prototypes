@@ -701,7 +701,7 @@
     .appt-card-actions {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 8px;
       flex-shrink: 0;
     }
 
@@ -709,8 +709,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 16px;
-      height: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       background: none;
       border: none;
       cursor: pointer;
@@ -720,6 +721,13 @@
     }
     .appt-icon-btn:active { opacity: 0.5; }
     .appt-icon-btn svg { display: block; }
+
+    .appt-icon-btn--add {
+      color: var(--acuity-color-dawn-purple-100);
+      border: 1px solid var(--acuity-color-dawn-lavender-sky-40);
+    }
+    .appt-icon-btn--add:active { opacity: 0.5; background: var(--acuity-color-dawn-lavender-sky-20); border-color: var(--acuity-color-dawn-lavender-sky-60);}
+    .appt-icon-btn--add svg { display: block; }
 
     /* Selected section: label + gray cards */
     .selected-section {
@@ -771,6 +779,15 @@
     }
     .new-appt-btn:active { opacity: 0.7; }
     .new-appt-btn svg { display: block; flex-shrink: 0; }
+    .new-appt-btn--disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
+    }
+    #s5-available.at-limit .appt-icon-btn--add {
+      opacity: 0.3;
+      pointer-events: none;
+    }
 
 
     /* ══════════════════════════════════════════════════════════════════════
@@ -3741,9 +3758,8 @@
       font-family: var(--acuity-font-family-sans);
       color: #0e0e0e;
       text-align: center;
-      -webkit-appearance: none;
-      appearance: none;
       cursor: pointer;
+      box-sizing: border-box;
     }
     .s9-time-pill:focus { outline: none; border-color: var(--acuity-color-dawn-violet-100); }
     .s9-range-sep {
@@ -5498,6 +5514,11 @@
         continueBtn.classList.add('btn-primary--disabled');
         continueBtn.onclick = null;
       }
+
+      // Add-limit state — disable add actions once 3 appointments are selected
+      const atLimit = selectedAppts.length >= 3;
+      document.getElementById('s5-available').classList.toggle('at-limit', atLimit);
+      document.querySelector('.new-appt-btn').classList.toggle('new-appt-btn--disabled', atLimit);
     }
 
     // ─── Catalog actions ──────────────────────────────────────────────────────
@@ -6609,26 +6630,39 @@
         <p class="s9-drawer-note">You'll be able to set different hours for different calendars and add exceptions from your calendar.</p>`;
     }
 
-    function _s9TimeOptions(selected) {
-      const opts = [];
-      for (let h = 0; h < 24; h++) {
-        for (let m = 0; m < 60; m += 30) {
-          const period = h < 12 ? 'AM' : 'PM';
-          const h12    = h === 0 ? 12 : (h > 12 ? h - 12 : h);
-          const label  = `${h12}:${m.toString().padStart(2,'0')} ${period}`;
-          opts.push(`<option value="${label}"${label === selected ? ' selected' : ''}>${label}</option>`);
-        }
-      }
-      return opts.join('');
+    /** 12h label (e.g. "9:00 AM") → value for input[type=time] */
+    function _s9Time12ToInputValue(s) {
+      const m = String(s || '').trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+      if (!m) return '09:00';
+      let h = parseInt(m[1], 10);
+      const min = parseInt(m[2], 10);
+      const ap = m[3].toUpperCase();
+      if (ap === 'PM' && h !== 12) h += 12;
+      if (ap === 'AM' && h === 12) h = 0;
+      return `${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+    }
+
+    /** input[type=time] value "HH:mm" → 12h label for storage / summary text */
+    function _s9InputValueToTime12(v) {
+      if (!v || !/^\d{1,2}:\d{2}$/.test(v)) return '9:00 AM';
+      const [hs, ms] = v.split(':');
+      let h = parseInt(hs, 10);
+      const min = parseInt(ms, 10);
+      const period = h < 12 ? 'AM' : 'PM';
+      let h12 = h % 12;
+      if (h12 === 0) h12 = 12;
+      return `${h12}:${min.toString().padStart(2, '0')} ${period}`;
     }
 
     function _s9RangeRowHTML(dayIdx, ri, range) {
       const addIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`;
       const delIcon = `<svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="currentColor"/><circle cx="7" cy="2" r="1.5" fill="currentColor"/><circle cx="12" cy="2" r="1.5" fill="currentColor"/></svg>`;
+      const startVal = _s9Time12ToInputValue(range.start);
+      const endVal   = _s9Time12ToInputValue(range.end);
       return `<div class="s9-range-row" data-range="${ri}">
-        <select class="s9-time-pill" data-day="${dayIdx}" data-range="${ri}" data-role="start">${_s9TimeOptions(range.start)}</select>
+        <input type="time" class="s9-time-pill" step="1800" value="${startVal}" data-day="${dayIdx}" data-range="${ri}" data-role="start" aria-label="Start time">
         <span class="s9-range-sep">—</span>
-        <select class="s9-time-pill" data-day="${dayIdx}" data-range="${ri}" data-role="end">${_s9TimeOptions(range.end)}</select>
+        <input type="time" class="s9-time-pill" step="1800" value="${endVal}" data-day="${dayIdx}" data-range="${ri}" data-role="end" aria-label="End time">
         <button class="s9-range-add-btn" onclick="s9AddRange(${dayIdx})" aria-label="Add time range">${addIcon}</button>
         <button class="s9-range-del-btn" onclick="s9RemoveRange(${dayIdx},${ri})" aria-label="Remove time range">${delIcon}</button>
       </div>`;
@@ -6670,8 +6704,8 @@
       if (!block) return;
       const ranges = block.dayData[dayIdx];
       if (!ranges || ranges.length >= 5) return;
-      // Read current select values back into block before adding
-      _s9ReadSelectsIntoBlock(block, dayIdx);
+      // Read current time inputs back into block before adding
+      _s9ReadTimeInputsIntoBlock(block, dayIdx);
       ranges.push({ start: '9:00 AM', end: '5:00 PM' });
       _s9RefreshDayBody(block, dayIdx);
     }
@@ -6681,12 +6715,12 @@
       if (!block) return;
       const ranges = block.dayData[dayIdx];
       if (!ranges || ranges.length <= 1) return;
-      _s9ReadSelectsIntoBlock(block, dayIdx);
+      _s9ReadTimeInputsIntoBlock(block, dayIdx);
       ranges.splice(rangeIdx, 1);
       _s9RefreshDayBody(block, dayIdx);
     }
 
-    function _s9ReadSelectsIntoBlock(block, dayIdx) {
+    function _s9ReadTimeInputsIntoBlock(block, dayIdx) {
       const body = document.getElementById('s9-day-body-' + dayIdx);
       if (!body) return;
       const ranges = block.dayData[dayIdx];
@@ -6695,8 +6729,8 @@
         if (!ranges[ri]) return;
         const s = rr.querySelector('[data-role="start"]');
         const e = rr.querySelector('[data-role="end"]');
-        if (s) ranges[ri].start = s.value;
-        if (e) ranges[ri].end   = e.value;
+        if (s) ranges[ri].start = _s9InputValueToTime12(s.value);
+        if (e) ranges[ri].end   = _s9InputValueToTime12(e.value);
       });
     }
 
@@ -6713,7 +6747,7 @@
       const block = _s9GetEditingBlock();
       if (!block) { closeAvailEdit(); return; }
 
-      // Read all select values from the drawer into the block
+      // Read all time inputs from the drawer into the block
       document.querySelectorAll('#avail-sheet-body .s9-drawer-day-row').forEach(row => {
         const dayIdx = parseInt(row.dataset.day);
         const circle = row.querySelector('.s9-day-circle');
@@ -6725,7 +6759,7 @@
           row.querySelectorAll('.s9-range-row').forEach(rr => {
             const s = rr.querySelector('[data-role="start"]');
             const e = rr.querySelector('[data-role="end"]');
-            if (s && e) ranges.push({ start: s.value, end: e.value });
+            if (s && e) ranges.push({ start: _s9InputValueToTime12(s.value), end: _s9InputValueToTime12(e.value) });
           });
           block.dayData[dayIdx] = ranges.length > 0 ? ranges : null;
         }
