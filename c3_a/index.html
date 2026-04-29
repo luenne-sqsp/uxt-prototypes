@@ -3696,10 +3696,11 @@
     .s9-drawer-days {
       display: flex;
       flex-direction: column;
+      --s9-range-actions-width: 92px;
     }
     .s9-drawer-day-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 11px;
       padding: 11px 0;
       border-bottom: 1px solid #e7e7e7;
@@ -3746,6 +3747,7 @@
     .s9-range-row {
       display: flex;
       align-items: center;
+      gap: 0;
     }
     .s9-time-pill {
       flex: 1;
@@ -3769,23 +3771,39 @@
       flex-shrink: 0;
       padding: 0 6px;
     }
-    .s9-range-add-btn,
-    .s9-range-del-btn {
-      width: 28px;
-      height: 28px;
+    .s9-range-row-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 4px;
+      flex: 0 0 var(--s9-range-actions-width);
+      width: var(--s9-range-actions-width);
+      min-width: var(--s9-range-actions-width);
+      box-sizing: border-box;
+    }
+    .s9-range-row-actions.s9-range-row-actions--tail {
+      justify-content: flex-end;
+    }
+    .s9-range-icon-btn {
+      width: auto;
+      height: auto;
       display: flex;
       align-items: center;
       justify-content: center;
       background: none;
       border: none;
       cursor: pointer;
-      color: #666666;
+      color: #000000;
       flex-shrink: 0;
-      padding: 0;
+      padding: 12px;
       -webkit-tap-highlight-color: transparent;
     }
-    .s9-range-add-btn:active,
-    .s9-range-del-btn:active { opacity: 0.5; }
+    .s9-range-icon-btn img {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+    .s9-range-icon-btn:active { opacity: 0.5; }
 
     .s9-drawer-note {
       font-family: var(--acuity-font-family-sans);
@@ -6456,16 +6474,44 @@
     const _S9_DAYS_ABBREV   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const _S9_DAYS_FULL     = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
+    const _S9_DEFAULT_RANGE = () => ({ start: '9:00 AM', end: '5:00 PM' });
+
+    /** Day entry: { enabled, ranges } — ranges kept when enabled is false (restore + copy-to-all). */
+    function _s9NormalizeDayEntry(d) {
+      if (d && typeof d === 'object' && 'enabled' in d && Array.isArray(d.ranges)) {
+        const ranges = d.ranges.length > 0
+          ? d.ranges.map(r => ({ start: r.start, end: r.end }))
+          : [_S9_DEFAULT_RANGE()];
+        return { enabled: !!d.enabled, ranges };
+      }
+      if (d == null) {
+        return { enabled: false, ranges: [_S9_DEFAULT_RANGE()] };
+      }
+      if (Array.isArray(d)) {
+        if (d.length === 0) {
+          return { enabled: false, ranges: [_S9_DEFAULT_RANGE()] };
+        }
+        return { enabled: true, ranges: d.map(r => ({ start: r.start, end: r.end })) };
+      }
+      return { enabled: false, ranges: [_S9_DEFAULT_RANGE()] };
+    }
+
+    function _s9NormalizeBlockDayData(block) {
+      for (let i = 0; i < 7; i++) {
+        block.dayData[i] = _s9NormalizeDayEntry(block.dayData[i]);
+      }
+    }
+
     function _s9MakeDefaultDayData() {
-      // Mon–Fri active (9 AM–5 PM), Sun+Sat inactive
+      const r = [_S9_DEFAULT_RANGE()];
       return [
-        null,
-        [{ start: '9:00 AM', end: '5:00 PM' }],
-        [{ start: '9:00 AM', end: '5:00 PM' }],
-        [{ start: '9:00 AM', end: '5:00 PM' }],
-        [{ start: '9:00 AM', end: '5:00 PM' }],
-        [{ start: '9:00 AM', end: '5:00 PM' }],
-        null,
+        { enabled: false, ranges: r.map(x => ({ ...x })) },
+        { enabled: true,  ranges: r.map(x => ({ ...x })) },
+        { enabled: true,  ranges: r.map(x => ({ ...x })) },
+        { enabled: true,  ranges: r.map(x => ({ ...x })) },
+        { enabled: true,  ranges: r.map(x => ({ ...x })) },
+        { enabled: true,  ranges: r.map(x => ({ ...x })) },
+        { enabled: false, ranges: r.map(x => ({ ...x })) },
       ];
     }
 
@@ -6481,6 +6527,7 @@
     function renderAvailability() {
       // Reset to shared mode whenever S9 is entered
       s9_isDifferentHours = false;
+      _s9NormalizeBlockDayData(s9SharedBlock);
       _s9UpdateMainBlock(s9SharedBlock);
 
       const diffWrap  = document.getElementById('s9-diff-link-wrap');
@@ -6507,14 +6554,17 @@
 
     function _s9BlockSummary(block) {
       const activeDays = block.dayData
-        .map((d, i) => (d && d.length > 0) ? i : null)
+        .map((d, i) => {
+          const e = _s9NormalizeDayEntry(d);
+          return e.enabled ? i : null;
+        })
         .filter(i => i !== null);
       const daysLabel = _s9BuildDaysLabel(activeDays);
       let timeLabel = '';
       if (activeDays.length > 0) {
-        const firstRanges = block.dayData[activeDays[0]];
-        if (firstRanges && firstRanges.length > 0) {
-          const r = firstRanges[0];
+        const first = _s9NormalizeDayEntry(block.dayData[activeDays[0]]);
+        if (first.ranges.length > 0) {
+          const r = first.ranges[0];
           timeLabel = 'From ' + r.start + ' to ' + r.end;
         }
       }
@@ -6569,6 +6619,7 @@
       if (!wrap) return;
       wrap.innerHTML = selectedAppts.map((appt, i) => {
         const block = s9PerApptBlocks[i] || { id: 'appt_' + i, dayData: _s9MakeDefaultDayData() };
+        _s9NormalizeBlockDayData(block);
         const { daysLabel, timeLabel } = _s9BlockSummary(block);
         return `<div class="s9-appt-group">
           <span class="s9-appt-group-label">${appt.name}</span>
@@ -6591,6 +6642,7 @@
       s9_editCtx = { isPerAppt, idx };
       const block = isPerAppt ? s9PerApptBlocks[idx] : s9SharedBlock;
       if (!block) return;
+      _s9NormalizeBlockDayData(block);
       document.getElementById('avail-sheet-body').innerHTML = _s9DrawerBodyHTML(block);
       const overlay = document.getElementById('avail-edit-overlay');
       overlay.removeAttribute('hidden');
@@ -6607,17 +6659,18 @@
     function _s9DrawerBodyHTML(block) {
       const rows = [0,1,2,3,4,5,6].map(dayIdx => {
         const letter   = _S9_DAYS_INITIALS[dayIdx];
-        const ranges   = block.dayData[dayIdx];
-        const isActive = !!(ranges && ranges.length > 0);
+        const entry    = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+        const isActive = entry.enabled;
         let bodyHtml;
         if (isActive) {
-          bodyHtml = ranges.map((r, ri) => _s9RangeRowHTML(dayIdx, ri, r)).join('');
+          bodyHtml = entry.ranges.map((r, ri) => _s9RangeRowHTML(dayIdx, ri, r)).join('');
         } else {
           bodyHtml = '<span class="s9-unavailable">Unavailable</span>';
         }
         return `<div class="s9-drawer-day-row" data-day="${dayIdx}">
           <button class="s9-day-circle${isActive ? ' active' : ''}"
                   data-day="${dayIdx}"
+                  type="button"
                   onclick="s9ToggleDay(${dayIdx})"
                   aria-label="${isActive ? 'Disable ' : 'Enable '}${_S9_DAYS_FULL[dayIdx]}">
             ${letter}
@@ -6655,16 +6708,22 @@
     }
 
     function _s9RangeRowHTML(dayIdx, ri, range) {
-      const addIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`;
-      const delIcon = `<svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="currentColor"/><circle cx="7" cy="2" r="1.5" fill="currentColor"/><circle cx="12" cy="2" r="1.5" fill="currentColor"/></svg>`;
+      const isFirst = ri === 0;
+      const actionsHtml = isFirst
+        ? `<div class="s9-range-row-actions">
+        <button type="button" class="s9-range-icon-btn" onclick="s9AddRange(${dayIdx})" aria-label="Add time range"><img src="assets/icon-Plus.svg" width="22" height="22" alt="" aria-hidden="true"></button>
+        <button type="button" class="s9-range-icon-btn" onclick="s9CopyDayToAll(${dayIdx})" aria-label="Copy times to all other days"><img src="assets/icon-duplicate.svg" width="22" height="22" alt="" aria-hidden="true"></button>
+      </div>`
+        : `<div class="s9-range-row-actions s9-range-row-actions--tail">
+        <button type="button" class="s9-range-icon-btn" onclick="s9RemoveRange(${dayIdx},${ri})" aria-label="Remove time range"><img src="assets/icon-Minus.svg" width="22" height="22" alt="" aria-hidden="true"></button>
+      </div>`;
       const startVal = _s9Time12ToInputValue(range.start);
       const endVal   = _s9Time12ToInputValue(range.end);
       return `<div class="s9-range-row" data-range="${ri}">
         <input type="time" class="s9-time-pill" step="1800" value="${startVal}" data-day="${dayIdx}" data-range="${ri}" data-role="start" aria-label="Start time">
         <span class="s9-range-sep">—</span>
         <input type="time" class="s9-time-pill" step="1800" value="${endVal}" data-day="${dayIdx}" data-range="${ri}" data-role="end" aria-label="End time">
-        <button class="s9-range-add-btn" onclick="s9AddRange(${dayIdx})" aria-label="Add time range">${addIcon}</button>
-        <button class="s9-range-del-btn" onclick="s9RemoveRange(${dayIdx},${ri})" aria-label="Remove time range">${delIcon}</button>
+        ${actionsHtml}
       </div>`;
     }
 
@@ -6676,16 +6735,21 @@
     function s9ToggleDay(dayIdx) {
       const block = _s9GetEditingBlock();
       if (!block) return;
-      const isActive = !!(block.dayData[dayIdx] && block.dayData[dayIdx].length > 0);
-      block.dayData[dayIdx] = isActive ? null : [{ start: '9:00 AM', end: '5:00 PM' }];
+      const entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      entry.enabled = !entry.enabled;
+      if (entry.enabled && entry.ranges.length === 0) {
+        entry.ranges = [_S9_DEFAULT_RANGE()];
+      }
+      block.dayData[dayIdx] = entry;
       _s9RefreshDayRow(block, dayIdx);
     }
 
     function _s9RefreshDayRow(block, dayIdx) {
       const row = document.querySelector(`.s9-drawer-day-row[data-day="${dayIdx}"]`);
       if (!row) return;
-      const ranges   = block.dayData[dayIdx];
-      const isActive = !!(ranges && ranges.length > 0);
+      const entry    = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      const isActive = entry.enabled;
+      const ranges   = entry.ranges;
       const circle   = row.querySelector('.s9-day-circle');
       if (circle) {
         circle.className = 's9-day-circle' + (isActive ? ' active' : '');
@@ -6702,29 +6766,52 @@
     function s9AddRange(dayIdx) {
       const block = _s9GetEditingBlock();
       if (!block) return;
-      const ranges = block.dayData[dayIdx];
-      if (!ranges || ranges.length >= 5) return;
-      // Read current time inputs back into block before adding
+      let entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      if (!entry.enabled || entry.ranges.length >= 5) return;
       _s9ReadTimeInputsIntoBlock(block, dayIdx);
-      ranges.push({ start: '9:00 AM', end: '5:00 PM' });
+      entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      entry.ranges.push(_S9_DEFAULT_RANGE());
+      block.dayData[dayIdx] = entry;
       _s9RefreshDayBody(block, dayIdx);
     }
 
     function s9RemoveRange(dayIdx, rangeIdx) {
       const block = _s9GetEditingBlock();
       if (!block) return;
-      const ranges = block.dayData[dayIdx];
-      if (!ranges || ranges.length <= 1) return;
+      if (rangeIdx <= 0) return;
+      let entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      if (!entry.enabled || entry.ranges.length <= 1) return;
       _s9ReadTimeInputsIntoBlock(block, dayIdx);
-      ranges.splice(rangeIdx, 1);
+      entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      entry.ranges.splice(rangeIdx, 1);
+      block.dayData[dayIdx] = entry;
       _s9RefreshDayBody(block, dayIdx);
+    }
+
+    function s9CopyDayToAll(dayIdx) {
+      const block = _s9GetEditingBlock();
+      if (!block) return;
+      _s9ReadTimeInputsIntoBlock(block, dayIdx);
+      const src = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      const copyRanges = src.ranges.map(r => ({ start: r.start, end: r.end }));
+      for (let j = 0; j < 7; j++) {
+        if (j === dayIdx) continue;
+        const t = _s9NormalizeDayEntry(block.dayData[j]);
+        t.ranges = copyRanges.map(r => ({ ...r }));
+        block.dayData[j] = t;
+      }
+      for (let j = 0; j < 7; j++) {
+        if (j === dayIdx) continue;
+        _s9RefreshDayRow(block, j);
+      }
     }
 
     function _s9ReadTimeInputsIntoBlock(block, dayIdx) {
       const body = document.getElementById('s9-day-body-' + dayIdx);
       if (!body) return;
-      const ranges = block.dayData[dayIdx];
-      if (!ranges) return;
+      let entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      if (!entry.enabled) return;
+      const ranges = entry.ranges;
       body.querySelectorAll('.s9-range-row').forEach((rr, ri) => {
         if (!ranges[ri]) return;
         const s = rr.querySelector('[data-role="start"]');
@@ -6732,14 +6819,15 @@
         if (s) ranges[ri].start = _s9InputValueToTime12(s.value);
         if (e) ranges[ri].end   = _s9InputValueToTime12(e.value);
       });
+      block.dayData[dayIdx] = entry;
     }
 
     function _s9RefreshDayBody(block, dayIdx) {
       const body = document.getElementById('s9-day-body-' + dayIdx);
       if (!body) return;
-      const ranges = block.dayData[dayIdx];
-      body.innerHTML = (ranges && ranges.length > 0)
-        ? ranges.map((r, ri) => _s9RangeRowHTML(dayIdx, ri, r)).join('')
+      const entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      body.innerHTML = (entry.enabled && entry.ranges.length > 0)
+        ? entry.ranges.map((r, ri) => _s9RangeRowHTML(dayIdx, ri, r)).join('')
         : '<span class="s9-unavailable">Unavailable</span>';
     }
 
@@ -6749,20 +6837,21 @@
 
       // Read all time inputs from the drawer into the block
       document.querySelectorAll('#avail-sheet-body .s9-drawer-day-row').forEach(row => {
-        const dayIdx = parseInt(row.dataset.day);
+        const dayIdx = parseInt(row.dataset.day, 10);
         const circle = row.querySelector('.s9-day-circle');
-        const isActive = circle && circle.classList.contains('active');
-        if (!isActive) {
-          block.dayData[dayIdx] = null;
-        } else {
+        const enabled = circle && circle.classList.contains('active');
+        let entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+        entry.enabled = enabled;
+        if (enabled) {
           const ranges = [];
           row.querySelectorAll('.s9-range-row').forEach(rr => {
             const s = rr.querySelector('[data-role="start"]');
             const e = rr.querySelector('[data-role="end"]');
             if (s && e) ranges.push({ start: _s9InputValueToTime12(s.value), end: _s9InputValueToTime12(e.value) });
           });
-          block.dayData[dayIdx] = ranges.length > 0 ? ranges : null;
+          entry.ranges = ranges.length > 0 ? ranges : entry.ranges;
         }
+        block.dayData[dayIdx] = entry;
       });
 
       // Update UI
