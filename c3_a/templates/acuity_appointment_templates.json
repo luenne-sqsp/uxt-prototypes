@@ -48,12 +48,12 @@
           },
           {
             "name": "Color & Highlights",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$180"
           },
           {
             "name": "Keratin Treatment",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$250"
           },
           {
@@ -87,7 +87,7 @@
           },
           {
             "name": "Full Set Acrylics",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$65"
           },
           {
@@ -145,12 +145,12 @@
         "appointments": [
           {
             "name": "Classic Lash Set",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$120"
           },
           {
             "name": "Volume Lash Set",
-            "duration": "2.5 hrs",
+            "duration": "2.5 hours",
             "price": "$160"
           },
           {
@@ -247,7 +247,7 @@
         "appointments": [
           {
             "name": "Bridal Makeup",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$200"
           },
           {
@@ -257,12 +257,12 @@
           },
           {
             "name": "Makeup Lesson",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$120"
           },
           {
             "name": "Airbrush Makeup",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$150"
           }
         ],
@@ -296,7 +296,7 @@
           },
           {
             "name": "Natural Hair Styling",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$110"
           }
         ],
@@ -315,22 +315,22 @@
         "appointments": [
           {
             "name": "Box Braids",
-            "duration": "5 hrs",
+            "duration": "5 hours",
             "price": "$200"
           },
           {
             "name": "Knotless Braids",
-            "duration": "5 hrs",
+            "duration": "5 hours",
             "price": "$180"
           },
           {
             "name": "Cornrows",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$80"
           },
           {
             "name": "Locs Retwist",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$90"
           }
         ],
@@ -476,12 +476,12 @@
           },
           {
             "name": "Business Audit",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$350"
           },
           {
             "name": "Brand Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$300"
           },
           {
@@ -510,17 +510,17 @@
           },
           {
             "name": "Brand Photography",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$400"
           },
           {
             "name": "Product Photography",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$350"
           },
           {
             "name": "Event Coverage",
-            "duration": "4 hrs",
+            "duration": "4 hours",
             "price": "$800"
           }
         ],
@@ -549,7 +549,7 @@
           },
           {
             "name": "Financial Audit Meeting",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$250"
           },
           {
@@ -578,7 +578,7 @@
           },
           {
             "name": "Venue Walk-Through",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$0"
           },
           {
@@ -680,7 +680,7 @@
           },
           {
             "name": "Retirement Planning",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$250"
           },
           {
@@ -782,7 +782,7 @@
           },
           {
             "name": "Portrait Session",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$200"
           },
           {
@@ -845,7 +845,7 @@
         "appointments": [
           {
             "name": "Operations Audit",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$200"
           },
           {
@@ -889,7 +889,7 @@
           },
           {
             "name": "Software Onboarding",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$200"
           },
           {
@@ -978,7 +978,7 @@
           },
           {
             "name": "Hot Stone Massage",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$130"
           }
         ],
@@ -1012,7 +1012,7 @@
           },
           {
             "name": "Group Session",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$60"
           }
         ],
@@ -1065,7 +1065,7 @@
         "appointments": [
           {
             "name": "Holistic Health Assessment",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$150"
           },
           {
@@ -1133,7 +1133,7 @@
         "appointments": [
           {
             "name": "Initial Acupuncture Visit",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$150"
           },
           {
@@ -1167,7 +1167,7 @@
         "appointments": [
           {
             "name": "Spa Day Package",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$200"
           },
           {
@@ -1470,7 +1470,7 @@
           },
           {
             "name": "Team Strategy Session",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$150"
           }
         ],
@@ -1504,7 +1504,7 @@
           },
           {
             "name": "Specialty Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$120"
           }
         ],
@@ -1663,7 +1663,7 @@
       },
       {
         "name": "Skills Workshop",
-        "duration": "1.5 hrs",
+        "duration": "1.5 hours",
         "price": "$75"
       },
       {
@@ -1781,17 +1781,17 @@
         "appointments": [
           {
             "name": "Intro Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$75"
           },
           {
             "name": "Skill-Building Class",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$60"
           },
           {
             "name": "Certificate Course Session",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$100"
           },
           {
@@ -1815,22 +1815,22 @@
         "appointments": [
           {
             "name": "Art Class",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$60"
           },
           {
             "name": "Photography Workshop",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$120"
           },
           {
             "name": "Pottery Class",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$75"
           },
           {
             "name": "Creative Writing Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$65"
           }
         ],
@@ -1927,7 +1927,7 @@
           },
           {
             "name": "Group Orientation",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$0"
           },
           {
@@ -1961,7 +1961,7 @@
           },
           {
             "name": "Trade Skills Session",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$100"
           },
           {
@@ -1985,17 +1985,17 @@
         "appointments": [
           {
             "name": "Youth Sports Clinic",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$40"
           },
           {
             "name": "Skills Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$60"
           },
           {
             "name": "Coaching Certification Session",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$100"
           },
           {
@@ -2087,7 +2087,7 @@
         "appointments": [
           {
             "name": "Business Skills Workshop",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$120"
           },
           {
@@ -2097,12 +2097,12 @@
           },
           {
             "name": "Finance Basics Course",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$100"
           },
           {
             "name": "Leadership Development",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$150"
           }
         ],
@@ -2175,22 +2175,22 @@
         "appointments": [
           {
             "name": "Standard Home Cleaning",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$120"
           },
           {
             "name": "Deep Clean",
-            "duration": "4 hrs",
+            "duration": "4 hours",
             "price": "$250"
           },
           {
             "name": "Move-In/Out Cleaning",
-            "duration": "4 hrs",
+            "duration": "4 hours",
             "price": "$300"
           },
           {
             "name": "Commercial Cleaning",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$200"
           }
         ],
@@ -2214,17 +2214,17 @@
           },
           {
             "name": "Interior Detail",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$100"
           },
           {
             "name": "Full Detail",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$175"
           },
           {
             "name": "Paint Correction",
-            "duration": "4 hrs",
+            "duration": "4 hours",
             "price": "$300"
           }
         ],
@@ -2253,7 +2253,7 @@
           },
           {
             "name": "Brake Service",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$200"
           },
           {
@@ -2287,7 +2287,7 @@
           },
           {
             "name": "Project Estimate Visit",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$0"
           },
           {
@@ -2457,7 +2457,7 @@
           },
           {
             "name": "Water Heater Service",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$250"
           },
           {
@@ -2491,12 +2491,12 @@
           },
           {
             "name": "Roof Replacement Consult",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$0"
           },
           {
             "name": "Gutter Cleaning Appointment",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$150"
           }
         ],
@@ -2515,7 +2515,7 @@
         "appointments": [
           {
             "name": "Electrical Inspection",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$120"
           },
           {
@@ -2549,7 +2549,7 @@
         "appointments": [
           {
             "name": "HVAC Inspection",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$120"
           },
           {
@@ -2559,7 +2559,7 @@
           },
           {
             "name": "Furnace Service",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$130"
           },
           {
@@ -2588,7 +2588,7 @@
           },
           {
             "name": "Garden Design Meeting",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$120"
           },
           {
@@ -2683,7 +2683,7 @@
           },
           {
             "name": "Full Groom",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$75"
           },
           {
@@ -2717,7 +2717,7 @@
           },
           {
             "name": "Private Chef Booking",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$300"
           },
           {
@@ -2751,7 +2751,7 @@
           },
           {
             "name": "Podcast Recording Session",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$200"
           },
           {
@@ -2877,17 +2877,17 @@
         "appointments": [
           {
             "name": "Interior Design Consult",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$150"
           },
           {
             "name": "Home Organization Session",
-            "duration": "2 hrs",
+            "duration": "2 hours",
             "price": "$120"
           },
           {
             "name": "Feng Shui Consultation",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$130"
           },
           {
@@ -3047,7 +3047,7 @@
         "appointments": [
           {
             "name": "Farm Consultation",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$120"
           },
           {
@@ -3057,12 +3057,12 @@
           },
           {
             "name": "Outdoor Guide Booking",
-            "duration": "3 hrs",
+            "duration": "3 hours",
             "price": "$150"
           },
           {
             "name": "Soil & Land Assessment",
-            "duration": "1.5 hrs",
+            "duration": "1.5 hours",
             "price": "$130"
           }
         ],
