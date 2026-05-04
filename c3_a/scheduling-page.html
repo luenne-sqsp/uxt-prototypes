@@ -13,6 +13,10 @@
     :root {
       --scheduler-bg:      #ffffff;
       --scheduler-text:    #0e0e0e;
+      /* NOTE: --scheduler-accent is a palette-driven fallback. The JS on line ~286 overwrites this
+         with the user's selected palette colour from onboarding. Any hardcoded fix here must account
+         for that dynamic override — do not normalise to a design token until the palette system
+         is refactored to inject tokens rather than raw hex values. */
       --scheduler-accent:  #313131;
       --scheduler-header:  #000000;
       --scheduler-border:  rgba(14,14,14,0.12);

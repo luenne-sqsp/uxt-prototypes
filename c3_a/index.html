@@ -55,6 +55,23 @@
     }
     .screen.active { display: flex; }
 
+    /* ─── Keyboard-aware compression ────────────────────────────────────────
+       When a main-flow or create-panel large input is focused, .app gains
+       .keyboard-active and --visible-height is set from visualViewport.
+       The active screen and create sheet shrink to the visible area so
+       content reflows rather than being scrolled out of view.
+    ──────────────────────────────────────────────────────────────────────── */
+    .app.keyboard-active {
+      height: var(--visible-height, 100dvh);
+      min-height: unset;
+    }
+    .app.keyboard-active .screen.active {
+      height: var(--visible-height, 100dvh);
+    }
+    .app.keyboard-active .create-sheet {
+      height: calc(var(--visible-height, 100dvh) - 32px);
+    }
+
     /* ─── Screen body ────────────────────────────────────────────────────────
        Scrollable content area that grows to fill available space.
     ──────────────────────────────────────────────────────────────────────── */
@@ -72,7 +89,7 @@
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       padding: 11px 20px;
       padding-bottom: max(11px, env(safe-area-inset-bottom));
     }
@@ -96,7 +113,7 @@
     .btn-ghost:active   { opacity: 0.6; }
 
     .btn-primary {
-      padding: 16px 20px;
+      padding: var(--acuity-spacing-16) 20px;
       background: var(--acuity-color-dawn-purple-100);
       color: var(--acuity-color-neutral-gray-base);
       font-size: 16px;
@@ -129,7 +146,7 @@
     .s1-body {
       flex: 1;
       min-height: 0;
-      padding: 16px 22px;
+      padding: var(--acuity-spacing-16) 22px;
       display: flex;
       flex-direction: column;
       gap: 22px;
@@ -154,7 +171,7 @@
     }
 
     .intro-heading {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 24px;
       font-weight: 400;
       line-height: 1.25;
@@ -179,7 +196,7 @@
     .step-num {
       width: 22px;
       flex-shrink: 0;
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 16px;
       font-weight: 400;
       line-height: 1.4;
@@ -196,7 +213,7 @@
     }
 
     .step-title {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 16px;
       font-weight: 400;
       line-height: 1.4;
@@ -227,7 +244,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 20px;
+      padding: var(--acuity-spacing-8) 20px;
       position: sticky;
       top: 0;
       background: var(--acuity-bg-base);
@@ -289,7 +306,7 @@
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
-      padding: 8px 22px 44px;
+      padding: var(--acuity-spacing-8) 22px 44px;
       display: flex;
       flex-direction: column;
       gap: 33px;
@@ -297,7 +314,7 @@
 
     /* S5-specific: extra bottom padding so content clears the sticky CTA */
     .s5-wizard-body {
-      padding-bottom: 24px;
+      padding-bottom: var(--acuity-spacing-24);
     }
 
     .wizard-header {
@@ -308,7 +325,7 @@
     }
 
     .wizard-heading {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 20px;
       font-weight: 500;
       line-height: 1.4;
@@ -403,7 +420,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding-top: 8px;
+      padding-top: var(--acuity-spacing-8);
       width: 100%;
       overflow: hidden;
     }
@@ -461,49 +478,15 @@
     .chips-row {
       flex-shrink: 0;
       display: flex;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       overflow-x: auto;
       overflow-y: visible;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       flex-wrap: nowrap;
-      padding: 8px 22px;
+      padding: var(--acuity-spacing-8) 22px;
     }
     .chips-row::-webkit-scrollbar { display: none; }
-
-    .chip {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      padding: 12px 16px;
-      border-radius: var(--acuity-border-radius-md);
-      border: 1px solid var(--acuity-color-dawn-purple-30);
-      background: linear-gradient(
-        90deg,
-        rgba(255,255,255,0.92) 0%,
-        rgba(255,255,255,0.92) 100%
-      ),
-      linear-gradient(
-        87deg,
-        var(--acuity-color-dawn-purple-30) 0%,
-        var(--acuity-color-dawn-purple-40) 100%
-      );
-      font-family: var(--acuity-font-family-sans);
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
-      color: var(--acuity-color-dawn-purple-100);
-      white-space: nowrap;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .chip:active { opacity: 0.7; }
-    .chip.chip--selected {
-      background: var(--acuity-color-dawn-purple-100);
-      color: var(--acuity-color-neutral-gray-base);
-      border-color: var(--acuity-color-dawn-purple-100);
-    }
 
     .chip-set { display: contents; }
     .chip-set[hidden] { display: none; }
@@ -519,7 +502,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
     }
 
     .loading-label {
@@ -597,7 +580,7 @@
     .s5-carousel {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
       width: 100%;
     }
 
@@ -605,7 +588,7 @@
     .appt-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       width: 100%;
     }
 
@@ -629,7 +612,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 16px;
+      padding: var(--acuity-spacing-16);
       border-radius: 8px;
       width: 100%;
       cursor: pointer;
@@ -637,12 +620,12 @@
     }
 
     .appt-card--ai {
-      background: #fbfaff;
+      background: var(--acuity-bg-inset);
     }
     .appt-card--ai:active { background: #ede9ff; }
 
     .appt-card--selected-item {
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
     }
     .appt-card--selected-item:active { background: #f0efef; }
 
@@ -701,7 +684,7 @@
     .appt-card-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       flex-shrink: 0;
     }
 
@@ -733,7 +716,7 @@
     .selected-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .selected-section[hidden] { display: none; }
 
@@ -763,7 +746,7 @@
       justify-content: center;
       gap: 11px;
       width: 100%;
-      padding: 16px;
+      padding: var(--acuity-spacing-16);
       border-radius: 8px;
       border: 1px solid #e7e7e7;
       background: rgba(255,255,255,0.9);
@@ -790,18 +773,32 @@
     }
 
 
+    /* ── Modal overlay / sheet base (shared by all bottom sheets) ───────── */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .modal-sheet {
+      width: 100%;
+      background: var(--acuity-bg-inset);
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 -4px 32px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(100%);
+    }
+
     /* ══════════════════════════════════════════════════════════════════════
        S6 — Edit appointment (bottom sheet overlay)
     ══════════════════════════════════════════════════════════════════════ */
 
     /* Overlay: positioned over the active screen (not part of screen flow) */
     .edit-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(10, 8, 36, 0);
       display: none;
-      flex-direction: column;
-      justify-content: flex-end;
       z-index: 50;
     }
     .edit-overlay.edit-open {
@@ -817,14 +814,7 @@
 
     /* Sheet: slides up from bottom */
     .sheet {
-      width: 100%;
-      background: #fafafa;
-      border-radius: 16px 16px 0 0;
-      box-shadow: 0px 0px 1px rgba(0,0,0,0.08), 0px -4px 32px rgba(0,0,0,0.12);
       max-height: 92dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
       position: relative;
     }
 
@@ -856,8 +846,8 @@
       -webkit-overflow-scrolling: touch;
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      padding: 48px 24px 24px;
+      gap: var(--acuity-spacing-24);
+      padding: 48px var(--acuity-spacing-24) var(--acuity-spacing-24);
     }
 
     /* ─── Top section: image + name + description ─────────────────── */
@@ -865,7 +855,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
     }
 
     .sheet-image-upload {
@@ -959,16 +949,22 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      border: 1px solid var(--acuity-color-dawn-purple-30);
+      border-radius: 4px;
     }
     .sheet-description-section[hidden] { display: none !important; }
 
+    .sheet-desc-zone {
+      position: relative;
+      width: 100%;
+    }
+
     .sheet-desc-textarea {
       width: 100%;
-      min-height: 80px;
-      border: 1px solid #e5e2f5;
-      border-bottom: none;
+      min-height: 64px;
+      border: none;
       border-radius: 4px 4px 0 0;
-      background: #f9f9f9;
+      background: var(--acuity-bg-inset);
       font-family: var(--acuity-font-family-sans);
       font-size: 14px;
       font-weight: 400;
@@ -977,20 +973,50 @@
       padding: 12px;
       resize: none;
       outline: none;
+      field-sizing: content;
     }
     .sheet-desc-textarea:focus { border-color: var(--acuity-color-dawn-purple-100); }
 
-    /* AI rewrite chips — collapsed by default, expand on textarea focus */
-    .sheet-ai-chips-wrap {
-      border: 1px solid #e5e2f5;
-      border-top: none;
-      border-radius: 0 0 4px 4px;
-      background: #f9f9f9;
-      max-height: 0;
-      overflow: hidden;
+    /* Sheet — AI suggestion preview (Help me write), mirrors create ghost flow */
+    .sheet-desc-ai-ghost {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 12px;
+      border-radius: 4px 4px 0 0;
+      background: var(--acuity-bg-inset);
+      border: none;
+      z-index: 3;
+      pointer-events: none;
+      box-sizing: border-box;
     }
-    .sheet-description-section:focus-within .sheet-ai-chips-wrap {
-      max-height: 56px;
+    .sheet-desc-ai-ghost:not([hidden]) { display: flex; }
+    .sheet-desc-ai-ghost.ai-active { pointer-events: auto; }
+    .sheet-desc-ai-ghost-text {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--acuity-color-dawn-purple-100);
+      margin: 0;
+      min-height: 1.5em;
+    }
+    .sheet-desc-ai-ghost:not(.ai-active) .sheet-desc-ai-ghost-text { opacity: 0.35; }
+    .sheet-desc-ai-ghost.ai-active .sheet-desc-ai-ghost-text { opacity: 1; }
+    .sheet-desc-zone--ai-pending .sheet-desc-textarea {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Sheet AI bar — same expand/collapse pattern as c2-ai-bar (reuse .c2-ai-bar rules) */
+    .sheet-ai-chips-wrap {
+      border: none;
+      border-radius: 0 0 4px 4px;
+      background: var(--acuity-bg-inset);
+      overflow: hidden;
     }
     .sheet-description-section:focus-within .sheet-desc-textarea {
       border-color: var(--acuity-color-dawn-purple-100);
@@ -998,38 +1024,10 @@
     .sheet-description-section:focus-within .sheet-ai-chips-wrap {
       border-color: var(--acuity-color-dawn-purple-100);
     }
-
-    .sheet-ai-chips {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      scrollbar-width: none;
-      padding: 8px 12px;
+    .sheet-ai-chips-wrap .c2-ai-bar {
+      padding: var(--acuity-spacing-8) 12px 10px;
+      gap: var(--acuity-spacing-8);
     }
-    .sheet-ai-chips::-webkit-scrollbar { display: none; }
-
-    /* AI rewrite chip style */
-    .chip--ai {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 8px 12px;
-      border-radius: var(--acuity-border-radius-md);
-      border: 1px solid var(--acuity-color-dawn-purple-30);
-      background: var(--acuity-color-dawn-purple-10);
-      font-family: var(--acuity-font-family-sans);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1.25;
-      color: var(--acuity-color-dawn-purple-100);
-      white-space: nowrap;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .chip--ai:active { opacity: 0.7; }
-    .chip--ai svg { display: block; flex-shrink: 0; }
 
     /* ─── Fields: Duration + Price ────────────────────────────────── */
     .sheet-fields {
@@ -1059,7 +1057,7 @@
       align-items: center;
       border: 1px solid #e5e2f5;
       border-radius: 4px;
-      background: #f9f9f9;
+      background: var(--acuity-bg-inset);
       overflow: hidden;
     }
     .field-input-group:focus-within {
@@ -1068,7 +1066,7 @@
 
     .field-affix {
       flex-shrink: 0;
-      padding: 16px 6px 16px 11px;
+      padding: var(--acuity-spacing-16) 6px var(--acuity-spacing-16) 11px;
       font-family: var(--acuity-font-family-sans);
       font-size: 14px;
       font-weight: 400;
@@ -1076,12 +1074,12 @@
       color: var(--acuity-fg-muted);
       user-select: none;
     }
-    .field-affix--suffix { padding: 16px 11px 16px 4px; }
+    .field-affix--suffix { padding: var(--acuity-spacing-16) 11px var(--acuity-spacing-16) 4px; }
 
     .field-input {
       flex: 1;
       min-width: 0;
-      padding: 16px 11px;
+      padding: var(--acuity-spacing-16) 11px;
       background: transparent;
       border: none;
       outline: none;
@@ -1101,7 +1099,7 @@
     .sheet-toggle-row {
       display: flex;
       align-items: flex-start;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
       padding: 11px 0;
     }
 
@@ -1166,9 +1164,9 @@
     /* ─── Sheet footer: Save ──────────────────────────────────────── */
     .sheet-footer {
       flex-shrink: 0;
-      padding: 12px 24px;
+      padding: 12px var(--acuity-spacing-24);
       padding-bottom: max(20px, env(safe-area-inset-bottom));
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
     }
 
     .btn-sheet-save {
@@ -1208,7 +1206,7 @@
       font-size: 14px;
     }
     .screen-placeholder strong {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 20px;
       font-weight: 400;
       color: var(--acuity-fg-default);
@@ -1230,7 +1228,7 @@
        Triggered from "+ New appointment type" on S5
     ══════════════════════════════════════════════════════════════════════ */
 
-    /* create-overlay panels use #fafafa via .create-sheet */
+    /* create-overlay panels use var(--acuity-bg-inset) via .create-sheet */
 
     /* ─── Create nav ──────────────────────────────────────────────────── */
     .create-nav {
@@ -1238,10 +1236,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 20px;
+      padding: var(--acuity-spacing-8) 20px;
       position: sticky;
       top: 0;
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
       z-index: 10;
     }
 
@@ -1294,7 +1292,7 @@
       gap: 12px;
       padding: 11px 20px;
       padding-bottom: max(11px, env(safe-area-inset-bottom));
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
     }
     .create-nav-btns { display: flex; gap: 11px; }
 
@@ -1304,7 +1302,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 20px;
+      padding: 12px 20px;
       background: transparent;
       border: 1px solid #e7e7e7;
       border-radius: var(--acuity-border-radius-md);
@@ -1325,7 +1323,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 20px;
+      padding: 12px 20px;
       background: var(--acuity-color-dawn-purple-100);
       border: none;
       border-radius: var(--acuity-border-radius-md);
@@ -1356,7 +1354,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 22px;
+      padding: var(--acuity-spacing-24) 22px;
     }
 
     .big-input {
@@ -1365,7 +1363,7 @@
       outline: none;
       background: transparent;
       font-family: var(--acuity-font-family-sans);
-      font-size: 40px;
+      font-size: 32px;
       font-weight: var(--acuity-font-weight-semibold);
       line-height: 1.15;
       letter-spacing: -0.5px;
@@ -1379,31 +1377,41 @@
       opacity: 0.2;
     }
 
-    /* Plain chip: white bg + light gray border (used in create sub-flow) */
-    .chip--plain {
+    /* ── Chip base ───────────────────────────────────────────────────────── */
+    .chip--plain,
+    .c2-ai-chip {
       flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 10px 16px;
-      border-radius: var(--acuity-border-radius-md);
-      border: 1px solid #e7e7e7;
-      background: rgba(255,255,255,0.9);
       font-family: var(--acuity-font-family-sans);
       font-size: 12px;
       font-weight: 400;
       line-height: 1.25;
-      color: var(--acuity-fg-default);
       white-space: nowrap;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
+
+    /* Plain chip: white bg + light gray border (used in create sub-flow + S3) */
+    .chip--plain {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px var(--acuity-spacing-16);
+      border-radius: var(--acuity-border-radius-md);
+      border: 1px solid #e7e7e7;
+      background: rgba(255,255,255,0.9);
+      color: var(--acuity-fg-default);
+    }
     .chip--plain:active { opacity: 0.7; }
+    .chip--plain.chip--selected {
+      background: var(--acuity-color-dawn-purple-100);
+      color: var(--acuity-color-neutral-gray-base);
+      border-color: var(--acuity-color-dawn-purple-100);
+    }
 
     /* ─── s_c2: description ────────────────────────────────────────────── */
     .create-name-echo {
       flex-shrink: 0;
-      padding: 20px 22px 16px;
+      padding: 20px 22px var(--acuity-spacing-16);
       font-family: var(--acuity-font-family-sans);
       font-size: 40px;
       font-weight: var(--acuity-font-weight-semibold);
@@ -1414,7 +1422,7 @@
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
-    .create-name-echo.has-content { padding-top: 8px; }
+    .create-name-echo.has-content { padding-top: var(--acuity-spacing-8); }
 
 
     /* "Swipe →" indicator badge preceding AI chips */
@@ -1442,9 +1450,6 @@
     /* ─── Shared create panel header (all steps) ───────────────────────── */
     .create-panel-header {
       flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      z-index: 1;
       padding: 20px 22px 0;
       display: flex;
       flex-direction: column;
@@ -1453,7 +1458,7 @@
       text-align: center;
     }
     .create-panel-title {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 18px;
       font-weight: 400;
       line-height: 1.3;
@@ -1472,13 +1477,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 22px 30px;
-      gap: 8px;
+      padding: 22px 30px;
+      gap: var(--acuity-spacing-8);
     }
     /* Name echo: Clarkson Semibold 24px — inherited from .create-name-echo,
        override only what differs */
     #create-desc-title {
-      font-size: 24px;
+      font-size: 20px;
       padding: 0;
       line-height: 1.25;
       letter-spacing: -0.5px;
@@ -1513,6 +1518,7 @@
       padding: 0;
       -webkit-appearance: none;
       appearance: none;
+      field-sizing: content;
     }
     /* Ghost: absolute overlay on the desc zone, same type spec */
     .desc-ghost {
@@ -1540,7 +1546,7 @@
  
     .desc-ghost.ai-active .desc-ghost-text { opacity: 1; font-size: 16px; }
 
-    /* ─── s_c2: AI suggestions bar ──────────────────────────────────────── */
+    /* ─── s_c2: AI suggestions bar (collapsible) ─────────────────────────── */
     .c2-ai-bar {
       flex-shrink: 0;
       display: flex;
@@ -1548,6 +1554,41 @@
       gap: 11px;
       padding: 10px 22px 14px;
     }
+    .c2-ai-chips-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-rows: 1fr;
+      overflow: hidden;
+      transition: grid-template-rows 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .c2-ai-bar--collapsed .c2-ai-chips-wrap {
+      grid-template-rows: 0fr;
+      pointer-events: none;
+      transition: grid-template-rows 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .c2-ai-chips {
+      opacity: 1;
+      transition: opacity 0.28s ease;
+    }
+    .c2-ai-bar--collapsed .c2-ai-chips {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    @keyframes c2ChipReveal {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip {
+      animation: c2ChipReveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(1) { animation-delay: 0.04s; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(2) { animation-delay: 0.1s; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(3) { animation-delay: 0.16s; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(4) { animation-delay: 0.22s; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(5) { animation-delay: 0.28s; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-chip:nth-child(6) { animation-delay: 0.34s; }
+    .c2-ai-bar--collapsed .c2-ai-chip { animation: none; }
+
     .c2-ai-btn {
       flex-shrink: 0;
       width: 32px;
@@ -1562,42 +1603,41 @@
       -webkit-tap-highlight-color: transparent;
       z-index: 2;
     }
+    .c2-ai-btn img {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+    .c2-ai-btn .c2-ai-btn-icon--open { display: none; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-btn .c2-ai-btn-icon--open { display: block; }
+    .c2-ai-bar:not(.c2-ai-bar--collapsed) .c2-ai-btn .c2-ai-btn-icon--closed { display: none; }
     .c2-ai-btn:active { opacity: 0.7; }
     .c2-ai-chips {
-      flex: 1;
+      min-height: 0;
       display: flex;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       overflow-x: auto;
-      overflow-y: visible;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 4px;
     }
     .c2-ai-chips::-webkit-scrollbar { display: none; }
     .c2-ai-chip {
-      flex-shrink: 0;
-      padding: 8px 16px;
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-16);
       border-radius: 8px;
       border: 1px solid #b5abdf;
       background:
         linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 100%),
         linear-gradient(84.9deg, #c7c4d7 0%, #b5abdf 100%),
         linear-gradient(90deg, #cfdedb 0%, #86908f 100%);
-      font-family: var(--acuity-font-family-sans);
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 1.25;
       color: #322d46;
-      white-space: nowrap;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
     }
     .c2-ai-chip:active { opacity: 0.7; }
 
-    /* ── "Help me write" custom-prompt overlay ─────────────── */
+    /* ── "Help me write" custom-prompt overlay (fixed — used from create + edit) ─ */
     .c2-prompt-overlay {
-      position: absolute;
+      position: fixed;
       inset: 0;
-      z-index: 10;
+      z-index: 70;
       background: transparent;
       display: flex;
       align-items: flex-end;
@@ -1609,13 +1649,8 @@
       pointer-events: auto;
     }
     .c2-prompt-sheet {
-      width: 100%;
       background: #ffffff;
-      border-radius: 16px 16px 0 0;
       box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 16px 64px rgba(0,0,0,0.12);
-      display: flex;
-      flex-direction: column;
-      transform: translateY(100%);
       transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
     }
     .c2-prompt-overlay.c2-prompt-open .c2-prompt-sheet {
@@ -1635,7 +1670,7 @@
     .c2-prompt-header {
       display: flex;
       align-items: center;
-      padding: 8px 16px 12px;
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-16) 12px;
       position: relative;
     }
     .c2-prompt-title-wrap {
@@ -1670,16 +1705,17 @@
       opacity: 0.5;
     }
     .c2-prompt-body {
-      padding: 0 16px 24px;
+      padding: 0 var(--acuity-spacing-16) var(--acuity-spacing-24);
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
     .c2-prompt-input-wrap {
-      background: #fafafa;
+      position: relative;
+      background: var(--acuity-bg-inset);
       border: 1px solid #e7e7e7;
       border-radius: 8px;
-      padding: 14px 16px;
+      padding: 14px var(--acuity-spacing-16);
     }
     .c2-prompt-input {
       width: 100%;
@@ -1696,9 +1732,41 @@
       -webkit-appearance: none;
       appearance: none;
     }
-    .c2-prompt-input::placeholder {
+    /* Rotating placeholder stack — "Help me write" textareas only */
+    .hmw-ph-viewport {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 14px;
+      height: 1.5em;
+      overflow: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .hmw-ph-viewport[hidden] { display: none !important; }
+    .hmw-ph-track {
+      will-change: transform;
+      transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .hmw-ph-track.hmw-ph-track--instant {
+      transition: none;
+    }
+    .hmw-ph-line {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
       color: var(--acuity-color-dawn-purple-100);
-      opacity: 0.2;
+      opacity: 0.22;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .c2-prompt-input-wrap:focus-within .hmw-ph-viewport:not([hidden]) .hmw-ph-line {
+      opacity: 0.14;
+    }
+    .c2-prompt-input::placeholder {
+      color: transparent;
     }
     .c2-prompt-create-btn {
       width: 100%;
@@ -1716,7 +1784,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .c2-prompt-create-btn:disabled { opacity: 0.5; cursor: default; }
     .c2-prompt-spinner {
@@ -1736,7 +1804,7 @@
     .create-screen-heading {
       flex-shrink: 0;
       padding: 20px 22px 0;
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 22px;
       font-weight: 400;
       line-height: 1.3;
@@ -1750,7 +1818,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
 
     .duration-control {
@@ -1878,8 +1946,8 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      padding: 24px 22px;
+      gap: var(--acuity-spacing-24);
+      padding: var(--acuity-spacing-24) 22px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -1899,7 +1967,7 @@
       text-align: center;
     }
     .create-image-heading h2 {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 24px;
       font-weight: 400;
       line-height: 1.25;
@@ -2034,14 +2102,14 @@
     .create-option-rows {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .create-option-row {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 11px;
-      padding: 12px 16px;
+      padding: 12px var(--acuity-spacing-16);
       border-radius: 8px;
       border: 1px solid #e7e7e7;
       background: white;
@@ -2081,7 +2149,7 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 16px 20px;
+      padding: var(--acuity-spacing-16) 20px;
       background: white;
       border: 1px solid #e7e7e7;
       border-radius: 4px;
@@ -2151,14 +2219,14 @@
     .avail-per-appt {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
       width: 100%;
     }
 
     .avail-appt-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
 
     .avail-appt-label {
@@ -2181,8 +2249,8 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding: 24px 22px;
+      gap: var(--acuity-spacing-16);
+      padding: var(--acuity-spacing-24) 22px;
     }
 
     .s10-header {
@@ -2193,7 +2261,7 @@
     }
 
     .s10-heading {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 28px;
       font-weight: 400;
       line-height: 1.4;
@@ -2231,7 +2299,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 16px 24px 0;
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-24) 0;
     }
 
     /* The mini booking widget card */
@@ -2264,7 +2332,7 @@
     .widget-multi-card {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       padding: 10px 14px;
       border-bottom: 1px solid rgba(14,14,14,0.08);
     }
@@ -2342,12 +2410,12 @@
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      padding: 20px 24px 24px;
+      padding: 20px var(--acuity-spacing-24) var(--acuity-spacing-24);
     }
 
     .widget-service-name {
       font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.4;
       color: #0e0e0e;
@@ -2356,7 +2424,7 @@
 
     .widget-service-meta {
       font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 1.1;
       color: #0e0e0e;
@@ -2377,7 +2445,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 12px;
+      padding: var(--acuity-spacing-8) 12px;
       background: #313131;
       color: white;
       border: none;
@@ -2397,7 +2465,7 @@
       align-items: center;
       justify-content: center;
       gap: 11px;
-      padding: 12px 24px 16px;
+      padding: 12px var(--acuity-spacing-24) var(--acuity-spacing-16);
       width: 100%;
       flex-shrink: 0;
     }
@@ -2406,7 +2474,7 @@
     .contrast-pill {
       height: 44px;
       width: 44px;
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
       border: 1px solid #e7e7e7;
       border-radius: 8px;
       display: flex;
@@ -2435,7 +2503,7 @@
     .swatch-fan-pill {
       height: 44px;
       width: 56px;
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
       border: 1px solid #e7e7e7;
       border-radius: 8px;
       display: flex;
@@ -2444,7 +2512,7 @@
       overflow: hidden;
       flex-shrink: 0;
       cursor: pointer;
-      padding: 8px;
+      padding: var(--acuity-spacing-8);
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -2469,7 +2537,7 @@
     /* Font pill */
     .font-pill {
       height: 44px;
-      background: #fafafa;
+      background: var(--acuity-bg-inset);
       border: 1px solid #e7e7e7;
       border-radius: 8px;
       display: flex;
@@ -2505,26 +2573,14 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .avail-edit-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(0, 0, 0, 0.5);
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
       z-index: 60;
     }
     .avail-edit-overlay[hidden] { display: none; }
 
     .avail-sheet {
-      width: 100%;
-      background: #fafafa;
-      border-radius: 16px 16px 0 0;
-      box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 -4px 32px rgba(0,0,0,0.12);
       max-height: 88dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(100%);
     }
     .avail-sheet.avail-sheet-open { transform: translateY(0); }
 
@@ -2567,9 +2623,9 @@
     /* Day toggle row inside avail drawer */
     .avail-days-row {
       display: flex;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       justify-content: center;
-      padding: 20px 0 16px;
+      padding: 20px 0 var(--acuity-spacing-16);
     }
 
     /* Time range row inside avail drawer */
@@ -2586,7 +2642,7 @@
       color: #aaa;
       font-family: var(--acuity-font-family-sans);
       text-align: center;
-      padding-bottom: 8px;
+      padding-bottom: var(--acuity-spacing-8);
     }
 
     .avail-overlap-error {
@@ -2594,7 +2650,7 @@
       color: #d0021b;
       font-family: var(--acuity-font-family-sans);
       text-align: center;
-      padding: 4px 0 8px;
+      padding: 4px 0 var(--acuity-spacing-8);
     }
 
     .avail-day-circle {
@@ -2623,7 +2679,7 @@
 
     .avail-time-input {
       width: 92px;
-      padding: 8px 6px;
+      padding: var(--acuity-spacing-8) 6px;
       border: 1px solid #e7e7e7;
       border-radius: 8px;
       font-size: 13px;
@@ -2650,7 +2706,7 @@
     }
     .avail-sheet-save {
       width: 100%;
-      padding: 16px;
+      padding: var(--acuity-spacing-16);
       background: var(--acuity-color-dawn-violet-100);
       color: white;
       border: none;
@@ -2668,12 +2724,8 @@
 
     .palette-overlay,
     .font-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(0, 0, 0, 0.5);
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
       z-index: 60;
     }
     .palette-overlay[hidden],
@@ -2681,15 +2733,7 @@
 
     .palette-sheet,
     .font-sheet {
-      width: 100%;
-      background: #fafafa;
-      border-radius: 16px 16px 0 0;
-      box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 -4px 32px rgba(0,0,0,0.12);
       max-height: 80dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(100%);
     }
     .palette-sheet.palette-sheet-open { transform: translateY(0); }
     .font-sheet.font-sheet-open       { transform: translateY(0); }
@@ -2726,7 +2770,7 @@
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 16px 20px 8px;
+      padding: var(--acuity-spacing-16) 20px var(--acuity-spacing-8);
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -2802,26 +2846,15 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .pricing-tips-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(0, 0, 0, 0.5);
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
       z-index: 60;
     }
     .pricing-tips-overlay[hidden] { display: none; }
 
     .pricing-tips-sheet {
-      width: 100%;
       background: white;
-      border-radius: 16px 16px 0 0;
-      box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 -4px 32px rgba(0,0,0,0.12);
       max-height: 80dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(100%);
     }
     .pricing-tips-sheet.pricing-tips-open { transform: translateY(0); }
 
@@ -2842,22 +2875,16 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .proto-tooltip-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(0, 0, 0, 0.5);
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
       z-index: 80;
     }
     .proto-tooltip-overlay[hidden] { display: none; }
 
     .proto-tooltip-card {
       background: white;
-      border-radius: 16px 16px 0 0;
       padding: 14px 22px 32px;
       box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
-      transform: translateY(100%);
     }
     .proto-tooltip-card.proto-tooltip-open { transform: translateY(0); }
 
@@ -2866,10 +2893,10 @@
       height: 4px;
       background: #e0e0e0;
       border-radius: 2px;
-      margin: 0 auto 16px;
+      margin: 0 auto var(--acuity-spacing-16);
     }
     .proto-tooltip-heading {
-      font-family: var(--acuity-font-family-serif);
+      font-family: var(--acuity-font-family-display);
       font-size: 16px;
       color: var(--acuity-fg-default);
     }
@@ -2924,7 +2951,7 @@
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 0 16px 80px;
+      padding: 0 var(--acuity-spacing-16) 80px;
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -3002,7 +3029,7 @@
       box-sizing: border-box;
     }
     .home-task-row:last-child { border-bottom: none; }
-    .home-task-row:active { background: #f9f9f9; }
+    .home-task-row:active { background: var(--acuity-bg-inset); }
     .home-task-circle {
       width: 22px;
       height: 22px;
@@ -3022,7 +3049,7 @@
 
     /* ─── Scheduling page preview card (setup state) ─────────────────────── */
     .home-preview-area {
-      background: #f9f9f9;
+      background: var(--acuity-bg-inset);
       border-bottom: 1px solid #e7e7e7;
       height: 160px;
       display: flex;
@@ -3039,13 +3066,14 @@
       background: white;
       position: absolute;
       top: 20px;
+      min-height: 160px;
     }
     .home-mini-header {
       background: #000000;
-      padding: 6px 10px 16px;
+      padding: 6px 10px var(--acuity-spacing-16);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .home-mini-header-nav {
       display: flex;
@@ -3072,7 +3100,7 @@
     .home-mini-nav {
       background: #ffffff;
       text-align: center;
-      padding: 16px 16px;
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-16);
       font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
       font-size: 5.5px;
       font-weight: 700;
@@ -3080,7 +3108,7 @@
       letter-spacing: 0.3px;
     }
     .home-mini-list {
-      margin: 0 8px 8px;
+      margin: 0 var(--acuity-spacing-8) var(--acuity-spacing-8);
       box-shadow: rgba(0,0,0,0.12) 0px 1px 4px 0px, rgba(0,0,0,0.08) 0px 0px 0.5px 0px;
     }
     .home-mini-appt-row {
@@ -3118,7 +3146,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 22px 33px;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .home-preview-footer-info { flex: 1; min-width: 0; }
     .home-preview-footer-title {
@@ -3147,7 +3175,7 @@
       font-family: var(--acuity-font-family-sans);
       background: none;
       border: 1px solid #e7e7e7;
-      padding: 11px 16px;
+      padding: 11px var(--acuity-spacing-16);
       cursor: pointer;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
@@ -3185,7 +3213,7 @@
     .home-plan-cta {
       margin-top: 22px;
       align-self: flex-start;
-      padding: 11px 16px;
+      padding: 11px var(--acuity-spacing-16);
       background: none;
       border: 1px solid #e7e7e7;
       font-size: 12px;
@@ -3201,7 +3229,7 @@
       font-family: var(--acuity-font-family-sans);
       color: #6e6e6e;
       line-height: 22px;
-      margin: 8px 0 0;
+      margin: var(--acuity-spacing-8) 0 0;
     }
     .home-promo-terms {
       color: #6e6e6e;
@@ -3210,7 +3238,7 @@
 
     /* ─── Ready state: website preview card ──────────────────────────────── */
     .home-ready-preview-area {
-      background: #f9f9f9;
+      background: var(--acuity-bg-inset);
       border-bottom: 1px solid #e7e7e7;
       height: 130px;
       display: flex;
@@ -3254,7 +3282,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       -webkit-tap-highlight-color: transparent;
       box-sizing: border-box;
     }
@@ -3448,7 +3476,7 @@
       color: white;
       font-size: 13px;
       font-family: var(--acuity-font-family-sans);
-      padding: 8px 18px;
+      padding: var(--acuity-spacing-8) 18px;
       border-radius: 20px;
       white-space: nowrap;
       pointer-events: none;
@@ -3462,25 +3490,17 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .create-overlay {
-      position: absolute;
-      inset: 0;
       background: rgba(0, 0, 0, 0.9);
       z-index: 55;
       display: none;
-      flex-direction: column;
-      justify-content: flex-end;
     }
     .create-overlay.create-overlay-open { display: flex; }
 
     .create-sheet {
       position: relative;
       height: calc(100dvh - 32px);
-      background: #fafafa;
       border-radius: 20px 20px 0 0;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(100%);
+      box-shadow: none;
     }
     .create-overlay.create-overlay-open .create-sheet { transform: translateY(0); }
 
@@ -3537,7 +3557,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
     }
     .s1-carousel {
       flex: 1;
@@ -3546,7 +3566,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--acuity-spacing-16);
     }
     .s1-asset-area {
       position: relative;
@@ -3586,7 +3606,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
     }
     .s1-dot {
       height: 4px;
@@ -3610,7 +3630,7 @@
       gap: 4px;
       text-align: center;
     }
-    .s1-text-title { font-family: var(--acuity-font-family-serif); font-size: 18px; line-height: 1.4; color: var(--acuity-fg-default); }
+    .s1-text-title { font-family: var(--acuity-font-family-display); font-size: 18px; line-height: 1.4; color: var(--acuity-fg-default); }
     .s1-text-desc { font-family: var(--acuity-font-family-sans); font-size: 14px; line-height: 1.5; color: var(--acuity-fg-muted); margin: 0; }
 
     /* ─── S1.5: business name screen — uses same s3-body/s3-textarea layout ── */
@@ -3621,7 +3641,7 @@
     .s9-avail-block {
       border: 1px solid #e7e7e7;
       border-radius: 4px;
-      padding: 20px 16px;
+      padding: 20px var(--acuity-spacing-16);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -3714,6 +3734,7 @@
       justify-content: flex-start;
       align-items: center;
       flex-shrink: 0;
+      padding: var(--acuity-spacing-8) 0px;
     }
     .s9-day-circle {
       width: 40px;
@@ -3742,7 +3763,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: var(--acuity-spacing-8);
       padding: 0px;
       min-width: 0;
     }
@@ -3760,8 +3781,8 @@
     .s9-time-pill {
       flex: 1;
       min-width: 0;
-      padding: 16px 4px;
-      background: #f9f9f9;
+      padding: var(--acuity-spacing-16) 4px;
+      background: var(--acuity-bg-inset);
       border: 0.5px solid #e7e7e7;
       border-radius: 4px;
       font-size: 14px;
@@ -3818,7 +3839,7 @@
       font-size: 12px;
       color: rgba(14, 14, 14, 0.5);
       line-height: 1.5;
-      padding: 16px 0 4px;
+      padding: var(--acuity-spacing-16) 0 4px;
     }
 
     /* ─── Back-navigation screen transitions (Part 3) ────────────────────── */
@@ -3913,8 +3934,6 @@
       .appt-card--skeleton { animation: shimmer 0.8s ease-in-out infinite; }
 
       /* Interactive transitions */
-      .chip                 { transition: opacity 0.1s ease; }
-      .chip--ai             { transition: opacity 0.1s ease; }
       .appt-card            { transition: background 0.15s ease; }
       .appt-icon-btn        { transition: opacity 0.1s ease; }
       .new-appt-btn         { transition: opacity 0.12s ease; }
@@ -3932,7 +3951,6 @@
       .copy-toast           { transition: opacity 0.2s ease; }
       .toggle-track         { transition: background 0.2s ease; }
       .toggle-thumb         { transition: transform 0.2s ease; }
-      .sheet-ai-chips-wrap  { transition: max-height 0.18s ease; }
 
       /* Sheet / overlay slide transitions */
       .edit-overlay         { transition: background 280ms ease; }
@@ -4034,7 +4052,7 @@
         <button class="nav-action" onclick="showScreen('s2')">Skip</button>
       </nav>
 
-      <div class="wizard-header" style="padding: 8px 22px 0; flex-shrink: 0;">
+      <div class="wizard-header" style="padding: var(--acuity-spacing-8) 22px 0; flex-shrink: 0;">
         <h2 class="wizard-heading">What is your business name?</h2>
         <p class="wizard-subheading">This will be your page title for now. You'll be able to upload your logo later.</p>
       </div>
@@ -4150,7 +4168,7 @@
       </nav>
 
       <!-- Header: top-pinned, same position as all wizard steps -->
-      <div class="wizard-header" style="padding: 8px 22px 0; flex-shrink: 0;">
+      <div class="wizard-header" style="padding: var(--acuity-spacing-8) 22px 0; flex-shrink: 0;">
         <h2 class="wizard-heading">What best describes what you do?</h2>
         <p class="wizard-subheading">What clients usually book with you. The more specific, the better we can tailor your setup.</p>
       </div>
@@ -4261,8 +4279,8 @@
          Edit overlay — bottom sheet over S5 (not a screen step)
          Opened by openEdit(); closed by closeEdit()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="edit-overlay" id="edit-overlay">
-      <div class="sheet">
+    <div class="edit-overlay modal-overlay" id="edit-overlay">
+      <div class="sheet modal-sheet">
 
         <!-- Close button — CrossLarge from acuity-ds -->
         <button class="sheet-close" onclick="closeEdit()" aria-label="Close">
@@ -4304,26 +4322,35 @@
             </button>
             <!-- ↑ Initial state rendered in HTML for non-JS snapshot; openEdit() calls resetDescTrigger() -->
 
-            <!-- Expanded state: textarea + AI rewrite chips + Swipe gesture hint.
-                 Hidden by default; JS removes [hidden] when trigger is tapped.
-                 Chips animate in via :focus-within (CSS only). -->
+            <!-- Expanded state: textarea + collapsible AI bar (same pattern as create c2-ai-bar). -->
             <div class="sheet-description-section" id="sheet-desc-expanded" hidden>
-              <textarea
-                class="sheet-desc-textarea"
-                rows="3"
-                placeholder="Describe your service…"
-                aria-label="Service description"
-              ></textarea>
-              <div class="sheet-ai-chips-wrap">
-                <div class="sheet-ai-chips">
-                
-                  <button class="chip--ai" onclick="editChip('Help me write a description')">
-                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7719 1H9.14926L7.95357 4.0317L5 5.19657V6.88086L7.95357 8.04573L9.11872 11H10.8025L11.9676 8.04573L15 6.84977V5.22766L11.9676 4.0317L10.7719 1ZM10.8112 5.18807L9.96059 3.03125L9.10995 5.18807L6.95312 6.03871L9.10995 6.88935L9.96059 9.04618L10.8112 6.88935L12.9681 6.03871L10.8112 5.18807Z" fill="currentColor"/>
-                      <path d="M3.72248 9L2.98716 10.9872L1 11.7225V12.2775L2.98716 13.0128L3.72248 15H4.27753L5.01284 13.0128L7 12.2775V11.7225L5.01284 10.9872L4.27753 9H3.72248Z" fill="currentColor"/>
-                    </svg>
-                    Help me write…
+              <div class="sheet-desc-zone" id="sheet-desc-zone">
+                <textarea
+                  id="sheet-desc-textarea"
+                  class="sheet-desc-textarea"
+                  rows="3"
+                  placeholder="Describe your service…"
+                  aria-label="Service description"
+                ></textarea>
+                <div class="sheet-desc-ai-ghost" id="sheet-desc-ai-ghost" hidden>
+                  <p class="sheet-desc-ai-ghost-text" id="sheet-desc-ai-ghost-text"></p>
+                </div>
+              </div>
+              <div class="sheet-ai-chips-wrap" id="sheet-ai-chips-wrap">
+                <div class="c2-ai-bar c2-ai-bar--collapsed" id="sheet-ai-bar">
+                  <button type="button" class="c2-ai-btn" id="sheet-ai-toggle" aria-label="AI writing suggestions" aria-expanded="false" onclick="toggleSheetAiBar(event)">
+                    <img class="c2-ai-btn-icon--closed" src="assets/icon-sparkles-ai.svg" alt="" width="16" height="16">
+                    <img class="c2-ai-btn-icon--open" src="assets/icon-cross-lg.svg" alt="" width="16" height="16">
                   </button>
+                  <div class="c2-ai-chips-wrap">
+                    <div class="c2-ai-chips" id="sheet-ai-chips">
+                      <button type="button" class="c2-ai-chip" onclick="editChip('Help me write a description')">Help me write...</button>
+                      <button type="button" class="c2-ai-chip" onclick="editChip('Describe in 1 sentence')">Describe in 1 sentence</button>
+                      <button type="button" class="c2-ai-chip" onclick="editChip('Make it sound premium')">Make it sound premium.</button>
+                      <button type="button" class="c2-ai-chip" onclick="editChip('Focus on results')">Focus on results.</button>
+                      <button type="button" class="c2-ai-chip" onclick="editChip('Make it clearer')">Make it clearer.</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4364,19 +4391,58 @@
 
         <!-- Save (sticky footer) -->
         <div class="sheet-footer">
-          <button class="btn-sheet-save" onclick="saveEdit()">Save</button>
+          <button class="btn-sheet-save" onclick="saveEdit()">Save and Select</button>
         </div>
 
       </div><!-- /sheet -->
     </div><!-- /edit-overlay -->
 
+    <!-- "Help me write" prompt sheet — fixed so it works from create + edit overlays -->
+    <div class="c2-prompt-overlay" id="c2-prompt-overlay" aria-hidden="true" onclick="if(event.target===this)closeC2Prompt()">
+      <div class="c2-prompt-sheet modal-sheet" id="c2-prompt-sheet" onclick="event.stopPropagation()">
+        <div class="c2-prompt-handle-wrap">
+          <div class="c2-prompt-handle"></div>
+        </div>
+        <div class="c2-prompt-header">
+          <div class="c2-prompt-title-wrap">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 1.5C8 1.5 8.5 4.5 10 6C11.5 7.5 14.5 8 14.5 8C14.5 8 11.5 8.5 10 10C8.5 11.5 8 14.5 8 14.5C8 14.5 7.5 11.5 6 10C4.5 8.5 1.5 8 1.5 8C1.5 8 4.5 7.5 6 6C7.5 4.5 8 1.5 8 1.5Z" fill="#322d46" opacity="0.7"/>
+            </svg>
+            <span class="c2-prompt-title">Help me write</span>
+          </div>
+          <button type="button" class="c2-prompt-close" id="c2-prompt-close" aria-label="Close" onclick="closeC2Prompt()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="c2-prompt-body">
+          <div class="c2-prompt-input-wrap" id="c2-prompt-input-wrap">
+            <textarea
+              id="c2-prompt-input"
+              class="c2-prompt-input"
+              rows="4"
+              placeholder=""
+              aria-label="Describe what you want written"
+            ></textarea>
+            <div class="hmw-ph-viewport" id="c2-prompt-hmw-viewport" aria-hidden="true">
+              <div class="hmw-ph-track" id="c2-prompt-hmw-track"></div>
+            </div>
+          </div>
+          <button type="button" class="c2-prompt-create-btn" id="c2-prompt-create-btn" onclick="submitC2Prompt()">
+            <span class="c2-prompt-spinner"></span>
+            <span class="c2-prompt-btn-label">Create</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════════════
          Availability edit overlay
          Opened by openAvailEdit(); closed by closeAvailEdit()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="avail-edit-overlay" id="avail-edit-overlay" hidden>
-      <div class="avail-sheet" id="avail-sheet">
+    <div class="avail-edit-overlay modal-overlay" id="avail-edit-overlay" hidden>
+      <div class="avail-sheet modal-sheet" id="avail-sheet">
 
         <div class="avail-sheet-header">
           <span style="width:28px;flex-shrink:0;"></span>
@@ -4403,8 +4469,8 @@
     <!-- ═══════════════════════════════════════════════════════════════
          Palette overlay — opened by openPalette()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="palette-overlay" id="palette-overlay" hidden>
-      <div class="palette-sheet" id="palette-sheet">
+    <div class="palette-overlay modal-overlay" id="palette-overlay" hidden>
+      <div class="palette-sheet modal-sheet" id="palette-sheet">
 
         <div class="subsheet-header">
           <span class="subsheet-title">Edit palette</span>
@@ -4468,8 +4534,8 @@
     <!-- ═══════════════════════════════════════════════════════════════
          Font overlay — opened by openFont()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="font-overlay" id="font-overlay" hidden>
-      <div class="font-sheet" id="font-sheet">
+    <div class="font-overlay modal-overlay" id="font-overlay" hidden>
+      <div class="font-sheet modal-sheet" id="font-sheet">
 
         <div class="subsheet-header">
           <span class="subsheet-title">Edit font</span>
@@ -4514,8 +4580,8 @@
     <!-- ═══════════════════════════════════════════════════════════════
          Pricing tips overlay — opened by openPricingTips()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="pricing-tips-overlay" id="pricing-tips-overlay" hidden>
-      <div class="pricing-tips-sheet" id="pricing-tips-sheet">
+    <div class="pricing-tips-overlay modal-overlay" id="pricing-tips-overlay" hidden>
+      <div class="pricing-tips-sheet modal-sheet" id="pricing-tips-sheet">
 
         <div class="subsheet-header">
           <span class="subsheet-title">Pricing tips</span>
@@ -4546,8 +4612,8 @@
          Create overlay — bottom sheet (replaces s_c1–s_c5)
          Opened by openCreate(); closed by closeCreate()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div id="create-overlay" class="create-overlay">
-      <div class="create-sheet" id="create-sheet">
+    <div id="create-overlay" class="create-overlay modal-overlay">
+      <div class="create-sheet modal-sheet" id="create-sheet">
 
         <!-- Shared chrome: fixed at top of sheet -->
         <nav class="create-nav">
@@ -4607,13 +4673,12 @@
                 <p class="create-name-echo" id="create-desc-title">Hair Styling</p>
 
                 <div class="c2-desc-zone">
-                  <input
-                    type="text"
+                  <textarea
                     id="create-desc-input"
                     class="c2-desc-input"
                     aria-label="Service description"
                     autocomplete="off"
-                  />
+                  ></textarea>
                   <div class="desc-ghost" id="desc-ghost">
                     <span class="desc-ghost-text" id="desc-ghost-text">A relaxing treatment tailored to your hair type…</span>
                   </div>
@@ -4621,19 +4686,19 @@
 
               </div>
 
-              <div class="c2-ai-bar">
-                <button class="c2-ai-btn" aria-label="AI writing suggestions">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7719 1H9.14926L7.95357 4.0317L5 5.19657V6.88086L7.95357 8.04573L9.11872 11H10.8025L11.9676 8.04573L15 6.84977V5.22766L11.9676 4.0317L10.7719 1ZM10.8112 5.18807L9.96059 3.03125L9.10995 5.18807L6.95312 6.03871L9.10995 6.88935L9.96059 9.04618L10.8112 6.88935L12.9681 6.03871L10.8112 5.18807Z" fill="#322d46"/>
-                    <path d="M3.72248 9L2.98716 10.9872L1 11.7225V12.2775L2.98716 13.0128L3.72248 15H4.27753L5.01284 13.0128L7 12.2775V11.7225L5.01284 10.9872L4.27753 9H3.72248Z" fill="#322d46"/>
-                  </svg>
+              <div class="c2-ai-bar c2-ai-bar--collapsed" id="c2-ai-bar">
+                <button type="button" class="c2-ai-btn" id="c2-ai-toggle" aria-label="AI writing suggestions" aria-expanded="false" onclick="toggleC2AiBar(event)">
+                  <img class="c2-ai-btn-icon--closed" src="assets/icon-sparkles-ai.svg" alt="" width="16" height="16">
+                  <img class="c2-ai-btn-icon--open" src="assets/icon-cross-lg.svg" alt="" width="16" height="16">
                 </button>
-                <div class="c2-ai-chips" id="c2-ai-chips">
-                  <button class="c2-ai-chip" onclick="applyAiChip('Help me write...')">Help me write...</button>
-                  <button class="c2-ai-chip" onclick="applyAiChip('Describe in 1 sentence')">Describe in 1 sentence</button>
-                  <button class="c2-ai-chip" onclick="applyAiChip('Make it sound premium')">Make it sound premium.</button>
-                  <button class="c2-ai-chip" onclick="applyAiChip('Focus on results')">Focus on results.</button>
-                  <button class="c2-ai-chip" onclick="applyAiChip('Make it clearer')">Make it clearer.</button>
+                <div class="c2-ai-chips-wrap">
+                  <div class="c2-ai-chips" id="c2-ai-chips">
+                    <button type="button" class="c2-ai-chip" onclick="applyAiChip('Help me write...')">Help me write...</button>
+                    <button type="button" class="c2-ai-chip" onclick="applyAiChip('Describe in 1 sentence')">Describe in 1 sentence</button>
+                    <button type="button" class="c2-ai-chip" onclick="applyAiChip('Make it sound premium')">Make it sound premium.</button>
+                    <button type="button" class="c2-ai-chip" onclick="applyAiChip('Focus on results')">Focus on results.</button>
+                    <button type="button" class="c2-ai-chip" onclick="applyAiChip('Make it clearer')">Make it clearer.</button>
+                  </div>
                 </div>
               </div>
 
@@ -4769,43 +4834,6 @@
 
         </div><!-- /create-panels-wrap -->
 
-        <!-- "Help me write" custom-prompt overlay (child of create-sheet, above bottom-nav) -->
-        <div class="c2-prompt-overlay" id="c2-prompt-overlay" aria-hidden="true" onclick="if(event.target===this)closeC2Prompt()">
-          <div class="c2-prompt-sheet" id="c2-prompt-sheet">
-            <div class="c2-prompt-handle-wrap">
-              <div class="c2-prompt-handle"></div>
-            </div>
-            <div class="c2-prompt-header">
-              <div class="c2-prompt-title-wrap">
-                <!-- sparkle icon -->
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M8 1.5C8 1.5 8.5 4.5 10 6C11.5 7.5 14.5 8 14.5 8C14.5 8 11.5 8.5 10 10C8.5 11.5 8 14.5 8 14.5C8 14.5 7.5 11.5 6 10C4.5 8.5 1.5 8 1.5 8C1.5 8 4.5 7.5 6 6C7.5 4.5 8 1.5 8 1.5Z" fill="#322d46" opacity="0.7"/>
-                </svg>
-                <span class="c2-prompt-title">Help me write</span>
-              </div>
-              <button class="c2-prompt-close" id="c2-prompt-close" aria-label="Close" onclick="closeC2Prompt()">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </button>
-            </div>
-            <div class="c2-prompt-body">
-              <div class="c2-prompt-input-wrap">
-                <textarea
-                  id="c2-prompt-input"
-                  class="c2-prompt-input"
-                  placeholder="Write a short description for a haircut appointment"
-                  rows="4"
-                ></textarea>
-              </div>
-              <button class="c2-prompt-create-btn" id="c2-prompt-create-btn" onclick="submitC2Prompt()">
-                <span class="c2-prompt-spinner"></span>
-                <span class="c2-prompt-btn-label">Create</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
         <!-- Shared bottom nav: progress + prev/next — fixed at bottom of sheet -->
         <div class="create-bottom-nav">
           <div class="create-progress">
@@ -4840,7 +4868,7 @@
       <div class="wizard-body">
 
         <div class="wizard-header">
-          <h2 class="wizard-heading" style="font-family:var(--acuity-font-family-serif)">When can clients book you?</h2>
+          <h2 class="wizard-heading" style="font-family:var(--acuity-font-family-display)">When can clients book you?</h2>
           <p class="wizard-subheading">This sets when your appointments will appear as available. You can adjust this anytime.</p>
         </div>
 
@@ -4861,7 +4889,7 @@
         </div>
 
         <!-- "Set different hours" link — only shown when 2+ appointments selected -->
-        <div id="s9-diff-link-wrap" style="padding-top:16px;" hidden>
+        <div id="s9-diff-link-wrap" style="padding-top: var(--acuity-spacing-16);" hidden>
           <button class="s9-toggle-link" onclick="s9SetDifferentHours()">Set different hours for different appointments</button>
         </div>
 
@@ -4869,7 +4897,7 @@
         <div id="s9-per-appt-wrap" class="s9-appt-groups" hidden></div>
 
         <!-- "Set same hours" link (shown in different-hours mode) -->
-        <div id="s9-same-link-wrap" style="padding-top:16px;" hidden>
+        <div id="s9-same-link-wrap" style="padding-top: var(--acuity-spacing-16);" hidden>
           <button class="s9-toggle-link" onclick="s9SetSameHours()">Set same hours for every appointment</button>
         </div>
 
@@ -5093,7 +5121,7 @@
           <div class="home-card">
             <div class="home-setup-header">
               <span class="home-setup-title">Set up your scheduling page</span>
-              <div style="display:flex;align-items:center;gap:8px;">
+              <div style="display:flex;align-items:center;gap:var(--acuity-spacing-8);">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><circle cx="11" cy="11" r="10" stroke="#c0c0c0" stroke-width="1.5"/></svg>
                 <span class="home-setup-pct">0%</span>
               </div>
@@ -5232,8 +5260,8 @@
 
 
     <!-- Proto tooltip — last child of .app, z-index 80 -->
-    <div class="proto-tooltip-overlay" id="proto-tooltip-overlay" hidden onclick="closeProtoTooltip()">
-      <div class="proto-tooltip-card" id="proto-tooltip-card">
+    <div class="proto-tooltip-overlay modal-overlay" id="proto-tooltip-overlay" hidden onclick="closeProtoTooltip()">
+      <div class="proto-tooltip-card modal-sheet" id="proto-tooltip-card">
         <div class="proto-tooltip-handle"></div>
         <p class="proto-tooltip-heading">Not available in prototype</p>
         <p class="proto-tooltip-body">This feature exists in the full product. You're seeing a simplified version to test the setup flow.</p>
@@ -5314,8 +5342,9 @@
     window._activeTemplate    = null;   // resolved deepest-tier object
     window._activeTier        = 'generic'; // 'full' | 'vertical' | 'generic'
 
-    window.ACUITY_TEMPLATES   = {"Beauty":{"s3_placeholder":"e.g. Hair Salon","s3_chips":["Hair Salon","Manicures & Pedicures","Skin & Nail Care","Lashes & Brows","Body Art & Piercings","Barber","Make-Up & Cosmetics","Hair Care","Braiding & Protective Styles","Hair Removal & Waxing","Med Spa & Advanced Aesthetics"],"fallback_appointments":[{"name":"Beauty Consultation","duration":"30 min","price":"$0"},{"name":"Signature Treatment","duration":"1 hr","price":"$85"},{"name":"Express Service","duration":"30 min","price":"$40"},{"name":"Refresh & Touch-Up","duration":"45 min","price":"$55"}],"industries":{"Hair Salon":{"create_name_placeholder":"e.g. Women's Cut","create_desc_ghost":"A personalized styling experience tailored to your hair type and goals.","appointments":[{"name":"Haircut & Style","duration":"1 hr","price":"$65"},{"name":"Color & Highlights","duration":"3 hrs","price":"$180"},{"name":"Keratin Treatment","duration":"3 hrs","price":"$250"},{"name":"Blowout","duration":"45 min","price":"$50"}],"create_name_chips":["Women's Haircut","Men's Haircut","Children's Cut","Single Process Color","Root Touch-Up","Scalp Treatment"]},"Manicures & Pedicures":{"create_name_placeholder":"e.g. Gel Manicure with Nail Art","create_desc_ghost":"A relaxing nail service designed to leave your hands looking and feeling their best.","appointments":[{"name":"Classic Manicure","duration":"45 min","price":"$35"},{"name":"Gel Pedicure","duration":"1 hr","price":"$55"},{"name":"Full Set Acrylics","duration":"1.5 hrs","price":"$65"},{"name":"Nail Art Design","duration":"1 hr","price":"$40"}],"create_name_chips":["Classic Pedicure","Dip Powder Nails","Nail Repair","Gel Removal","Press-On Application","Paraffin Treatment"]},"Skin & Nail Care":{"create_name_placeholder":"e.g. Hydrating Facial","create_desc_ghost":"A professional skin treatment customized to your skin type and concerns.","appointments":[{"name":"European Facial","duration":"1 hr","price":"$90"},{"name":"Chemical Peel","duration":"45 min","price":"$120"},{"name":"Microdermabrasion","duration":"1 hr","price":"$130"},{"name":"Gel Manicure","duration":"1 hr","price":"$45"}],"create_name_chips":["Anti-Aging Facial","Back Facial","Dermaplaning","LED Light Therapy","Eyebrow Wax","Brightening Treatment"]},"Lashes & Brows":{"create_name_placeholder":"e.g. Classic Full Set","create_desc_ghost":"Precision lash or brow work designed to enhance your natural features.","appointments":[{"name":"Classic Lash Set","duration":"2 hrs","price":"$120"},{"name":"Volume Lash Set","duration":"2.5 hrs","price":"$160"},{"name":"Lash Fill","duration":"1 hr","price":"$70"},{"name":"Brow Tint & Shape","duration":"30 min","price":"$45"}],"create_name_chips":["Hybrid Lash Set","Lash Removal","Brow Lamination","Henna Brows","Lash Lift & Tint","Mega Volume Set"]},"Body Art & Piercings":{"create_name_placeholder":"e.g. Small Custom Tattoo","create_desc_ghost":"A safe, professional experience for your next piece of body art.","appointments":[{"name":"Tattoo Consultation","duration":"30 min","price":"$0"},{"name":"Small Tattoo","duration":"1 hr","price":"$100"},{"name":"Ear Piercing","duration":"15 min","price":"$40"},{"name":"Body Piercing","duration":"30 min","price":"$60"}],"create_name_chips":["Medium Tattoo","Large Tattoo","Tattoo Touch-Up","Cartilage Piercing","Nose Piercing","Tattoo Cover-Up"]},"Barber":{"create_name_placeholder":"e.g. Fade & Beard Combo","create_desc_ghost":"A clean, precise cut and grooming service for the modern gentleman.","appointments":[{"name":"Haircut","duration":"30 min","price":"$35"},{"name":"Beard Trim & Shape","duration":"30 min","price":"$25"},{"name":"Hot Towel Shave","duration":"45 min","price":"$45"},{"name":"Cut & Beard Combo","duration":"1 hr","price":"$55"}],"create_name_chips":["Kids' Haircut","Line-Up & Edge","Full Head Shave","Mustache Trim","Color & Gray Blend","Scalp Massage"]},"Make-Up & Cosmetics":{"create_name_placeholder":"e.g. Event Makeup","create_desc_ghost":"Professional makeup application for any occasion, tailored to your style.","appointments":[{"name":"Bridal Makeup","duration":"2 hrs","price":"$200"},{"name":"Event Makeup","duration":"1 hr","price":"$100"},{"name":"Makeup Lesson","duration":"1.5 hrs","price":"$120"},{"name":"Airbrush Makeup","duration":"1.5 hrs","price":"$150"}],"create_name_chips":["Trial Run Makeup","Natural Glam Look","Editorial Makeup","Prom Makeup","Makeup Touch-Up","Brow Styling"]},"Hair Care":{"create_name_placeholder":"e.g. Deep Conditioning Treatment","create_desc_ghost":"Targeted hair care treatments to restore health, moisture, and shine.","appointments":[{"name":"Deep Conditioning Treatment","duration":"1 hr","price":"$75"},{"name":"Scalp Treatment","duration":"45 min","price":"$65"},{"name":"Protective Style Consult","duration":"30 min","price":"$30"},{"name":"Natural Hair Styling","duration":"2 hrs","price":"$110"}],"create_name_chips":["Protein Treatment","Hot Oil Treatment","Detox Cleanse","Moisture Treatment","Color-Safe Treatment","Growth Treatment"]},"Braiding & Protective Styles":{"create_name_placeholder":"e.g. Knotless Braids","create_desc_ghost":"Expert protective styling to keep your hair healthy and beautifully styled.","appointments":[{"name":"Box Braids","duration":"5 hrs","price":"$200"},{"name":"Knotless Braids","duration":"5 hrs","price":"$180"},{"name":"Cornrows","duration":"2 hrs","price":"$80"},{"name":"Locs Retwist","duration":"2 hrs","price":"$90"}],"create_name_chips":["Senegalese Twists","Passion Twists","Faux Locs","Goddess Braids","Feed-In Braids","Loc Styling"]},"Hair Removal & Waxing":{"create_name_placeholder":"e.g. Full Leg Wax","create_desc_ghost":"Smooth, long-lasting hair removal in a comfortable, professional setting.","appointments":[{"name":"Brazilian Wax","duration":"45 min","price":"$65"},{"name":"Full Leg Wax","duration":"45 min","price":"$70"},{"name":"Brow Wax","duration":"15 min","price":"$20"},{"name":"Laser Hair Removal Session","duration":"30 min","price":"$100"}],"create_name_chips":["Underarm Wax","Bikini Wax","Facial Wax","Back Wax","Chest Wax","Lip & Chin Wax"]},"Med Spa & Advanced Aesthetics":{"create_name_placeholder":"e.g. HydraFacial","create_desc_ghost":"Advanced aesthetic treatments performed by licensed professionals in a clinical setting.","appointments":[{"name":"Botox Consultation","duration":"30 min","price":"$150"},{"name":"Filler Treatment","duration":"1 hr","price":"$600"},{"name":"Microneedling","duration":"1 hr","price":"$300"},{"name":"HydraFacial","duration":"1 hr","price":"$200"}],"create_name_chips":["PRP Treatment","Laser Skin Resurfacing","Body Contouring","IV Therapy","Lip Filler","Skin Tag Removal"]}},"create_name_chips":["Color Treatment","Styling Service","Skin Treatment","Nail Service","Lash Service","Brow Service","Grooming Session","Body Treatment","Hair Removal","Makeup Service"]},"Business Services":{"s3_placeholder":"e.g. Photography","s3_chips":["Consulting","Photography","Accounting & Auditing","Event Planning","Real Estate","Non-Profit","Financial Services","Marketing","Legal Services","Photographic & Digital Arts","Digital Marketing","Operations & Admin Services","IT & Technology Services"],"fallback_appointments":[{"name":"Intro Consultation","duration":"30 min","price":"$0"},{"name":"Strategy Session","duration":"1 hr","price":"$200"},{"name":"Project Review","duration":"1 hr","price":"$150"},{"name":"Follow-Up Meeting","duration":"45 min","price":"$100"}],"industries":{"Consulting":{"create_name_placeholder":"e.g. Business Strategy Session","create_desc_ghost":"A focused session to assess your goals and map out a clear path forward.","appointments":[{"name":"Strategy Session","duration":"1 hr","price":"$200"},{"name":"Business Audit","duration":"2 hrs","price":"$350"},{"name":"Brand Workshop","duration":"2 hrs","price":"$300"},{"name":"Discovery Call","duration":"30 min","price":"$0"}],"create_name_chips":["Executive Coaching","Market Research Review","Competitive Analysis","Pitch Deck Review","Growth Strategy Call","Quarterly Business Review"]},"Photography":{"create_name_placeholder":"e.g. Headshot Session","create_desc_ghost":"A professional photography experience tailored to capture your brand at its best.","appointments":[{"name":"Headshot Session","duration":"1 hr","price":"$150"},{"name":"Brand Photography","duration":"2 hrs","price":"$400"},{"name":"Product Photography","duration":"2 hrs","price":"$350"},{"name":"Event Coverage","duration":"4 hrs","price":"$800"}],"create_name_chips":["Family Portrait Session","Lifestyle Shoot","Real Estate Photography","Social Media Content Shoot","Maternity Session","Behind-the-Scenes Shoot"]},"Accounting & Auditing":{"create_name_placeholder":"e.g. Tax Prep","create_desc_ghost":"Professional financial review and advisory services to keep your books in order.","appointments":[{"name":"Tax Preparation Consult","duration":"1 hr","price":"$150"},{"name":"Bookkeeping Review","duration":"1 hr","price":"$120"},{"name":"Financial Audit Meeting","duration":"1.5 hrs","price":"$250"},{"name":"Payroll Consultation","duration":"1 hr","price":"$130"}],"create_name_chips":["Business Tax Return","Year-End Close Review","Cash Flow Analysis","Expense Audit","New Business Setup","IRS Issue Consultation"]},"Event Planning":{"create_name_placeholder":"e.g. Initial Planning Consult","create_desc_ghost":"A collaborative session to bring your event vision to life from concept to execution.","appointments":[{"name":"Initial Planning Consult","duration":"1 hr","price":"$100"},{"name":"Venue Walk-Through","duration":"1.5 hrs","price":"$0"},{"name":"Vendor Coordination Meeting","duration":"1 hr","price":"$150"},{"name":"Day-Of Timeline Review","duration":"1 hr","price":"$100"}],"create_name_chips":["Rehearsal Dinner Planning","Corporate Event Consult","Budget Review Meeting","Decor Consultation","Timeline Walk-Through","Post-Event Debrief"]},"Real Estate":{"create_name_placeholder":"e.g. Schedule Visit","create_desc_ghost":"Expert guidance through every step of buying, selling, or evaluating a property.","appointments":[{"name":"Buyer Consultation","duration":"1 hr","price":"$0"},{"name":"Home Valuation","duration":"1 hr","price":"$0"},{"name":"Property Tour","duration":"1 hr","price":"$0"},{"name":"Listing Prep Consultation","duration":"1 hr","price":"$0"}],"create_name_chips":["Investment Property Consult","Rental Analysis Meeting","Relocation Consultation","First-Time Buyer Session","Market Update Call","Lease Review Meeting"]},"Non-Profit":{"create_name_placeholder":"e.g. Volunteer Orientation","create_desc_ghost":"A structured meeting to connect, onboard, or align stakeholders with our mission.","appointments":[{"name":"Volunteer Orientation","duration":"1 hr","price":"$0"},{"name":"Donor Meeting","duration":"45 min","price":"$0"},{"name":"Grant Consultation","duration":"1 hr","price":"$0"},{"name":"Program Intake Meeting","duration":"1 hr","price":"$0"}],"create_name_chips":["Board Strategy Meeting","Community Outreach Planning","Fundraising Consult","Impact Reporting Session","Partnership Meeting","Volunteer Coordination Call"]},"Financial Services":{"create_name_placeholder":"e.g. Retirement Planning","create_desc_ghost":"A personalized financial planning session to help you reach your long-term goals.","appointments":[{"name":"Financial Planning Session","duration":"1 hr","price":"$200"},{"name":"Retirement Planning","duration":"1.5 hrs","price":"$250"},{"name":"Portfolio Review","duration":"1 hr","price":"$175"},{"name":"Investment Strategy Call","duration":"45 min","price":"$150"}],"create_name_chips":["Tax Planning Session","Estate Planning Consult","College Savings Planning","Insurance Review","Debt Management Session","Quarterly Financial Review"]},"Marketing":{"create_name_placeholder":"e.g. Strategy Session ","create_desc_ghost":"A focused marketing session to sharpen your brand message and grow your audience.","appointments":[{"name":"Marketing Strategy Session","duration":"1 hr","price":"$180"},{"name":"Social Media Audit","duration":"1 hr","price":"$150"},{"name":"Content Planning Meeting","duration":"1 hr","price":"$130"},{"name":"Campaign Review","duration":"45 min","price":"$120"}],"create_name_chips":["Brand Positioning Session","Competitor Analysis Review","PR Strategy Meeting","Launch Planning Call","Influencer Strategy Session","Quarterly Campaign Review"]},"Legal Services":{"create_name_placeholder":"e.g. Contract Review","create_desc_ghost":"Professional legal guidance tailored to your specific needs and situation.","appointments":[{"name":"Initial Consultation","duration":"30 min","price":"$150"},{"name":"Contract Review","duration":"1 hr","price":"$250"},{"name":"Case Strategy Session","duration":"1 hr","price":"$300"},{"name":"Notary Services","duration":"30 min","price":"$50"}],"create_name_chips":["Business Formation Consult","Trademark Consultation","Employment Law Review","Lease Agreement Review","Demand Letter Review","Estate Planning Consult"]},"Photographic & Digital Arts":{"create_name_placeholder":"e.g. Portrait Session","create_desc_ghost":"A creative session to bring your visual story or project to life.","appointments":[{"name":"Photography Consultation","duration":"30 min","price":"$0"},{"name":"Portrait Session","duration":"1.5 hrs","price":"$200"},{"name":"Digital Art Commission Consult","duration":"45 min","price":"$75"},{"name":"Photo Editing Session","duration":"1 hr","price":"$100"}],"create_name_chips":["Fine Art Print Consult","Licensing Review","Social Content Shoot","Creative Direction Session","Photo Book Design Review","Personal Branding Shoot"]},"Digital Marketing":{"create_name_placeholder":"e.g. SEO Audit","create_desc_ghost":"Data-driven digital marketing guidance to grow your online presence and conversions.","appointments":[{"name":"SEO Audit & Review","duration":"1 hr","price":"$175"},{"name":"Ads Strategy Session","duration":"1 hr","price":"$200"},{"name":"Email Marketing Consult","duration":"45 min","price":"$130"},{"name":"Analytics Walkthrough","duration":"1 hr","price":"$150"}],"create_name_chips":["Google Ads Audit","Landing Page Review","Conversion Rate Consult","Social Growth Strategy","Retargeting Strategy Session","Monthly Performance Review"]},"Operations & Admin Services":{"create_name_placeholder":"e.g. Operations Audit","create_desc_ghost":"A practical session to streamline your operations and set your team up for success.","appointments":[{"name":"Operations Audit","duration":"1.5 hrs","price":"$200"},{"name":"Process Optimization Call","duration":"1 hr","price":"$175"},{"name":"Admin Onboarding Session","duration":"1 hr","price":"$120"},{"name":"Systems Setup Consultation","duration":"1 hr","price":"$150"}],"create_name_chips":["SOP Development Session","Team Workflow Review","Tool & Software Audit","Delegation Planning Call","Hiring Process Consult","Remote Work Strategy Session"]},"IT & Technology Services":{"create_name_placeholder":"e.g. Tech Needs Assessment","create_desc_ghost":"Expert technology support and consulting to keep your systems running smoothly.","appointments":[{"name":"Tech Needs Assessment","duration":"1 hr","price":"$150"},{"name":"IT Support Session","duration":"1 hr","price":"$120"},{"name":"Software Onboarding","duration":"1.5 hrs","price":"$200"},{"name":"Cybersecurity Consultation","duration":"1 hr","price":"$175"}],"create_name_chips":["Network Setup Consult","Cloud Migration Planning","Data Backup Review","Help Desk Session","Hardware Assessment","Website Performance Audit"]}},"create_name_chips":["Strategy Session","Consultation Call","Project Review","Onboarding Session","Planning Meeting","Advisory Session","Audit & Review","Kickoff Meeting","Check-In Call","Proposal Review"]},"Wellness":{"s3_placeholder":"e.g. Spa, Nutrition","s3_chips":["Massage Therapy","Counseling Services","Therapy & Mental Health","Holistic Health & Medicine","Physical Therapy & Rehabilitation","Acupuncture & Chinese Medicine","Pools, Saunas, and Spas","Nutrition","Wellness Coaching"],"fallback_appointments":[{"name":"Wellness Consultation","duration":"1 hr","price":"$90"},{"name":"Relaxing Massage","duration":"1 hr","price":"$95"},{"name":"Holistic Therapy Session","duration":"1 hr","price":"$100"},{"name":"Breathwork & Mindfulness","duration":"1 hr","price":"$75"}],"industries":{"Massage Therapy":{"create_name_placeholder":"e.g. Shiatsu Massage","create_desc_ghost":"A therapeutic massage experience tailored to your body's needs and tension points.","appointments":[{"name":"Swedish Massage","duration":"1 hr","price":"$90"},{"name":"Deep Tissue Massage","duration":"1 hr","price":"$110"},{"name":"Sports Massage","duration":"1 hr","price":"$100"},{"name":"Hot Stone Massage","duration":"1.5 hrs","price":"$130"}],"create_name_chips":["Prenatal Massage","Lymphatic Drainage","Trigger Point Therapy","Chair Massage","Couples Massage","Reflexology Session"]},"Counseling Services":{"create_name_placeholder":"e.g. Couples Therapy","create_desc_ghost":"A confidential, supportive session to work through life's challenges with a licensed counselor.","appointments":[{"name":"Initial Consultation","duration":"1 hr","price":"$150"},{"name":"Individual Therapy","duration":"50 min","price":"$130"},{"name":"Couples Therapy","duration":"1 hr","price":"$180"},{"name":"Group Session","duration":"1.5 hrs","price":"$60"}],"create_name_chips":["Teen Counseling","Grief & Loss Session","Trauma-Informed Session","Pre-Marital Counseling","Anxiety Management","Stress & Burnout Session"]},"Therapy & Mental Health":{"create_name_placeholder":"e.g. Therapy Session","create_desc_ghost":"Evidence-based mental health support in a safe, non-judgmental environment.","appointments":[{"name":"Intake Assessment","duration":"1 hr","price":"$175"},{"name":"Individual Session","duration":"50 min","price":"$140"},{"name":"Family Therapy","duration":"1 hr","price":"$180"},{"name":"Crisis Consultation","duration":"30 min","price":"$100"}],"create_name_chips":["EMDR Session","CBT Session","Exposure Therapy","Mindfulness-Based Session","Psychiatric Evaluation","Telehealth Check-In"]},"Holistic Health & Medicine":{"create_name_placeholder":"e.g. Holistic Assessment","create_desc_ghost":"An integrative healing session that addresses the mind, body, and spirit.","appointments":[{"name":"Holistic Health Assessment","duration":"1.5 hrs","price":"$150"},{"name":"Reiki Session","duration":"1 hr","price":"$90"},{"name":"Herbal Medicine Consult","duration":"1 hr","price":"$110"},{"name":"Energy Healing Session","duration":"1 hr","price":"$100"}],"create_name_chips":["Sound Bath Session","Breathwork Session","Chakra Balancing","Crystal Healing","Shamanic Session","Intuitive Reading"]},"Physical Therapy & Rehabilitation":{"create_name_placeholder":"e.g. Initial Evaluation","create_desc_ghost":"Science-backed physical therapy to restore movement, reduce pain, and rebuild strength.","appointments":[{"name":"Initial Evaluation","duration":"1 hr","price":"$150"},{"name":"Follow-up Treatment","duration":"45 min","price":"$100"},{"name":"Dry Needling","duration":"45 min","price":"$120"},{"name":"Manual Therapy","duration":"1 hr","price":"$130"}],"create_name_chips":["Post-Surgery Rehab","Balance & Coordination","Aquatic Therapy","Vestibular Rehab","Pelvic Floor Therapy","Work Injury Evaluation"]},"Acupuncture & Chinese Medicine":{"create_name_placeholder":"e.g. Cupping Session","create_desc_ghost":"Traditional Chinese medicine techniques to restore balance and support natural healing.","appointments":[{"name":"Initial Acupuncture Visit","duration":"1.5 hrs","price":"$150"},{"name":"Follow-up Treatment","duration":"1 hr","price":"$100"},{"name":"Cupping Session","duration":"45 min","price":"$80"},{"name":"Herbal Consultation","duration":"45 min","price":"$90"}],"create_name_chips":["Facial Acupuncture","Moxibustion Session","Gua Sha Treatment","Tui Na Massage","Electroacupuncture","Acupressure Session"]},"Pools, Saunas, and Spas":{"create_name_placeholder":"e.g. Spa Day","create_desc_ghost":"A restorative spa experience designed to relax, rejuvenate, and recharge.","appointments":[{"name":"Spa Day Package","duration":"3 hrs","price":"$200"},{"name":"Sauna Session","duration":"1 hr","price":"$50"},{"name":"Float Therapy","duration":"1 hr","price":"$80"},{"name":"Hydrotherapy Session","duration":"1 hr","price":"$90"}],"create_name_chips":["Couples Spa Package","Infrared Sauna Session","Cold Plunge Session","Contrast Therapy","Body Wrap Treatment","Mineral Bath Soak"]},"Nutrition":{"create_name_placeholder":"e.g. Meal Plan Session","create_desc_ghost":"Personalized nutrition guidance to help you reach your health and wellness goals.","appointments":[{"name":"Initial Assessment","duration":"1 hr","price":"$120"},{"name":"Meal Plan Consultation","duration":"1 hr","price":"$100"},{"name":"Follow-up Session","duration":"30 min","price":"$60"},{"name":"Weight Management Consult","duration":"1 hr","price":"$110"}],"create_name_chips":["Grocery Store Tour","Supplement Review","Food Sensitivity Consult","Sports Nutrition Session","Gut Health Consultation","Prenatal Nutrition"]},"Wellness Coaching":{"create_name_placeholder":"e.g. Discovery Call","create_desc_ghost":"A holistic coaching session to align your habits, mindset, and lifestyle with your goals.","appointments":[{"name":"Discovery Session","duration":"1 hr","price":"$120"},{"name":"Goal-Setting Session","duration":"1 hr","price":"$100"},{"name":"Mindfulness Session","duration":"1 hr","price":"$90"},{"name":"Accountability Check-in","duration":"30 min","price":"$50"}],"create_name_chips":["Stress Management Session","Sleep Optimization Call","Habit Coaching Session","Life Balance Review","Morning Routine Consult","Burnout Recovery Session"]}},"create_name_chips":["Therapy Session","Healing Session","Wellness Check-In","Relaxation Treatment","Body Treatment","Mind-Body Session","Assessment & Intake","Follow-Up Session","Group Session","Energy Work"]},"Fitness":{"s3_placeholder":"e.g. Personal Training","s3_chips":["Personal Training","Yoga","Pilates","Fitness","Sports Training & Coaching","Fitness Instruction","Swimming & Aquatics","Gyms & Health Clubs","Group Fitness Classes"],"fallback_appointments":[{"name":"Fitness Consultation","duration":"45 min","price":"$60"},{"name":"1-on-1 Training Session","duration":"1 hr","price":"$80"},{"name":"Group Fitness Class","duration":"1 hr","price":"$25"},{"name":"Movement Assessment","duration":"45 min","price":"$60"}],"industries":{"Personal Training":{"create_name_placeholder":"e.g. 1-on-1 Assessment","create_desc_ghost":"A customized training session built around your fitness level, goals, and schedule.","appointments":[{"name":"1-on-1 Training Session","duration":"1 hr","price":"$80"},{"name":"Fitness Assessment","duration":"1 hr","price":"$60"},{"name":"Nutrition Consultation","duration":"45 min","price":"$70"},{"name":"Online Coaching Check-in","duration":"30 min","price":"$40"}],"create_name_chips":["HIIT Training Session","Strength & Conditioning","Weight Loss Check-In","Flexibility & Mobility","Functional Movement Session","Transformation Check-In"]},"Yoga":{"create_name_placeholder":"e.g. Private Yoga Session","create_desc_ghost":"A mindful yoga session tailored to your experience level and wellness goals.","appointments":[{"name":"Private Yoga Session","duration":"1 hr","price":"$90"},{"name":"Couples Yoga","duration":"1 hr","price":"$130"},{"name":"Yoga Assessment","duration":"45 min","price":"$60"},{"name":"Prenatal Yoga","duration":"1 hr","price":"$85"}],"create_name_chips":["Restorative Yoga","Hot Yoga Session","Vinyasa Flow","Yoga Nidra","Ashtanga Session","Breathwork & Meditation"]},"Pilates":{"create_name_placeholder":"e.g. Private Reformer","create_desc_ghost":"A focused Pilates session to build core strength, flexibility, and body awareness.","appointments":[{"name":"Private Reformer Session","duration":"1 hr","price":"$100"},{"name":"Mat Pilates Session","duration":"1 hr","price":"$70"},{"name":"Posture Assessment","duration":"45 min","price":"$65"},{"name":"Intro to Pilates","duration":"1 hr","price":"$80"}],"create_name_chips":["Prenatal Pilates","Clinical Pilates","Tower Session","Chair Pilates","Barre Fusion","Stretch & Recovery"]},"Fitness":{"create_name_placeholder":"e.g. Strength Training Session","create_desc_ghost":"An energizing fitness session designed to challenge and progress your conditioning.","appointments":[{"name":"Fitness Consultation","duration":"45 min","price":"$60"},{"name":"Strength Training Session","duration":"1 hr","price":"$75"},{"name":"Cardio Session","duration":"45 min","price":"$55"},{"name":"Body Composition Analysis","duration":"30 min","price":"$40"}],"create_name_chips":["Weight Management Session","Functional Fitness","Agility Training","Endurance Training","Flexibility Session","Core & Stability"]},"Sports Training & Coaching":{"create_name_placeholder":"e.g. Athlete Assessment","create_desc_ghost":"Targeted sports coaching to sharpen your performance and competitive edge.","appointments":[{"name":"Athlete Assessment","duration":"1 hr","price":"$90"},{"name":"Speed & Agility Training","duration":"1 hr","price":"$85"},{"name":"Sport-Specific Skill Session","duration":"1 hr","price":"$80"},{"name":"Team Strategy Session","duration":"1.5 hrs","price":"$150"}],"create_name_chips":["Game Film Review","Plyometric Training","Mental Performance Session","Injury Prevention Session","Position-Specific Drill","Combine Prep Session"]},"Fitness Instruction":{"create_name_placeholder":"e.g. Private Instruction","create_desc_ghost":"Expert fitness instruction designed to build proper technique and lasting habits.","appointments":[{"name":"Small Group Session","duration":"1 hr","price":"$250"},{"name":"Private Instruction","duration":"1 hr","price":"$75"},{"name":"Movement Assessment","duration":"45 min","price":"$60"},{"name":"Specialty Workshop","duration":"2 hrs","price":"$120"}],"create_name_chips":["Intro to Weightlifting","Flexibility Class","Core Conditioning","Dance Fitness Class","Martial Arts Intro","Posture & Alignment"]},"Swimming & Aquatics":{"create_name_placeholder":"e.g. Private Lesson","create_desc_ghost":"Professional swim instruction for all ages and skill levels in a safe, supportive environment.","appointments":[{"name":"Private Swim Lesson","duration":"30 min","price":"$60"},{"name":"Adult Swim Lesson","duration":"45 min","price":"$70"},{"name":"Kids Swim Lesson","duration":"30 min","price":"$50"},{"name":"Swim Technique Analysis","duration":"1 hr","price":"$90"}],"create_name_chips":["Stroke Correction Session","Open Water Prep","Triathlon Swim Coaching","Water Safety Class","Competitive Swim Coaching","Baby & Toddler Swim"]},"Gyms & Health Clubs":{"create_name_placeholder":"e.g. Member Orientation","create_desc_ghost":"A guided session to get you started and making the most of your membership.","appointments":[{"name":"New Member Orientation","duration":"1 hr","price":"$0"},{"name":"Personal Training Session","duration":"1 hr","price":"$75"},{"name":"Group Fitness Class","duration":"1 hr","price":"$20"},{"name":"Wellness Assessment","duration":"1 hr","price":"$60"}],"create_name_chips":["Strength Program Design","Goal Check-In","Locker Room Tour","Nutrition Add-On","Functional Movement Screen","Equipment Orientation"]},"Group Fitness Classes":{"create_name_placeholder":"e.g. Small Group HIIT","create_desc_ghost":"A high-energy group class designed to push your limits and keep you motivated.","appointments":[{"name":"Small Group HIIT Session","duration":"45 min","price":"$200"},{"name":"Small Group Spin Session","duration":"45 min","price":"$220"},{"name":"Small Group Barre Session","duration":"1 hr","price":"$250"},{"name":"Small Group Bootcamp Session","duration":"1 hr","price":"$200"}],"create_name_chips":["Yoga Flow Class","Pilates Mat Class","Dance Cardio Class","Core & Stretch","Boxing Fitness","Outdoor Boot Camp"]}},"create_name_chips":["Training Session","Assessment","Group Class","Skills Session","Performance Review","Coaching Call","Mobility Session","Conditioning Class","Recovery Session","Intro Session"]},"Education & Coaching":{"s3_placeholder":"e.g. Tutoring","s3_chips":["Professional Coaching","Private Tutoring Services","Music Instruction","Classes & Workshops","Creative Classes & Workshops","Teaching & Classroom Resources","Educational Institutions","Educational Trips & Retreats","Vocational & Career Training","Sports Classes & Workshops","Colleges & Universities","Early Childhood Education","Business Education"],"fallback_appointments":[{"name":"Intro Consultation","duration":"30 min","price":"$0"},{"name":"1-on-1 Coaching Session","duration":"1 hr","price":"$100"},{"name":"Skills Workshop","duration":"1.5 hrs","price":"$75"},{"name":"Progress Check-in","duration":"30 min","price":"$50"}],"industries":{"Professional Coaching":{"create_name_placeholder":"e.g. Strategy Session","create_desc_ghost":"A goal-driven coaching session to unlock your professional potential and clarity.","appointments":[{"name":"Discovery Session","duration":"1 hr","price":"$150"},{"name":"Career Strategy Session","duration":"1 hr","price":"$130"},{"name":"Leadership Coaching","duration":"1 hr","price":"$175"},{"name":"Accountability Check-in","duration":"30 min","price":"$75"}],"create_name_chips":["Executive Presence Session","Conflict Resolution Coaching","Promotion Prep Session","Negotiation Skills Workshop","Interview Coaching","Public Speaking Session"]},"Private Tutoring Services":{"create_name_placeholder":"e.g. SAT Prep","create_desc_ghost":"Personalized tutoring sessions to build confidence and academic performance.","appointments":[{"name":"Math Tutoring","duration":"1 hr","price":"$60"},{"name":"Reading & Writing","duration":"1 hr","price":"$55"},{"name":"SAT/ACT Prep","duration":"1 hr","price":"$80"},{"name":"Science Tutoring","duration":"1 hr","price":"$65"}],"create_name_chips":["History Tutoring","Test Anxiety Support","College Essay Help","Language Arts","AP Exam Prep","Study Skills Session"]},"Music Instruction":{"create_name_placeholder":"e.g. Vocal Lesson","create_desc_ghost":"One-on-one music instruction tailored to your skill level and musical goals.","appointments":[{"name":"Guitar Lesson","duration":"30 min","price":"$45"},{"name":"Piano Lesson","duration":"45 min","price":"$55"},{"name":"Vocal Coaching","duration":"1 hr","price":"$70"},{"name":"Drum Lesson","duration":"30 min","price":"$45"}],"create_name_chips":["Music Theory Lesson","Songwriting Session","Bass Guitar Lesson","Violin Lesson","Music Production Intro","Ear Training Session"]},"Classes & Workshops":{"create_name_placeholder":"e.g. Intro Workshop","create_desc_ghost":"An engaging, hands-on learning experience for curious minds at any level.","appointments":[{"name":"Intro Workshop","duration":"2 hrs","price":"$75"},{"name":"Skill-Building Class","duration":"1.5 hrs","price":"$60"},{"name":"Certificate Course Session","duration":"2 hrs","price":"$100"},{"name":"Q&A Session","duration":"1 hr","price":"$40"}],"create_name_chips":["Advanced Workshop","Beginner Series","Guest Speaker Session","Panel Discussion","Masterclass","Certification Prep"]},"Creative Classes & Workshops":{"create_name_placeholder":"e.g. Art Workshop","create_desc_ghost":"A creative workshop to explore, experiment, and grow your artistic skills.","appointments":[{"name":"Art Class","duration":"2 hrs","price":"$60"},{"name":"Photography Workshop","duration":"3 hrs","price":"$120"},{"name":"Pottery Class","duration":"2 hrs","price":"$75"},{"name":"Creative Writing Workshop","duration":"2 hrs","price":"$65"}],"create_name_chips":["Watercolor Class","Drawing & Sketching","Film Photography Workshop","Textile & Fiber Arts","Digital Illustration","Sculpture Class"]},"Teaching & Classroom Resources":{"create_name_placeholder":"e.g. Curriculum Planning","create_desc_ghost":"Professional development and instructional support for educators at every level.","appointments":[{"name":"Curriculum Planning Session","duration":"1 hr","price":"$80"},{"name":"Teacher Coaching Session","duration":"1 hr","price":"$90"},{"name":"Classroom Observation","duration":"1 hr","price":"$100"},{"name":"Resource Review Meeting","duration":"45 min","price":"$60"}],"create_name_chips":["Differentiated Instruction","Assessment Design Workshop","Technology Integration","Student Engagement Coaching","Co-Teaching Planning","Parent Communication Strategy"]},"Educational Institutions":{"create_name_placeholder":"e.g. Admissions Consult","create_desc_ghost":"A structured meeting to guide students and families through academic decisions.","appointments":[{"name":"Admissions Consultation","duration":"45 min","price":"$0"},{"name":"Academic Advising","duration":"1 hr","price":"$0"},{"name":"Campus Tour","duration":"1 hr","price":"$0"},{"name":"Financial Aid Meeting","duration":"1 hr","price":"$0"}],"create_name_chips":["Transfer Student Advising","Scholarship Consult","Program Info Session","Department Open House","New Student Orientation","Student Support Meeting"]},"Educational Trips & Retreats":{"create_name_placeholder":"e.g. Retreat Intake","create_desc_ghost":"A planning or orientation session to prepare participants for an immersive learning experience.","appointments":[{"name":"Trip Planning Consultation","duration":"1 hr","price":"$100"},{"name":"Retreat Intake Session","duration":"1 hr","price":"$80"},{"name":"Group Orientation","duration":"1.5 hrs","price":"$0"},{"name":"Post-Trip Debrief","duration":"1 hr","price":"$0"}],"create_name_chips":["Pre-Departure Orientation","Safety Briefing","Cultural Prep Session","Parent Info Meeting","Fundraising Strategy Session","Reunion Planning Call"]},"Vocational & Career Training":{"create_name_placeholder":"e.g. Career Assessment","create_desc_ghost":"Practical training and career support to help you enter or advance in your field.","appointments":[{"name":"Career Assessment","duration":"1 hr","price":"$80"},{"name":"Resume & Interview Prep","duration":"1 hr","price":"$75"},{"name":"Trade Skills Session","duration":"2 hrs","price":"$100"},{"name":"Job Placement Consultation","duration":"1 hr","price":"$60"}],"create_name_chips":["Portfolio Review","Mock Interview","LinkedIn Profile Review","Apprenticeship Consult","Certification Exam Prep","Networking Strategy Session"]},"Sports Classes & Workshops":{"create_name_placeholder":"e.g. Athletic Assessment","create_desc_ghost":"Structured sports instruction for athletes of all ages to develop their skills and confidence.","appointments":[{"name":"Youth Sports Clinic","duration":"1.5 hrs","price":"$40"},{"name":"Skills Workshop","duration":"2 hrs","price":"$60"},{"name":"Coaching Certification Session","duration":"2 hrs","price":"$100"},{"name":"Athletic Development Class","duration":"1 hr","price":"$35"}],"create_name_chips":["Speed & Conditioning Camp","Position Training","Mental Toughness Workshop","Injury Prevention Class","Leadership & Teamwork Session","Film & Strategy Review"]},"Colleges & Universities":{"create_name_placeholder":"e.g. Office Hours","create_desc_ghost":"Academic support and advisory meetings to help students succeed at the university level.","appointments":[{"name":"Office Hours","duration":"30 min","price":"$0"},{"name":"Academic Advising","duration":"45 min","price":"$0"},{"name":"Research Consultation","duration":"1 hr","price":"$0"},{"name":"Thesis Review Meeting","duration":"1 hr","price":"$0"}],"create_name_chips":["Dissertation Meeting","Course Planning Session","Internship Advising","Study Abroad Consult","Graduate School Prep","Faculty Consultation"]},"Early Childhood Education":{"create_name_placeholder":"e.g. Parent-Teacher Meeting","create_desc_ghost":"Nurturing early learning sessions and family meetings that support your child's development.","appointments":[{"name":"Parent-Teacher Meeting","duration":"30 min","price":"$0"},{"name":"Child Development Assessment","duration":"1 hr","price":"$80"},{"name":"School Readiness Consultation","duration":"45 min","price":"$60"},{"name":"Play-Based Learning Session","duration":"1 hr","price":"$50"}],"create_name_chips":["Developmental Screening","IEP Meeting","Literacy Support Session","Social Skills Group","Transition Planning","Parent Coaching Session"]},"Business Education":{"create_name_placeholder":"e.g. Leadership Workshop","create_desc_ghost":"Practical business education to sharpen your skills and grow your entrepreneurial mindset.","appointments":[{"name":"Business Skills Workshop","duration":"2 hrs","price":"$120"},{"name":"Entrepreneurship Coaching","duration":"1 hr","price":"$130"},{"name":"Finance Basics Course","duration":"1.5 hrs","price":"$100"},{"name":"Leadership Development","duration":"2 hrs","price":"$150"}],"create_name_chips":["Pitch Practice Session","Financial Modeling Workshop","Marketing Strategy Class","Case Study Review","Startup Mentoring Session","Investor Readiness Prep"]}},"create_name_chips":["Tutoring Session","Coaching Session","Workshop","Skills Class","Assessment Session","Study Session","Group Class","Practice Session","Review Meeting","Intro Lesson"]},"Utility":{"s3_placeholder":"e.g. Cleaning","s3_chips":["Cleaning Services","Car Detailing","Autos & Vehicles Services","Construction & Maintenance","Event Venue Rentals","Equipment Rentals","Vacation Rentals","Car Rentals","Plumbing","Roofing","Electrical Services","HVAC & Climate Control","Landscaping & Outdoor Services"],"fallback_appointments":[{"name":"Service Consultation","duration":"30 min","price":"$0"},{"name":"On-Site Assessment","duration":"1 hr","price":"$75"},{"name":"Repair Appointment","duration":"1 hr","price":"$120"},{"name":"Follow-Up Visit","duration":"30 min","price":"$50"}],"industries":{"Cleaning Services":{"create_name_placeholder":"e.g. Deep Clean","create_desc_ghost":"Thorough, reliable cleaning services to keep your space spotless and fresh.","appointments":[{"name":"Standard Home Cleaning","duration":"2 hrs","price":"$120"},{"name":"Deep Clean","duration":"4 hrs","price":"$250"},{"name":"Move-In/Out Cleaning","duration":"4 hrs","price":"$300"},{"name":"Commercial Cleaning","duration":"3 hrs","price":"$200"}],"create_name_chips":["Post-Construction Clean","Appliance Cleaning","Window Washing","Carpet Cleaning","Pressure Washing","Organizing Add-On"]},"Car Detailing":{"create_name_placeholder":"e.g. Full Detail","create_desc_ghost":"Professional car detailing to restore your vehicle's interior and exterior to showroom condition.","appointments":[{"name":"Exterior Wash & Wax","duration":"1 hr","price":"$60"},{"name":"Interior Detail","duration":"2 hrs","price":"$100"},{"name":"Full Detail","duration":"3 hrs","price":"$175"},{"name":"Paint Correction","duration":"4 hrs","price":"$300"}],"create_name_chips":["Engine Bay Clean","Odor Elimination","Ceramic Coating Consult","Headlight Restoration","Fabric Protection","Clay Bar Treatment"]},"Autos & Vehicles Services":{"create_name_placeholder":"e.g. Oil Change","create_desc_ghost":"Reliable auto service and maintenance to keep your vehicle safe and running its best.","appointments":[{"name":"Oil Change & Inspection","duration":"1 hr","price":"$75"},{"name":"Tire Rotation","duration":"45 min","price":"$50"},{"name":"Brake Service","duration":"2 hrs","price":"$200"},{"name":"Diagnostic Scan","duration":"1 hr","price":"$90"}],"create_name_chips":["Transmission Service","AC Recharge","Battery Replacement","Alignment Check","Pre-Purchase Inspection","Fluid Flush"]},"Construction & Maintenance":{"create_name_placeholder":"e.g. Repair Consult","create_desc_ghost":"Professional home repair and maintenance services delivered with quality and care.","appointments":[{"name":"Home Assessment","duration":"1 hr","price":"$100"},{"name":"Repair Consultation","duration":"1 hr","price":"$80"},{"name":"Project Estimate Visit","duration":"1.5 hrs","price":"$0"},{"name":"Maintenance Walkthrough","duration":"1 hr","price":"$75"}],"create_name_chips":["Drywall Repair","Flooring Consult","Painting Estimate","Deck Inspection","Window Replacement Consult","Insulation Assessment"]},"Event Venue Rentals":{"create_name_placeholder":"e.g. Venue Tour","create_desc_ghost":"A walkthrough or planning session to help you find and book the perfect event space.","appointments":[{"name":"Venue Tour","duration":"1 hr","price":"$0"},{"name":"Booking Consultation","duration":"45 min","price":"$0"},{"name":"Setup & Coordination Meeting","duration":"1 hr","price":"$0"},{"name":"Catering Tasting","duration":"1 hr","price":"$50"}],"create_name_chips":["Audio/Visual Consult","Lighting Walk-Through","Rehearsal Booking","Day-Of Site Check","Cleanup Coordination","Overflow Parking Planning"]},"Equipment Rentals":{"create_name_placeholder":"e.g. Pickup Appointment","create_desc_ghost":"A quick consultation or handoff appointment for your equipment rental needs.","appointments":[{"name":"Equipment Consultation","duration":"30 min","price":"$0"},{"name":"Delivery & Setup","duration":"1 hr","price":"$75"},{"name":"Training on Equipment","duration":"1 hr","price":"$60"},{"name":"Pickup Appointment","duration":"30 min","price":"$0"}],"create_name_chips":["Operator Training","Safety Briefing","Long-Term Rental Consult","Equipment Swap","Damage Assessment","Inventory Review"]},"Vacation Rentals":{"create_name_placeholder":"e.g. Property Tour","create_desc_ghost":"A smooth, welcoming check-in or tour experience for your vacation rental guests.","appointments":[{"name":"Property Tour","duration":"1 hr","price":"$0"},{"name":"Check-In Appointment","duration":"30 min","price":"$0"},{"name":"Check-Out Inspection","duration":"30 min","price":"$0"},{"name":"Owner-Guest Meeting","duration":"45 min","price":"$0"}],"create_name_chips":["Mid-Stay Check-In","Extended Stay Consult","Damage Walk-Through","Cleaning Coordination","Early Arrival Request","Late Checkout Request"]},"Car Rentals":{"create_name_placeholder":"e.g. Vehicle Pick-Up","create_desc_ghost":"A quick and easy vehicle pickup, drop-off, or rental planning appointment.","appointments":[{"name":"Vehicle Pick-Up","duration":"30 min","price":"$0"},{"name":"Vehicle Drop-Off","duration":"30 min","price":"$0"},{"name":"Fleet Consultation","duration":"45 min","price":"$0"},{"name":"Long-Term Rental Consult","duration":"30 min","price":"$0"}],"create_name_chips":["Insurance Add-On Consult","Vehicle Upgrade Request","Airport Pickup","One-Way Rental Consult","Accessibility Needs Review","Group Vehicle Consult"]},"Plumbing":{"create_name_placeholder":"e.g. Leak Repair","create_desc_ghost":"Fast, professional plumbing service to diagnose and fix issues in your home or business.","appointments":[{"name":"Plumbing Inspection","duration":"1 hr","price":"$100"},{"name":"Leak Repair Appointment","duration":"1 hr","price":"$150"},{"name":"Water Heater Service","duration":"2 hrs","price":"$250"},{"name":"Drain Cleaning","duration":"1 hr","price":"$130"}],"create_name_chips":["Pipe Inspection","Water Pressure Check","Sump Pump Service","Fixture Replacement","Gas Line Inspection","Backflow Testing"]},"Roofing":{"create_name_placeholder":"e.g. Roof Inspection","create_desc_ghost":"Expert roofing assessments and repair consultations to protect your home from the top down.","appointments":[{"name":"Roof Inspection","duration":"1 hr","price":"$0"},{"name":"Repair Estimate Visit","duration":"1 hr","price":"$0"},{"name":"Roof Replacement Consult","duration":"1.5 hrs","price":"$0"},{"name":"Gutter Cleaning Appointment","duration":"2 hrs","price":"$150"}],"create_name_chips":["Storm Damage Assessment","Skylight Installation Consult","Flat Roof Inspection","Roof Cleaning","Flashing Repair","Energy Efficiency Consult"]},"Electrical Services":{"create_name_placeholder":"e.g. Electrical Inspection","create_desc_ghost":"Licensed electrical service to keep your home or business safe and up to code.","appointments":[{"name":"Electrical Inspection","duration":"1.5 hrs","price":"$120"},{"name":"Outlet/Switch Repair","duration":"1 hr","price":"$100"},{"name":"Panel Upgrade Consult","duration":"1 hr","price":"$150"},{"name":"EV Charger Installation Consult","duration":"1 hr","price":"$130"}],"create_name_chips":["Smoke Detector Install","Lighting Upgrade Consult","Generator Install Consult","Home Rewiring Assessment","Smart Home Setup","Surge Protection Install"]},"HVAC & Climate Control":{"create_name_placeholder":"e.g. AC Tune-Up","create_desc_ghost":"Professional HVAC service to keep your home comfortable year-round.","appointments":[{"name":"HVAC Inspection","duration":"1.5 hrs","price":"$120"},{"name":"AC Tune-Up","duration":"1 hr","price":"$100"},{"name":"Furnace Service","duration":"1.5 hrs","price":"$130"},{"name":"New System Consultation","duration":"1 hr","price":"$0"}],"create_name_chips":["Duct Cleaning","Air Quality Test","Smart Thermostat Install","Mini-Split Consult","Filter Replacement Service","Energy Audit"]},"Landscaping & Outdoor Services":{"create_name_placeholder":"e.g. Garden Design","create_desc_ghost":"Outdoor services designed to enhance your property's curb appeal and landscape.","appointments":[{"name":"Lawn Care Consultation","duration":"1 hr","price":"$0"},{"name":"Garden Design Meeting","duration":"1.5 hrs","price":"$120"},{"name":"Tree Trimming Estimate","duration":"1 hr","price":"$0"},{"name":"Irrigation System Consult","duration":"1 hr","price":"$100"}],"create_name_chips":["Seasonal Cleanup","Mulching & Edging","Sprinkler Repair","Outdoor Lighting Consult","Hardscape Estimate","Tree Removal Consult"]}},"create_name_chips":["Service Appointment","On-Site Visit","Assessment & Estimate","Repair Session","Maintenance Visit","Installation Appointment","Inspection","Consultation","Follow-Up Visit","Emergency Service"]},"Other":{"s3_placeholder":"e.g. Pet Services","s3_chips":["Pet Services & Animal Care","Food & Beverage","Creative & Media Services","Events & Hospitality","Travel & Transportation","Retail & Consumer Goods","Home & Lifestyle","Family & Personal Services","Community & Nonprofit","Spiritual & Religious Services","Technology & Digital Services","Agriculture & Outdoor Services","Public Services & Government","Automotive (Other)","Healthcare (Other)"],"fallback_appointments":[{"name":"Initial Consultation","duration":"30 min","price":"$0"},{"name":"Service Appointment","duration":"1 hr","price":"$80"},{"name":"Follow-Up Session","duration":"30 min","price":"$50"},{"name":"Custom Service Booking","duration":"1 hr","price":"$100"}],"industries":{"Pet Services & Animal Care":{"create_name_placeholder":"e.g. Training Session","create_desc_ghost":"Caring, professional services to keep your pet happy, healthy, and looking their best.","appointments":[{"name":"Wellness Exam","duration":"30 min","price":"$65"},{"name":"Dog Training Session","duration":"1 hr","price":"$80"},{"name":"Full Groom","duration":"2 hrs","price":"$75"},{"name":"Pet Sitting Consultation","duration":"30 min","price":"$0"}],"create_name_chips":["Puppy Training","Behavioral Assessment","Bath & Brush","De-Shedding Treatment","Nail Trim","Senior Pet Wellness Visit"]},"Food & Beverage":{"create_name_placeholder":"e.g. Private Chef Booking","create_desc_ghost":"A delicious, personalized food experience crafted around your tastes and occasion.","appointments":[{"name":"Catering Tasting","duration":"1 hr","price":"$50"},{"name":"Meal Prep Consultation","duration":"45 min","price":"$75"},{"name":"Private Chef Booking","duration":"3 hrs","price":"$300"},{"name":"Food Allergy Consult","duration":"30 min","price":"$40"}],"create_name_chips":["Menu Planning Consult","Dietary Restriction Review","Cooking Class","Wine Pairing Session","Meal Kit Planning","Corporate Lunch Order"]},"Creative & Media Services":{"create_name_placeholder":"e.g. Creative Consult","create_desc_ghost":"A collaborative session to develop your creative vision and bring it to life.","appointments":[{"name":"Creative Consultation","duration":"1 hr","price":"$100"},{"name":"Video Production Meeting","duration":"1 hr","price":"$150"},{"name":"Podcast Recording Session","duration":"2 hrs","price":"$200"},{"name":"Graphic Design Consult","duration":"45 min","price":"$80"}],"create_name_chips":["Script Review Session","Voice-Over Recording","Photo Editing Consult","Brand Video Consult","Illustration Commission","Motion Graphics Brief"]},"Events & Hospitality":{"create_name_placeholder":"e.g. Venue Tour","create_desc_ghost":"Expert hospitality and event planning support to make your occasion unforgettable.","appointments":[{"name":"Event Planning Consult","duration":"1 hr","price":"$100"},{"name":"Venue Tour","duration":"1 hr","price":"$0"},{"name":"Catering Consultation","duration":"1 hr","price":"$75"},{"name":"Day-Of Coordination Call","duration":"1 hr","price":"$120"}],"create_name_chips":["Florist Consult","Entertainment Booking","Guest Experience Planning","Bar & Beverage Consult","Photo Booth Setup","Seating Chart Review"]},"Travel & Transportation":{"create_name_placeholder":"e.g. Itinerary Review","create_desc_ghost":"Personalized travel planning to help you explore the world with confidence and ease.","appointments":[{"name":"Travel Planning Session","duration":"1 hr","price":"$75"},{"name":"Itinerary Review","duration":"45 min","price":"$60"},{"name":"Visa & Documentation Consult","duration":"45 min","price":"$80"},{"name":"Group Travel Consultation","duration":"1 hr","price":"$100"}],"create_name_chips":["Honeymoon Planning","Adventure Trip Consult","Group Travel Planning","Flight Search Session","Travel Insurance Review","Hotel Recommendations Call"]},"Retail & Consumer Goods":{"create_name_placeholder":"e.g. Initial Consultation","create_desc_ghost":"A personalized shopping experience to help you find exactly what you're looking for.","appointments":[{"name":"Personal Shopping Session","duration":"1 hr","price":"$80"},{"name":"Style Consultation","duration":"1 hr","price":"$100"},{"name":"Custom Order Consultation","duration":"45 min","price":"$50"},{"name":"Product Demo","duration":"30 min","price":"$0"}],"create_name_chips":["Wardrobe Audit","Outfit Curation Session","Gift Wrapping & Delivery","Subscription Box Consult","Return & Exchange Help","Custom Order Follow-Up"]},"Home & Lifestyle":{"create_name_placeholder":"e.g. Initial Consultation","create_desc_ghost":"Expert lifestyle and design guidance to transform your home into a space you love.","appointments":[{"name":"Interior Design Consult","duration":"1.5 hrs","price":"$150"},{"name":"Home Organization Session","duration":"2 hrs","price":"$120"},{"name":"Feng Shui Consultation","duration":"1.5 hrs","price":"$130"},{"name":"Home Staging Meeting","duration":"1 hr","price":"$100"}],"create_name_chips":["Color Palette Consult","Furniture Layout Planning","Declutter Session","Art & Decor Curation","Smart Home Consult","Rental Staging Session"]},"Family & Personal Services":{"create_name_placeholder":"e.g. Consultation","create_desc_ghost":"Thoughtful personal services designed to support your family at every stage of life.","appointments":[{"name":"Family Planning Consult","duration":"1 hr","price":"$100"},{"name":"Childcare Interview","duration":"1 hr","price":"$0"},{"name":"Senior Care Consultation","duration":"1 hr","price":"$80"},{"name":"Personal Concierge Session","duration":"1 hr","price":"$90"}],"create_name_chips":["Newborn Care Consult","Caregiver Match Session","Family Meeting Facilitation","Postpartum Support","Elder Care Transition","Life Admin Session"]},"Community & Nonprofit":{"create_name_placeholder":"e.g. Volunteer Orientation","create_desc_ghost":"Purposeful meetings designed to connect people with programs, resources, and community impact.","appointments":[{"name":"Volunteer Orientation","duration":"1 hr","price":"$0"},{"name":"Community Program Intake","duration":"1 hr","price":"$0"},{"name":"Donor Meeting","duration":"45 min","price":"$0"},{"name":"Grant Writing Consultation","duration":"1 hr","price":"$0"}],"create_name_chips":["Community Needs Assessment","Peer Support Session","Coalition Meeting","Advocacy Training","Resource Referral Meeting","Outreach Planning Call"]},"Spiritual & Religious Services":{"create_name_placeholder":"e.g. Meditation Session","create_desc_ghost":"A sacred space for reflection, guidance, and spiritual growth.","appointments":[{"name":"Pastoral Counseling","duration":"1 hr","price":"$0"},{"name":"Spiritual Direction Session","duration":"1 hr","price":"$80"},{"name":"Prayer & Meditation Session","duration":"1 hr","price":"$50"},{"name":"Life Ceremony Consultation","duration":"1 hr","price":"$100"}],"create_name_chips":["Grief Support Session","Wedding Officiant Consult","Faith-Based Coaching","Baptism Preparation","Scripture Study Session","Spiritual Retreat Planning"]},"Technology & Digital Services":{"create_name_placeholder":"e.g. Tech Support","create_desc_ghost":"Friendly, expert tech help to solve problems and set up your digital life with confidence.","appointments":[{"name":"Tech Support Session","duration":"1 hr","price":"$100"},{"name":"Website Consultation","duration":"1 hr","price":"$150"},{"name":"App Demo & Walkthrough","duration":"45 min","price":"$75"},{"name":"Cybersecurity Review","duration":"1 hr","price":"$130"}],"create_name_chips":["IT Help Desk","Software Training Session","Data Recovery Consult","Cloud Setup Session","Device Repair Consult","Privacy & Security Audit"]},"Agriculture & Outdoor Services":{"create_name_placeholder":"e.g. Outdoor Guide Booking","create_desc_ghost":"Expert outdoor and agricultural services to help your land and business thrive.","appointments":[{"name":"Farm Consultation","duration":"1.5 hrs","price":"$120"},{"name":"Crop Planning Session","duration":"1 hr","price":"$100"},{"name":"Outdoor Guide Booking","duration":"3 hrs","price":"$150"},{"name":"Soil & Land Assessment","duration":"1.5 hrs","price":"$130"}],"create_name_chips":["Irrigation Planning","Pest Control Consult","Harvest Planning Session","Seed & Supply Consult","Wildlife Management Meeting","Guided Nature Tour"]},"Public Services & Government":{"create_name_placeholder":"e.g. Permit Consult","create_desc_ghost":"Accessible public service appointments to help community members navigate resources and programs.","appointments":[{"name":"Permit Consultation","duration":"45 min","price":"$0"},{"name":"Benefits Enrollment Help","duration":"1 hr","price":"$0"},{"name":"Zoning Information Meeting","duration":"1 hr","price":"$0"},{"name":"Community Resources Consult","duration":"45 min","price":"$0"}],"create_name_chips":["Business License Consult","Housing Assistance Meeting","Legal Aid Intake","Voter Registration Help","Small Business Support Session","Code Compliance Review"]},"Automotive (Other)":{"create_name_placeholder":"e.g. Auto Repair Estimate","create_desc_ghost":"Trusted automotive services to keep your vehicle safe, efficient, and road-ready.","appointments":[{"name":"Car Buying Consultation","duration":"1 hr","price":"$0"},{"name":"Auto Repair Estimate","duration":"1 hr","price":"$75"},{"name":"Vehicle Inspection","duration":"1 hr","price":"$80"},{"name":"Custom Modification Consult","duration":"1 hr","price":"$100"}],"create_name_chips":["Classic Car Restoration Consult","Performance Upgrade Session","Fleet Management Review","Motorcycle Service Consult","RV Maintenance Check","Vehicle History Review"]},"Healthcare (Other)":{"create_name_placeholder":"e.g. Appointment","create_desc_ghost":"Compassionate, professional healthcare appointments to support your overall wellbeing.","appointments":[{"name":"General Wellness Exam","duration":"1 hr","price":"$120"},{"name":"Specialist Consultation","duration":"45 min","price":"$150"},{"name":"Lab Results Review","duration":"30 min","price":"$80"},{"name":"Telehealth Appointment","duration":"30 min","price":"$75"}],"create_name_chips":["Second Opinion Consult","Chronic Care Check-In","Post-Op Follow-Up","Vaccination Appointment","Mental Health Intake","Preventive Care Planning"]}},"create_name_chips":["Consultation","Service Appointment","Intro Session","Planning Meeting","Custom Service","Assessment","Group Session","Follow-Up","Workshop","Drop-In Appointment"]},"_generic":{"create_name_chips":["Consultation","Standard Session","Introduction Call","Personal Assessment","Working Session","Follow-Up","Group Session","Workshop","Discovery Call","Custom Appointment"]}};
-    window._ACUITY_TEMPLATES_READY = Promise.resolve();
+    window._ACUITY_TEMPLATES_READY = fetch('templates/acuity_appointment_templates.json')
+      .then(r => r.json())
+      .then(data => { window.ACUITY_TEMPLATES = data; });
 
     // Map from internal vertical key → JSON top-level key
     const INDUSTRY_TEMPLATE_KEY = {
@@ -5360,14 +5389,15 @@
     // Industry taxonomy now comes from ACUITY_TEMPLATES[topKey].s3_chips — no hardcoded list needed.
 
     // ─── State ────────────────────────────────────────────────────────────────
-    let currentIndustry         = 'beauty';
-    let currentIndustrySpecific = '';     // taxonomy label, e.g. "Hair Salon"; set on S3 chip tap or Next
-    let catalogOverride            = null;   // AI-generated catalog; null = use CATALOG[currentIndustry]
-    let selectedAppts      = [];   // array of appt objects the user has added
-    let editingApptId      = null; // id of the appt currently open in the edit sheet
-    const apptEdits        = {};   // id → {name, duration, price} — local overrides from Save
-    let selectedHoursLabel  = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
-    let _availStaggerDone   = false; // true after the first suggestions render on a given S5 visit
+    const state = {};
+    state.currentIndustry         = 'beauty';
+    state.currentIndustrySpecific = '';     // taxonomy label, e.g. "Hair Salon"; set on S3 chip tap or Next
+    state.catalogOverride            = null;   // AI-generated catalog; null = use CATALOG[state.currentIndustry]
+    state.selectedAppts      = [];   // array of appt objects the user has added
+    state.editingApptId      = null; // id of the appt currently open in the edit sheet
+    state.apptEdits        = {};   // id → {name, duration, price, description?, image?} — overrides from edit sheet + upload
+    state.selectedHoursLabel  = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
+    state._availStaggerDone   = false; // true after the first suggestions render on a given S5 visit
 
     // ─── SVG icon strings ─────────────────────────────────────────────────────
     const ICON_PENCIL = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -5389,7 +5419,7 @@
     // ─── Render catalog ───────────────────────────────────────────────────────
     // Apply any user edits (from the sheet) on top of the base appointment data.
     function applyEdits(appt) {
-      return apptEdits[appt.id] ? { ...appt, ...apptEdits[appt.id] } : appt;
+      return state.apptEdits[appt.id] ? { ...appt, ...state.apptEdits[appt.id] } : appt;
     }
 
     function apptCardHTML(appt, isSelected, idx = 0, opts = {}) {
@@ -5401,8 +5431,8 @@
         : `<button class="appt-icon-btn appt-icon-btn--edit" onclick="event.stopPropagation();openEdit('${appt.id}')" aria-label="Edit">${ICON_PENCIL}</button>
            <button class="appt-icon-btn appt-icon-btn--add" onclick="event.stopPropagation();addAppt('${appt.id}',this.closest('.appt-card'))" aria-label="Add">${ICON_PLUS}</button>`;
 
-      const hasImg  = isSelected && !!appt.image;
-      const hasDesc = isSelected && !!appt.description;
+      const hasImg  = !!appt.image;
+      const hasDesc = !!appt.description;
       const imgHtml  = hasImg  ? `<img class="appt-thumb" src="${appt.image}" alt="">` : '';
       const descHtml = hasDesc ? `<span class="appt-desc">${appt.description}</span>` : '';
 
@@ -5463,18 +5493,18 @@
     }
 
     function refreshSuggestions(restoredId = null) {
-      const all      = catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty;
-      const selIds   = new Set(selectedAppts.map(a => a.id));
-      const selNames = selectedAppts.map(a => a.name);
+      const all      = state.catalogOverride || CATALOG[state.currentIndustry] || CATALOG.beauty;
+      const selIds   = new Set(state.selectedAppts.map(a => a.id));
+      const selNames = state.selectedAppts.map(a => a.name);
       const avail    = all.filter(a => !selIds.has(a.id));
-      const ordered  = selectedAppts.length > 0
+      const ordered  = state.selectedAppts.length > 0
         ? getRelatedSuggestions(selNames, avail)
         : avail;
 
       const availEl = document.getElementById('s5-available');
-      if (!_availStaggerDone) {
+      if (!state._availStaggerDone) {
         availEl.classList.add('stagger');
-        _availStaggerDone = true;
+        state._availStaggerDone = true;
       } else {
         availEl.classList.remove('stagger');
       }
@@ -5494,10 +5524,10 @@
       // Selected section — only visible when 1+ items selected
       const selectedSection = document.getElementById('s5-selected-section');
       const wasHidden = selectedSection.hidden;
-      if (selectedAppts.length > 0) {
+      if (state.selectedAppts.length > 0) {
         selectedSection.hidden = false;
         document.getElementById('s5-selected').innerHTML =
-          selectedAppts.map(a => apptCardHTML(applyEdits(a), true)).join('');
+          state.selectedAppts.map(a => apptCardHTML(applyEdits(a), true)).join('');
         if (wasHidden) {
           const sizer = selectedSection.querySelector('.selected-section__sizer');
           selectedSection.classList.remove('s5-selected-reveal--open', 's5-selected-reveal');
@@ -5533,7 +5563,7 @@
 
       // Continue button — enabled only when 1+ selected
       const continueBtn = document.getElementById('s5-continue');
-      if (selectedAppts.length > 0) {
+      if (state.selectedAppts.length > 0) {
         continueBtn.classList.remove('btn-primary--disabled');
         continueBtn.onclick = () => showScreen('s9');
       } else {
@@ -5542,20 +5572,20 @@
       }
 
       // Add-limit state — disable add actions once 3 appointments are selected
-      const atLimit = selectedAppts.length >= 3;
+      const atLimit = state.selectedAppts.length >= 3;
       document.getElementById('s5-available').classList.toggle('at-limit', atLimit);
       document.querySelector('.new-appt-btn').classList.toggle('new-appt-btn--disabled', atLimit);
     }
 
     // ─── Catalog actions ──────────────────────────────────────────────────────
     function addAppt(id, cardEl) {
-      const all  = catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty;
+      const all  = state.catalogOverride || CATALOG[state.currentIndustry] || CATALOG.beauty;
       const appt = all.find(a => a.id === id);
-      if (!appt || selectedAppts.find(a => a.id === id)) return;
+      if (!appt || state.selectedAppts.find(a => a.id === id)) return;
 
       if (navigator.vibrate) navigator.vibrate(40);
 
-      const finish = () => { selectedAppts.push(appt); renderCatalog(); };
+      const finish = () => { state.selectedAppts.push(appt); renderCatalog(); };
 
       if (cardEl) {
         const h = cardEl.offsetHeight;
@@ -5578,7 +5608,7 @@
     }
 
     function removeAppt(id, cardEl) {
-      if (!selectedAppts.find(a => a.id === id)) return;
+      if (!state.selectedAppts.find(a => a.id === id)) return;
 
       if (cardEl && cardEl.dataset.exiting) return;
       if (cardEl) cardEl.dataset.exiting = '1';
@@ -5586,7 +5616,7 @@
       if (navigator.vibrate) navigator.vibrate(30);
 
       const finish = () => {
-        selectedAppts = selectedAppts.filter(a => a.id !== id);
+        state.selectedAppts = state.selectedAppts.filter(a => a.id !== id);
         renderCatalog({ restoredId: id });
       };
 
@@ -5613,12 +5643,14 @@
     // ─── Edit overlay ─────────────────────────────────────────────────────────
 
     function openEdit(id) {
-      const all  = catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty;
-      const base = all.find(a => a.id === id) || selectedAppts.find(a => a.id === id);
+      const all  = state.catalogOverride || CATALOG[state.currentIndustry] || CATALOG.beauty;
+      const base = all.find(a => a.id === id) || state.selectedAppts.find(a => a.id === id);
       if (!base) return;
       const appt = applyEdits(base);
 
-      editingApptId = id;
+      state.editingApptId = id;
+
+      resetSheetDescAiGhost();
 
       // Name: reset to display mode, then set text
       exitNameEdit(appt.name);
@@ -5664,12 +5696,17 @@
       overlay.classList.remove('edit-open');
       setTimeout(() => {
         overlay.style.display = '';
-        editingApptId = null;
+        state.editingApptId = null;
+        resetSheetDescAiGhost();
       }, 360);
     }
 
     function saveEdit() {
-      if (!editingApptId) { closeEdit(); return; }
+      if (!state.editingApptId) { closeEdit(); return; }
+
+      if (_sheetDescAiPending) {
+        acceptSheetDescAi();
+      }
 
       // Read name — whichever is currently visible
       const display   = document.getElementById('sheet-name-display');
@@ -5682,20 +5719,30 @@
 
       // Description: read only if section is visible; empty string clears any existing value
       const descSection = document.getElementById('sheet-desc-expanded');
+      const descTa = document.getElementById('sheet-desc-textarea');
       const description = descSection.hidden
         ? ''
-        : (descSection.querySelector('textarea').value.trim() || '');
+        : ((descTa && descTa.value.trim()) || '');
 
-      apptEdits[editingApptId] = {
+      // Preserve image (and any other keys) set during this edit session, e.g. file upload on state.apptEdits
+      state.apptEdits[state.editingApptId] = {
+        ...(state.apptEdits[state.editingApptId] || {}),
         name,
         duration: rawDuration + ' min',
         price:    '$' + rawPrice.toFixed(0),
         description,
       };
 
-      // If the appt is in selectedAppts, update that reference too so card re-renders correctly
-      const idx = selectedAppts.findIndex(a => a.id === editingApptId);
-      if (idx !== -1) selectedAppts[idx] = { ...selectedAppts[idx], ...apptEdits[editingApptId] };
+      // If already selected, merge edits into the reference so the card re-renders correctly.
+      // If not yet selected, auto-add it to the selected list on save.
+      const idx = state.selectedAppts.findIndex(a => a.id === state.editingApptId);
+      if (idx !== -1) {
+        state.selectedAppts[idx] = { ...state.selectedAppts[idx], ...state.apptEdits[state.editingApptId] };
+      } else {
+        const all  = state.catalogOverride || CATALOG[state.currentIndustry] || CATALOG.beauty;
+        const base = all.find(a => a.id === state.editingApptId);
+        if (base) state.selectedAppts.push(base);
+      }
 
       renderCatalog();
       closeEdit();
@@ -5740,23 +5787,126 @@
       trigger.innerHTML = `${ICON_PLUS_SM} Add a description`;
     }
 
-    // ─── Edit drawer description placeholder rotation ─────────────────────────
+    // ─── Edit sheet — AI preview (Help me write) + description toggle ─────────
 
-    let _descPlaceholderTimer = null;
+    let _sheetDescAiPending = false;
+    let _prevSheetDescText = null;
 
-    const EDIT_DESC_PLACEHOLDERS = {
-      hair:    ['A customized cut tailored to your face shape.', 'Professional styling for any texture or length.', 'Expert trim and finish for a polished look.'],
-      facial:  ['A deep cleanse that leaves skin glowing.', 'Targeted treatment for your skin type and concerns.', 'Relaxing facial with professional-grade products.'],
-      massage: ['Full-body tension relief with expert hands.', 'Targeted deep tissue work for lasting relief.', 'A restorative session to reset body and mind.'],
-      default: ["Let's meet and discuss your needs.", 'Our services are tailored to you.', 'Book a session and let\'s get started.'],
-    };
+    function resetSheetDescAiGhost() {
+      cancelAnimType();
+      const zone = document.getElementById('sheet-desc-zone');
+      const ghost = document.getElementById('sheet-desc-ai-ghost');
+      const ghostTxt = document.getElementById('sheet-desc-ai-ghost-text');
+      const ta = document.getElementById('sheet-desc-textarea');
+      const row = document.getElementById('sheet-desc-ai-discard');
+      if (_sheetDescAiPending && ta && _prevSheetDescText !== null) {
+        ta.value = _prevSheetDescText;
+      }
+      if (zone) zone.classList.remove('sheet-desc-zone--ai-pending');
+      if (ghost) {
+        ghost.setAttribute('hidden', '');
+        ghost.classList.remove('ai-active');
+      }
+      if (ghostTxt) ghostTxt.textContent = '';
+      if (row) row.remove();
+      _sheetDescAiPending = false;
+      _prevSheetDescText = null;
+    }
 
-    function _getEditDescPlaceholders(name) {
-      const n = (name || '').toLowerCase();
-      if (n.includes('haircut') || n.includes('hair') || n.includes('blowout') || n.includes('color')) return EDIT_DESC_PLACEHOLDERS.hair;
-      if (n.includes('facial') || n.includes('skin') || n.includes('peel') || n.includes('wax')) return EDIT_DESC_PLACEHOLDERS.facial;
-      if (n.includes('massage') || n.includes('therapy') || n.includes('tissue')) return EDIT_DESC_PLACEHOLDERS.massage;
-      return EDIT_DESC_PLACEHOLDERS.default;
+    function acceptSheetDescAi() {
+      cancelAnimType();
+      const ta = document.getElementById('sheet-desc-textarea');
+      const ghost = document.getElementById('sheet-desc-ai-ghost');
+      const ghostTxt = document.getElementById('sheet-desc-ai-ghost-text');
+      const zone = document.getElementById('sheet-desc-zone');
+      const row = document.getElementById('sheet-desc-ai-discard');
+      if (!ta || !ghostTxt) return;
+      ta.value = ghostTxt.textContent;
+      if (zone) zone.classList.remove('sheet-desc-zone--ai-pending');
+      if (ghost) {
+        ghost.setAttribute('hidden', '');
+        ghost.classList.remove('ai-active');
+      }
+      if (row) row.remove();
+      _sheetDescAiPending = false;
+      _prevSheetDescText = null;
+      ta.focus();
+    }
+
+    function discardSheetDescAi() {
+      cancelAnimType();
+      const ta = document.getElementById('sheet-desc-textarea');
+      const ghost = document.getElementById('sheet-desc-ai-ghost');
+      const ghostTxt = document.getElementById('sheet-desc-ai-ghost-text');
+      const zone = document.getElementById('sheet-desc-zone');
+      const row = document.getElementById('sheet-desc-ai-discard');
+      if (!ta) return;
+      ta.value = _prevSheetDescText || '';
+      if (zone) zone.classList.remove('sheet-desc-zone--ai-pending');
+      if (ghost) {
+        ghost.setAttribute('hidden', '');
+        ghost.classList.remove('ai-active');
+      }
+      if (ghostTxt) ghostTxt.textContent = '';
+      if (row) row.remove();
+      _sheetDescAiPending = false;
+      _prevSheetDescText = null;
+      ta.focus();
+    }
+
+    function _showSheetAcceptDiscardRow() {
+      if (document.getElementById('sheet-desc-ai-discard')) return;
+      const ghost = document.getElementById('sheet-desc-ai-ghost');
+      if (!ghost) return;
+      const row = document.createElement('div');
+      row.id = 'sheet-desc-ai-discard';
+      row.style.cssText = 'display:flex;gap:8px;justify-content:center;margin-top:12px;pointer-events:auto';
+
+      const mkChip = (label, onClick) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'swipe-hint';
+        b.textContent = label;
+        b.style.cssText = 'cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;font-size:11px';
+        b.addEventListener('click', e => { e.stopPropagation(); onClick(); });
+        return b;
+      };
+
+      row.appendChild(mkChip('✓ Accept', () => acceptSheetDescAi()));
+      row.appendChild(mkChip('✕ Discard', () => discardSheetDescAi()));
+      ghost.appendChild(row);
+    }
+
+    function _applySheetPromptResult(text) {
+      cancelAnimType();
+      const ta = document.getElementById('sheet-desc-textarea');
+      const ghost = document.getElementById('sheet-desc-ai-ghost');
+      const ghostTxt = document.getElementById('sheet-desc-ai-ghost-text');
+      const zone = document.getElementById('sheet-desc-zone');
+      if (!ta || !ghost || !ghostTxt) return;
+
+      if (!_sheetDescAiPending) {
+        _prevSheetDescText = ta.value;
+      }
+      ta.value = '';
+      if (zone) zone.classList.add('sheet-desc-zone--ai-pending');
+
+      ghost.removeAttribute('hidden');
+      ghost.classList.add('ai-active');
+      _sheetDescAiPending = true;
+      ghostTxt.textContent = '';
+
+      const typeSpeed = 28;
+      let idx = 0;
+      _sheetGhostTimer = setInterval(() => {
+        idx++;
+        ghostTxt.textContent = text.slice(0, idx);
+        if (idx >= text.length) {
+          clearInterval(_sheetGhostTimer);
+          _sheetGhostTimer = null;
+          _showSheetAcceptDiscardRow();
+        }
+      }, typeSpeed);
     }
 
     function toggleDescription() {
@@ -5765,65 +5915,59 @@
       if (section.hidden) {
         section.hidden = false;
         trigger.innerHTML = `${ICON_MINUS_SM} Remove description`;
-        const ta = section.querySelector('textarea');
-
-        // Rotating placeholder keyed by service name
-        const appt = editingApptId
-          ? applyEdits((catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty).find(a => a.id === editingApptId)
-              || selectedAppts.find(a => a.id === editingApptId) || { name: '' })
-          : { name: '' };
-        const placeholders = _getEditDescPlaceholders(appt.name);
-        let phIdx = 0;
-        ta.placeholder = placeholders[0];
-
-        clearInterval(_descPlaceholderTimer);
-        _descPlaceholderTimer = setInterval(() => {
-          ta.style.transition = 'opacity 0.4s ease';
-          ta.style.opacity = '0';
-          setTimeout(() => {
-            phIdx = (phIdx + 1) % placeholders.length;
-            ta.placeholder = placeholders[phIdx];
-            ta.style.opacity = '1';
-          }, 400);
-        }, 5000);
-
-        ta.addEventListener('input', () => {
-          clearInterval(_descPlaceholderTimer);
-          _descPlaceholderTimer = null;
-        }, { once: true });
-
-        ta.focus();
+        const ta = document.getElementById('sheet-desc-textarea');
+        if (ta) ta.focus();
       } else {
-        clearInterval(_descPlaceholderTimer);
-        _descPlaceholderTimer = null;
+        resetSheetDescAiGhost();
         section.hidden = true;
-        section.querySelector('textarea').value = '';
+        const ta = document.getElementById('sheet-desc-textarea');
+        if (ta) ta.value = '';
         resetDescTrigger();
       }
+    }
+
+    function toggleC2AiBar(ev) {
+      if (ev) ev.stopPropagation();
+      const bar = document.getElementById('c2-ai-bar');
+      const btn = document.getElementById('c2-ai-toggle');
+      if (!bar || !btn) return;
+      bar.classList.toggle('c2-ai-bar--collapsed');
+      const collapsed = bar.classList.contains('c2-ai-bar--collapsed');
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    }
+
+    /** Visible / in-edit service title from the edit sheet (for AI copy). */
+    function _getSheetServiceLabel() {
+      const input = document.getElementById('sheet-service-name');
+      const display = document.getElementById('sheet-name-display');
+      if (input && input.classList.contains('editing')) {
+        return (input.value.trim() || (display && display.textContent.trim()) || '').trim();
+      }
+      return ((display && display.textContent.trim()) || (input && input.value.trim()) || '').trim();
+    }
+
+    function toggleSheetAiBar(ev) {
+      if (ev) ev.stopPropagation();
+      const bar = document.getElementById('sheet-ai-bar');
+      const btn = document.getElementById('sheet-ai-toggle');
+      if (!bar || !btn) return;
+      bar.classList.toggle('c2-ai-bar--collapsed');
+      const collapsed = bar.classList.contains('c2-ai-bar--collapsed');
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
     }
 
     // ─── Edit drawer AI chips ─────────────────────────────────────────────────
 
     function editChip(action) {
-      const ta = document.querySelector('#edit-overlay .sheet-desc-textarea');
+      const ta = document.getElementById('sheet-desc-textarea');
       if (!ta) return;
       const txt = ta.value.trim();
 
-      const appt = editingApptId
-        ? applyEdits((catalogOverride || CATALOG[currentIndustry] || CATALOG.beauty).find(a => a.id === editingApptId)
-            || selectedAppts.find(a => a.id === editingApptId) || { name: '' })
-        : { name: '' };
-      const n = (appt.name || '').toLowerCase();
+      const n = _getSheetServiceLabel().toLowerCase();
 
       if (action === 'Help me write a description') {
-        if (n.includes('hair') || n.includes('blowout') || n.includes('color'))
-          ta.value = 'A professional hair service tailored to your specific hair type and style goals.';
-        else if (n.includes('facial') || n.includes('skin') || n.includes('nail'))
-          ta.value = 'A relaxing treatment designed to rejuvenate and refresh, leaving you glowing.';
-        else if (n.includes('massage') || n.includes('wellness'))
-          ta.value = 'A therapeutic session focused on restoring balance and easing tension throughout the body.';
-        else
-          ta.value = 'A professional service crafted around your individual needs and preferences.';
+        openC2Prompt('sheet');
+        return;
       } else if (action === 'Describe in 1 sentence') {
         if (n.includes('hair'))
           ta.value = 'Expert hair styling tailored to your unique look.';
@@ -5894,9 +6038,14 @@
         reader.onload = e => {
           const imageArea = document.querySelector('#edit-overlay .sheet-image-upload');
           if (imageArea) imageArea.innerHTML = `<img src="${e.target.result}" style="width:64px;height:64px;object-fit:cover;display:block;">`;
-          if (editingApptId) {
-            apptEdits[editingApptId] = apptEdits[editingApptId] || {};
-            apptEdits[editingApptId].image = e.target.result;
+          if (state.editingApptId) {
+            state.apptEdits[state.editingApptId] = state.apptEdits[state.editingApptId] || {};
+            state.apptEdits[state.editingApptId].image = e.target.result;
+            const si = state.selectedAppts.findIndex(a => a.id === state.editingApptId);
+            if (si !== -1) {
+              state.selectedAppts[si] = { ...state.selectedAppts[si], image: e.target.result };
+            }
+            renderCatalog();
           }
         };
         reader.readAsDataURL(file);
@@ -5915,23 +6064,23 @@
     }());
 
     // ─── S3: chip toggle + Next gate ─────────────────────────────────────────
-    let s3SelectedChips = [];
+    state.s3SelectedChips = [];
 
     function selectS3Chip(btn) {
       const val = btn.textContent.trim();
-      const idx = s3SelectedChips.indexOf(val);
+      const idx = state.s3SelectedChips.indexOf(val);
       if (idx === -1) {
-        s3SelectedChips.push(val);
+        state.s3SelectedChips.push(val);
         btn.classList.add('chip--selected');
-        currentIndustrySpecific = val;
+        state.currentIndustrySpecific = val;
       } else {
-        s3SelectedChips.splice(idx, 1);
+        state.s3SelectedChips.splice(idx, 1);
         btn.classList.remove('chip--selected');
-        currentIndustrySpecific = s3SelectedChips[s3SelectedChips.length - 1] || '';
+        state.currentIndustrySpecific = state.s3SelectedChips[state.s3SelectedChips.length - 1] || '';
       }
-      window._selectedIndustry = currentIndustrySpecific || null;
+      window._selectedIndustry = state.currentIndustrySpecific || null;
       const ta = document.getElementById('s3-textarea');
-      ta.value = s3SelectedChips.join(', ');
+      ta.value = state.s3SelectedChips.join(', ');
       updateS3Next();
     }
 
@@ -5976,6 +6125,7 @@
     }
 
     function closeCreate() {
+      closeC2Prompt();
       const overlay = document.getElementById('create-overlay');
       overlay.classList.remove('create-overlay-open');
       setTimeout(() => {
@@ -6126,8 +6276,8 @@
 
       // S5: try AI suggestions; falls back to static catalog on error/timeout
       if (id === 's5') {
-        catalogOverride = null;
-        _availStaggerDone = false;
+        state.catalogOverride = null;
+        state._availStaggerDone = false;
         generateAISuggestions();
       }
 
@@ -6156,21 +6306,21 @@
     // Stores the selected industry, updates S3 chips, resets catalog selection,
     // then flashes the card 160ms before navigating.
     function selectIndustry(card, nextScreen, industryKey) {
-      currentIndustry         = industryKey || 'beauty';
-      currentIndustrySpecific = '';
-      catalogOverride         = null;
-      selectedAppts           = [];
+      state.currentIndustry         = industryKey || 'beauty';
+      state.currentIndustrySpecific = '';
+      state.catalogOverride         = null;
+      state.selectedAppts           = [];
 
       // Set vertical selection — drives all downstream JSON lookups
-      window._selectedVertical = INDUSTRY_TEMPLATE_KEY[currentIndustry] || 'Beauty';
+      window._selectedVertical = INDUSTRY_TEMPLATE_KEY[state.currentIndustry] || 'Beauty';
       window._selectedIndustry = null;
       resolveActiveTemplate();
 
       // Build S3 chips from JSON for the selected vertical
-      buildS3Chips(currentIndustry);
+      buildS3Chips(state.currentIndustry);
 
       // Reset S3 chip selections + textarea when vertical changes
-      s3SelectedChips = [];
+      state.s3SelectedChips = [];
       const ta3 = document.getElementById('s3-textarea');
       if (ta3) ta3.value = '';
       const next3 = document.getElementById('s3-next');
@@ -6245,7 +6395,7 @@
       const priceSpan = document.querySelector('#panel-c4 .price-num');
       const price     = parseInt(priceSpan ? priceSpan.textContent : '0')  || 0;
 
-      selectedAppts.push({
+      state.selectedAppts.push({
         id:          'custom_' + Date.now(),
         name,
         duration:    duration + ' min',
@@ -6524,19 +6674,19 @@
     }
 
     // Shared availability block (single or shared mode)
-    let s9SharedBlock = { id: 'global', dayData: _s9MakeDefaultDayData() };
+    state.s9SharedBlock = { id: 'global', dayData: _s9MakeDefaultDayData() };
     // Per-appointment blocks (different-hours mode)
-    let s9PerApptBlocks = [];
+    state.s9PerApptBlocks = [];
     // Whether different-hours mode is active
-    let s9_isDifferentHours = false;
+    state.s9_isDifferentHours = false;
     // Context for which block is being edited: { isPerAppt: bool, idx: number }
     let s9_editCtx = null;
 
     function renderAvailability() {
       // Reset to shared mode whenever S9 is entered
-      s9_isDifferentHours = false;
-      _s9NormalizeBlockDayData(s9SharedBlock);
-      _s9UpdateMainBlock(s9SharedBlock);
+      state.s9_isDifferentHours = false;
+      _s9NormalizeBlockDayData(state.s9SharedBlock);
+      _s9UpdateMainBlock(state.s9SharedBlock);
 
       const diffWrap  = document.getElementById('s9-diff-link-wrap');
       const perWrap   = document.getElementById('s9-per-appt-wrap');
@@ -6544,7 +6694,7 @@
       const sharedWrap= document.getElementById('s9-shared-wrap');
 
       if (sharedWrap) sharedWrap.hidden = false;
-      if (diffWrap)   diffWrap.hidden   = (selectedAppts.length < 2);
+      if (diffWrap)   diffWrap.hidden   = (state.selectedAppts.length < 2);
       if (perWrap)    perWrap.hidden    = true;
       if (sameWrap)   sameWrap.hidden   = true;
 
@@ -6593,14 +6743,14 @@
     }
 
     function _s9UpdateHoursLabel() {
-      const { daysLabel, timeLabel } = _s9BlockSummary(s9SharedBlock);
-      selectedHoursLabel = daysLabel + ' · ' + timeLabel;
+      const { daysLabel, timeLabel } = _s9BlockSummary(state.s9SharedBlock);
+      state.selectedHoursLabel = daysLabel + ' · ' + timeLabel;
     }
 
     function s9SetDifferentHours() {
-      s9_isDifferentHours = true;
-      if (s9PerApptBlocks.length !== selectedAppts.length) {
-        s9PerApptBlocks = selectedAppts.map((_, i) => ({
+      state.s9_isDifferentHours = true;
+      if (state.s9PerApptBlocks.length !== state.selectedAppts.length) {
+        state.s9PerApptBlocks = state.selectedAppts.map((_, i) => ({
           id: 'appt_' + i,
           dayData: _s9MakeDefaultDayData()
         }));
@@ -6613,9 +6763,9 @@
     }
 
     function s9SetSameHours() {
-      s9_isDifferentHours = false;
+      state.s9_isDifferentHours = false;
       document.getElementById('s9-shared-wrap').hidden  = false;
-      document.getElementById('s9-diff-link-wrap').hidden = (selectedAppts.length < 2);
+      document.getElementById('s9-diff-link-wrap').hidden = (state.selectedAppts.length < 2);
       document.getElementById('s9-per-appt-wrap').hidden  = true;
       document.getElementById('s9-same-link-wrap').hidden = true;
     }
@@ -6625,8 +6775,8 @@
     function _s9RenderPerApptBlocks() {
       const wrap = document.getElementById('s9-per-appt-wrap');
       if (!wrap) return;
-      wrap.innerHTML = selectedAppts.map((appt, i) => {
-        const block = s9PerApptBlocks[i] || { id: 'appt_' + i, dayData: _s9MakeDefaultDayData() };
+      wrap.innerHTML = state.selectedAppts.map((appt, i) => {
+        const block = state.s9PerApptBlocks[i] || { id: 'appt_' + i, dayData: _s9MakeDefaultDayData() };
         _s9NormalizeBlockDayData(block);
         const { daysLabel, timeLabel } = _s9BlockSummary(block);
         return `<div class="s9-appt-group">
@@ -6648,7 +6798,7 @@
 
     function openS9Edit(isPerAppt, idx) {
       s9_editCtx = { isPerAppt, idx };
-      const block = isPerAppt ? s9PerApptBlocks[idx] : s9SharedBlock;
+      const block = isPerAppt ? state.s9PerApptBlocks[idx] : state.s9SharedBlock;
       if (!block) return;
       _s9NormalizeBlockDayData(block);
       document.getElementById('avail-sheet-body').innerHTML = _s9DrawerBodyHTML(block);
@@ -6739,7 +6889,7 @@
 
     function _s9GetEditingBlock() {
       if (!s9_editCtx) return null;
-      return s9_editCtx.isPerAppt ? (s9PerApptBlocks[s9_editCtx.idx] || null) : s9SharedBlock;
+      return s9_editCtx.isPerAppt ? (state.s9PerApptBlocks[s9_editCtx.idx] || null) : state.s9SharedBlock;
     }
 
     function s9ToggleDay(dayIdx) {
@@ -6939,10 +7089,10 @@
     }
 
     function populateS10() {
-      // Date header — split selectedHoursLabel on · into days / hours parts
+      // Date header — split state.selectedHoursLabel on · into days / hours parts
       const dateEl = document.getElementById('widget-date-header');
       if (dateEl) {
-        const parts = selectedHoursLabel.split('·');
+        const parts = state.selectedHoursLabel.split('·');
         const days  = (parts[0] || 'Monday to Friday').trim();
         const hours = (parts[1] || '9:00 AM to 5:00 PM').trim();
         dateEl.innerHTML = days + '&nbsp;<span class="widget-date-muted">' + hours + '</span>';
@@ -6951,7 +7101,7 @@
       const content    = document.getElementById('widget-content');
       const subheading = document.getElementById('s10-subheading');
 
-      if (selectedAppts.length > 1) {
+      if (state.selectedAppts.length > 1) {
         // ── Multi-appointment layout ──────────────────────────────────────
         if (subheading) subheading.textContent = 'Share your page and let clients book with you.';
 
@@ -6962,7 +7112,8 @@
           content.style.gap           = '';
           content.style.padding       = '0';
           content.innerHTML = `<div class="widget-multi-cards">
-            ${selectedAppts.map(appt => {
+            ${state.selectedAppts.map(raw => {
+              const appt = applyEdits(raw);
               const imgHtml = appt.image
                 ? `<img class="widget-multi-card-img" src="${appt.image}" alt="">`
                 : '';
@@ -6986,7 +7137,7 @@
         // ── Single appointment layout ─────────────────────────────────────
         if (subheading) subheading.textContent = 'Share this appointment and let clients book with you.';
 
-        const first = selectedAppts[0] || {};
+        const first = applyEdits(state.selectedAppts[0] || {});
 
         if (first.image) {
           // Variant: WITH image → horizontal thumbnail + text + book btn
@@ -7103,6 +7254,9 @@
     // In-flight animation timer (backspace or type-in).
     let _ghostTimer    = null;
 
+    // In-flight sheet description typewriter (Help me write).
+    let _sheetGhostTimer = null;
+
     /** Return current ghost text from the active template. */
     function _defaultGhostText() {
       const tpl = window._activeTemplate;
@@ -7174,23 +7328,180 @@
         clearInterval(_ghostTimer);
         _ghostTimer = null;
       }
+      if (_sheetGhostTimer !== null) {
+        clearInterval(_sheetGhostTimer);
+        _sheetGhostTimer = null;
+      }
     }
 
     /**
      * AI chip tapped: show a contextual suggestion in the ghost overlay,
      * typed char-by-char. Ghost stays visible until user accepts or discards.
      */
-    /* ── "Help me write" prompt overlay ──────────────────────────── */
-    function openC2Prompt() {
+    /* ── "Help me write" prompt overlay + rotating placeholder stack ─────────── */
+
+    let _c2PromptTarget = 'create';
+
+    /** Default strings for the c2 prompt sheet; override via initHelpMeWritePlaceholderCycle({ strings, ... }). */
+    const C2_PROMPT_HMW_STRINGS = [
+      'Write a short description for a haircut appointment',
+      'Mention what makes this service special for your clients',
+      'Include tone, outcome, and who it is best for',
+    ];
+
+    let _hmwCfg = null;
+    let _hmwTimer = null;
+    let _hmwIdx = 0;
+    let _hmwN = 0;
+    let _hmwLh = 21;
+
+    function initHelpMeWritePlaceholderCycle(cfg) {
+      _hmwCfg = cfg;
+      const track = document.getElementById((cfg && cfg.trackId) || 'c2-prompt-hmw-track');
+      if (track) { delete track.dataset.built; track.innerHTML = ''; }
+    }
+    window.initHelpMeWritePlaceholderCycle = initHelpMeWritePlaceholderCycle;
+
+    function _hmwResolve() {
+      return _hmwCfg || {
+        textareaId: 'c2-prompt-input',
+        viewportId: 'c2-prompt-hmw-viewport',
+        trackId: 'c2-prompt-hmw-track',
+        strings: C2_PROMPT_HMW_STRINGS,
+      };
+    }
+
+    function stopHmwPlaceholder() {
+      if (_hmwTimer) {
+        clearInterval(_hmwTimer);
+        _hmwTimer = null;
+      }
+      const c = _hmwResolve();
+      const track = document.getElementById(c.trackId);
+      if (track) track.removeEventListener('transitionend', _onHmwTransitionEnd);
+    }
+
+    function syncHmwVisibility() {
+      const c = _hmwResolve();
+      const ta = document.getElementById(c.textareaId);
+      const viewport = document.getElementById(c.viewportId);
+      if (!ta || !viewport) return;
+      if (ta.value.trim()) {
+        viewport.setAttribute('hidden', '');
+        stopHmwPlaceholder();
+      } else {
+        viewport.removeAttribute('hidden');
+      }
+    }
+
+    function _ensureHmwTrackBuilt() {
+      const c = _hmwResolve();
+      const track = document.getElementById(c.trackId);
+      const lines = c.strings && c.strings.length ? c.strings : C2_PROMPT_HMW_STRINGS;
+      if (!track || track.dataset.built === '1') return;
+      track.innerHTML = '';
+      lines.concat(lines[0]).forEach(s => {
+        const d = document.createElement('div');
+        d.className = 'hmw-ph-line';
+        d.textContent = s;
+        track.appendChild(d);
+      });
+      track.dataset.built = '1';
+      _hmwN = lines.length;
+    }
+
+    function _onHmwTransitionEnd(e) {
+      const c = _hmwResolve();
+      const track = document.getElementById(c.trackId);
+      if (!track || e.target !== track || e.propertyName !== 'transform') return;
+      if (_hmwIdx === _hmwN) {
+        track.classList.add('hmw-ph-track--instant');
+        track.style.transform = 'translateY(0)';
+        _hmwIdx = 0;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => track.classList.remove('hmw-ph-track--instant'));
+        });
+      }
+    }
+
+    function _applyHmwTransform() {
+      const c = _hmwResolve();
+      const track = document.getElementById(c.trackId);
+      if (!track) return;
+      track.style.transform = 'translateY(' + (-_hmwIdx * _hmwLh) + 'px)';
+    }
+
+    function _hmwStep() {
+      const c = _hmwResolve();
+      const ta = document.getElementById(c.textareaId);
+      if (!ta || ta.value.trim()) return;
+      _ensureHmwTrackBuilt();
+      if (!_hmwN) return;
+      const track = document.getElementById(c.trackId);
+      if (!track) return;
+      const first = track.querySelector('.hmw-ph-line');
+      _hmwLh = first ? first.offsetHeight : 21;
+      _hmwIdx++;
+      if (_hmwIdx > _hmwN) _hmwIdx = 0;
+      _applyHmwTransform();
+    }
+
+    function resetHmwTrackPosition() {
+      _hmwIdx = 0;
+      const c = _hmwResolve();
+      const track = document.getElementById(c.trackId);
+      if (!track) return;
+      track.classList.add('hmw-ph-track--instant');
+      track.style.transform = 'translateY(0)';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => track.classList.remove('hmw-ph-track--instant'));
+      });
+    }
+
+    function startHmwPlaceholder() {
+      stopHmwPlaceholder();
+      const c = _hmwResolve();
+      const ta = document.getElementById(c.textareaId);
+      const viewport = document.getElementById(c.viewportId);
+      const track = document.getElementById(c.trackId);
+      if (!ta || !viewport || !track || ta.value.trim()) return;
+      viewport.removeAttribute('hidden');
+      _ensureHmwTrackBuilt();
+      track.addEventListener('transitionend', _onHmwTransitionEnd);
+      resetHmwTrackPosition();
+      _hmwTimer = setInterval(_hmwStep, 4500);
+    }
+
+    function _fallbackHelpMeWriteFromPrompt(serviceName) {
+      const sn = (serviceName || 'this service').trim();
+      const n = sn.toLowerCase();
+      if (n.includes('hair') || n.includes('blowout') || n.includes('color'))
+        return 'A professional hair service tailored to your specific hair type and style goals.';
+      if (n.includes('facial') || n.includes('skin') || n.includes('nail'))
+        return 'A relaxing treatment designed to rejuvenate and refresh, leaving you glowing.';
+      if (n.includes('massage') || n.includes('wellness'))
+        return 'A therapeutic session focused on restoring balance and easing tension throughout the body.';
+      return 'A professional service crafted around your individual needs and preferences.';
+    }
+
+    function openC2Prompt(target) {
+      _c2PromptTarget = target === 'sheet' ? 'sheet' : 'create';
       const overlay = document.getElementById('c2-prompt-overlay');
       const input   = document.getElementById('c2-prompt-input');
       if (!overlay) return;
+      stopHmwPlaceholder();
       overlay.setAttribute('aria-hidden', 'false');
       overlay.classList.add('c2-prompt-open');
-      if (input) { input.value = ''; setTimeout(() => input.focus(), 320); }
+      if (input) {
+        input.value = '';
+        syncHmwVisibility();
+        startHmwPlaceholder();
+        setTimeout(() => input.focus(), 320);
+      }
     }
 
     function closeC2Prompt() {
+      stopHmwPlaceholder();
       const overlay = document.getElementById('c2-prompt-overlay');
       const btn     = document.getElementById('c2-prompt-create-btn');
       if (!overlay) return;
@@ -7207,8 +7518,11 @@
 
       if (btn) { btn.disabled = true; btn.classList.add('loading'); }
 
-      const serviceName = (document.getElementById('create-desc-title') || {}).textContent || 'this service';
-      const prompt = `Write a short, compelling description for a service called "${serviceName}". The user says: "${val}". Return only the description text, no quotes, no explanation, max 2 sentences.`;
+      const serviceName = _c2PromptTarget === 'sheet'
+        ? (_getSheetServiceLabel() || 'this service')
+        : ((document.getElementById('create-desc-title') || {}).textContent || 'this service').trim();
+
+      const prompt = `Write a short, compelling description for a service called "${serviceName}". The user says: "${val}". Return only the description text, no quotes, no explanation, max 2 sentences. Do not repeat or quote the user's instructions verbatim.`;
 
       let result = '';
       try {
@@ -7234,8 +7548,11 @@
       if (btn) { btn.disabled = false; btn.classList.remove('loading'); }
       closeC2Prompt();
 
-      if (result) {
-        _applyPromptResult(result);
+      const out = result || _fallbackHelpMeWriteFromPrompt(serviceName);
+      if (_c2PromptTarget === 'sheet') {
+        _applySheetPromptResult(out);
+      } else {
+        _applyPromptResult(out);
       }
     }
 
@@ -7268,7 +7585,7 @@
     }
 
     function applyAiChip(promptLabel) {
-      if (promptLabel === 'Help me write...') { openC2Prompt(); return; }
+      if (promptLabel === 'Help me write...') { openC2Prompt('create'); return; }
       cancelAnimType();
 
       const ghostTxt = document.getElementById('desc-ghost-text');
@@ -7341,7 +7658,7 @@
         },
       };
 
-      const industryMap = suggestions[currentIndustry] || suggestions.other;
+      const industryMap = suggestions[state.currentIndustry] || suggestions.other;
       const newText     = industryMap[promptLabel] || _defaultGhostText();
 
       // ── Instant clear, then type in new text ─────────────────────────────────
@@ -7487,7 +7804,7 @@
     };
 
     function openPricingTips() {
-      const rows = PRICING_ROWS[currentIndustry] || PRICING_ROWS.other;
+      const rows = PRICING_ROWS[state.currentIndustry] || PRICING_ROWS.other;
       document.getElementById('pricing-tips-rows').innerHTML = rows.map(([svc, range]) =>
         `<div class="pricing-tip-row">
           <span class="pricing-tip-service">${svc}</span>
@@ -7543,7 +7860,7 @@
       const btnTxt  = _colorIsDark(accent) ? '#ffffff' : '#0e0e0e';
       const borderC = _colorIsDark(bg)     ? 'rgba(255,255,255,0.12)' : 'rgba(14,14,14,0.10)';
 
-      const appts = selectedAppts.length > 0 ? selectedAppts : [
+      const appts = state.selectedAppts.length > 0 ? state.selectedAppts : [
         { name: 'Initial Consultation', duration: '30 min', price: 'Free' },
         { name: 'Standard Session',     duration: '1 hour',  price: '$50' },
       ];
@@ -7600,16 +7917,19 @@
       const params = new URLSearchParams();
       // Images are base64 data URIs — too large for a URL. Store them in
       // localStorage keyed by index and omit them from the query string.
-      const images = selectedAppts.map(a => a.image || '');
+      const images = state.selectedAppts.map(a => applyEdits(a).image || '');
       try { localStorage.setItem('acuityServiceImages', JSON.stringify(images)); } catch(_) {}
-      params.set('services', JSON.stringify(selectedAppts.map(a => ({
-        name:        a.name,
-        duration:    a.duration,
-        price:       a.price,
-        description: a.description || '',
-      }))));
+      params.set('services', JSON.stringify(state.selectedAppts.map(a => {
+        const m = applyEdits(a);
+        return {
+          name:        m.name,
+          duration:    m.duration,
+          price:       m.price,
+          description: m.description || '',
+        };
+      })));
       params.set('businessName', (document.getElementById('business-name-input')?.value || '').trim() || '');
-      params.set('hours',   selectedHoursLabel || '');
+      params.set('hours',   state.selectedHoursLabel || '');
       params.set('palette', JSON.stringify(_currentPalette));
       params.set('font',    _currentFont);
       params.set('dark',    _s10DarkMode ? '1' : '0');
@@ -7649,7 +7969,7 @@
       const end  = Math.min(_s3ChipOffset + count, list.length);
       for (let i = _s3ChipOffset; i < end; i++) {
         const btn = document.createElement('button');
-        btn.className   = 'chip';
+        btn.className   = 'chip--plain';
         btn.textContent = list[i];
         btn.onclick     = function() { selectS3Chip(this); };
         row.appendChild(btn);
@@ -7676,7 +7996,7 @@
         clearTimeout(_timer);
         _timer = setTimeout(() => {
           const q = ta.value.trim();
-          buildS3Chips(currentIndustry, q || undefined);
+          buildS3Chips(state.currentIndustry, q || undefined);
         }, 200);
       });
     }());
@@ -7688,7 +8008,7 @@
 
       btn.addEventListener('click', async function(e) {
         // Chip already selected — apply data and let onclick handle navigation
-        if (currentIndustrySpecific) {
+        if (state.currentIndustrySpecific) {
           applyIndustryData();
           return;
         }
@@ -7699,12 +8019,12 @@
         const val = ta ? ta.value.trim() : '';
         if (!val) return;
 
-        const topKey        = INDUSTRY_TEMPLATE_KEY[currentIndustry] || 'Beauty';
+        const topKey        = INDUSTRY_TEMPLATE_KEY[state.currentIndustry] || 'Beauty';
         const vertical      = window.ACUITY_TEMPLATES && window.ACUITY_TEMPLATES[topKey];
         const industryKeys  = (vertical && vertical.s3_chips) || [];
         const verticalKeys  = Object.values(INDUSTRY_TEMPLATE_KEY);
 
-        // Reverse map: vertical display name → currentIndustry key
+        // Reverse map: vertical display name → state.currentIndustry key
         const reverseMap = {};
         for (const [k, v] of Object.entries(INDUSTRY_TEMPLATE_KEY)) reverseMap[v] = k;
 
@@ -7734,15 +8054,15 @@
 
             if (industryKeys.includes(match)) {
               // Matched an industry within the current vertical
-              currentIndustrySpecific    = match;
+              state.currentIndustrySpecific    = match;
               window._selectedIndustry   = match;
             } else if (verticalKeys.includes(match)) {
               // Matched a different vertical — update vertical context
-              const newIndustryKey       = reverseMap[match] || currentIndustry;
-              currentIndustry            = newIndustryKey;
+              const newIndustryKey       = reverseMap[match] || state.currentIndustry;
+              state.currentIndustry            = newIndustryKey;
               window._selectedVertical   = match;
               window._selectedIndustry   = null;
-              currentIndustrySpecific    = '';
+              state.currentIndustrySpecific    = '';
             }
             // null / unrecognized → fall through, keep existing vertical, no industry
           }
@@ -7772,7 +8092,7 @@
       if (availEl) availEl.innerHTML = Array(3).fill('<div class="appt-card appt-card--skeleton"></div>').join('');
 
       // Always resolve from template — _generic guarantees there is always a value
-      catalogOverride = getTemplateFallback();
+      state.catalogOverride = getTemplateFallback();
 
       // Small delay so the skeleton flash is visible before cards render
       setTimeout(renderCatalog, 600);
@@ -7807,7 +8127,7 @@
             max_tokens: 256,
             messages: [{
               role: 'user',
-              content: `Small business owner, industry: "${currentIndustrySpecific || currentIndustry}", US market. Appointment: "${name}", ${dur} minutes. Return ONLY this JSON: {"min": number, "max": number, "suggested": number}. No other text.`,
+              content: `Small business owner, industry: "${state.currentIndustrySpecific || state.currentIndustry}", US market. Appointment: "${name}", ${dur} minutes. Return ONLY this JSON: {"min": number, "max": number, "suggested": number}. No other text.`,
             }],
           }),
         });
@@ -7914,6 +8234,67 @@
       buildS3Chips('beauty');
       rebuildCreateChips();
       applyIndustryData();
+    });
+
+    // ─── Keyboard-aware viewport compression ─────────────────────────────────
+    // Tracks the visual viewport height (shrinks when keyboard opens) and
+    // compresses the active screen to fit, rather than letting the browser
+    // scroll/pan to the focused input.
+    (function() {
+      if (!window.visualViewport) return;
+
+      var appEl      = document.querySelector('.app');
+      var lastVh     = 0;       // change-detection guard for setProperty
+      var screenBody = null;    // cached for the duration of each keyboard session
+      var resetTimer = null;
+
+      var resetScroll = function() {
+        if (screenBody) screenBody.scrollTop = 0;
+        window.scrollTo(0, 0);
+      };
+
+      // Fires throughout the keyboard open animation — also catches orientation
+      // changes, but the keyboard-active guard keeps resetScroll from running then.
+      var setVh = function() {
+        var h = window.visualViewport.height;
+        if (h !== lastVh) {
+          lastVh = h;
+          document.documentElement.style.setProperty('--visible-height', h + 'px');
+        }
+        if (appEl.classList.contains('keyboard-active')) resetScroll();
+      };
+      window.visualViewport.addEventListener('resize', setVh);
+      setVh();
+
+      var KBD_INPUTS = ['business-name-input', 's3-textarea', 'create-name-input', 'create-desc-input', 'c2-prompt-input'];
+      KBD_INPUTS.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('focus', function() {
+          screenBody = document.querySelector('.screen.active .screen-body');
+          appEl.classList.add('keyboard-active');
+          resetScroll();
+          // iOS finishes its async scroll-to-input after the focus event; reset again
+          clearTimeout(resetTimer);
+          resetTimer = setTimeout(resetScroll, 80);
+        });
+        el.addEventListener('blur', function() {
+          clearTimeout(resetTimer);
+          appEl.classList.remove('keyboard-active');
+          screenBody = null;
+        });
+      });
+      var c2pi = document.getElementById('c2-prompt-input');
+      if (c2pi) c2pi.addEventListener('input', syncHmwVisibility);
+    })();
+
+    // ─── SC#4: Migrate inline onclick → addEventListener ─────────────────────
+    document.querySelectorAll('[onclick]').forEach(function(el) {
+      const handler = el.getAttribute('onclick');
+      el.removeAttribute('onclick');
+      el.addEventListener('click', function(e) {
+        (new Function('event', handler)).call(this, e);
+      });
     });
 
   </script>

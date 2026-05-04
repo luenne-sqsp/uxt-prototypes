@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      font-size: 12px;
+      background: #fff;
+      color: #1e1e1e;
+    }
+    .panel { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .row { display: flex; gap: 6px; align-items: center; }
+    label { color: #666; flex-shrink: 0; }
+    input[type=text], input[type=number] {
+      padding: 6px 8px;
+      border: 1px solid #c8c8c8;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+    input[type=text] { flex: 1; }
+    input[type=number] { width: 64px; text-align: center; }
+    input[type=text]:focus, input[type=number]:focus { border-color: #0d99ff; }
+    button {
+      padding: 6px 12px;
+      background: #0d99ff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    button:hover { background: #0a85e0; }
+    button:disabled { background: #c8c8c8; cursor: default; }
+    button.ghost {
+      background: transparent;
+      color: #555;
+      border: 1px solid #c8c8c8;
+    }
+    button.ghost:hover { background: #f5f5f5; }
+    button.ghost.active {
+      background: #e8f4ff;
+      border-color: #0d99ff;
+      color: #0d99ff;
+    }
+    .status {
+      font-size: 11px;
+      color: #666;
+      min-height: 15px;
+      line-height: 1.4;
+    }
+    .status.error   { color: #d63f3f; }
+    .status.success { color: #2d8a4e; }
+    .divider { border: none; border-top: 1px solid #e8e8e8; margin: 2px 0; }
+    .hint {
+      font-size: 11px;
+      color: #999;
+      line-height: 1.5;
+    }
+    .hint code {
+      background: #f0f0f0;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: 'Menlo', 'Monaco', monospace;
+    }
+    /* Scaled preview wrapper */
+    #frame-wrap {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      /* height set dynamically */
+    }
+    #frame {
+      border: none;
+      display: block;
+      transform-origin: top left;
+      /* width, height, transform set dynamically */
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+
+    <!-- URL row -->
+    <div class="row">
+      <input id="url" type="text" placeholder="http://localhost:8080/index.html"
+             value="http://localhost:8080/index.html" spellcheck="false">
+      <button id="load-btn">Load</button>
+    </div>
+
+    <!-- Viewport row -->
+    <div class="row">
+      <label>W</label>
+      <input id="vp-w" type="number" value="390" min="100" max="3840">
+      <label>H</label>
+      <input id="vp-h" type="number" value="844" min="100" max="6000">
+      <label style="margin-left:4px">Presets</label>
+      <button class="ghost active" data-w="390"  data-h="844">Mobile</button>
+      <button class="ghost"        data-w="768"  data-h="1024">Tablet</button>
+      <button class="ghost"        data-w="1440" data-h="900">Desktop</button>
+    </div>
+
+    <p class="hint">
+      Serve first: <code>python3 figma-plugin/serve.py 8080 c3_a</code>
+    </p>
+    <div class="status" id="status">Enter the prototype URL above and click Load.</div>
+    <hr class="divider">
+
+    <!-- Action row -->
+    <div class="row">
+      <button id="capture-btn" disabled>Capture to Figma</button>
+      <button id="reload-btn" class="ghost" style="display:none">Reload</button>
+    </div>
+
+    <!-- Scaled preview -->
+    <div id="frame-wrap">
+      <iframe id="frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    </div>
+
+  </div>
+
+  <script>
+    const urlEl      = document.getElementById('url');
+    const loadBtn    = document.getElementById('load-btn');
+    const captureBtn = document.getElementById('capture-btn');
+    const reloadBtn  = document.getElementById('reload-btn');
+    const statusEl   = document.getElementById('status');
+    const frameWrap  = document.getElementById('frame-wrap');
+    const frameEl    = document.getElementById('frame');
+    const vpW        = document.getElementById('vp-w');
+    const vpH        = document.getElementById('vp-h');
+
+    // ── Preset buttons ────────────────────────────────────────────────────────
+
+    document.querySelectorAll('[data-w]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        vpW.value = btn.dataset.w;
+        vpH.value = btn.dataset.h;
+        document.querySelectorAll('[data-w]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Clear preset highlight when custom values are typed
+    [vpW, vpH].forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        document.querySelectorAll('[data-w]').forEach(b => b.classList.remove('active'));
+      });
+    });
+
+    // ── Status helper ─────────────────────────────────────────────────────────
+
+    function setStatus(msg, type) {
+      statusEl.textContent = msg;
+      statusEl.className = 'status' + (type ? ' ' + type : '');
+    }
+
+    // ── Resize preview iframe and its wrapper ─────────────────────────────────
+
+    const PANEL_W = 396; // panel content width (420px panel - 24px padding)
+    const PREVIEW_H = 300; // max preview height in panel
+
+    function applyViewport(w, h) {
+      const scale = Math.min(1, PANEL_W / w);
+      frameEl.style.width  = w + 'px';
+      frameEl.style.height = h + 'px';
+      frameEl.style.transform = `scale(${scale})`;
+      frameWrap.style.height = Math.round(h * scale) + 'px';
+    }
+
+    // ── HTML preparation ──────────────────────────────────────────────────────
+
+    function prepareHtml(html, baseHref) {
+      const baseTag = `<base href="${baseHref}">`;
+      const withBase = html.match(/<head[^>]*>/i)
+        ? html.replace(/(<head[^>]*>)/i, '$1' + baseTag)
+        : baseTag + html;
+
+      const extractScript = `
+<script>
+(function () {
+  function serialize(el) {
+    try {
+      var cs  = window.getComputedStyle(el);
+      var tag = el.tagName;
+      if (cs.display === 'none' || cs.visibility === 'hidden') return null;
+      var r = el.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return null;
+      if (el.ownerSVGElement) return null;
+
+      var node = {
+        tag:          tag,
+        x:            r.left + window.scrollX,
+        y:            r.top  + window.scrollY,
+        w:            r.width,
+        h:            r.height,
+        bg:           cs.backgroundColor,
+        color:        cs.color,
+        fontSize:     parseFloat(cs.fontSize) || 14,
+        fontFamily:   cs.fontFamily,
+        fontWeight:   cs.fontWeight,
+        opacity:      parseFloat(cs.opacity),
+        borderRadius: parseFloat(cs.borderTopLeftRadius) || 0,
+        overflow:     cs.overflow,
+        boxShadow:    cs.boxShadow,
+        borderWidth:  parseFloat(cs.borderTopWidth) || 0,
+        borderColor:  cs.borderTopColor,
+        text:         null,
+        children:     [],
+      };
+
+      if (el.children.length === 0) {
+        var txt = (el.textContent || '').trim();
+        if (txt) node.text = txt;
+      }
+
+      if (tag === 'SVG' || tag === 'svg') return node;
+
+      for (var i = 0; i < el.children.length; i++) {
+        var child = serialize(el.children[i]);
+        if (child) node.children.push(child);
+      }
+      return node;
+    } catch (e) { return null; }
+  }
+
+  window.addEventListener('message', function (e) {
+    if (!e.data) return;
+
+    if (e.data.type === 'figma-get-height') {
+      var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      window.parent.postMessage({ type: 'figma-page-height', h: h }, '*');
+      return;
+    }
+
+    if (e.data.type === 'figma-extract') {
+      var tree = serialize(document.body);
+      window.parent.postMessage(
+        { type: 'figma-capture', tree: tree, title: document.title || 'Prototype' },
+        '*'
+      );
+    }
+  });
+})();
+<\/script>`;
+
+      return withBase.replace(/<\/body>/i, extractScript + '</body>');
+    }
+
+    // ── Load page ─────────────────────────────────────────────────────────────
+
+    async function loadPage() {
+      const url = urlEl.value.trim();
+      if (!url) return;
+
+      const w = parseInt(vpW.value) || 390;
+      const h = parseInt(vpH.value) || 844;
+
+      setStatus('Fetching…');
+      loadBtn.disabled    = true;
+      captureBtn.disabled = true;
+      frameWrap.style.display = 'none';
+      reloadBtn.style.display = 'none';
+
+      let html;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        html = await res.text();
+      } catch (e) {
+        setStatus('Could not fetch. Is the server running? Use: python3 figma-plugin/serve.py 8080 c3_a', 'error');
+        loadBtn.disabled = false;
+        return;
+      }
+
+      const baseHref = url.replace(/\?.*$/, '').replace(/[^/]+$/, '');
+      const prepared = prepareHtml(html, baseHref);
+
+      applyViewport(w, h);
+      frameEl.srcdoc = prepared;
+      frameWrap.style.display = 'block';
+      reloadBtn.style.display = '';
+
+      setStatus('Page loaded. Navigate to the desired screen, then click Capture.');
+      loadBtn.disabled    = false;
+      captureBtn.disabled = false;
+    }
+
+    loadBtn.addEventListener('click', loadPage);
+    reloadBtn.addEventListener('click', loadPage);
+    urlEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') loadPage(); });
+
+    // ── Capture ───────────────────────────────────────────────────────────────
+
+    captureBtn.addEventListener('click', function () {
+      setStatus('Measuring page height…');
+      captureBtn.disabled = true;
+      // Step 1: ask iframe for its full scroll height
+      frameEl.contentWindow.postMessage({ type: 'figma-get-height' }, '*');
+    });
+
+    // ── Message relay ─────────────────────────────────────────────────────────
+
+    window.addEventListener('message', function (e) {
+      if (!e.data) return;
+
+      if (e.data.type === 'figma-page-height') {
+        // Step 2: expand iframe to full page height so off-screen elements are in viewport
+        const w = parseInt(vpW.value) || 390;
+        const fullH = Math.max(e.data.h, parseInt(vpH.value) || 844);
+        frameEl.style.height = fullH + 'px';
+        setStatus('Extracting DOM…');
+        // Step 3: trigger extraction after a brief reflow
+        setTimeout(function () {
+          frameEl.contentWindow.postMessage({ type: 'figma-extract' }, '*');
+        }, 80);
+      }
+
+      if (e.data.type === 'figma-capture') {
+        // Restore preview height
+        applyViewport(parseInt(vpW.value) || 390, parseInt(vpH.value) || 844);
+        setStatus('Sending to Figma…');
+        parent.postMessage({ pluginMessage: { type: 'capture', tree: e.data.tree, title: e.data.title } }, '*');
+      }
+
+      if (e.data.type === 'done') {
+        setStatus('Done! New frame created on the canvas.', 'success');
+        captureBtn.disabled = false;
+      }
+
+      if (e.data.type === 'error') {
+        setStatus('Error: ' + e.data.message, 'error');
+        captureBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

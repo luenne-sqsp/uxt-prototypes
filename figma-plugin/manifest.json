@@ -1,0 +1,9 @@
+{
+  "name": "Prototype Capture",
+  "id": "com.squarespace.uxt.prototype-capture",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "permissions": []
+}
