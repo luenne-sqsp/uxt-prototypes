@@ -1,0 +1,10 @@
+{
+  "name": "acuity-prototypes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static prototypes + a couple of Vercel serverless functions under api/ for lightweight research-data collection.",
+  "type": "commonjs",
+  "dependencies": {
+    "@vercel/blob": "^2.8.0"
+  }
+}
