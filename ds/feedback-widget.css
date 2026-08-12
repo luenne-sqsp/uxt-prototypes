@@ -1,0 +1,154 @@
+/*
+ * Feedback widget — click-to-comment overlay for reviewing deployed
+ * prototypes. Include feedback-widget.js (which injects this file's
+ * markup) after this stylesheet. Uses --acuity-* tokens only; safe under
+ * both themes and every --brand-palette.
+ */
+
+.feedback-widget-root,
+.feedback-widget-root * {
+  box-sizing: border-box;
+}
+
+/* Comment-mode cursor over the prototype content, but not over the widget's
+   own chrome (toggle, pins, popover, panel all opt back out). */
+body.feedback-mode-active {
+  cursor: crosshair;
+}
+body.feedback-mode-active .feedback-widget-root {
+  cursor: auto;
+}
+
+.feedback-toggle {
+  position: fixed;
+  left: 24px;
+  bottom: 88px;
+  z-index: var(--acuity-z-popover);
+}
+
+.feedback-toggle__count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--acuity-border-radius-round);
+  background: var(--acuity-fg-danger);
+  color: var(--acuity-fg-on-strong);
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.feedback-pin {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -100%);
+  border-radius: var(--acuity-border-radius-round) var(--acuity-border-radius-round) var(--acuity-border-radius-round) 0;
+  background: var(--acuity-bg-brand-strong);
+  color: var(--acuity-bg-brand-on-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: var(--acuity-font-weight-semibold);
+  box-shadow: var(--acuity-shadow-light-200);
+  cursor: pointer;
+  z-index: var(--acuity-z-popover);
+  border: var(--acuity-border-width-default) solid var(--acuity-bg-base);
+}
+.feedback-pin--resolved {
+  background: var(--acuity-color-neutral-gray-40);
+  opacity: 0.7;
+}
+.feedback-pin--draft {
+  background: var(--acuity-fg-danger);
+  box-shadow: var(--acuity-shadow-light-300);
+}
+
+.feedback-popover {
+  position: absolute;
+  z-index: var(--acuity-z-popover);
+  width: 280px;
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-md);
+  box-shadow: var(--acuity-shadow-light-300);
+  padding: var(--acuity-spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--acuity-spacing-8);
+}
+.feedback-popover__meta {
+  color: var(--acuity-fg-muted);
+}
+.feedback-popover__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--acuity-spacing-8);
+  margin-top: var(--acuity-spacing-4);
+}
+
+.feedback-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 90vw;
+  background: var(--acuity-bg-base);
+  border-left: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  box-shadow: var(--acuity-shadow-light-300);
+  z-index: var(--acuity-z-sheet);
+  display: flex;
+  flex-direction: column;
+}
+.feedback-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--acuity-spacing-16);
+  border-bottom: var(--acuity-border-width-default) solid var(--acuity-border-default);
+}
+.feedback-panel__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--acuity-spacing-8) var(--acuity-spacing-16);
+}
+.feedback-panel__item {
+  padding: var(--acuity-spacing-12) 0;
+  border-bottom: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--acuity-spacing-4);
+}
+.feedback-panel__item--resolved {
+  opacity: 0.55;
+}
+.feedback-panel__item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--acuity-spacing-8);
+}
+.feedback-panel__empty {
+  color: var(--acuity-fg-muted);
+  padding: var(--acuity-spacing-16) 0;
+}
+.feedback-panel__footer {
+  padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+  border-top: var(--acuity-border-width-default) solid var(--acuity-border-default);
+}
+
+button.acuity-icon-button.acuity-icon-button--md.acuity-icon-button--primary:hover:not(:disabled) {
+  background: #f171da !important;
+  color: white !important;
+}
+
+button.acuity-icon-button.acuity-icon-button--md.acuity-icon-button--secondary{
+  border-color: #f171da;
+  color: #f171da;
+}
