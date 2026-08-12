@@ -33,6 +33,14 @@ async function writeComments(prototypeId, comments) {
   });
 }
 
+// Reading and resolving comments is admin-only — anyone with the prototype
+// link can still submit feedback (POST), but only whoever holds this token
+// can see what's been submitted. Keeps it a one-way "suggestion box" rather
+// than a shared thread visible to every reviewer.
+function isAdmin(req) {
+  return !!process.env.FEEDBACK_ADMIN_TOKEN && req.query.token === process.env.FEEDBACK_ADMIN_TOKEN;
+}
+
 module.exports = async function handler(req, res) {
   const prototypeId = typeof req.query.prototypeId === 'string' ? req.query.prototypeId : '';
   if (!prototypeId || !ID_PATTERN.test(prototypeId)) {
@@ -42,6 +50,10 @@ module.exports = async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
+      if (!isAdmin(req)) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
       const comments = await readComments(prototypeId);
       res.status(200).json({ comments });
       return;
@@ -84,6 +96,10 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === 'PATCH') {
+      if (!isAdmin(req)) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
       const body = req.body || {};
       const id = typeof body.id === 'string' ? body.id : '';
       const status = body.status === 'resolved' ? 'resolved' : body.status === 'open' ? 'open' : null;

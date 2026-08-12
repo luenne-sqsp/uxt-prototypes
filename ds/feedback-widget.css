@@ -143,6 +143,20 @@ body.feedback-mode-active .feedback-widget-root {
   border-top: var(--acuity-border-width-default) solid var(--acuity-border-default);
 }
 
+.feedback-toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--acuity-spacing-32);
+  transform: translateX(-50%);
+  background: var(--acuity-bg-brand-strong);
+  color: var(--acuity-bg-brand-on-strong);
+  padding: var(--acuity-spacing-12) var(--acuity-spacing-20);
+  border-radius: var(--acuity-border-radius-md);
+  box-shadow: var(--acuity-shadow-light-300);
+  z-index: var(--acuity-z-toast);
+  font-size: 14px;
+}
+
 button.acuity-icon-button.acuity-icon-button--md.acuity-icon-button--primary:hover:not(:disabled) {
   background: #f171da !important;
   color: white !important;

@@ -15,6 +15,14 @@
  * "roughly here" peer feedback without needing brittle CSS-selector
  * anchoring. See CLAUDE.md's iframe-wrapper plan for a more robust
  * successor once this is validated.
+ *
+ * Visibility: this is a one-way suggestion box, not a shared thread.
+ * Anyone with the link can drop a pin (POST is open), but reading existing
+ * comments (GET) and resolving them (PATCH) requires an admin token that
+ * api/feedback-comments.js checks against FEEDBACK_ADMIN_TOKEN. Visit once
+ * with ?feedbackAdmin=<token> in the URL to unlock admin view on this
+ * device — it's cached in localStorage from then on and stripped from the
+ * URL bar so it doesn't end up in a shared link by accident.
  */
 (function () {
   if (window.__feedbackWidgetLoaded) return;
@@ -30,6 +38,23 @@
     'root';
   var API_URL = '/api/feedback-comments?prototypeId=' + encodeURIComponent(PROTOTYPE_ID);
   var AUTHOR_KEY = 'feedbackWidget:authorName';
+  var ADMIN_TOKEN_KEY = 'feedbackWidget:adminToken';
+
+  var urlParams = new URLSearchParams(location.search);
+  var tokenFromUrl = urlParams.get('feedbackAdmin');
+  if (tokenFromUrl) {
+    localStorage.setItem(ADMIN_TOKEN_KEY, tokenFromUrl);
+    urlParams.delete('feedbackAdmin');
+    var cleanedSearch = urlParams.toString();
+    var cleanedUrl = location.pathname + (cleanedSearch ? '?' + cleanedSearch : '') + location.hash;
+    history.replaceState(null, '', cleanedUrl);
+  }
+  var ADMIN_TOKEN = localStorage.getItem(ADMIN_TOKEN_KEY) || '';
+  var IS_ADMIN = !!ADMIN_TOKEN;
+
+  function adminUrl() {
+    return API_URL + '&token=' + encodeURIComponent(ADMIN_TOKEN);
+  }
 
   var state = {
     active: false,
@@ -79,7 +104,8 @@
 
   function loadComments() {
     if (state.loaded) return Promise.resolve();
-    return fetch(API_URL)
+    if (!IS_ADMIN) { state.loaded = true; return Promise.resolve(); }
+    return fetch(adminUrl())
       .then(function (r) { return r.json(); })
       .then(function (data) {
         state.comments = Array.isArray(data.comments) ? data.comments : [];
@@ -100,7 +126,7 @@
   }
 
   function patchComment(id, status) {
-    return fetch(API_URL, {
+    return fetch(adminUrl(), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id, status: status }),
@@ -149,7 +175,9 @@
   toggleBtn.style.boxShadow = 'var(--acuity-shadow-light-200)';
   toggleBtn.appendChild(iconSpan('icon-plus', 'md'));
 
-  toggleWrap.appendChild(listBtn);
+  // Non-admins only get the compose FAB — no list button, no pins, no
+  // count badge, since they have no read access to what's been submitted.
+  if (IS_ADMIN) toggleWrap.appendChild(listBtn);
   toggleWrap.appendChild(toggleBtn);
   root.appendChild(toggleWrap);
 
@@ -266,6 +294,16 @@
     renderPins();
   }
 
+  function showToast(message) {
+    var existing = root.querySelector('.feedback-toast');
+    if (existing) existing.remove();
+    var toast = document.createElement('div');
+    toast.className = 'feedback-toast';
+    toast.textContent = message;
+    root.appendChild(toast);
+    setTimeout(function () { toast.remove(); }, 2500);
+  }
+
   function positionPopover(el, clientX, clientY) {
     var pad = 12;
     var maxLeft = window.innerWidth - el.offsetWidth - pad;
@@ -326,9 +364,17 @@
         yPct: state.draft.yPct,
         targetLabel: state.draft.targetLabel,
       }).then(function (data) {
-        state.comments.push(data.comment);
         closeDraft();
-        renderPanel();
+        if (IS_ADMIN) {
+          // Admin sees their own pin immediately, same as any other comment.
+          state.comments.push(data.comment);
+          renderPins();
+          renderPanel();
+        } else {
+          // Non-admins have no read access, so there's nothing to render
+          // back — just confirm the submission landed.
+          showToast('Feedback sent — thanks!');
+        }
       }).catch(function (err) {
         console.error('feedback widget: failed to post comment', err);
         postBtn.disabled = false;
