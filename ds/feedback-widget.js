@@ -100,6 +100,34 @@
     }
   }
 
+  function csvCell(value) {
+    var str = value == null ? '' : String(value);
+    return /[",\n]/.test(str) ? '"' + str.replace(/"/g, '""') + '"' : str;
+  }
+
+  // state.comments holds every screen's comments for this prototype (the
+  // panel only ever shows the current screen's slice via visibleComments()),
+  // so exporting the raw array covers the whole prototype in one file.
+  function exportCsv() {
+    var header = ['screenId', 'status', 'author', 'text', 'createdAt', 'targetLabel', 'xPct', 'yPct'];
+    var rows = state.comments.map(function (c) {
+      return [c.screenId, c.status, c.author, c.text, c.createdAt, c.targetLabel, c.xPct, c.yPct];
+    });
+    var csv = [header].concat(rows).map(function (row) {
+      return row.map(csvCell).join(',');
+    }).join('\r\n');
+
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'feedback-' + PROTOTYPE_ID + '-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
   // ---- data layer ----------------------------------------------------
 
   function loadComments() {
@@ -456,14 +484,29 @@
     var title = document.createElement('div');
     title.className = 'text-subtitle-semibold';
     title.textContent = 'Feedback on this screen';
+
+    var headerActions = document.createElement('div');
+    headerActions.style.cssText = 'display:flex;align-items:center;gap:var(--acuity-spacing-4);';
+
+    var downloadBtn = document.createElement('button');
+    downloadBtn.type = 'button';
+    downloadBtn.className = 'acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm';
+    downloadBtn.setAttribute('aria-label', 'Download all screens\' feedback as CSV');
+    downloadBtn.title = 'Download all screens as CSV';
+    downloadBtn.appendChild(iconSpan('icon-download', 'sm'));
+    downloadBtn.addEventListener('click', exportCsv);
+
     var closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm';
     closeBtn.setAttribute('aria-label', 'Close feedback list');
     closeBtn.appendChild(iconSpan('icon-cross-sm', 'sm'));
     closeBtn.addEventListener('click', function () { state.panelOpen = false; renderPanel(); renderPins(); });
+
+    headerActions.appendChild(downloadBtn);
+    headerActions.appendChild(closeBtn);
     header.appendChild(title);
-    header.appendChild(closeBtn);
+    header.appendChild(headerActions);
     panel.appendChild(header);
 
     var resolvedToggleRow = document.createElement('label');
