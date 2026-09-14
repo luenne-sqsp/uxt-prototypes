@@ -1,0 +1,144 @@
+COVERAGE REPORT — Acuity industry template mapping
+=======================================================
+
+Active industries mapped : 1074
+Template sets            : 142  (123 specific + 18 archetype + 1 generic)
+Service types (atomic)   : 765
+
+Where industries resolve:
+  specific set     235  (21%)
+  archetype set    495  (46%)
+  generic set      344  (32%)
+
+Specific-tier IDs still on generic (intentional — no bookable pattern): 5
+  - Dating & Personals
+  - Embassies & Consulates
+  - Emergency Services
+  - Mail & Package Delivery
+  - Shipping & Logistics
+
+All template sets by usage:
+   344  [generic  ] generic
+    73  [archetype] arch_medical_visit
+    59  [archetype] arch_consultation
+    59  [archetype] arch_retail_visit
+    45  [archetype] arch_events_performances
+    44  [archetype] arch_classes_workshops
+    40  [archetype] arch_home_estimate
+    35  [archetype] arch_sports_practice
+    32  [archetype] arch_restaurants_experiences
+    23  [archetype] arch_equipment_rental
+    21  [archetype] arch_fitting_styling
+    16  [archetype] arch_retreats_trips
+    13  [specific ] legal
+    12  [specific ] hair_salon
+    11  [archetype] arch_tours_experiences
+    11  [archetype] arch_fix_improvements_estimate
+    10  [archetype] arch_wellness_session
+     9  [specific ] travel_transportation
+     8  [specific ] therapy
+     7  [specific ] guided_tours
+     7  [archetype] arch_experiences
+     7  [specific ] photography
+     6  [specific ] finance
+     6  [specific ] health_insurance
+     5  [archetype] arch_repair_dropoff
+     5  [specific ] pet_sitting
+     4  [specific ] theater
+     4  [specific ] life_coaching
+     4  [specific ] tutoring
+     4  [specific ] veterinarians
+     4  [archetype] arch_meetups
+     4  [specific ] home_nursing
+     4  [specific ] real_estate
+     4  [specific ] day_spa
+     4  [specific ] yoga
+     3  [specific ] vehicle_repair_maintenance
+     3  [specific ] occult_paranormal
+     3  [specific ] dance
+     3  [specific ] crafts
+     3  [specific ] religion_spirituality
+     3  [specific ] training_certification
+     3  [specific ] construction
+     3  [specific ] consulting
+     3  [specific ] cosmetic_procedures
+     3  [specific ] personal_training
+     2  [specific ] art
+     2  [specific ] creative_classes_workshops
+     2  [specific ] bakery
+     2  [specific ] lash_brows
+     2  [specific ] early_childhood_education
+     2  [specific ] cooking
+     2  [specific ] fishing
+     2  [specific ] dog_grooming
+     2  [specific ] dog_training
+     2  [specific ] optometry
+     2  [specific ] flowers
+     2  [specific ] plumbing_hvac
+     2  [specific ] education
+     2  [specific ] interior_design
+     2  [specific ] landscaping
+     2  [specific ] makeup
+     2  [specific ] women_s_health
+     2  [specific ] moving_relocation
+     2  [specific ] music
+     2  [specific ] nutrition
+     2  [specific ] pilates
+     1  [specific ] accounting_auditing
+     1  [specific ] acupuncture
+     1  [specific ] barber
+     1  [specific ] beauty_services_spas
+     1  [specific ] piercings
+     1  [specific ] bookkeeping
+     1  [specific ] car_detailing
+     1  [specific ] catering
+     1  [specific ] ceramics
+     1  [specific ] chiropractic
+     1  [specific ] esthetician
+     1  [specific ] cleaning
+     1  [specific ] doctors_offices
+     1  [specific ] dog_walking
+     1  [specific ] doula
+     1  [specific ] equestrian_sports
+     1  [specific ] event_planning
+     1  [specific ] event_venue_rentals
+     1  [specific ] face_body_care
+     1  [specific ] fitness
+     1  [specific ] graphic_design
+     1  [specific ] gym
+     1  [specific ] hair_removal
+     1  [specific ] home_repair
+     1  [specific ] health_wellness_trips_retreats
+     1  [specific ] holistic_health_medicine
+     1  [specific ] hotels_accommodations
+     1  [specific ] house_painting
+     1  [specific ] jewelry
+     1  [specific ] nail_services
+     1  [specific ] marketing
+     1  [specific ] martial_arts
+     1  [specific ] massage
+     1  [specific ] recording_industry
+     1  [specific ] nonprofit
+     1  [specific ] obstetrics_gynecology_obgyn
+     1  [specific ] office_services
+     1  [specific ] oral_dental_care
+     1  [specific ] pediatrics
+     1  [specific ] performing_arts
+     1  [specific ] physical_therapy
+     1  [specific ] professional_coaching
+     1  [specific ] property_inspections
+     1  [specific ] restaurants
+     1  [specific ] roofing
+     1  [specific ] sex_education_counseling
+     1  [specific ] skincare
+     1  [specific ] business_services
+     1  [specific ] social_services
+     1  [specific ] sports_practice
+     1  [specific ] swimming_sports
+     1  [specific ] tattoo_artists_studios
+     1  [specific ] tax_preparation_planning
+     1  [specific ] video_services
+     1  [specific ] visa_immigration
+     1  [specific ] web_design_development
+     1  [specific ] weddings
+     1  [specific ] yard_maintenance

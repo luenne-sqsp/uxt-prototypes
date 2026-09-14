@@ -1,0 +1,3268 @@
+{
+  "hair_salon": {
+    "create_name_placeholder": "e.g. Women's Cut",
+    "create_name_chips": [
+      "Haircut",
+      "Trim",
+      "Blowout",
+      "Color",
+      "Highlights",
+      "Balayage",
+      "Root Touch-Up",
+      "Keratin Treatment",
+      "Gloss",
+      "Extensions"
+    ],
+    "appointments": [
+      "svc_haircut_style",
+      "svc_color_highlights",
+      "svc_keratin_treatment",
+      "svc_blowout",
+      "svc_root_touch_up",
+      "svc_balayage"
+    ]
+  },
+  "nail_services": {
+    "create_name_placeholder": "e.g. Gel Manicure with Nail Art",
+    "create_name_chips": [
+      "Manicure",
+      "Pedicure",
+      "Gel Mani",
+      "Gel Pedi",
+      "Nail Art",
+      "Acrylics",
+      "Dip Powder",
+      "French Tips",
+      "Polish Change",
+      "Nail Repair"
+    ],
+    "appointments": [
+      "svc_classic_manicure",
+      "svc_gel_pedicure",
+      "svc_full_set_acrylics",
+      "svc_nail_art_design",
+      "svc_gel_manicure",
+      "svc_dip_powder_manicure"
+    ]
+  },
+  "lash_brows": {
+    "create_name_placeholder": "e.g. Classic Full Set",
+    "create_name_chips": [
+      "Lash Extensions",
+      "Lash Fill",
+      "Lash Lift",
+      "Lash Tint",
+      "Brow Wax",
+      "Brow Tint",
+      "Brow Lamination",
+      "Brow Shaping",
+      "Threading",
+      "Brow Henna"
+    ],
+    "appointments": [
+      "svc_classic_lash_set",
+      "svc_volume_lash_set",
+      "svc_lash_fill",
+      "svc_brow_tint_shape",
+      "svc_lash_lift_tint",
+      "svc_brow_lamination"
+    ]
+  },
+  "barber": {
+    "create_name_placeholder": "e.g. Fade & Beard Combo",
+    "create_name_chips": [
+      "Haircut",
+      "Fade",
+      "Beard Trim",
+      "Hot Towel Shave",
+      "Cut & Beard",
+      "Line-Up",
+      "Kid's Cut",
+      "Buzz Cut",
+      "Straight Razor",
+      "Head Shave"
+    ],
+    "appointments": [
+      "svc_haircut",
+      "svc_beard_trim_shape",
+      "svc_hot_towel_shave",
+      "svc_cut_beard_combo",
+      "svc_fade",
+      "svc_kid_s_haircut"
+    ]
+  },
+  "skincare": {
+    "create_name_placeholder": "e.g. Hydrating Facial",
+    "create_name_chips": [
+      "Facial",
+      "Deep Cleanse",
+      "Chemical Peel",
+      "Microdermabrasion",
+      "Anti-Aging Facial",
+      "Extraction",
+      "LED Therapy",
+      "Dermaplaning",
+      "HydraFacial",
+      "Back Facial"
+    ],
+    "appointments": [
+      "svc_european_facial",
+      "svc_chemical_peel",
+      "svc_microdermabrasion",
+      "svc_gel_manicure_2",
+      "svc_hydrafacial",
+      "svc_dermaplaning"
+    ]
+  },
+  "makeup": {
+    "create_name_placeholder": "e.g. Event Makeup",
+    "create_name_chips": [
+      "Bridal Makeup",
+      "Event Makeup",
+      "Bridal Trial",
+      "Makeup Lesson",
+      "Prom Makeup",
+      "Photoshoot Makeup",
+      "Airbrush",
+      "Party Makeup",
+      "Editorial Look",
+      "Touch-Up"
+    ],
+    "appointments": [
+      "svc_bridal_makeup",
+      "svc_event_makeup",
+      "svc_makeup_lesson",
+      "svc_airbrush_makeup",
+      "svc_bridal_trial",
+      "svc_photoshoot_makeup"
+    ]
+  },
+  "other": {
+    "create_name_placeholder": "e.g. My Beauty Service",
+    "create_name_chips": [
+      "Consultation",
+      "Signature Service",
+      "Express Service",
+      "Touch-Up",
+      "Add-On",
+      "Premium Package",
+      "Group Booking",
+      "Custom Treatment",
+      "Trial Session",
+      "Membership Service"
+    ],
+    "appointments": [
+      "svc_beauty_consultation",
+      "svc_signature_treatment",
+      "svc_express_service",
+      "svc_refresh_touch_up",
+      "svc_custom_package",
+      "svc_group_booking"
+    ]
+  },
+  "massage": {
+    "create_name_placeholder": "e.g. Shiatsu Massage",
+    "create_name_chips": [
+      "Swedish Massage",
+      "Deep Tissue",
+      "Sports Massage",
+      "Hot Stone",
+      "Prenatal",
+      "Reflexology",
+      "Aromatherapy",
+      "Couples Massage",
+      "Thai Massage",
+      "Chair Massage"
+    ],
+    "appointments": [
+      "svc_swedish_massage",
+      "svc_deep_tissue_massage",
+      "svc_sports_massage",
+      "svc_hot_stone_massage",
+      "svc_prenatal_massage",
+      "svc_couples_massage"
+    ]
+  },
+  "acupuncture": {
+    "create_name_placeholder": "e.g. Cupping Session",
+    "create_name_chips": [
+      "Acupuncture",
+      "Cupping",
+      "Herbal Consult",
+      "Follow-Up",
+      "Initial Visit",
+      "Fertility Acupuncture",
+      "Pain Relief",
+      "Facial Acupuncture",
+      "Moxibustion",
+      "Ear Seeds"
+    ],
+    "appointments": [
+      "svc_initial_acupuncture_visit",
+      "svc_follow_up_treatment",
+      "svc_cupping_session",
+      "svc_herbal_consultation",
+      "svc_facial_acupuncture",
+      "svc_fertility_acupuncture"
+    ]
+  },
+  "day_spa": {
+    "create_name_placeholder": "e.g. Spa Day",
+    "create_name_chips": [
+      "Spa Day",
+      "Sauna",
+      "Float Session",
+      "Hydrotherapy",
+      "Mud Bath",
+      "Steam Room",
+      "Body Scrub",
+      "Salt Cave",
+      "Couples Spa",
+      "Aromatherapy"
+    ],
+    "appointments": [
+      "svc_spa_day_package",
+      "svc_sauna_session",
+      "svc_float_therapy",
+      "svc_hydrotherapy_session",
+      "svc_body_scrub_treatment",
+      "svc_couples_spa_package"
+    ]
+  },
+  "med_spa": {
+    "create_name_placeholder": "e.g. HydraFacial",
+    "create_name_chips": [
+      "Botox",
+      "Filler",
+      "Microneedling",
+      "HydraFacial",
+      "Laser Hair Removal",
+      "IPL Photofacial",
+      "CoolSculpting",
+      "PRP Facial",
+      "Chemical Peel",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_botox_consultation",
+      "svc_filler_treatment",
+      "svc_microneedling",
+      "svc_hydrafacial_2",
+      "svc_laser_hair_removal",
+      "svc_ipl_photofacial"
+    ]
+  },
+  "physical_therapy": {
+    "create_name_placeholder": "e.g. Initial Evaluation",
+    "create_name_chips": [
+      "Initial Eval",
+      "Follow-Up",
+      "Dry Needling",
+      "Manual Therapy",
+      "Post-Surgical",
+      "Sports Injury",
+      "Gait Assessment",
+      "Balance Training",
+      "Cupping",
+      "Ergonomic Assessment"
+    ],
+    "appointments": [
+      "svc_initial_evaluation",
+      "svc_follow_up_treatment_2",
+      "svc_dry_needling",
+      "svc_manual_therapy",
+      "svc_sports_injury_assessment",
+      "svc_post_surgical_rehab"
+    ]
+  },
+  "therapy": {
+    "create_name_placeholder": "e.g. Therapy Session",
+    "create_name_chips": [
+      "Intake",
+      "Individual Session",
+      "Family Therapy",
+      "Couples Therapy",
+      "Group Session",
+      "Teen Session",
+      "EMDR",
+      "Consultation",
+      "Med Management",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_intake_assessment",
+      "svc_individual_session",
+      "svc_family_therapy",
+      "svc_crisis_consultation",
+      "svc_couples_therapy",
+      "svc_group_therapy_session"
+    ]
+  },
+  "nutrition": {
+    "create_name_placeholder": "e.g. Nutrition Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Meal Plan Review",
+      "Follow-Up",
+      "Body Composition",
+      "Weight Loss Coaching",
+      "Sports Nutrition",
+      "Prenatal Nutrition",
+      "Food Sensitivity Review",
+      "Grocery Coaching",
+      "Family Nutrition"
+    ],
+    "appointments": [
+      "svc_initial_nutrition_consultation",
+      "svc_follow_up_session",
+      "svc_meal_plan_review",
+      "svc_body_composition_assessment",
+      "svc_weight_management_session",
+      "svc_sports_nutrition_session"
+    ]
+  },
+  "personal_training": {
+    "create_name_placeholder": "e.g. 1-on-1 Assessment",
+    "create_name_chips": [
+      "Training Session",
+      "Fitness Assessment",
+      "Nutrition Check-In",
+      "Online Coaching",
+      "Body Comp",
+      "Small Group Training",
+      "Program Design",
+      "Movement Screen",
+      "Recovery Session",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_1_on_1_training_session",
+      "svc_fitness_assessment",
+      "svc_nutrition_consultation",
+      "svc_online_coaching_check_in",
+      "svc_small_group_training",
+      "svc_movement_screen"
+    ]
+  },
+  "yoga": {
+    "create_name_placeholder": "e.g. Private Yoga Session",
+    "create_name_chips": [
+      "Private Yoga",
+      "Group Class",
+      "Couples Yoga",
+      "Prenatal Yoga",
+      "Vinyasa",
+      "Yin Yoga",
+      "Restorative",
+      "Hot Yoga",
+      "Meditation",
+      "Yoga Assessment"
+    ],
+    "appointments": [
+      "svc_private_yoga_session",
+      "svc_couples_yoga",
+      "svc_yoga_assessment",
+      "svc_prenatal_yoga",
+      "svc_group_yoga_class",
+      "svc_restorative_yoga_session"
+    ]
+  },
+  "sports_practice": {
+    "create_name_placeholder": "e.g. Athlete Assessment",
+    "create_name_chips": [
+      "Athlete Assessment",
+      "Speed & Agility",
+      "Skill Training",
+      "Team Session",
+      "1-on-1 Coaching",
+      "Group Clinic",
+      "Strength Training",
+      "Recovery Session",
+      "Video Analysis",
+      "Mental Performance"
+    ],
+    "appointments": [
+      "svc_athlete_assessment",
+      "svc_speed_agility_training",
+      "svc_sport_specific_skill_session",
+      "svc_team_strategy_session",
+      "svc_group_sports_clinic",
+      "svc_video_analysis_session"
+    ]
+  },
+  "pilates": {
+    "create_name_placeholder": "e.g. Private Reformer",
+    "create_name_chips": [
+      "Private Reformer",
+      "Mat Pilates",
+      "Duet Session",
+      "Intro Session",
+      "Posture Assessment",
+      "Prenatal Pilates",
+      "Barre Class",
+      "Cadillac Session",
+      "Group Reformer",
+      "Rehab Pilates"
+    ],
+    "appointments": [
+      "svc_private_reformer_session",
+      "svc_mat_pilates_session",
+      "svc_posture_assessment",
+      "svc_intro_to_pilates",
+      "svc_duet_reformer_session",
+      "svc_group_reformer_class"
+    ]
+  },
+  "dance": {
+    "create_name_placeholder": "e.g. Private or Group Dance Lesson",
+    "create_name_chips": [
+      "Private Lesson",
+      "Group Class",
+      "Couples Lesson",
+      "Kids Class",
+      "Wedding Prep",
+      "Ballroom",
+      "Salsa",
+      "Hip-Hop",
+      "Choreography",
+      "Trial Lesson"
+    ],
+    "appointments": [
+      "svc_private_dance_lesson",
+      "svc_group_dance_class",
+      "svc_couples_dance_lesson",
+      "svc_kids_dance_class",
+      "svc_wedding_dance_prep",
+      "svc_trial_lesson"
+    ]
+  },
+  "gym": {
+    "create_name_placeholder": "e.g. Member Orientation",
+    "create_name_chips": [
+      "Member Orientation",
+      "Personal Training",
+      "Group Class",
+      "Wellness Check",
+      "Tour",
+      "Free Trial",
+      "Small Group",
+      "Recovery Session",
+      "Body Comp",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_new_member_orientation",
+      "svc_personal_training_session",
+      "svc_group_fitness_class",
+      "svc_wellness_assessment",
+      "svc_gym_tour",
+      "svc_free_trial_class"
+    ]
+  },
+  "consulting": {
+    "create_name_placeholder": "e.g. Business Strategy Session",
+    "create_name_chips": [
+      "Strategy Session",
+      "Discovery Call",
+      "Business Audit",
+      "Brand Workshop",
+      "Roadmap Session",
+      "Consulting Hour",
+      "Team Workshop",
+      "Follow-Up",
+      "Kickoff Call",
+      "Quarterly Review"
+    ],
+    "appointments": [
+      "svc_strategy_session",
+      "svc_business_audit",
+      "svc_brand_workshop",
+      "svc_discovery_call",
+      "svc_consulting_hour",
+      "svc_quarterly_business_review"
+    ]
+  },
+  "professional_coaching": {
+    "create_name_placeholder": "e.g. Executive Coaching Session",
+    "create_name_chips": [
+      "Discovery Session",
+      "Executive Coaching",
+      "Career Strategy",
+      "Accountability Check-In",
+      "Leadership Coaching",
+      "Life Coaching",
+      "360 Debrief",
+      "Group Coaching",
+      "Intro Call",
+      "Package Session"
+    ],
+    "appointments": [
+      "svc_discovery_session",
+      "svc_executive_coaching_session",
+      "svc_career_strategy_session",
+      "svc_accountability_check_in",
+      "svc_leadership_coaching_session",
+      "svc_life_coaching_session"
+    ]
+  },
+  "legal": {
+    "create_name_placeholder": "e.g. Contract Review",
+    "create_name_chips": [
+      "Consultation",
+      "Contract Review",
+      "Case Strategy",
+      "Notary",
+      "Deposition Prep",
+      "Estate Planning",
+      "Trademark Filing",
+      "Discovery Call",
+      "Mediation",
+      "Document Review"
+    ],
+    "appointments": [
+      "svc_initial_consultation",
+      "svc_contract_review",
+      "svc_case_strategy_session",
+      "svc_notary_services",
+      "svc_estate_planning_session",
+      "svc_document_review"
+    ]
+  },
+  "photography": {
+    "create_name_placeholder": "e.g. Headshot Session",
+    "create_name_chips": [
+      "Headshot Session",
+      "Brand Photography",
+      "Product Shoot",
+      "Event Coverage",
+      "Family Session",
+      "Engagement Shoot",
+      "Wedding Coverage",
+      "Real Estate Shoot",
+      "Consultation",
+      "Editing Session"
+    ],
+    "appointments": [
+      "svc_headshot_session",
+      "svc_brand_photography",
+      "svc_product_photography",
+      "svc_event_coverage",
+      "svc_family_portrait_session",
+      "svc_engagement_session"
+    ]
+  },
+  "marketing": {
+    "create_name_placeholder": "e.g. Strategy Session ",
+    "create_name_chips": [
+      "Strategy Session",
+      "Social Media Audit",
+      "Content Planning",
+      "Campaign Review",
+      "SEO Audit",
+      "Brand Workshop",
+      "Analytics Review",
+      "Discovery Call",
+      "Email Campaign Review",
+      "Consulting Hour"
+    ],
+    "appointments": [
+      "svc_marketing_strategy_session",
+      "svc_social_media_audit",
+      "svc_content_planning_meeting",
+      "svc_campaign_review",
+      "svc_seo_audit",
+      "svc_brand_workshop"
+    ]
+  },
+  "finance": {
+    "create_name_placeholder": "e.g. Retirement Planning",
+    "create_name_chips": [
+      "Financial Planning",
+      "Retirement Planning",
+      "Portfolio Review",
+      "Investment Strategy",
+      "Tax Planning",
+      "Estate Planning",
+      "Discovery Call",
+      "Insurance Review",
+      "Debt Strategy",
+      "Annual Review"
+    ],
+    "appointments": [
+      "svc_financial_planning_session",
+      "svc_retirement_planning",
+      "svc_portfolio_review",
+      "svc_investment_strategy_call",
+      "svc_tax_planning_session",
+      "svc_annual_financial_review"
+    ]
+  },
+  "nonprofit": {
+    "create_name_placeholder": "e.g. Volunteer Orientation",
+    "create_name_chips": [
+      "Volunteer Orientation",
+      "Donor Meeting",
+      "Grant Consultation",
+      "Program Intake",
+      "Board Meeting",
+      "Community Outreach",
+      "Fundraising Planning",
+      "Case Management",
+      "Discovery Call",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_volunteer_orientation",
+      "svc_donor_meeting",
+      "svc_grant_consultation",
+      "svc_program_intake_meeting",
+      "svc_board_meeting",
+      "svc_fundraising_planning_session"
+    ]
+  },
+  "cleaning": {
+    "create_name_placeholder": "e.g. Deep Clean",
+    "create_name_chips": [
+      "Standard Cleaning",
+      "Deep Clean",
+      "Move-In/Out",
+      "Commercial Cleaning",
+      "Post-Construction",
+      "Airbnb Turnover",
+      "Window Cleaning",
+      "Recurring Cleaning",
+      "Carpet Cleaning",
+      "Estimate Visit"
+    ],
+    "appointments": [
+      "svc_standard_home_cleaning",
+      "svc_deep_clean",
+      "svc_move_in_out_cleaning",
+      "svc_commercial_cleaning",
+      "svc_airbnb_turnover_clean",
+      "svc_window_cleaning"
+    ]
+  },
+  "home_repair": {
+    "create_name_placeholder": "e.g. Repair Consult",
+    "create_name_chips": [
+      "Home Assessment",
+      "Repair Consult",
+      "Project Estimate",
+      "Maintenance",
+      "Drywall Repair",
+      "Painting Estimate",
+      "Handyman Visit",
+      "Emergency Repair",
+      "Punch List",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_home_assessment",
+      "svc_repair_consultation",
+      "svc_project_estimate_visit",
+      "svc_maintenance_walkthrough",
+      "svc_handyman_visit",
+      "svc_punch_list_walkthrough"
+    ]
+  },
+  "auto_care": {
+    "create_name_placeholder": "e.g. Oil Change",
+    "create_name_chips": [
+      "Oil Change",
+      "Tire Rotation",
+      "Brake Service",
+      "Diagnostic Scan",
+      "Battery Check",
+      "State Inspection",
+      "Alignment",
+      "AC Service",
+      "Detailing",
+      "Pre-Purchase Inspection"
+    ],
+    "appointments": [
+      "svc_oil_change_inspection",
+      "svc_tire_rotation",
+      "svc_brake_service",
+      "svc_diagnostic_scan",
+      "svc_state_inspection",
+      "svc_wheel_alignment"
+    ]
+  },
+  "plumbing_hvac": {
+    "create_name_placeholder": "e.g. Plumbing Inspection or HVAC Tune-Up",
+    "create_name_chips": [
+      "Plumbing Inspection",
+      "Drain Cleaning",
+      "AC Tune-Up",
+      "Furnace Service",
+      "Water Heater",
+      "Leak Repair",
+      "Emergency Call",
+      "Estimate Visit",
+      "Duct Cleaning",
+      "Maintenance Visit"
+    ],
+    "appointments": [
+      "svc_plumbing_inspection",
+      "svc_ac_tune_up",
+      "svc_furnace_service",
+      "svc_drain_cleaning",
+      "svc_water_heater_service",
+      "svc_leak_detection_visit"
+    ]
+  },
+  "construction": {
+    "create_name_placeholder": "e.g. Repair Consult",
+    "create_name_chips": [
+      "Site Visit",
+      "Project Estimate",
+      "Design Consultation",
+      "Permit Meeting",
+      "Punch List",
+      "Client Walkthrough",
+      "Progress Meeting",
+      "Foundation Check",
+      "Framing Inspection",
+      "Final Inspection"
+    ],
+    "appointments": [
+      "svc_home_assessment",
+      "svc_repair_consultation",
+      "svc_project_estimate_visit",
+      "svc_maintenance_walkthrough",
+      "svc_design_consultation",
+      "svc_progress_meeting"
+    ]
+  },
+  "landscaping": {
+    "create_name_placeholder": "e.g. Garden Design",
+    "create_name_chips": [
+      "Lawn Care Consult",
+      "Garden Design",
+      "Tree Trimming",
+      "Irrigation Consult",
+      "Seasonal Cleanup",
+      "Hardscape Estimate",
+      "Landscape Assessment",
+      "Mulching Estimate",
+      "Snow Removal",
+      "Follow-Up Visit"
+    ],
+    "appointments": [
+      "svc_lawn_care_consultation",
+      "svc_garden_design_meeting",
+      "svc_tree_trimming_estimate",
+      "svc_irrigation_system_consult",
+      "svc_seasonal_cleanup_estimate",
+      "svc_hardscape_design_consult"
+    ]
+  },
+  "music": {
+    "create_name_placeholder": "e.g. Vocal Lesson",
+    "create_name_chips": [
+      "Guitar Lesson",
+      "Piano Lesson",
+      "Vocal Coaching",
+      "Drum Lesson",
+      "Bass Lesson",
+      "Ukulele Lesson",
+      "Songwriting",
+      "Music Theory",
+      "Recital Prep",
+      "Trial Lesson"
+    ],
+    "appointments": [
+      "svc_guitar_lesson",
+      "svc_piano_lesson",
+      "svc_vocal_coaching",
+      "svc_drum_lesson",
+      "svc_music_theory_session",
+      "svc_trial_lesson_2"
+    ]
+  },
+  "tutoring": {
+    "create_name_placeholder": "e.g. Math Tutoring Session",
+    "create_name_chips": [
+      "Tutoring Session",
+      "Test Prep",
+      "Homework Help",
+      "Academic Assessment",
+      "SAT Prep",
+      "College Essay Help",
+      "Reading Support",
+      "Study Skills",
+      "Group Tutoring",
+      "Trial Session"
+    ],
+    "appointments": [
+      "svc_1_on_1_tutoring_session",
+      "svc_test_prep_session",
+      "svc_homework_help",
+      "svc_academic_assessment",
+      "svc_sat_prep_session",
+      "svc_college_essay_session"
+    ]
+  },
+  "theater": {
+    "create_name_placeholder": "e.g. Acting Class or Audition Prep",
+    "create_name_chips": [
+      "Acting Class",
+      "Audition Coaching",
+      "Improv Workshop",
+      "Private Coaching",
+      "Monologue Prep",
+      "Voice Work",
+      "Scene Study",
+      "Youth Class",
+      "Callback Prep",
+      "Trial Class"
+    ],
+    "appointments": [
+      "svc_acting_class",
+      "svc_audition_coaching",
+      "svc_improv_workshop",
+      "svc_private_coaching_session",
+      "svc_monologue_coaching",
+      "svc_scene_study_session"
+    ]
+  },
+  "ceramics": {
+    "create_name_placeholder": "e.g. Pottery Wheel Class",
+    "create_name_chips": [
+      "Pottery Wheel",
+      "Hand-Building",
+      "Open Studio",
+      "Glazing",
+      "Beginner Class",
+      "Kids Class",
+      "Date Night",
+      "Wheel Throwing",
+      "Sculpture",
+      "Private Lesson"
+    ],
+    "appointments": [
+      "svc_pottery_wheel_class",
+      "svc_hand_building_workshop",
+      "svc_open_studio_session",
+      "svc_glazing_finishing",
+      "svc_date_night_pottery",
+      "svc_kids_pottery_class"
+    ]
+  },
+  "visual_arts": {
+    "create_name_placeholder": "e.g. Painting Workshop",
+    "create_name_chips": [
+      "Painting Class",
+      "Drawing Class",
+      "Private Session",
+      "Mixed Media",
+      "Watercolor",
+      "Oil Painting",
+      "Illustration",
+      "Kids Art Class",
+      "Sketchbook Session",
+      "Portfolio Review"
+    ],
+    "appointments": [
+      "svc_painting_workshop",
+      "svc_drawing_class",
+      "svc_private_studio_session",
+      "svc_mixed_media_class",
+      "svc_watercolor_workshop",
+      "svc_kids_art_class"
+    ]
+  },
+  "beauty_services_spas": {
+    "create_name_placeholder": "e.g. Signature Facial",
+    "create_name_chips": [
+      "Facial",
+      "Massage",
+      "Manicure",
+      "Pedicure",
+      "Spa Package",
+      "Body Scrub",
+      "Waxing",
+      "Brow Shape",
+      "Signature Service",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_beauty_consultation",
+      "svc_signature_facial",
+      "svc_spa_day_package_2",
+      "svc_manicure_pedicure",
+      "svc_body_scrub",
+      "svc_refresh_treatment"
+    ]
+  },
+  "education": {
+    "create_name_placeholder": "e.g. 1-on-1 Lesson",
+    "create_name_chips": [
+      "Tutoring Session",
+      "1-on-1 Lesson",
+      "Group Class",
+      "Assessment",
+      "Trial Class",
+      "Workshop",
+      "Test Prep",
+      "Study Session",
+      "Homework Help",
+      "Parent Meeting"
+    ],
+    "appointments": [
+      "svc_assessment",
+      "svc_1_on_1_lesson",
+      "svc_group_class",
+      "svc_homework_help_2",
+      "svc_test_prep_session_2",
+      "svc_parent_meeting"
+    ]
+  },
+  "piercings": {
+    "create_name_placeholder": "e.g. Ear Piercing",
+    "create_name_chips": [
+      "Ear Piercing",
+      "Nose Piercing",
+      "Navel Piercing",
+      "Cartilage",
+      "Tongue",
+      "Consultation",
+      "Jewelry Change",
+      "Aftercare Check",
+      "Kids Ear Piercing",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_piercing_consultation",
+      "svc_ear_piercing",
+      "svc_cartilage_piercing",
+      "svc_nose_piercing",
+      "svc_navel_piercing",
+      "svc_jewelry_change"
+    ]
+  },
+  "accounting_auditing": {
+    "create_name_placeholder": "e.g. Tax Consultation",
+    "create_name_chips": [
+      "Tax Consultation",
+      "Bookkeeping Setup",
+      "Audit Prep",
+      "Financial Statements",
+      "Quarterly Review",
+      "Payroll Setup",
+      "Discovery Call",
+      "Compliance Check",
+      "Advisory Session",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_tax_consultation",
+      "svc_bookkeeping_setup",
+      "svc_audit_prep_session",
+      "svc_quarterly_review",
+      "svc_advisory_session"
+    ]
+  },
+  "holistic_health_medicine": {
+    "create_name_placeholder": "e.g. Naturopathic Consultation",
+    "create_name_chips": [
+      "Initial Consult",
+      "Follow-Up",
+      "Herbal Consult",
+      "Nutrition Plan",
+      "Wellness Assessment",
+      "Detox Plan",
+      "Homeopathy",
+      "Bloodwork Review",
+      "Lifestyle Coaching",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_initial_holistic_consult",
+      "svc_follow_up_session_2",
+      "svc_herbal_consultation",
+      "svc_wellness_assessment_2",
+      "svc_bloodwork_review"
+    ]
+  },
+  "car_detailing": {
+    "create_name_placeholder": "e.g. Full Detail",
+    "create_name_chips": [
+      "Full Detail",
+      "Interior Detail",
+      "Exterior Wash",
+      "Wax & Polish",
+      "Ceramic Coating",
+      "Paint Correction",
+      "Headlight Restoration",
+      "Engine Bay Clean",
+      "Estimate",
+      "Refresh"
+    ],
+    "appointments": [
+      "svc_estimate_visit",
+      "svc_exterior_wash",
+      "svc_interior_detail",
+      "svc_full_detail",
+      "svc_wax_polish",
+      "svc_ceramic_coating"
+    ]
+  },
+  "wellness": {
+    "create_name_placeholder": "e.g. Wellness Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Wellness Check-In",
+      "Relaxation Session",
+      "Group Class",
+      "Custom Package",
+      "Discovery Call",
+      "Follow-Up",
+      "Assessment",
+      "Add-On Service",
+      "Membership Session"
+    ],
+    "appointments": [
+      "svc_wellness_consultation",
+      "svc_relaxing_massage",
+      "svc_holistic_therapy",
+      "svc_breathwork_session",
+      "svc_wellness_assessment_3",
+      "svc_group_wellness_class"
+    ]
+  },
+  "bakery": {
+    "create_name_placeholder": "e.g. Custom Cake Consultation",
+    "create_name_chips": [
+      "Cake Tasting",
+      "Custom Cake Consult",
+      "Wedding Cake Tasting",
+      "Cupcake Order",
+      "Cookie Order",
+      "Dessert Consult",
+      "Pickup Appointment",
+      "Delivery Slot",
+      "Baking Class",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_cake_tasting",
+      "svc_custom_cake_consultation",
+      "svc_wedding_cake_tasting",
+      "svc_dessert_table_consult",
+      "svc_order_pickup",
+      "svc_baking_class"
+    ]
+  },
+  "event_planning": {
+    "create_name_placeholder": "e.g. Wedding Consultation",
+    "create_name_chips": [
+      "Discovery Call",
+      "Planning Session",
+      "Venue Walkthrough",
+      "Vendor Meeting",
+      "Design Meeting",
+      "Timeline Review",
+      "Rehearsal",
+      "Day-Of Coordination",
+      "Follow-Up",
+      "Wrap-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_planning_session",
+      "svc_venue_walkthrough",
+      "svc_design_meeting",
+      "svc_timeline_review",
+      "svc_vendor_meeting"
+    ]
+  },
+  "hair_removal": {
+    "create_name_placeholder": "e.g. Full Leg Wax",
+    "create_name_chips": [
+      "Waxing",
+      "Sugaring",
+      "Laser Hair Removal",
+      "Brazilian Wax",
+      "Bikini Wax",
+      "Underarm Wax",
+      "Facial Wax",
+      "Full Leg Wax",
+      "Threading",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_hair_removal_consult",
+      "svc_brazilian_wax",
+      "svc_full_leg_wax",
+      "svc_underarm_wax",
+      "svc_laser_hair_removal_2",
+      "svc_facial_wax"
+    ]
+  },
+  "fitness": {
+    "create_name_placeholder": "e.g. Personal Training Session",
+    "create_name_chips": [
+      "Training Session",
+      "Group Class",
+      "Assessment",
+      "Consultation",
+      "Recovery",
+      "Movement Screen",
+      "Nutrition Check-In",
+      "Trial Class",
+      "Package Session",
+      "Body Comp"
+    ],
+    "appointments": [
+      "svc_fitness_consultation",
+      "svc_1_on_1_training",
+      "svc_group_fitness_class_2",
+      "svc_movement_assessment",
+      "svc_trial_session",
+      "svc_program_review"
+    ]
+  },
+  "esthetician": {
+    "create_name_placeholder": "e.g. Signature Facial",
+    "create_name_chips": [
+      "Facial",
+      "Deep Cleanse",
+      "Chemical Peel",
+      "Microdermabrasion",
+      "Anti-Aging Facial",
+      "Extraction",
+      "LED Therapy",
+      "Dermaplaning",
+      "HydraFacial",
+      "Back Facial"
+    ],
+    "appointments": [
+      "svc_skin_consultation",
+      "svc_signature_facial",
+      "svc_deep_cleanse_facial",
+      "svc_chemical_peel",
+      "svc_dermaplaning",
+      "svc_hydrafacial"
+    ]
+  },
+  "optometry": {
+    "create_name_placeholder": "e.g. Eye Exam",
+    "create_name_chips": [
+      "Eye Exam",
+      "Contact Lens Fitting",
+      "Frame Selection",
+      "Adjustment",
+      "Repair",
+      "Consultation",
+      "Kids Eye Exam",
+      "Follow-Up",
+      "Lens Fitting",
+      "Pickup"
+    ],
+    "appointments": [
+      "svc_eye_exam",
+      "svc_contact_lens_fitting",
+      "svc_frame_fitting",
+      "svc_kids_eye_exam",
+      "svc_adjustment",
+      "svc_glasses_pickup"
+    ]
+  },
+  "religion_spirituality": {
+    "create_name_placeholder": "e.g. Pastoral Counseling",
+    "create_name_chips": [
+      "Pastoral Counseling",
+      "Spiritual Direction",
+      "Baptism Meeting",
+      "Wedding Officiant",
+      "Funeral Planning",
+      "Prayer Session",
+      "Community Meeting",
+      "Confession",
+      "Membership Class",
+      "New Member Meeting"
+    ],
+    "appointments": [
+      "svc_pastoral_counseling",
+      "svc_spiritual_direction",
+      "svc_wedding_officiant_meeting",
+      "svc_baptism_preparation",
+      "svc_new_member_meeting",
+      "svc_prayer_session"
+    ]
+  },
+  "braiding_protective_styles": {
+    "create_name_placeholder": "e.g. Box Braids",
+    "create_name_chips": [
+      "Box Braids",
+      "Knotless Braids",
+      "Cornrows",
+      "Twists",
+      "Locs",
+      "Weave Install",
+      "Wig Install",
+      "Braid Takedown",
+      "Consultation",
+      "Refresh"
+    ],
+    "appointments": [
+      "svc_braiding_consultation",
+      "svc_box_braids",
+      "svc_knotless_braids",
+      "svc_cornrows",
+      "svc_twist_out",
+      "svc_braid_takedown"
+    ]
+  },
+  "flowers": {
+    "create_name_placeholder": "e.g. Wedding Florals Consultation",
+    "create_name_chips": [
+      "Wedding Consultation",
+      "Event Florals",
+      "Custom Arrangement",
+      "Sympathy Arrangement",
+      "Bridal Bouquet",
+      "Delivery Slot",
+      "Pickup",
+      "Subscription Consult",
+      "Design Consult",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_florist_consultation",
+      "svc_wedding_consultation",
+      "svc_event_florals_meeting",
+      "svc_custom_arrangement_order",
+      "svc_bridal_bouquet_design",
+      "svc_pickup_appointment"
+    ]
+  },
+  "jewelry": {
+    "create_name_placeholder": "e.g. Custom Design Consult",
+    "create_name_chips": [
+      "Custom Design",
+      "Ring Sizing",
+      "Repair",
+      "Appraisal",
+      "Cleaning",
+      "Consultation",
+      "Engagement Ring Consult",
+      "Watch Repair",
+      "Chain Repair",
+      "Pickup"
+    ],
+    "appointments": [
+      "svc_jewelry_consultation",
+      "svc_custom_design_consult",
+      "svc_engagement_ring_consult",
+      "svc_jewelry_repair",
+      "svc_appraisal",
+      "svc_ring_sizing"
+    ]
+  },
+  "babysitting": {
+    "create_name_placeholder": "e.g. Evening Sitter",
+    "create_name_chips": [
+      "Meet & Greet",
+      "Evening Sitter",
+      "Overnight Care",
+      "Date Night",
+      "Full-Day Care",
+      "After-School Care",
+      "Weekend Care",
+      "Newborn Care",
+      "Consultation",
+      "Trial Session"
+    ],
+    "appointments": [
+      "svc_meet_greet",
+      "svc_evening_sitter",
+      "svc_date_night_sitting",
+      "svc_full_day_care",
+      "svc_overnight_care",
+      "svc_after_school_care"
+    ]
+  },
+  "real_estate": {
+    "create_name_placeholder": "e.g. Home Showing",
+    "create_name_chips": [
+      "Buyer Consultation",
+      "Seller Consultation",
+      "Home Showing",
+      "Open House",
+      "Listing Meeting",
+      "Closing Meeting",
+      "CMA Review",
+      "Property Tour",
+      "Discovery Call",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_buyer_consultation",
+      "svc_seller_consultation",
+      "svc_home_showing",
+      "svc_listing_meeting",
+      "svc_closing_meeting"
+    ]
+  },
+  "golf_sports": {
+    "create_name_placeholder": "e.g. Golf Lesson",
+    "create_name_chips": [
+      "Golf Lesson",
+      "Swing Analysis",
+      "Playing Lesson",
+      "Short Game Lesson",
+      "Putting Lesson",
+      "Club Fitting",
+      "Junior Lesson",
+      "Group Clinic",
+      "Video Analysis",
+      "Trial Lesson"
+    ],
+    "appointments": [
+      "svc_trial_lesson_3",
+      "svc_golf_lesson",
+      "svc_playing_lesson",
+      "svc_swing_analysis",
+      "svc_club_fitting",
+      "svc_junior_golf_lesson"
+    ]
+  },
+  "fashion_style": {
+    "create_name_placeholder": "e.g. Personal Styling Session",
+    "create_name_chips": [
+      "Personal Styling",
+      "Closet Audit",
+      "Shopping Session",
+      "Wardrobe Consult",
+      "Color Analysis",
+      "Event Styling",
+      "Virtual Styling",
+      "Style Refresh",
+      "Consultation",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_style_consultation",
+      "svc_personal_styling_session",
+      "svc_closet_audit",
+      "svc_shopping_session",
+      "svc_color_analysis",
+      "svc_virtual_styling"
+    ]
+  },
+  "pools_saunas_and_spas": {
+    "create_name_placeholder": "e.g. Pool Maintenance",
+    "create_name_chips": [
+      "Pool Cleaning",
+      "Pool Maintenance",
+      "Chemical Balance",
+      "Sauna Session",
+      "Spa Treatment",
+      "Repair Visit",
+      "Opening Service",
+      "Closing Service",
+      "Consultation",
+      "Inspection"
+    ],
+    "appointments": [
+      "svc_estimate_visit",
+      "svc_pool_cleaning",
+      "svc_chemical_balance_service",
+      "svc_sauna_session",
+      "svc_pool_opening",
+      "svc_repair_visit"
+    ]
+  },
+  "doctors_offices": {
+    "create_name_placeholder": "e.g. Annual Physical",
+    "create_name_chips": [
+      "Annual Physical",
+      "Sick Visit",
+      "New Patient Visit",
+      "Follow-Up",
+      "Lab Review",
+      "Consultation",
+      "Telehealth Visit",
+      "Vaccine Appointment",
+      "Physical Exam",
+      "Wellness Check"
+    ],
+    "appointments": [
+      "svc_new_patient_visit",
+      "svc_annual_physical",
+      "svc_sick_visit",
+      "svc_follow_up_visit",
+      "svc_telehealth_visit",
+      "svc_lab_review"
+    ]
+  },
+  "occult_paranormal": {
+    "create_name_placeholder": "e.g. Tarot Reading",
+    "create_name_chips": [
+      "Tarot Reading",
+      "Psychic Reading",
+      "Astrology Reading",
+      "Palm Reading",
+      "Mediumship Session",
+      "Aura Reading",
+      "Numerology",
+      "Birth Chart",
+      "Energy Reading",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_tarot_reading",
+      "svc_psychic_reading",
+      "svc_astrology_birth_chart",
+      "svc_palm_reading",
+      "svc_mediumship_session",
+      "svc_aura_reading"
+    ]
+  },
+  "business_services": {
+    "create_name_placeholder": "e.g. Strategy Session",
+    "create_name_chips": [
+      "Intro Consult",
+      "Strategy Session",
+      "Project Review",
+      "Follow-Up",
+      "Discovery Call",
+      "Kickoff Meeting",
+      "Working Session",
+      "Quarterly Review",
+      "Custom Session",
+      "Package Consult"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_intro_consultation",
+      "svc_strategy_session",
+      "svc_project_review",
+      "svc_working_session",
+      "svc_follow_up_meeting"
+    ]
+  },
+  "recording_industry": {
+    "create_name_placeholder": "e.g. Studio Session",
+    "create_name_chips": [
+      "Studio Session",
+      "Recording Session",
+      "Mixing Session",
+      "Mastering",
+      "Vocal Recording",
+      "Podcast Recording",
+      "Consultation",
+      "Producer Session",
+      "Overdub Session",
+      "Booking"
+    ],
+    "appointments": [
+      "svc_studio_consultation",
+      "svc_recording_session",
+      "svc_half_day_session",
+      "svc_full_day_session",
+      "svc_mixing_session",
+      "svc_mastering_session"
+    ]
+  },
+  "travel_transportation": {
+    "create_name_placeholder": "e.g. Trip Planning Consultation",
+    "create_name_chips": [
+      "Trip Planning",
+      "Travel Consult",
+      "Itinerary Review",
+      "Booking Session",
+      "Group Travel",
+      "Honeymoon Planning",
+      "Adventure Trip",
+      "Cruise Planning",
+      "Discovery Call",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_trip_planning_session",
+      "svc_itinerary_review",
+      "svc_honeymoon_planning",
+      "svc_group_travel_planning",
+      "svc_cruise_planning"
+    ]
+  },
+  "art": {
+    "create_name_placeholder": "e.g. Art Class",
+    "create_name_chips": [
+      "Art Class",
+      "Private Lesson",
+      "Workshop",
+      "Kids Art Class",
+      "Portfolio Review",
+      "Custom Commission",
+      "Studio Session",
+      "Consultation",
+      "Group Class",
+      "Trial Class"
+    ],
+    "appointments": [
+      "svc_trial_class",
+      "svc_art_class",
+      "svc_private_art_lesson",
+      "svc_kids_art_class",
+      "svc_portfolio_review_2",
+      "svc_custom_commission_consult"
+    ]
+  },
+  "performing_arts": {
+    "create_name_placeholder": "e.g. Acting Class",
+    "create_name_chips": [
+      "Acting Class",
+      "Audition Coaching",
+      "Improv Workshop",
+      "Voice Lesson",
+      "Dance Class",
+      "Private Coaching",
+      "Group Workshop",
+      "Scene Study",
+      "Rehearsal",
+      "Trial Class"
+    ],
+    "appointments": [
+      "svc_trial_class_2",
+      "svc_acting_class",
+      "svc_private_coaching",
+      "svc_audition_coaching",
+      "svc_improv_workshop",
+      "svc_scene_study"
+    ]
+  },
+  "dog_grooming": {
+    "create_name_placeholder": "e.g. Full Groom",
+    "create_name_chips": [
+      "Full Groom",
+      "Bath & Brush",
+      "Nail Trim",
+      "De-Shedding",
+      "Puppy Groom",
+      "Breed Cut",
+      "Ear Cleaning",
+      "Teeth Brushing",
+      "Anal Gland",
+      "Sanitary Trim"
+    ],
+    "appointments": [
+      "svc_bath_brush",
+      "svc_full_groom",
+      "svc_puppy_s_first_groom",
+      "svc_nail_trim",
+      "svc_de_shedding_treatment",
+      "svc_breed_specific_cut"
+    ]
+  },
+  "dog_walking": {
+    "create_name_placeholder": "e.g. Daily Walk",
+    "create_name_chips": [
+      "30-Min Walk",
+      "1-Hour Walk",
+      "Group Walk",
+      "Puppy Walk",
+      "Senior Dog Walk",
+      "Weekend Walk",
+      "Meet & Greet",
+      "Recurring Walks",
+      "Adventure Walk",
+      "Check-In"
+    ],
+    "appointments": [
+      "svc_meet_greet",
+      "svc_30_minute_walk",
+      "svc_1_hour_walk",
+      "svc_group_walk",
+      "svc_puppy_walk",
+      "svc_weekend_adventure_walk"
+    ]
+  },
+  "event_venue_rentals": {
+    "create_name_placeholder": "e.g. Venue Tour",
+    "create_name_chips": [
+      "Venue Tour",
+      "Wedding Tour",
+      "Corporate Event Tour",
+      "Rental Inquiry",
+      "Site Visit",
+      "Vendor Walkthrough",
+      "Booking Meeting",
+      "Setup Meeting",
+      "Contract Review",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_venue_inquiry_call",
+      "svc_venue_tour",
+      "svc_wedding_venue_tour",
+      "svc_corporate_event_tour",
+      "svc_vendor_walkthrough",
+      "svc_booking_meeting"
+    ]
+  },
+  "face_body_care": {
+    "create_name_placeholder": "e.g. Facial Treatment",
+    "create_name_chips": [
+      "Facial",
+      "Body Treatment",
+      "Body Scrub",
+      "Body Wrap",
+      "Skincare Consult",
+      "Peel",
+      "Waxing",
+      "LED Therapy",
+      "Anti-Aging",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_skincare_consultation",
+      "svc_signature_facial",
+      "svc_body_treatment",
+      "svc_body_scrub_2",
+      "svc_body_wrap",
+      "svc_led_therapy"
+    ]
+  },
+  "oral_dental_care": {
+    "create_name_placeholder": "e.g. Cleaning Appointment",
+    "create_name_chips": [
+      "Cleaning",
+      "Check-Up",
+      "Filling",
+      "Whitening",
+      "Consultation",
+      "Root Canal",
+      "Extraction",
+      "Crown Fitting",
+      "Kids Cleaning",
+      "Emergency Visit"
+    ],
+    "appointments": [
+      "svc_new_patient_exam",
+      "svc_cleaning",
+      "svc_check_up",
+      "svc_filling",
+      "svc_teeth_whitening",
+      "svc_kids_cleaning"
+    ]
+  },
+  "restaurants": {
+    "create_name_placeholder": "e.g. Chef's Table Booking",
+    "create_name_chips": [
+      "Chef's Table",
+      "Private Dining",
+      "Wine Tasting",
+      "Menu Tasting",
+      "Group Reservation",
+      "Private Event",
+      "Kitchen Tour",
+      "Sommelier Session",
+      "Cooking Class",
+      "Consultation"
+    ],
+    "appointments": [
+      "svc_reservation_inquiry",
+      "svc_chef_s_table",
+      "svc_private_dining_consult",
+      "svc_menu_tasting",
+      "svc_wine_tasting",
+      "svc_private_event_booking"
+    ]
+  },
+  "video_services": {
+    "create_name_placeholder": "e.g. Videography Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Wedding Videography",
+      "Event Coverage",
+      "Brand Video",
+      "Product Video",
+      "Interview Shoot",
+      "Editing Session",
+      "Reel Package",
+      "Discovery Call",
+      "Delivery Review"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_videography_consultation",
+      "svc_event_coverage",
+      "svc_brand_video_shoot",
+      "svc_interview_shoot",
+      "svc_wedding_videography"
+    ]
+  },
+  "veterinarians": {
+    "create_name_placeholder": "e.g. Annual Checkup",
+    "create_name_chips": [
+      "Annual Checkup",
+      "Vaccination",
+      "Sick Visit",
+      "New Patient Visit",
+      "Dental Cleaning",
+      "Surgery Consult",
+      "Telehealth",
+      "Follow-Up",
+      "Puppy Visit",
+      "Senior Wellness"
+    ],
+    "appointments": [
+      "svc_new_patient_visit_2",
+      "svc_annual_checkup",
+      "svc_vaccination_appointment",
+      "svc_sick_pet_visit",
+      "svc_dental_cleaning",
+      "svc_telehealth_visit_2"
+    ]
+  },
+  "catering": {
+    "create_name_placeholder": "e.g. Menu Tasting",
+    "create_name_chips": [
+      "Consultation",
+      "Menu Tasting",
+      "Event Quote",
+      "Wedding Tasting",
+      "Corporate Catering",
+      "Delivery Slot",
+      "Setup Meeting",
+      "Vendor Meeting",
+      "Follow-Up",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_catering_consultation",
+      "svc_menu_tasting_2",
+      "svc_wedding_tasting",
+      "svc_event_site_visit",
+      "svc_setup_meeting"
+    ]
+  },
+  "graphic_design": {
+    "create_name_placeholder": "e.g. Design Consultation",
+    "create_name_chips": [
+      "Design Consultation",
+      "Discovery Call",
+      "Brand Design",
+      "Logo Design",
+      "Print Design",
+      "Web Design Review",
+      "Package Design",
+      "Kickoff Call",
+      "Design Review",
+      "Delivery Meeting"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_design_consultation_2",
+      "svc_brand_design_kickoff",
+      "svc_logo_design_session",
+      "svc_design_review",
+      "svc_delivery_meeting"
+    ]
+  },
+  "guided_tours": {
+    "create_name_placeholder": "e.g. Walking Tour",
+    "create_name_chips": [
+      "Walking Tour",
+      "Group Tour",
+      "Private Tour",
+      "Food Tour",
+      "Historic Tour",
+      "Bike Tour",
+      "Sunset Tour",
+      "Boat Tour",
+      "Photography Tour",
+      "Custom Tour"
+    ],
+    "appointments": [
+      "svc_walking_tour",
+      "svc_private_tour",
+      "svc_food_tour",
+      "svc_historic_tour",
+      "svc_bike_tour",
+      "svc_sunset_tour"
+    ]
+  },
+  "interior_design": {
+    "create_name_placeholder": "e.g. Design Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Design Session",
+      "Room Refresh",
+      "Full Home Design",
+      "Color Consult",
+      "Furniture Selection",
+      "Space Planning",
+      "Site Visit",
+      "Design Review",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_in_home_consultation",
+      "svc_design_session",
+      "svc_room_refresh_meeting",
+      "svc_color_consultation",
+      "svc_space_planning"
+    ]
+  },
+  "health_wellness_trips_retreats": {
+    "create_name_placeholder": "e.g. Retreat Consultation",
+    "create_name_chips": [
+      "Retreat Consultation",
+      "Discovery Call",
+      "Yoga Retreat",
+      "Wellness Retreat",
+      "Detox Program",
+      "Meditation Retreat",
+      "Group Booking",
+      "Custom Retreat",
+      "Q&A Session",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_retreat_consultation",
+      "svc_wellness_program_intake",
+      "svc_group_booking_call",
+      "svc_custom_retreat_planning",
+      "svc_pre_retreat_q_a"
+    ]
+  },
+  "racquet_sports": {
+    "create_name_placeholder": "e.g. Tennis Lesson",
+    "create_name_chips": [
+      "Tennis Lesson",
+      "Pickleball Lesson",
+      "Squash Lesson",
+      "Group Clinic",
+      "Private Coaching",
+      "Match Play",
+      "Junior Lesson",
+      "Doubles Strategy",
+      "Court Booking",
+      "Video Analysis"
+    ],
+    "appointments": [
+      "svc_trial_lesson_3",
+      "svc_tennis_lesson",
+      "svc_pickleball_lesson",
+      "svc_group_clinic",
+      "svc_junior_lesson",
+      "svc_match_play_coaching"
+    ]
+  },
+  "tax_preparation_planning": {
+    "create_name_placeholder": "e.g. Tax Return Prep",
+    "create_name_chips": [
+      "Tax Prep",
+      "Tax Planning",
+      "Consultation",
+      "Business Taxes",
+      "Audit Support",
+      "Extension Filing",
+      "Amendment",
+      "Quarterly Filing",
+      "Discovery Call",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_individual_tax_prep",
+      "svc_business_tax_prep",
+      "svc_tax_planning_session",
+      "svc_quarterly_filing",
+      "svc_audit_support"
+    ]
+  },
+  "hotels_accommodations": {
+    "create_name_placeholder": "e.g. Property Tour",
+    "create_name_chips": [
+      "Property Tour",
+      "Group Booking",
+      "Event Inquiry",
+      "Concierge Consult",
+      "Wedding Booking",
+      "Corporate Rate Meeting",
+      "Spa Booking",
+      "Site Visit",
+      "Discovery Call",
+      "VIP Consultation"
+    ],
+    "appointments": [
+      "svc_booking_inquiry",
+      "svc_property_tour",
+      "svc_wedding_site_visit",
+      "svc_group_booking_consultation",
+      "svc_concierge_planning",
+      "svc_corporate_rate_meeting"
+    ]
+  },
+  "weddings": {
+    "create_name_placeholder": "e.g. Wedding Planning Consultation",
+    "create_name_chips": [
+      "Discovery Call",
+      "Planning Session",
+      "Venue Tour",
+      "Vendor Meeting",
+      "Design Session",
+      "Timeline Review",
+      "Rehearsal",
+      "Day-Of Coordination",
+      "Tasting",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_wedding_planning_session",
+      "svc_venue_tour",
+      "svc_design_session_2",
+      "svc_vendor_meeting_2",
+      "svc_rehearsal"
+    ]
+  },
+  "swimming_sports": {
+    "create_name_placeholder": "e.g. Swim Lesson",
+    "create_name_chips": [
+      "Private Swim Lesson",
+      "Group Swim Class",
+      "Kids Swim Class",
+      "Adult Swim Lesson",
+      "Stroke Analysis",
+      "Water Safety Class",
+      "Competitive Coaching",
+      "Trial Lesson",
+      "Parent-Tot Class",
+      "Diving Lesson"
+    ],
+    "appointments": [
+      "svc_trial_swim_lesson",
+      "svc_private_swim_lesson",
+      "svc_kids_group_class",
+      "svc_adult_swim_lesson",
+      "svc_stroke_analysis",
+      "svc_parent_tot_class"
+    ]
+  },
+  "training_certification": {
+    "create_name_placeholder": "e.g. Certification Course",
+    "create_name_chips": [
+      "Certification Course",
+      "Training Session",
+      "Assessment",
+      "Practice Exam",
+      "Skills Workshop",
+      "Group Training",
+      "Private Coaching",
+      "Exam Booking",
+      "Info Session",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_info_session",
+      "svc_certification_course",
+      "svc_practice_exam",
+      "svc_skills_assessment",
+      "svc_private_coaching_2",
+      "svc_group_training"
+    ]
+  },
+  "crafts": {
+    "create_name_placeholder": "e.g. Craft Workshop",
+    "create_name_chips": [
+      "Craft Workshop",
+      "Private Lesson",
+      "Group Class",
+      "Kids Craft Class",
+      "Beginner Class",
+      "Custom Project",
+      "Studio Time",
+      "Trial Class",
+      "Consultation",
+      "Kids Party"
+    ],
+    "appointments": [
+      "svc_trial_class",
+      "svc_craft_workshop",
+      "svc_private_craft_lesson",
+      "svc_kids_craft_class",
+      "svc_custom_project_consult",
+      "svc_studio_time"
+    ]
+  },
+  "creative_classes_workshops": {
+    "create_name_placeholder": "e.g. Art Workshop",
+    "create_name_chips": [
+      "Workshop",
+      "Private Lesson",
+      "Group Class",
+      "Kids Class",
+      "Beginner Class",
+      "Advanced Class",
+      "Studio Time",
+      "Trial Class",
+      "Corporate Workshop",
+      "Custom Session"
+    ],
+    "appointments": [
+      "svc_trial_class",
+      "svc_group_workshop",
+      "svc_private_lesson",
+      "svc_kids_class",
+      "svc_corporate_workshop",
+      "svc_studio_time"
+    ]
+  },
+  "dog_training": {
+    "create_name_placeholder": "e.g. Basic Obedience",
+    "create_name_chips": [
+      "Basic Obedience",
+      "Puppy Training",
+      "Behavior Consult",
+      "Private Session",
+      "Group Class",
+      "Advanced Training",
+      "Board & Train",
+      "In-Home Training",
+      "Consultation",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_training_consultation",
+      "svc_private_training_session",
+      "svc_puppy_class",
+      "svc_group_obedience_class",
+      "svc_in_home_training",
+      "svc_behavior_assessment"
+    ]
+  },
+  "tattoo_artists_studios": {
+    "create_name_placeholder": "e.g. Tattoo Consultation",
+    "create_name_chips": [
+      "Tattoo Consultation",
+      "Small Tattoo",
+      "Medium Tattoo",
+      "Large Tattoo",
+      "Half-Day Session",
+      "Full-Day Session",
+      "Cover-Up Consult",
+      "Custom Design",
+      "Touch-Up",
+      "Removal Consult"
+    ],
+    "appointments": [
+      "svc_tattoo_consultation",
+      "svc_small_tattoo",
+      "svc_medium_tattoo",
+      "svc_half_day_session_2",
+      "svc_full_day_session_2",
+      "svc_touch_up"
+    ]
+  },
+  "chiropractic": {
+    "create_name_placeholder": "e.g. Chiropractic Adjustment",
+    "create_name_chips": [
+      "Initial Consult",
+      "Adjustment",
+      "Follow-Up",
+      "New Patient Exam",
+      "Sports Injury",
+      "Prenatal",
+      "Massage Add-On",
+      "X-Ray Review",
+      "Wellness Check",
+      "Package Session"
+    ],
+    "appointments": [
+      "svc_new_patient_exam_2",
+      "svc_chiropractic_adjustment",
+      "svc_follow_up_adjustment",
+      "svc_sports_injury_eval",
+      "svc_prenatal_adjustment",
+      "svc_x_ray_review"
+    ]
+  },
+  "cooking": {
+    "create_name_placeholder": "e.g. Cooking Class",
+    "create_name_chips": [
+      "Cooking Class",
+      "Private Chef Service",
+      "Meal Prep",
+      "Kids Cooking Class",
+      "Group Class",
+      "Couples Class",
+      "Consultation",
+      "Menu Planning",
+      "In-Home Chef",
+      "Trial Class"
+    ],
+    "appointments": [
+      "svc_cooking_class",
+      "svc_private_chef_service",
+      "svc_couples_cooking_class",
+      "svc_kids_cooking_class",
+      "svc_meal_prep_session",
+      "svc_menu_consultation"
+    ]
+  },
+  "home_nursing": {
+    "create_name_placeholder": "e.g. In-Home Nursing Visit",
+    "create_name_chips": [
+      "In-Home Visit",
+      "Wound Care",
+      "Medication Management",
+      "Post-Op Care",
+      "Elderly Care Visit",
+      "Consultation",
+      "Health Assessment",
+      "Vital Signs Check",
+      "Family Meeting",
+      "Care Plan Review"
+    ],
+    "appointments": [
+      "svc_care_consultation",
+      "svc_home_health_assessment",
+      "svc_in_home_nursing_visit",
+      "svc_wound_care_visit",
+      "svc_medication_management",
+      "svc_care_plan_review"
+    ]
+  },
+  "cosmetic_procedures": {
+    "create_name_placeholder": "e.g. Botox Consultation",
+    "create_name_chips": [
+      "Botox",
+      "Filler",
+      "Consultation",
+      "Microneedling",
+      "Laser Treatment",
+      "PRP Facial",
+      "Chemical Peel",
+      "Sclerotherapy",
+      "Kybella",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_cosmetic_consultation",
+      "svc_botox_treatment",
+      "svc_filler_treatment",
+      "svc_microneedling",
+      "svc_prp_facial",
+      "svc_laser_treatment"
+    ]
+  },
+  "doula": {
+    "create_name_placeholder": "e.g. Doula Consultation",
+    "create_name_chips": [
+      "Meet & Greet",
+      "Prenatal Visit",
+      "Birth Support",
+      "Postpartum Visit",
+      "Consultation",
+      "Package Session",
+      "Sibling Prep",
+      "Lactation Support",
+      "Placenta Prep",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_meet_greet_2",
+      "svc_doula_consultation",
+      "svc_prenatal_visit",
+      "svc_postpartum_visit",
+      "svc_sibling_prep_session",
+      "svc_lactation_support"
+    ]
+  },
+  "health_insurance": {
+    "create_name_placeholder": "e.g. Insurance Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Policy Review",
+      "Enrollment Meeting",
+      "Claims Assistance",
+      "Medicare Consult",
+      "Marketplace Review",
+      "Discovery Call",
+      "Family Coverage Review",
+      "Group Coverage",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_insurance_consultation",
+      "svc_policy_review",
+      "svc_enrollment_meeting",
+      "svc_medicare_consultation",
+      "svc_claims_assistance"
+    ]
+  },
+  "equestrian_sports": {
+    "create_name_placeholder": "e.g. Riding Lesson",
+    "create_name_chips": [
+      "Riding Lesson",
+      "Beginner Lesson",
+      "Kids Lesson",
+      "Private Lesson",
+      "Group Lesson",
+      "Jumping Lesson",
+      "Dressage Lesson",
+      "Horse Evaluation",
+      "Trail Ride",
+      "Trial Lesson"
+    ],
+    "appointments": [
+      "svc_trial_riding_lesson",
+      "svc_private_riding_lesson",
+      "svc_group_riding_lesson",
+      "svc_beginner_kids_lesson",
+      "svc_jumping_lesson",
+      "svc_horse_evaluation"
+    ]
+  },
+  "moving_relocation": {
+    "create_name_placeholder": "e.g. Moving Estimate",
+    "create_name_chips": [
+      "Moving Estimate",
+      "Consultation",
+      "Packing Service",
+      "Local Move",
+      "Long Distance Move",
+      "Corporate Relocation",
+      "Storage Consultation",
+      "Follow-Up",
+      "Site Visit",
+      "Setup Service"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_in_home_moving_estimate",
+      "svc_packing_consultation",
+      "svc_move_planning_session",
+      "svc_corporate_relocation_consult",
+      "svc_storage_consultation"
+    ]
+  },
+  "office_services": {
+    "create_name_placeholder": "e.g. Virtual Office Tour",
+    "create_name_chips": [
+      "Space Tour",
+      "Virtual Office Consult",
+      "Coworking Trial",
+      "Meeting Room Booking",
+      "Membership Consult",
+      "Print Services",
+      "Mail Setup",
+      "Reception Services Meeting",
+      "Site Visit",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_space_tour",
+      "svc_virtual_office_consultation",
+      "svc_coworking_trial_day",
+      "svc_meeting_room_booking",
+      "svc_membership_consult",
+      "svc_mail_setup_meeting"
+    ]
+  },
+  "teeth_whitening": {
+    "create_name_placeholder": "e.g. Whitening Session",
+    "create_name_chips": [
+      "Whitening Session",
+      "Consultation",
+      "Custom Tray Fitting",
+      "Touch-Up",
+      "Premium Whitening",
+      "Kids Whitening",
+      "Bridal Whitening",
+      "Follow-Up",
+      "Take-Home Kit",
+      "Refresh"
+    ],
+    "appointments": [
+      "svc_whitening_consultation",
+      "svc_whitening_session",
+      "svc_premium_whitening",
+      "svc_custom_tray_fitting",
+      "svc_touch_up_session",
+      "svc_bridal_whitening_package"
+    ]
+  },
+  "life_coaching": {
+    "create_name_placeholder": "e.g. Life Coaching Session",
+    "create_name_chips": [
+      "Discovery Session",
+      "Life Coaching",
+      "Goal Setting",
+      "Accountability Check-In",
+      "Package Session",
+      "Values Clarification",
+      "Life Transition",
+      "Relationship Coaching",
+      "Group Coaching",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_session_2",
+      "svc_life_coaching_session",
+      "svc_goal_setting_session",
+      "svc_life_transition_session",
+      "svc_accountability_check_in",
+      "svc_group_coaching"
+    ]
+  },
+  "martial_arts": {
+    "create_name_placeholder": "e.g. Martial Arts Class",
+    "create_name_chips": [
+      "Karate",
+      "Taekwondo",
+      "Jiu-Jitsu",
+      "Boxing",
+      "Kickboxing",
+      "Muay Thai",
+      "Kids Class",
+      "Adult Class",
+      "Private Lesson",
+      "Trial Class"
+    ],
+    "appointments": [
+      "svc_trial_class_3",
+      "svc_group_martial_arts_class",
+      "svc_kids_martial_arts_class",
+      "svc_private_martial_arts_lesson",
+      "svc_belt_test",
+      "svc_sparring_session"
+    ]
+  },
+  "surf_swim_activities": {
+    "create_name_placeholder": "e.g. Surf Lesson",
+    "create_name_chips": [
+      "Surf Lesson",
+      "Kids Surf Lesson",
+      "Group Surf Class",
+      "Private Surf Coaching",
+      "Paddleboard Lesson",
+      "Swim Lesson",
+      "Water Safety Class",
+      "Snorkel Tour",
+      "Board Rental Consult",
+      "Trial Lesson"
+    ],
+    "appointments": [
+      "svc_trial_surf_lesson",
+      "svc_private_surf_lesson",
+      "svc_group_surf_class",
+      "svc_kids_surf_lesson",
+      "svc_paddleboard_lesson",
+      "svc_snorkel_tour"
+    ]
+  },
+  "bookkeeping": {
+    "create_name_placeholder": "e.g. Bookkeeping Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Monthly Bookkeeping",
+      "QuickBooks Setup",
+      "Cleanup Project",
+      "Financial Review",
+      "Payroll Setup",
+      "Reconciliation",
+      "Discovery Call",
+      "Year-End Review",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_bookkeeping_consultation",
+      "svc_quickbooks_setup",
+      "svc_monthly_bookkeeping_review",
+      "svc_cleanup_project_consult",
+      "svc_year_end_review"
+    ]
+  },
+  "roofing": {
+    "create_name_placeholder": "e.g. Roof Inspection",
+    "create_name_chips": [
+      "Roof Inspection",
+      "Estimate",
+      "Repair",
+      "Full Replacement Consult",
+      "Gutter Cleaning",
+      "Storm Damage Assessment",
+      "Emergency Repair",
+      "Consultation",
+      "Maintenance Visit",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_roof_inspection",
+      "svc_free_estimate",
+      "svc_repair_estimate",
+      "svc_storm_damage_assessment",
+      "svc_gutter_cleaning",
+      "svc_replacement_consultation"
+    ]
+  },
+  "vehicle_repair_maintenance": {
+    "create_name_placeholder": "e.g. Oil Change",
+    "create_name_chips": [
+      "Oil Change",
+      "Tire Rotation",
+      "Brake Service",
+      "Diagnostic Scan",
+      "State Inspection",
+      "Alignment",
+      "AC Service",
+      "Battery Check",
+      "Tune-Up",
+      "Pre-Purchase Inspection"
+    ],
+    "appointments": [
+      "svc_oil_change_inspection",
+      "svc_tire_rotation",
+      "svc_brake_service",
+      "svc_diagnostic_scan",
+      "svc_state_inspection",
+      "svc_wheel_alignment"
+    ]
+  },
+  "yard_maintenance": {
+    "create_name_placeholder": "e.g. Lawn Care Estimate",
+    "create_name_chips": [
+      "Lawn Care",
+      "Mowing Service",
+      "Leaf Removal",
+      "Tree Trimming",
+      "Snow Removal",
+      "Seasonal Cleanup",
+      "Aeration",
+      "Estimate",
+      "Consultation",
+      "Recurring Service"
+    ],
+    "appointments": [
+      "svc_free_estimate_2",
+      "svc_lawn_care_consultation_2",
+      "svc_seasonal_cleanup",
+      "svc_tree_trimming",
+      "svc_leaf_removal",
+      "svc_aeration_service"
+    ]
+  },
+  "sex_education_counseling": {
+    "create_name_placeholder": "e.g. Counseling Session",
+    "create_name_chips": [
+      "Individual Session",
+      "Couples Session",
+      "Consultation",
+      "Education Session",
+      "Group Workshop",
+      "Intake",
+      "Follow-Up",
+      "Assessment",
+      "Teen Session",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_intake_session",
+      "svc_individual_session_2",
+      "svc_couples_session",
+      "svc_education_session",
+      "svc_group_workshop_2"
+    ]
+  },
+  "women_s_health": {
+    "create_name_placeholder": "e.g. Wellness Visit",
+    "create_name_chips": [
+      "Wellness Visit",
+      "Annual Exam",
+      "Prenatal Visit",
+      "Postpartum Visit",
+      "Consultation",
+      "Follow-Up",
+      "Family Planning",
+      "Menopause Consult",
+      "Telehealth",
+      "Preventive Care"
+    ],
+    "appointments": [
+      "svc_new_patient_visit_3",
+      "svc_annual_wellness_visit",
+      "svc_prenatal_visit_2",
+      "svc_family_planning_consult",
+      "svc_menopause_consultation",
+      "svc_telehealth_visit_3"
+    ]
+  },
+  "driving_school": {
+    "create_name_placeholder": "e.g. Driving Lesson",
+    "create_name_chips": [
+      "Driving Lesson",
+      "Behind-the-Wheel",
+      "Road Test Prep",
+      "Parallel Parking Practice",
+      "Highway Lesson",
+      "Adult Lesson",
+      "Teen Lesson",
+      "Refresher Lesson",
+      "Package Session",
+      "Assessment"
+    ],
+    "appointments": [
+      "svc_driving_assessment",
+      "svc_driving_lesson",
+      "svc_behind_the_wheel_session",
+      "svc_road_test_prep",
+      "svc_highway_lesson",
+      "svc_refresher_lesson"
+    ]
+  },
+  "notary_services": {
+    "create_name_placeholder": "e.g. Notary Appointment",
+    "create_name_chips": [
+      "Notary Appointment",
+      "Mobile Notary",
+      "Loan Signing",
+      "Consultation",
+      "Apostille Service",
+      "Estate Documents",
+      "Real Estate Signing",
+      "General Notary",
+      "After Hours Notary",
+      "Rush Service"
+    ],
+    "appointments": [
+      "svc_notary_appointment",
+      "svc_mobile_notary_visit",
+      "svc_loan_signing_appointment",
+      "svc_real_estate_signing",
+      "svc_apostille_service",
+      "svc_rush_notary"
+    ]
+  },
+  "dj_entertainment_services": {
+    "create_name_placeholder": "e.g. DJ Consultation",
+    "create_name_chips": [
+      "DJ Consultation",
+      "Wedding DJ",
+      "Corporate Event DJ",
+      "Party DJ",
+      "MC Services",
+      "Music Planning",
+      "Site Visit",
+      "Sound Check",
+      "Package Consult",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_dj_consultation",
+      "svc_wedding_dj_consultation",
+      "svc_music_planning_meeting",
+      "svc_site_visit_sound_check",
+      "svc_package_consult"
+    ]
+  },
+  "fishing": {
+    "create_name_placeholder": "e.g. Fishing Charter",
+    "create_name_chips": [
+      "Charter Booking",
+      "Half-Day Charter",
+      "Full-Day Charter",
+      "Deep Sea Charter",
+      "Inshore Fishing",
+      "Family Charter",
+      "Fly Fishing Guide",
+      "Ice Fishing",
+      "Group Charter",
+      "Beginner Trip"
+    ],
+    "appointments": [
+      "svc_booking_inquiry",
+      "svc_half_day_charter",
+      "svc_full_day_charter",
+      "svc_deep_sea_charter",
+      "svc_inshore_fishing_trip",
+      "svc_fly_fishing_guide"
+    ]
+  },
+  "obstetrics_gynecology_obgyn": {
+    "create_name_placeholder": "e.g. Annual Exam",
+    "create_name_chips": [
+      "Annual Exam",
+      "Prenatal Visit",
+      "Postpartum Visit",
+      "Consultation",
+      "Follow-Up",
+      "Ultrasound",
+      "New OB Visit",
+      "Fertility Consult",
+      "Well Woman Visit",
+      "Telehealth"
+    ],
+    "appointments": [
+      "svc_new_patient_visit",
+      "svc_annual_exam",
+      "svc_prenatal_visit_3",
+      "svc_postpartum_visit_2",
+      "svc_ultrasound",
+      "svc_fertility_consultation"
+    ]
+  },
+  "pediatrics": {
+    "create_name_placeholder": "e.g. Well Child Visit",
+    "create_name_chips": [
+      "Well Child Visit",
+      "Sick Visit",
+      "Vaccination",
+      "Newborn Visit",
+      "Consultation",
+      "Follow-Up",
+      "School Physical",
+      "Sports Physical",
+      "Behavioral Consult",
+      "Telehealth"
+    ],
+    "appointments": [
+      "svc_new_patient_visit_3",
+      "svc_well_child_visit",
+      "svc_sick_child_visit",
+      "svc_newborn_visit",
+      "svc_vaccination_visit",
+      "svc_sports_physical"
+    ]
+  },
+  "property_inspections": {
+    "create_name_placeholder": "e.g. Home Inspection",
+    "create_name_chips": [
+      "Home Inspection",
+      "Pre-Listing Inspection",
+      "New Construction Inspection",
+      "Radon Test",
+      "Mold Inspection",
+      "Termite Inspection",
+      "Follow-Up",
+      "Consultation",
+      "Commercial Inspection",
+      "Re-Inspection"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_home_inspection",
+      "svc_pre_listing_inspection",
+      "svc_new_construction_inspection",
+      "svc_radon_test",
+      "svc_mold_inspection"
+    ]
+  },
+  "social_services": {
+    "create_name_placeholder": "e.g. Case Management Meeting",
+    "create_name_chips": [
+      "Case Management",
+      "Intake Meeting",
+      "Consultation",
+      "Family Meeting",
+      "Program Enrollment",
+      "Resource Referral",
+      "Home Visit",
+      "Assessment",
+      "Follow-Up",
+      "Support Group"
+    ],
+    "appointments": [
+      "svc_intake_meeting",
+      "svc_case_management_meeting",
+      "svc_family_meeting",
+      "svc_home_visit",
+      "svc_program_enrollment",
+      "svc_support_group_session"
+    ]
+  },
+  "visa_immigration": {
+    "create_name_placeholder": "e.g. Immigration Consultation",
+    "create_name_chips": [
+      "Consultation",
+      "Visa Consultation",
+      "Green Card Consult",
+      "Citizenship Application",
+      "Family Petition",
+      "Work Visa",
+      "Student Visa",
+      "Case Review",
+      "Follow-Up",
+      "Document Review"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_immigration_consultation",
+      "svc_visa_consultation",
+      "svc_green_card_consultation",
+      "svc_citizenship_application_review",
+      "svc_case_review"
+    ]
+  },
+  "web_design_development": {
+    "create_name_placeholder": "e.g. Website Consultation",
+    "create_name_chips": [
+      "Discovery Call",
+      "Consultation",
+      "Kickoff Meeting",
+      "Design Review",
+      "Development Check-In",
+      "Site Audit",
+      "SEO Consultation",
+      "Redesign Consult",
+      "Launch Meeting",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_website_consultation",
+      "svc_project_kickoff",
+      "svc_design_review_2",
+      "svc_site_audit",
+      "svc_seo_consultation"
+    ]
+  },
+  "early_childhood_education": {
+    "create_name_placeholder": "e.g. School Tour",
+    "create_name_chips": [
+      "School Tour",
+      "Enrollment Meeting",
+      "Parent Consultation",
+      "Trial Day",
+      "Assessment",
+      "Parent-Teacher Meeting",
+      "Open House",
+      "Family Interview",
+      "Curriculum Consult",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_school_tour",
+      "svc_enrollment_meeting",
+      "svc_trial_day",
+      "svc_parent_consultation",
+      "svc_parent_teacher_meeting"
+    ]
+  },
+  "tailoring_alterations": {
+    "create_name_placeholder": "e.g. Alterations Fitting",
+    "create_name_chips": [
+      "Consultation",
+      "Alterations Fitting",
+      "Bridal Alterations",
+      "Suit Fitting",
+      "Hemming",
+      "Rush Service",
+      "Pickup",
+      "Custom Tailoring",
+      "Repair",
+      "Follow-Up Fitting"
+    ],
+    "appointments": [
+      "svc_alterations_consultation",
+      "svc_initial_fitting",
+      "svc_bridal_fitting",
+      "svc_suit_fitting",
+      "svc_custom_tailoring_consult",
+      "svc_rush_alterations"
+    ]
+  },
+  "house_painting": {
+    "create_name_placeholder": "e.g. Paint Estimate",
+    "create_name_chips": [
+      "Paint Estimate",
+      "Color Consultation",
+      "Interior Painting Consult",
+      "Exterior Painting Consult",
+      "Site Visit",
+      "Sample Application",
+      "Follow-Up",
+      "Touch-Up Visit",
+      "Consultation",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_free_paint_estimate",
+      "svc_color_consultation_2",
+      "svc_interior_painting_consult",
+      "svc_exterior_painting_consult",
+      "svc_sample_application"
+    ]
+  },
+  "pet_sitting": {
+    "create_name_placeholder": "e.g. Meet & Greet",
+    "create_name_chips": [
+      "Meet & Greet",
+      "Drop-In Visit",
+      "Overnight Sit",
+      "In-Home Sitting",
+      "Dog Walking Add-On",
+      "Feeding Visit",
+      "Vacation Care",
+      "Consultation",
+      "Recurring Care",
+      "Trial Visit"
+    ],
+    "appointments": [
+      "svc_meet_greet",
+      "svc_30_minute_drop_in",
+      "svc_1_hour_drop_in",
+      "svc_overnight_pet_sit",
+      "svc_in_home_sitting_day",
+      "svc_vacation_care_consult"
+    ]
+  },
+  "arch_consultation": {
+    "create_name_placeholder": "e.g. Strategy Session",
+    "create_name_chips": [
+      "Discovery Call",
+      "Consultation",
+      "Strategy Session",
+      "Working Session",
+      "Project Review",
+      "Follow-Up",
+      "Kickoff Call",
+      "Audit",
+      "Advisory Hour",
+      "Quarterly Review"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_consultation",
+      "svc_strategy_session",
+      "svc_working_session_2",
+      "svc_project_review",
+      "svc_follow_up_meeting"
+    ]
+  },
+  "arch_classes_workshops": {
+    "create_name_placeholder": "e.g. Private Lesson",
+    "create_name_chips": [
+      "Private Lesson",
+      "Small Group Session",
+      "Intro Session",
+      "Assessment",
+      "Couples Session",
+      "Workshop",
+      "Trial Session",
+      "Package Session",
+      "Group Session",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_trial_session_2",
+      "svc_private_lesson_2",
+      "svc_small_group_session",
+      "svc_group_session",
+      "svc_assessment_2",
+      "svc_package_session"
+    ]
+  },
+  "arch_medical_visit": {
+    "create_name_placeholder": "e.g. New Patient Visit",
+    "create_name_chips": [
+      "New Patient Visit",
+      "Follow-Up",
+      "Consultation",
+      "Annual Visit",
+      "Sick Visit",
+      "Telehealth",
+      "Assessment",
+      "Screening",
+      "Procedure Consult",
+      "Lab Review"
+    ],
+    "appointments": [
+      "svc_new_patient_visit_4",
+      "svc_follow_up_visit_2",
+      "svc_consultation_2",
+      "svc_annual_visit",
+      "svc_telehealth_visit",
+      "svc_screening"
+    ]
+  },
+  "arch_home_estimate": {
+    "create_name_placeholder": "e.g. Free Estimate",
+    "create_name_chips": [
+      "Free Estimate",
+      "Site Visit",
+      "Service Call",
+      "Installation",
+      "Inspection",
+      "Maintenance Visit",
+      "Consultation",
+      "Emergency Call",
+      "Repair Visit",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_free_estimate_3",
+      "svc_site_visit",
+      "svc_service_call",
+      "svc_installation",
+      "svc_inspection",
+      "svc_emergency_call"
+    ]
+  },
+  "arch_repair_dropoff": {
+    "create_name_placeholder": "e.g. Repair Intake",
+    "create_name_chips": [
+      "Repair Intake",
+      "Diagnostic",
+      "Estimate",
+      "Standard Repair",
+      "Express Repair",
+      "Pickup",
+      "Consultation",
+      "Warranty Check",
+      "Follow-Up",
+      "Emergency Repair"
+    ],
+    "appointments": [
+      "svc_diagnostic",
+      "svc_repair_intake",
+      "svc_estimate",
+      "svc_standard_repair",
+      "svc_express_repair",
+      "svc_pickup"
+    ]
+  },
+  "arch_wellness_session": {
+    "create_name_placeholder": "e.g. Wellness Session",
+    "create_name_chips": [
+      "Consultation",
+      "Single Session",
+      "Package Session",
+      "Follow-Up",
+      "Intro Session",
+      "Assessment",
+      "Group Session",
+      "Add-On",
+      "Membership Session",
+      "Check-In"
+    ],
+    "appointments": [
+      "svc_consultation_3",
+      "svc_single_session",
+      "svc_package_session_2",
+      "svc_intro_session",
+      "svc_assessment_3",
+      "svc_follow_up"
+    ]
+  },
+  "arch_tours_experiences": {
+    "create_name_placeholder": "e.g. Guided Tour",
+    "create_name_chips": [
+      "Guided Tour",
+      "Private Tour",
+      "Group Tour",
+      "Tasting",
+      "Experience",
+      "VIP Tour",
+      "Family Tour",
+      "Booking",
+      "Consultation",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_guided_tour",
+      "svc_private_tour_2",
+      "svc_group_tour",
+      "svc_tasting_experience",
+      "svc_vip_experience",
+      "svc_booking_inquiry"
+    ]
+  },
+  "arch_retreats_trips": {
+    "create_name_placeholder": "e.g. Trip Planning",
+    "create_name_chips": [
+      "Discovery Call",
+      "Planning Session",
+      "Itinerary Review",
+      "Booking",
+      "Group Planning",
+      "Custom Trip",
+      "Consultation",
+      "Pre-Trip Q&A",
+      "Follow-Up",
+      "Deposit Meeting"
+    ],
+    "appointments": [
+      "svc_discovery_call",
+      "svc_planning_session_2",
+      "svc_itinerary_review",
+      "svc_group_planning",
+      "svc_custom_trip_planning",
+      "svc_pre_trip_q_a"
+    ]
+  },
+  "arch_events_performances": {
+    "create_name_placeholder": "e.g. Event Consultation",
+    "create_name_chips": [
+      "Inquiry",
+      "Consultation",
+      "Booking",
+      "Site Visit",
+      "Planning Meeting",
+      "Package Consult",
+      "Rehearsal",
+      "Sound Check",
+      "Follow-Up",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_inquiry_call",
+      "svc_event_consultation",
+      "svc_booking_meeting",
+      "svc_site_visit",
+      "svc_planning_meeting",
+      "svc_package_consult_2"
+    ]
+  },
+  "arch_venue_rental": {
+    "create_name_placeholder": "e.g. Venue Tour",
+    "create_name_chips": [
+      "Venue Tour",
+      "Booking Meeting",
+      "Walkthrough",
+      "Setup Meeting",
+      "Inquiry",
+      "Site Visit",
+      "Contract Review",
+      "Vendor Meeting",
+      "Follow-Up",
+      "Discovery Call"
+    ],
+    "appointments": [
+      "svc_inquiry_call",
+      "svc_venue_tour",
+      "svc_booking_meeting",
+      "svc_walkthrough",
+      "svc_setup_meeting",
+      "svc_vendor_walkthrough"
+    ]
+  },
+  "arch_equipment_rental": {
+    "create_name_placeholder": "e.g. Rental Booking",
+    "create_name_chips": [
+      "Rental Inquiry",
+      "Pickup",
+      "Return",
+      "Damage Check",
+      "Reservation",
+      "Consultation",
+      "Delivery Slot",
+      "Setup",
+      "Extension",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_rental_inquiry",
+      "svc_reservation",
+      "svc_pickup_appointment_2",
+      "svc_return_appointment",
+      "svc_delivery_slot",
+      "svc_damage_check"
+    ]
+  },
+  "arch_fitting_styling": {
+    "create_name_placeholder": "e.g. Fitting Appointment",
+    "create_name_chips": [
+      "Consultation",
+      "Fitting",
+      "Custom Order",
+      "Styling Session",
+      "Alteration",
+      "Follow-Up Fitting",
+      "Trial",
+      "Measurement",
+      "Pickup",
+      "Rush Service"
+    ],
+    "appointments": [
+      "svc_consultation_3",
+      "svc_fitting_appointment",
+      "svc_custom_order_consult",
+      "svc_styling_session",
+      "svc_alteration_fitting",
+      "svc_follow_up_fitting"
+    ]
+  },
+  "arch_retail_visit": {
+    "create_name_placeholder": "e.g. Showroom Visit",
+    "create_name_chips": [
+      "Store Visit",
+      "Product Consult",
+      "Showroom Appointment",
+      "Test Drive",
+      "Personal Shopping",
+      "Demo",
+      "Pickup",
+      "Consultation",
+      "Fitting",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_product_consultation",
+      "svc_showroom_visit",
+      "svc_personal_shopping",
+      "svc_product_demo",
+      "svc_test_drive",
+      "svc_pickup_appointment"
+    ]
+  },
+  "arch_sports_practice": {
+    "create_name_placeholder": "e.g. Private Coaching Session",
+    "create_name_chips": [
+      "Assessment",
+      "Private Lesson",
+      "Small Group Session",
+      "Skills Session",
+      "Video Review",
+      "Intro Session",
+      "Package Session",
+      "Team Session",
+      "Clinic",
+      "Trial Session"
+    ],
+    "appointments": [
+      "svc_trial_session_3",
+      "svc_skills_assessment_2",
+      "svc_private_coaching_3",
+      "svc_small_group_session_2",
+      "svc_skills_clinic",
+      "svc_video_review"
+    ]
+  },
+  "arch_restaurants_experiences": {
+    "create_name_placeholder": "e.g. Reservation",
+    "create_name_chips": [
+      "Reservation",
+      "Private Dining",
+      "Chef's Table",
+      "Tasting",
+      "Menu Consult",
+      "Private Event",
+      "Group Booking",
+      "Wine Pairing",
+      "Consultation",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_reservation_2",
+      "svc_private_dining",
+      "svc_chef_s_table_2",
+      "svc_tasting_menu",
+      "svc_private_event_consult",
+      "svc_group_booking_2"
+    ]
+  },
+  "arch_experiences": {
+    "create_name_placeholder": "e.g. Book an Experience",
+    "create_name_chips": [
+      "Booking",
+      "Group Booking",
+      "Intro Session",
+      "Beginner Session",
+      "Private Session",
+      "Party Booking",
+      "Equipment Included",
+      "Consultation",
+      "Trial",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_booking",
+      "svc_group_booking_3",
+      "svc_intro_session_2",
+      "svc_beginner_session",
+      "svc_private_session",
+      "svc_party_booking"
+    ]
+  },
+  "arch_meetups": {
+    "create_name_placeholder": "e.g. Group Meetup",
+    "create_name_chips": [
+      "Meet & Greet",
+      "Group Session",
+      "Intro Meeting",
+      "Membership Meeting",
+      "Event RSVP",
+      "Info Session",
+      "Orientation",
+      "Consultation",
+      "Follow-Up",
+      "Community Session"
+    ],
+    "appointments": [
+      "svc_meet_greet",
+      "svc_group_session_2",
+      "svc_intro_meeting",
+      "svc_membership_meeting",
+      "svc_info_session_2",
+      "svc_orientation"
+    ]
+  },
+  "arch_fix_improvements_estimate": {
+    "create_name_placeholder": "e.g. Service & Tune-Up",
+    "create_name_chips": [
+      "Estimate",
+      "Tune-Up",
+      "Service Appointment",
+      "Repair Intake",
+      "Diagnostic",
+      "Inspection",
+      "Pickup",
+      "Maintenance",
+      "Consultation",
+      "Follow-Up"
+    ],
+    "appointments": [
+      "svc_estimate",
+      "svc_tune_up",
+      "svc_service_appointment",
+      "svc_repair_intake",
+      "svc_diagnostic_2",
+      "svc_pickup_appointment"
+    ]
+  },
+  "generic": {
+    "create_name_placeholder": "e.g. My Service",
+    "create_name_chips": [
+      "Consultation",
+      "Virtual Session",
+      "In-Person Service",
+      "Follow-Up",
+      "Strategy Call",
+      "Discovery Call",
+      "Custom Session",
+      "Package Session",
+      "Trial Session",
+      "Assessment"
+    ],
+    "appointments": [
+      "svc_consultation_4",
+      "svc_virtual_session",
+      "svc_standard_service",
+      "svc_follow_up_2",
+      "svc_strategy_call",
+      "svc_discovery_call"
+    ]
+  }
+}
