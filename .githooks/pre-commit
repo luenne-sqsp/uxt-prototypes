@@ -1,0 +1,8 @@
+#!/bin/sh
+# Design-system drift ratchet — fails the commit if any c5/src/*.vue file's
+# raw-hex/raw-font-size/off-scale-spacing/bespoke-class count went up.
+# Not installed automatically (this repo doesn't set core.hooksPath) — opt
+# in with:
+#   git config core.hooksPath .githooks
+
+node scripts/audit-drift.mjs

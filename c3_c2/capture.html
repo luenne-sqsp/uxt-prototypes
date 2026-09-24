@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acuity C04-A — Capture index</title>
+  <link rel="stylesheet" href="../ds/font.css">
+  <link rel="stylesheet" href="../ds/tokens.css">
+  <link rel="stylesheet" href="../ds/components.css">
+  <script src="capture-config.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--acuity-font-family-sans);
+      color: var(--acuity-fg-default);
+      background: var(--acuity-bg-inset);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 960px;
+      margin-inline: auto;
+      padding: var(--acuity-spacing-48) var(--acuity-spacing-24) var(--acuity-spacing-96);
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-32);
+    }
+
+    .page-header { display: flex; flex-direction: column; gap: var(--acuity-spacing-8); }
+    .page-header p { max-width: 62ch; color: var(--acuity-fg-muted); }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: var(--acuity-spacing-16);
+      align-items: end;
+    }
+    .controls .size-field { width: 96px; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: var(--acuity-spacing-8); }
+
+    .group { display: flex; flex-direction: column; gap: var(--acuity-spacing-12); }
+    .group__title {
+      display: flex;
+      align-items: baseline;
+      gap: var(--acuity-spacing-8);
+    }
+    .group__hint { color: var(--acuity-fg-muted); }
+
+    .rows {
+      display: flex;
+      flex-direction: column;
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-lg);
+      overflow: hidden;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 132px 1fr auto;
+      align-items: center;
+      gap: var(--acuity-spacing-16);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      border-bottom: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+    }
+    .row:last-child { border-bottom: none; }
+    .row:hover { background: var(--acuity-bg-inset); }
+
+    .row__id {
+      font-family: var(--acuity-font-family-mono);
+      font-size: var(--acuity-font-size-11);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--acuity-fg-muted);
+    }
+    .row__label { font-size: 14px; }
+    .row__actions { display: flex; gap: var(--acuity-spacing-8); }
+
+    .url-preview {
+      font-family: var(--acuity-font-family-mono);
+      font-size: var(--acuity-font-size-11);
+      color: var(--acuity-fg-muted);
+      word-break: break-all;
+      background: var(--acuity-bg-inset);
+      border-radius: var(--acuity-border-radius-md);
+      padding: var(--acuity-spacing-12);
+    }
+
+    .steps { display: flex; flex-direction: column; gap: var(--acuity-spacing-8); padding-left: var(--acuity-spacing-20); }
+    .steps li { color: var(--acuity-fg-muted); font-size: 14px; line-height: 1.6; }
+    .steps code {
+      font-family: var(--acuity-font-family-mono);
+      font-size: 12px;
+      color: var(--acuity-fg-default);
+      background: var(--acuity-bg-inset);
+      padding: 0 var(--acuity-spacing-4);
+      border-radius: var(--acuity-border-radius-xs);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: var(--acuity-spacing-32);
+      transform: translateX(-50%) translateY(var(--acuity-spacing-16));
+      z-index: var(--acuity-z-toast);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-20);
+      border-radius: var(--acuity-border-radius-round);
+      background: var(--acuity-bg-strong);
+      color: var(--acuity-fg-on-strong);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+    .toast--visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <header class="page-header">
+      <h1 class="text-title-sm">Capture index</h1>
+      <p>
+        Deterministic URLs for every screen in the C04-A prototype, for importing
+        into Figma as editable layers. Each link freezes animations, holds screens
+        that normally auto-advance, and pins any rotating copy, so the same URL
+        exports the same design every time.
+      </p>
+    </header>
+
+    <section class="acuity-card acuity-card--padding-lg">
+      <div class="controls">
+        <div class="acuity-input acuity-input--sm">
+          <label class="acuity-input__label" for="base">Base URL</label>
+          <div class="acuity-input__wrapper">
+            <input class="acuity-input__field" id="base" type="text" spellcheck="false">
+          </div>
+        </div>
+        <div class="acuity-input acuity-input--sm size-field">
+          <label class="acuity-input__label" for="w">Width</label>
+          <div class="acuity-input__wrapper">
+            <input class="acuity-input__field" id="w" type="number" min="240" step="1">
+          </div>
+        </div>
+        <div class="acuity-input acuity-input--sm size-field">
+          <label class="acuity-input__label" for="h">Height</label>
+          <div class="acuity-input__wrapper">
+            <input class="acuity-input__field" id="h" type="number" min="320" step="1">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="group">
+      <div class="toolbar">
+        <button class="acuity-button acuity-button--primary acuity-button--sm" id="open-filmstrip">
+          Open filmstrip
+        </button>
+        <button class="acuity-button acuity-button--secondary acuity-button--sm" id="copy-filmstrip">
+          Copy filmstrip URL
+        </button>
+        <button class="acuity-button acuity-button--secondary acuity-button--sm" id="copy-all">
+          Copy all screen URLs
+        </button>
+      </div>
+      <p class="url-preview" id="filmstrip-url"></p>
+    </section>
+
+    <section class="group">
+      <div class="group__title">
+        <h2 class="text-section-title-sm">Screens</h2>
+        <span class="group__hint text-caption">One import per URL, or paste the whole list into a bulk import.</span>
+      </div>
+      <div class="rows" id="screen-rows"></div>
+    </section>
+
+    <section class="group">
+      <div class="group__title">
+        <h2 class="text-section-title-sm">Create sheet</h2>
+        <span class="group__hint text-caption">Steps of the sheet inside S5 — not reachable by screen URL alone.</span>
+      </div>
+      <div class="rows" id="panel-rows"></div>
+    </section>
+
+    <section class="acuity-card acuity-card--padding-lg group">
+      <h2 class="text-section-title-sm">Importing into Figma</h2>
+      <ol class="steps">
+        <li>Run the <strong>html.to.design</strong> plugin in the target Figma file.</li>
+        <li>Paste a URL from above, or the whole list if you're on a plan that takes multiple.</li>
+        <li>Set the viewport to match the width above — the prototype is responsive, so a desktop viewport yields the desktop layout.</li>
+        <li>For any state that only exists after interaction, use the browser extension to capture what's on screen instead.</li>
+      </ol>
+      <p class="group__hint text-caption">
+        Headless tooling can wait for <code>html[data-capture-ready]</code> or the
+        <code>capture:ready</code> event rather than a fixed delay. Both fire once
+        fonts and images have settled.
+      </p>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const baseInput = document.getElementById('base');
+      const wInput    = document.getElementById('w');
+      const hInput    = document.getElementById('h');
+      const toast     = document.getElementById('toast');
+
+      baseInput.value = new URL('index.html', location.href).href;
+      wInput.value    = window.CAPTURE_DEFAULT_SIZE.width;
+      hInput.value    = window.CAPTURE_DEFAULT_SIZE.height;
+
+      let toastTimer = null;
+      function flash(message) {
+        toast.textContent = message;
+        toast.classList.add('toast--visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('toast--visible'), 1600);
+      }
+
+      function copy(text, message) {
+        navigator.clipboard.writeText(text)
+          .then(() => flash(message))
+          .catch(() => flash('Copy failed — check clipboard permissions'));
+      }
+
+      function size() {
+        return {
+          w: parseInt(wInput.value, 10) || window.CAPTURE_DEFAULT_SIZE.width,
+          h: parseInt(hInput.value, 10) || window.CAPTURE_DEFAULT_SIZE.height,
+        };
+      }
+
+      function build(params) {
+        const url = new URL(baseInput.value || 'index.html', location.href);
+        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+        return url.href;
+      }
+
+      function screenUrl(id) { return build({ capture: '1', screen: id }); }
+      function panelUrl(step) { return build({ capture: '1', screen: 's5', panel: step }); }
+      function filmstripUrl() {
+        const { w, h } = size();
+        return build({ capture: 'all', w: w, h: h });
+      }
+
+      // ─── Rows ──────────────────────────────────────────────────────────────
+
+      function renderRows(container, entries, toUrl) {
+        container.textContent = '';
+
+        entries.forEach(([id, label]) => {
+          const row = document.createElement('div');
+          row.className = 'row';
+
+          const idEl = document.createElement('span');
+          idEl.className = 'row__id';
+          idEl.textContent = id;
+
+          const labelEl = document.createElement('span');
+          labelEl.className = 'row__label';
+          labelEl.textContent = label;
+
+          const actions = document.createElement('div');
+          actions.className = 'row__actions';
+
+          const open = document.createElement('a');
+          open.className = 'acuity-button acuity-button--tertiary acuity-button--sm';
+          open.textContent = 'Open';
+          open.target = '_blank';
+          open.rel = 'noopener';
+
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'acuity-button acuity-button--secondary acuity-button--sm';
+          copyBtn.textContent = 'Copy URL';
+
+          // Recomputed on click so edits to the base URL apply without a rerender.
+          open.addEventListener('click', () => { open.href = toUrl(id); });
+          open.href = toUrl(id);
+          copyBtn.addEventListener('click', () => copy(toUrl(id), 'Copied ' + id));
+
+          actions.append(open, copyBtn);
+          row.append(idEl, labelEl, actions);
+          container.appendChild(row);
+        });
+      }
+
+      renderRows(document.getElementById('screen-rows'), window.CAPTURE_SCREENS, screenUrl);
+      renderRows(document.getElementById('panel-rows'), window.CAPTURE_PANELS, panelUrl);
+
+      // ─── Toolbar ───────────────────────────────────────────────────────────
+
+      const filmstripPreview = document.getElementById('filmstrip-url');
+
+      function refreshPreview() { filmstripPreview.textContent = filmstripUrl(); }
+      refreshPreview();
+
+      [baseInput, wInput, hInput].forEach(el => el.addEventListener('input', refreshPreview));
+
+      document.getElementById('open-filmstrip').addEventListener('click', () => {
+        window.open(filmstripUrl(), '_blank', 'noopener');
+      });
+
+      document.getElementById('copy-filmstrip').addEventListener('click', () => {
+        copy(filmstripUrl(), 'Copied filmstrip URL');
+      });
+
+      document.getElementById('copy-all').addEventListener('click', () => {
+        const urls = window.CAPTURE_SCREENS.map(([id]) => screenUrl(id))
+          .concat(window.CAPTURE_PANELS.map(([step]) => panelUrl(step)));
+        copy(urls.join('\n'), 'Copied ' + urls.length + ' URLs');
+      });
+    })();
+  </script>
+</body>
+</html>

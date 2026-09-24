@@ -4,16 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UXT Concepts</title>
+  <link rel="stylesheet" href="./ds/font.css">
+  <link rel="stylesheet" href="./ds/tokens.css">
+  <link rel="stylesheet" href="./ds/tokens.dark.css">
+  <link rel="stylesheet" href="./ds/components.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--acuity-font-family-sans);
+      background: var(--acuity-bg-base);
+      color: var(--acuity-fg-default);
+    }
+    .shell {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--acuity-spacing-64) var(--acuity-spacing-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-40);
+    }
+    .project-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-4);
+    }
+    .project-header p {
+      margin: 0;
+      color: var(--acuity-fg-muted);
+    }
+    .concept-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-12);
+    }
+    .concept-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--acuity-spacing-16);
+      text-decoration: none;
+      color: inherit;
+    }
+    .concept-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-4);
+      min-width: 0;
+    }
+    .concept-card__desc {
+      color: var(--acuity-fg-muted);
+    }
+    .concept-card__status {
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>UXT Concepts</h1>
-  <ul>
-    <li>
-      <a href="c3_a/index.html" target="_blank">C03-A: Immerse</a>
-    </li>
-    <li>
-      <a href="c3_b/index.html" target="_blank">C03-B: Compact</a>
-    </li>
-  </ul>
+  <div id="app" class="shell"></div>
+
+  <script>
+    function conceptCardHTML(concept, extra) {
+      const desc = concept.description
+        ? `<span class="text-caption concept-card__desc">${concept.description}</span>`
+        : '';
+      return `
+        <div class="acuity-card acuity-card--padding-md acuity-card--interactive concept-card__wrap">
+          <a class="concept-card" href="${concept.href}" ${concept.external ? 'target="_blank"' : ''}>
+            <span class="concept-card__body">
+              <span class="text-subtitle-medium">${concept.name}</span>
+              ${desc}
+            </span>
+            <span class="concept-card__status">${extra || ''}</span>
+          </a>
+        </div>`;
+    }
+
+    async function render() {
+      const app = document.getElementById('app');
+      const { projects } = await fetch('./projects.json').then((r) => r.json());
+
+      const sections = projects.map((project) => {
+        const cards = project.concepts.map((concept) => {
+          if (concept.kind === 'vue') {
+            const status = `<span class="acuity-chip acuity-chip--sm acuity-chip--neutral" title="${concept.devCommand}">${concept.devCommand}</span>`;
+            return conceptCardHTML({ ...concept, href: concept.devUrl, external: false }, status);
+          }
+          return conceptCardHTML({ ...concept, external: true },
+            `<span class="acuity-icon acuity-icon--sm" style="--icon: url('/ds/icons/icon-external.svg')"></span>`);
+        });
+
+        return `
+          <section>
+            <div class="project-header">
+              <h1 class="text-title-lg">${project.name}</h1>
+              <p class="text-body-book">${project.description || ''}</p>
+            </div>
+            <div class="concept-list">${cards.join('')}</div>
+          </section>`;
+      });
+
+      app.innerHTML = sections.join('');
+    }
+
+    render();
+  </script>
 </body>
 </html>

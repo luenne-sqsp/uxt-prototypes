@@ -4,7 +4,22 @@
   "private": true,
   "description": "Static prototypes + a couple of Vercel serverless functions under api/ for lightweight research-data collection.",
   "type": "commonjs",
+  "scripts": {
+    "dev": "live-server . --port=5173 --open=/ --ignore=.tools,.vercel,node_modules,.git",
+    "dev:c3_a": "live-server . --port=5173 --open=/c3_a/ --ignore=.tools,.vercel,node_modules,.git",
+    "dev:c3_c2": "live-server . --port=5173 --open=/c3_c2/ --ignore=.tools,.vercel,node_modules,.git",
+    "dev:c5": "npm run dev --prefix c5 -- --port 5180",
+    "dev:vercel": "vercel dev --listen 3000",
+    "deploy:c3_c1": "bash scripts/deploy-prototypes.sh c3_c1",
+    "deploy:c3_c2": "bash scripts/deploy-prototypes.sh c3_c2",
+    "deploy:prototypes": "bash scripts/deploy-prototypes.sh",
+    "audit:drift": "node scripts/audit-drift.mjs",
+    "audit:drift:report": "node scripts/audit-drift.mjs --report"
+  },
   "dependencies": {
     "@vercel/blob": "^2.8.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
   }
 }

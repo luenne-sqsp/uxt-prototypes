@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma-desktop__get_design_context",
+      "mcp__figma-desktop__get_screenshot",
+      "Bash(grep -oE '#[0-9a-fA-F]{3,8}\\\\b' c3_a/index.html)",
+      "Bash(grep -oE '#[0-9a-fA-F]{3,8}\\\\b' c3_b/index.html)",
+      "mcp__figma__get_design_context",
+      "Bash(cp /Users/lneri/Downloads/acuity_appointment_templates.json /Users/lneri/Developer/UXT/acuity-prototypes/c3_b/templates/acuity_appointment_templates.json && jq -r 'keys[]' /Users/lneri/Developer/UXT/acuity-prototypes/c3_b/templates/acuity_appointment_templates.json)",
+      "Bash(node -e ' *)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --remote-debugging-port=9333 --remote-allow-origins=* --window-size=1440,900 --disk-cache-dir=/dev/null --media-cache-size=0 --disk-cache-size=1 --user-data-dir=/private/tmp/claude-502/-Users-lneri-Developer-UXT-acuity-prototypes/494c9fd2-bd46-48bf-8584-3a00e979c638/scratchpad/chrome-profile3 about:blank)",
+      "Bash(curl -s http://localhost:9333/json/version)",
+      "Bash(python3 cdp.py open \"http://localhost:8934/c3_c2/index.html?screen=s2\")",
+      "Bash(pkill -f \"remote-debugging-port=9334\")",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --remote-debugging-port=9334 --remote-allow-origins=* --window-size=390,844 --disk-cache-dir=/dev/null --media-cache-size=0 --disk-cache-size=1 --user-data-dir=/private/tmp/claude-502/-Users-lneri-Developer-UXT-acuity-prototypes/494c9fd2-bd46-48bf-8584-3a00e979c638/scratchpad/chrome-mobile2 about:blank)",
+      "Bash(python3 cdp_mobile.py open \"http://localhost:8934/c3_c2/index.html?screen=s2\")",
+      "mcp__figma__get_metadata",
+      "mcp__figma__use_figma",
+      "Bash(python3 -)",
+      "Bash(SP=/private/tmp/claude-502/-Users-lneri-Developer-UXT-acuity-prototypes/151bf265-470c-4f1d-8a23-65b67b044142/scratchpad python3 /private/tmp/claude-502/-Users-lneri-Developer-UXT-acuity-prototypes/151bf265-470c-4f1d-8a23-65b67b044142/scratchpad/capdriver.py screen=s1 'figmacapture=d13e08d5-f46c-4394-8700-115003f2ca91&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2Fd13e08d5-f46c-4394-8700-115003f2ca91%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=1800')"
+    ],
+    "additionalDirectories": [
+      "/Users/lneri/Downloads"
+    ]
+  }
+}

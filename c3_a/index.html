@@ -6,9 +6,13 @@
   <title>Acuity — C03-A: Immerse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&family=Quicksand&family=Oswald&display=swap">
-  <link rel="stylesheet" href="./ds/font.css">
-  <link rel="stylesheet" href="./ds/tokens.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&family=Quicksand&family=Oswald&family=Concert+One&family=IBM+Plex+Mono&display=swap">
+  <link rel="stylesheet" href="../ds/font.css">
+  <link rel="stylesheet" href="../ds/tokens.css">
+  <link rel="stylesheet" href="../ds/tokens.dark.css">
+  <link rel="stylesheet" href="../ds/brand-fonts.css">
+  <link rel="stylesheet" href="../ds/brand-palettes.css">
+  <link rel="stylesheet" href="../ds/components.css">
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
   <style>
 
@@ -43,6 +47,10 @@
       .app { box-shadow: var(--acuity-shadow-light-300); }
     }
 
+    /* Author CSS often wins against UA `[hidden]`; enforce hiding globally so
+       both `hidden` attributes and toggled sections behave consistently. */
+    [hidden] { display: none !important; }
+
     /* ─── Screen system ───────────────────────────────────────────────────────
        Each .screen fills the app and is hidden until .active is applied.
     ──────────────────────────────────────────────────────────────────────── */
@@ -70,6 +78,21 @@
     }
     .app.keyboard-active .create-sheet {
       height: calc(var(--visible-height, 100dvh) - 32px);
+    }
+
+    /* Keyboard open: slide nav bars out of the way so content fills available height */
+    .bottom-nav,
+    .create-bottom-nav {
+      transition: transform 0.2s ease, opacity 0.15s ease;
+    }
+    .app.keyboard-active .bottom-nav,
+    .app.keyboard-active .create-bottom-nav {
+      transform: translateY(70px);
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      padding: 0 !important;
+      overflow: hidden;
     }
 
     /* ─── Screen body ────────────────────────────────────────────────────────
@@ -158,6 +181,7 @@
       align-items: center;
       gap: 11px;
       text-align: center;
+      margin-top: 20px;
     }
 
     .welcome-lbl {
@@ -454,7 +478,7 @@
 
     .s3-textarea {
       width: 100%;
-      min-height: 80px;
+      height: auto;
       border: none;
       outline: none;
       resize: none;
@@ -468,6 +492,7 @@
       padding: 0;
       text-align: center;
       font-size: clamp(16px, 8vw, 40px);
+      field-sizing: content;
     }
 
     .s3-textarea::placeholder {
@@ -559,9 +584,9 @@
       gap: 6px;
       padding: 4px 10px;
       border-radius: 100px;
-      border: 1.5px solid transparent;
+      border: 1px solid rgba(139,92,246,0.25);
       background-image: linear-gradient(#ede9ff, #ede9ff),
-        conic-gradient(from var(--badge-angle), transparent 0deg, rgba(139,92,246,0.85) 100deg, transparent 200deg);
+        conic-gradient(from var(--badge-angle), transparent 0deg, rgba(158, 121, 245, 0.85) 100deg, transparent 200deg);
       background-origin: border-box;
       background-clip: padding-box, border-box;
       font-family: var(--acuity-font-family-sans);
@@ -620,7 +645,7 @@
     }
 
     .appt-card--ai {
-      background: var(--acuity-bg-inset);
+      background: var(--acuity-color-dawn-purple-10);
     }
     .appt-card--ai:active { background: #ede9ff; }
 
@@ -707,7 +732,7 @@
 
     .appt-icon-btn--add {
       color: var(--acuity-color-dawn-purple-100);
-      border: 1px solid var(--acuity-color-dawn-lavender-sky-40);
+      border: 1px solid var(--acuity-color-dawn-lavender-sky-30);
     }
     .appt-icon-btn--add:active { opacity: 0.5; background: var(--acuity-color-dawn-lavender-sky-20); border-color: var(--acuity-color-dawn-lavender-sky-60);}
     .appt-icon-btn--add svg { display: block; }
@@ -884,7 +909,7 @@
 
     /* Display state — acts like a link/button, dashed underline hugs text width */
     .sheet-name-display {
-      display: inline-block;
+      display: block;
       background: none;
       border: none;
       border-bottom: 1px dashed #574f8a;
@@ -897,8 +922,10 @@
       letter-spacing: -0.2px;
       color: var(--acuity-fg-default);
       text-align: center;
-      max-width: 100%;
-      word-break: break-word;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       -webkit-tap-highlight-color: transparent;
     }
     .sheet-name-display.editing { display: none; }
@@ -906,8 +933,7 @@
     /* Edit state — hidden until the display button is tapped */
     .sheet-service-name {
       display: none;
-      width: auto;
-      min-width: 60px;
+      width: 100%;
       border: none;
       outline: none;
       background: transparent;
@@ -920,6 +946,7 @@
       letter-spacing: -0.2px;
       color: var(--acuity-fg-default);
       text-align: center;
+      white-space: nowrap;
       caret-color: var(--acuity-color-dawn-purple-100);
     }
     .sheet-service-name.editing { display: block; }
@@ -962,6 +989,8 @@
     .sheet-desc-textarea {
       width: 100%;
       min-height: 64px;
+      max-height: 128px;
+      overflow: scroll;
       border: none;
       border-radius: 4px 4px 0 0;
       background: var(--acuity-bg-inset);
@@ -1024,8 +1053,62 @@
     .sheet-description-section:focus-within .sheet-ai-chips-wrap {
       border-color: var(--acuity-color-dawn-purple-100);
     }
+
+    /* ── Char counter — sheet desc ───────────────────────────────────────── */
+    .sheet-desc-meta-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+    #sheet-desc-expanded[hidden] + .sheet-desc-meta-row { display: none; }
+    .sheet-char-counter {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: rgba(14,14,14,0.45);
+      text-align: right;
+    }
+    .sheet-char-counter.is-maxed { color: #c32d38; }
+    .sheet-desc-zone.is-maxed .sheet-desc-textarea {
+      outline: none;
+    }
+    .sheet-desc-error {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: #c32d38;
+    }
+    .sheet-desc-error[hidden] { display: none; }
+
+    /* ── Char counter — C2 create desc ──────────────────────────────────── */
+    .c2-char-counter {
+      flex-shrink: 0;
+      width: 100%;
+      padding: 0 22px;
+      text-align: center;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 1px;
+      color: var(--acuity-color-dawn-purple-100);
+      /* hidden in C1 — collapses like c2-desc-zone */
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 500ms cubic-bezier(0.22,1,0.36,1) 70ms,
+                  opacity    360ms ease 90ms;
+    }
+    #panel-c1.in-c2-state .c2-char-counter {
+      max-height: 40px;
+      opacity: 0.5;
+    }
+    .c2-char-counter.is-maxed { color: #c32d38; opacity: 1; }
     .sheet-ai-chips-wrap .c2-ai-bar {
-      padding: var(--acuity-spacing-8) 12px 10px;
+      padding: var(--acuity-spacing-8);
       gap: var(--acuity-spacing-8);
     }
 
@@ -1352,6 +1435,7 @@
     .big-input-wrap {
       flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: var(--acuity-spacing-24) 22px;
@@ -1371,6 +1455,16 @@
       caret-color: var(--acuity-color-dawn-purple-100);
       text-align: center;
       -webkit-appearance: none;
+      display: block;
+      resize: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .big-input:focus {
+      field-sizing: content;
+      max-height: 80px;
+      white-space: pre-wrap;
     }
     .big-input::placeholder {
       color: var(--acuity-color-dawn-purple-100);
@@ -1395,11 +1489,12 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 10px var(--acuity-spacing-16);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
       border-radius: var(--acuity-border-radius-md);
       border: 1px solid #e7e7e7;
       background: rgba(255,255,255,0.9);
       color: var(--acuity-fg-default);
+      font-size: 14px;
     }
     .chip--plain:active { opacity: 0.7; }
     .chip--plain.chip--selected {
@@ -1408,22 +1503,106 @@
       border-color: var(--acuity-color-dawn-purple-100);
     }
 
-    /* ─── s_c2: description ────────────────────────────────────────────── */
-    .create-name-echo {
-      flex-shrink: 0;
-      padding: 20px 22px var(--acuity-spacing-16);
-      font-family: var(--acuity-font-family-sans);
-      font-size: 40px;
-      font-weight: var(--acuity-font-weight-semibold);
-      line-height: 1.1;
-      letter-spacing: -0.3px;
-      color: var(--acuity-color-dawn-purple-100);
-      text-align: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .create-name-echo.has-content { padding-top: var(--acuity-spacing-8); }
+    /* ─── C1 / C2 shared big-input-wrap state machine ──────────────────── */
 
+    /* C1 default: name-area visible + centered, echo/desc-zone collapsed */
+    #create-name-area {
+      width: 100%;
+      overflow: hidden;
+      max-height: 120px;
+      opacity: 1;
+      transition: max-height 420ms cubic-bezier(0.22,1,0.36,1),
+                  opacity    260ms ease;
+    }
+
+    .create-name-echo {
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      padding: 0 22px;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 32px;
+      font-weight: var(--acuity-font-weight-semibold);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--acuity-color-dawn-purple-100);
+      text-align: left;
+      cursor: default;
+      pointer-events: none;
+      /* Forward C1→C2 uses JS FLIP (transform). These only fire on backward C2→C1. */
+      transition: max-height 420ms cubic-bezier(0.22,1,0.36,1),
+                  opacity    260ms ease,
+                  font-size  420ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .c2-desc-zone {
+      width: 100%;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 500ms cubic-bezier(0.22,1,0.36,1) 70ms,
+                  opacity    360ms ease 90ms;
+    }
+
+    /* C1 header visible; C2 header + ai-bar hidden */
+    /* Both headers share one grid slot — always the same height (tallest wins) */
+    .create-header-slot {
+      flex-shrink: 0;
+      display: grid;
+      overflow: hidden;
+    }
+    .create-header-slot > * {
+      grid-row: 1;
+      grid-column: 1;
+    }
+    /* C1 default: c1 visible, c2 waiting off-screen right */
+    #c1-panel-header {
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 200ms ease, transform 200ms cubic-bezier(0.22,1,0.36,1);
+    }
+    #c2-panel-header {
+      opacity: 0;
+      transform: translateX(16px);
+      pointer-events: none;
+      transition: opacity 200ms ease, transform 200ms cubic-bezier(0.22,1,0.36,1);
+    }
+    #c2-ai-bar    { display: none; }
+    #c1-chips-row { display: flex; }
+
+    /* C2 state — triggered by panel-c1.in-c2-state */
+    #panel-c1.in-c2-state #create-big-input-wrap {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 16px;
+    }
+    #panel-c1.in-c2-state #create-name-area {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #panel-c1.in-c2-state .create-name-echo {
+      max-height: 120px;
+      opacity: 1;
+      font-size: 18px;
+      line-height: 1.3;
+      padding: 8px 22px 4px;
+      pointer-events: auto;
+      text-align: center;
+    }
+    #panel-c1.in-c2-state .c2-desc-zone {
+      max-height: 600px;
+      opacity: 1;
+    }
+    #panel-c1.in-c2-state #c1-panel-header { opacity: 0; transform: translateX(-16px); pointer-events: none; }
+    #panel-c1.in-c2-state #c2-panel-header { opacity: 1; transform: translateX(0);   pointer-events: auto; }
+    #panel-c1.in-c2-state #c2-ai-bar    { display: flex; }
+    #panel-c1.in-c2-state #c1-chips-row { display: none; }
+
+    /* Suppress transitions for instant state restore (C3→C2 back nav) */
+    #panel-c1.c1c2-no-transition,
+    #panel-c1.c1c2-no-transition * { transition: none !important; }
 
     /* "Swipe →" indicator badge preceding AI chips */
     .swipe-hint {
@@ -1471,30 +1650,9 @@
       color: var(--acuity-fg-muted);
     }
 
-    /* ─── s_c2: description step ────────────────────────────────────────── */
-    /* big-input-wrap becomes the centering column for echo + desc zone */
-    #panel-c2 .big-input-wrap {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 22px 30px;
-      gap: var(--acuity-spacing-8);
-    }
-    /* Name echo: Clarkson Semibold 24px — inherited from .create-name-echo,
-       override only what differs */
-    #create-desc-title {
-      font-size: 20px;
-      padding: 0;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
-      cursor: default;
-      pointer-events: none;
-      flex-shrink: 0;
-    }
     /* Fixed-height container shared by input + ghost overlay */
     .c2-desc-zone {
       position: relative;
-      width: 100%;
       min-height: 48px;
       flex-shrink: 0;
     }
@@ -1852,7 +2010,10 @@
       line-height: 1;
       color: var(--acuity-color-dawn-purple-100);
       opacity: 0.2;
-      min-width: 110px;
+      /* Fixed (not min) — must match the tap-to-edit <input>'s own
+         width:160px inline style below, or swapping span<->input on edit
+         shifts the +/- buttons on either side of it. */
+      width: 160px;
       text-align: center;
     }
 
@@ -1877,7 +2038,7 @@
 
     .price-display {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: center;
       gap: 2px;
     }
@@ -1898,6 +2059,11 @@
       line-height: 1;
       color: var(--acuity-color-dawn-purple-100);
       opacity: 0.2;
+      /* Fixed, matching the tap-to-edit <input>'s width:160px inline style
+         below — otherwise swapping span<->input on edit shifts the "$"
+         prefix next to it. */
+      width: 160px;
+      text-align: center;
     }
 
     .price-hint-wrap {
@@ -2398,9 +2564,28 @@
       gap: 4px;
     }
 
+    .widget-date-days {
+      flex-shrink: 0;
+    }
     .widget-date-muted {
       color: rgba(14,14,14,0.7);
       font-weight: 400;
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
+
+    /* Per-appt different-hours: stacked [header + card] groups */
+    .widget-appt-groups {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .widget-appt-group {
+      display: flex;
+      flex-direction: column;
     }
 
     /* White service content area */
@@ -2723,13 +2908,15 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .palette-overlay,
-    .font-overlay {
+    .font-overlay,
+    .btnstyle-overlay {
       background: rgba(0, 0, 0, 0.5);
       display: flex;
       z-index: 60;
     }
     .palette-overlay[hidden],
-    .font-overlay[hidden] { display: none; }
+    .font-overlay[hidden],
+    .btnstyle-overlay[hidden] { display: none; }
 
     .palette-sheet,
     .font-sheet {
@@ -2737,6 +2924,56 @@
     }
     .palette-sheet.palette-sheet-open { transform: translateY(0); }
     .font-sheet.font-sheet-open       { transform: translateY(0); }
+
+    /* Button-style picker rows — ported from c3_b for c3_a's theme card */
+    .btnstyle-sheet { max-height: 60dvh; }
+    .btnstyle-sheet.btnstyle-sheet-open { transform: translateY(0); }
+    .btnstyle-list {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .btnstyle-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border: none;
+      background: none;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btnstyle-row:last-child { border-bottom: none; }
+    .btnstyle-row.btnstyle-selected .btnstyle-name {
+      color: var(--acuity-color-dawn-purple-100);
+      font-weight: 600;
+    }
+    .btnstyle-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #313131;
+      color: var(--acuity-fg-on-strong);
+      font-family: 'Source Sans Pro', var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      min-width: 60px;
+      height: 32px;
+      padding: 0 14px;
+    }
+    .btnstyle-name {
+      font-size: 14px;
+      font-family: var(--acuity-font-family-sans);
+      color: var(--acuity-fg-default);
+    }
 
     .subsheet-header {
       display: flex;
@@ -2765,31 +3002,92 @@
     }
     .subsheet-close:active { opacity: 0.5; }
 
-    /* Palette list */
+    /* Palette list — 2-column grid */
     .palette-list {
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: var(--acuity-spacing-16) 20px var(--acuity-spacing-8);
-      display: flex;
-      flex-direction: column;
+      padding: 16px 20px 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
+      align-content: start;
     }
     .palette-row {
-      height: 44px;
+      height: 60px;
       border-radius: 8px;
       overflow: hidden;
       display: flex;
       border: 2px solid transparent;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      flex-shrink: 0;
     }
     .palette-row.palette-selected {
-      border-color: var(--acuity-color-dawn-purple-100);
+      border-color: #111;
     }
     .palette-swatch { flex: 1; }
 
+    /* Confirm / Select button shared by palette + font overlays */
+    .overlay-confirm-footer {
+      flex-shrink: 0;
+      padding: 12px 20px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+      border-top: 1px solid #f0f0f0;
+    }
+    .overlay-confirm-btn {
+      display: block;
+      width: 100%;
+      background: var(--acuity-color-dawn-purple-100, #322d46);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 14px;
+      font-family: var(--acuity-font-family-sans);
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .overlay-confirm-btn:active { opacity: 0.85; }
+
+    /* S9 day-row popover menu */
+    .s9-day-menu {
+      position: fixed;
+      z-index: 9999;
+      background: #fff;
+      border-radius: var(--acuity-border-radius-sm);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.14), 0 0 1px rgba(0,0,0,0.08);
+      overflow: hidden;
+      width: 276px;
+      padding: 12px 8px;
+    }
+    .s9-day-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      text-align: left;
+      padding: 11px;
+      font-size: 14px;
+      line-height: 1.4;
+      font-family: var(--acuity-font-family-sans);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--acuity-fg-default);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .s9-day-menu-item:hover,
+    .s9-day-menu-item:focus { background: #f5f5f5; outline: none; }
+    .s9-day-menu-item:active { background: #f5f5f5; }
+    .s9-day-menu-item--destructive { color: #c32d38; }
+    .s9-day-menu-separator { height: 1px; background: #ebebeb; margin: 4px 0; }
+
+    .s9-day-menu-item svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
     /* Palette sheet footer: font pill entry */
     .palette-sheet-footer {
       flex-shrink: 0;
@@ -2826,6 +3124,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     .font-row:last-child { border-bottom: none; }
+    .font-row.font-selected { background: #f5f3ff; border-radius: 6px; }
     .font-row.font-selected .font-row-name { color: var(--acuity-color-dawn-purple-100); font-weight: 600; }
     .font-row.font-selected .font-row-aa   { color: var(--acuity-color-dawn-purple-100); }
     .font-row-aa {
@@ -2837,7 +3136,7 @@
     }
     .font-row-name {
       font-size: 14px;
-      font-family: var(--acuity-font-family-sans);
+      /* font-family applied inline per row so each name renders in its own typeface */
       color: var(--acuity-fg-default);
     }
 
@@ -2867,6 +3166,8 @@
       font-family: var(--acuity-font-family-sans);
     }
     .pricing-tip-row:last-child { border-bottom: none; }
+    .pricing-tip-row--match .pricing-tip-service { font-weight: 600; color: var(--acuity-color-dawn-purple-100); }
+    .pricing-tip-row--match .pricing-tip-range   { font-weight: 700; color: var(--acuity-color-dawn-purple-100); }
     .pricing-tip-service { font-size: 14px; color: var(--acuity-fg-default); }
     .pricing-tip-range   { font-size: 14px; font-weight: 500; color: var(--acuity-fg-default); }
 
@@ -3684,6 +3985,7 @@
       gap: 20px;
       width: 100%;
     }
+    .s9-appt-groups[hidden] { display: none; }
     .s9-appt-group {
       display: flex;
       flex-direction: column;
@@ -3716,13 +4018,12 @@
     .s9-drawer-days {
       display: flex;
       flex-direction: column;
-      --s9-range-actions-width: 92px;
     }
     .s9-drawer-day-row {
       display: flex;
       align-items: center;
-      gap: 11px;
-      padding: 11px 0;
+      gap: 12px;
+      padding: 12px;
       border-bottom: 1px solid #e7e7e7;
     }
     .s9-drawer-day-row:last-child { border-bottom: none; }
@@ -3734,13 +4035,13 @@
       justify-content: flex-start;
       align-items: center;
       flex-shrink: 0;
-      padding: var(--acuity-spacing-8) 0px;
+      padding-top: 4px;
     }
     .s9-day-circle {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 1.5px solid var(--acuity-color-dawn-violet-100);
+      border: 1px solid var(--acuity-color-dawn-violet-100);
       background: transparent;
       font-size: 13px;
       font-family: var(--acuity-font-family-sans);
@@ -3776,18 +4077,17 @@
     .s9-range-row {
       display: flex;
       align-items: center;
-      gap: 0;
     }
     .s9-time-pill {
       flex: 1;
       min-width: 0;
-      padding: var(--acuity-spacing-16) 4px;
+      padding: 10px 4px;
       background: var(--acuity-bg-inset);
       border: 0.5px solid #e7e7e7;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
       font-family: var(--acuity-font-family-sans);
-      color: #0e0e0e;
+      color: var(--acuity-fg-default);
       text-align: center;
       cursor: pointer;
       box-sizing: border-box;
@@ -3803,35 +4103,26 @@
     .s9-range-row-actions {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 4px;
-      flex: 0 0 var(--s9-range-actions-width);
-      width: var(--s9-range-actions-width);
-      min-width: var(--s9-range-actions-width);
-      box-sizing: border-box;
-    }
-    .s9-range-row-actions.s9-range-row-actions--tail {
-      justify-content: flex-start;
+      gap: 2px;
+      flex-shrink: 0;
+      margin-left: 6px;
+      min-width: 64px;
     }
     .s9-range-icon-btn {
-      width: auto;
-      height: auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 32px;
+      height: 32px;
       background: none;
       border: none;
       cursor: pointer;
-      color: #000000;
-      flex-shrink: 0;
-      padding: 12px;
+      color: var(--acuity-fg-default);
       -webkit-tap-highlight-color: transparent;
+      padding: 0;
+      border-radius: 4px;
     }
-    .s9-range-icon-btn img {
-      display: block;
-      width: 16px;
-      height: 16px;
-    }
+    .s9-range-icon-btn--destructive { }
     .s9-range-icon-btn:active { opacity: 0.5; }
 
     .s9-drawer-note {
@@ -3927,7 +4218,7 @@
 
       /* AI badge */
       @keyframes badgeSpin { to { --badge-angle: 360deg; } }
-      .ai-badge { animation: badgeSpin 4s linear infinite; }
+      .ai-badge { animation: badgeSpin 6s linear infinite; }
 
       /* AI skeleton shimmer */
       @keyframes shimmer { 0%,100%{ opacity:0.4 } 50%{ opacity:0.8 } }
@@ -3963,6 +4254,950 @@
       .create-sheet         { transition: transform 0.9s cubic-bezier(0.32, 0.72, 0, 1); }
     }
 
+    /* ═══════════════════════════════════════════════════════════════════
+       Desktop breakpoint — c3_a desktop shell.
+       Per-screen desktop layouts (S1, S1.5, S2, S3, S5, S9, S10) get
+       added below as each phase lands. Base shell + top-nav go first.
+    ═══════════════════════════════════════════════════════════════════ */
+    .desktop-top-nav   { display: none; }
+    .desktop-nav-text  { display: none; }
+    .s5-back-btn       { display: none; }   /* Desktop-only Back button in .bottom-nav */
+    .wizard-eyebrow    { display: none; }   /* Desktop-only step-of-N label; mobile uses .step-label in .top-nav */
+    .s3-popular-label  { display: none; }   /* Desktop-only "POPULAR IN …" label above the S3 chip row */
+    .s5-preview-pane   { display: none; }   /* Desktop-only in-preview iframe pane (S5/S9) */
+    .s10-desktop-body  { display: none; }   /* Desktop-only S10 hero + URL row + preview */
+    .intro-steps       { display: none; }   /* Desktop-only S1 3-col intro; mobile uses .s1-carousel */
+
+    @media (min-width: 1024px) {
+
+      /* ── App container: drop the mobile 768px cap, fill viewport ── */
+      .app {
+        max-width: none;
+        min-height: 100dvh;
+        box-shadow: none;
+      }
+
+      /* ── Desktop top-nav: absolute-positioned Acuity logo + close.
+            Mounts inside a screen via <nav class="desktop-top-nav"> and
+            floats above the screen content. Individual screens opt in. */
+      .desktop-top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--acuity-spacing-24) var(--acuity-spacing-32);
+      }
+      .desktop-nav-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        color: var(--acuity-fg-default);
+        text-decoration: none;
+      }
+      .desktop-nav-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        background: none;
+        border: none;
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      .desktop-nav-close:hover { background: var(--acuity-bg-default); }
+      .desktop-nav-text {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 16.5px 11px;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 12px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-default);
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      .desktop-nav-text:hover { background: var(--acuity-bg-default); }
+
+      /* ── Base bottom-nav on desktop: horizontal row, buttons hug label ── */
+      .bottom-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--acuity-spacing-24) var(--acuity-spacing-32);
+      }
+      .bottom-nav .btn-primary { width: auto; min-width: 120px; }
+      .bottom-nav .btn-ghost   { width: auto; min-width: auto; }
+
+      /* Global wizard "Back" button — used by every desktop step's .bottom-nav */
+      .s5-back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-8);
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-24) var(--acuity-spacing-16) var(--acuity-spacing-20);
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-md);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 15px;
+        font-weight: var(--acuity-font-weight-medium);
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+      }
+      .s5-back-btn:hover { background: var(--acuity-bg-inset); }
+
+      /* Desktop-only "Step N of 5" eyebrow above every wizard heading */
+      .wizard-eyebrow {
+        display: inline-block;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: var(--acuity-font-weight-semibold);
+        line-height: 16px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S1 desktop — Figma 3962-20462.
+         Hides c3_a's mobile carousel; shows a centered 3-column intro
+         (matches c3_b's s1 desktop). "Start setup" pins bottom-right.
+      ══════════════════════════════════════════════════════════════ */
+      #s1 { background: var(--acuity-bg-base); }
+      #s1.screen.active {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      #s1 .top-nav { display: none; }
+      #s1 .s1-carousel-wrapper { display: none; }   /* mobile-only */
+      #s1 .intro-steps { display: grid; }
+
+      #s1 .s1-body {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 1100px;
+        margin-inline: auto;
+        padding: var(--acuity-spacing-48) var(--acuity-spacing-64);
+        gap: var(--acuity-spacing-64);
+        text-align: center;
+      }
+      #s1 .s1-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 640px;
+      }
+      #s1 .welcome-lbl {
+        font-size: 12px;
+        letter-spacing: 0.75px;
+      }
+      #s1 .intro-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 40px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 1.15;
+        letter-spacing: -0.2px;
+        color: var(--acuity-fg-default);
+      }
+
+      /* 3-column intro steps */
+      .intro-steps {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--acuity-spacing-32);
+        width: 100%;
+        max-width: 900px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .intro-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-32);
+        text-align: center;
+      }
+      .step-num { display: none; }
+      .step-img {
+        display: block;
+        width: 140px;
+        height: 140px;
+        border-radius: var(--acuity-border-radius-md);
+        object-fit: contain;
+        align-self: center;
+        order: -1;
+      }
+      .step-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: var(--acuity-spacing-4);
+      }
+      .step-title {
+        font-family: var(--acuity-font-family-display);
+        font-size: 18px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.4;
+        color: var(--acuity-fg-default);
+      }
+      .step-desc {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* Bottom-nav: right-aligned "Start setup"; hide "Skip setup" ghost */
+      #s1 .bottom-nav {
+        justify-content: flex-end;
+        background: var(--acuity-bg-base);
+        border-top: none;
+        box-shadow: 0 0 0.5px rgba(0,0,0,0.08), 0 -2px 4px rgba(0,0,0,0.06);
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-32);
+      }
+      #s1 .bottom-nav .btn-ghost { display: none; }
+      #s1 .bottom-nav .btn-primary {
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-20);
+        min-width: 160px;
+        font-weight: var(--acuity-font-weight-book);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S1_5 desktop — Figma 5712-42925.
+         Centered eyebrow / title / subtitle, giant ghost textarea, and
+         Back / Next in the bottom-nav. Structurally identical to c3_b's
+         S3-Other-describe layout.
+      ══════════════════════════════════════════════════════════════ */
+      #s1_5.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-base);
+      }
+      #s1_5 .top-nav { display: none; }
+
+      #s1_5 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 640px;
+        margin: 0 auto;
+        padding: var(--acuity-spacing-32) var(--acuity-spacing-32) 0 !important;  /* override inline mobile padding */
+      }
+      #s1_5 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+        color: var(--acuity-fg-default);
+      }
+      #s1_5 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* Big-ghost textarea, centered in the flex-1 body */
+      #s1_5 .s3-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--acuity-spacing-24) var(--acuity-spacing-32);
+      }
+      #s1_5 .s3-textarea-center {
+        width: 100%;
+        max-width: 900px;
+      }
+      #s1_5 .s3-textarea {
+        width: 100%;
+        border: none;
+        background: transparent;
+        outline: none;
+        resize: none;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 40px;
+        line-height: 1.3;
+        font-weight: var(--acuity-font-weight-book);
+        color: var(--acuity-fg-default);
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+      }
+      #s1_5 .s3-textarea::placeholder {
+        color: var(--acuity-fg-muted);
+        opacity: 0.5;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S2 desktop — single centered column, 3-col rigid grid.
+         Mechanical port of c3_b's Figma 3948-13698 pattern.
+      ══════════════════════════════════════════════════════════════ */
+      #s2.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-base);
+      }
+      #s2 .top-nav { display: none; }
+
+      #s2 .wizard-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-48);
+        padding: var(--acuity-spacing-64);
+        max-width: none;
+      }
+      #s2 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 640px;
+      }
+      #s2 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+        color: var(--acuity-fg-default);
+      }
+      #s2 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      #s2 .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--acuity-spacing-16);
+        width: 100%;
+        max-width: 848px;
+      }
+      #s2 .industry-card {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        padding: var(--acuity-spacing-32) 11px;
+        gap: 6px;
+        border-color: var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      #s2 .industry-icon { width: 16px; height: 16px; }
+      #s2 .industry-label {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-default);
+      }
+      #s2 .industry-card--other {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        padding: var(--acuity-spacing-24) 11px;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S3 desktop — Figma 5712-43321.
+         Centered header + big-ghost single-line input; bottom row shows
+         "POPULAR IN {vertical}" + horizontal chip pool. Chip list comes
+         from the templates JSON keyed on state.currentIndustry.
+      ══════════════════════════════════════════════════════════════ */
+      #s3.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-base);
+      }
+      #s3 .top-nav { display: none; }
+
+      #s3 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 640px;
+        margin: 0 auto;
+        padding: var(--acuity-spacing-32) var(--acuity-spacing-32) 0 !important;
+      }
+      #s3 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+        color: var(--acuity-fg-default);
+      }
+      #s3 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* Body fills the middle; textarea centered, popular row pinned bottom */
+      #s3 .s3-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--acuity-spacing-32);
+        padding: var(--acuity-spacing-32) var(--acuity-spacing-32) var(--acuity-spacing-24);
+      }
+      #s3 .s3-textarea-center {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: none;
+      }
+      /* Big-ghost single-line caret input; borderless, transparent bg */
+      #s3 .s3-textarea {
+        width: 100%;
+        max-width: 900px;
+        border: none;
+        background: transparent;
+        outline: none;
+        resize: none;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 36px;
+        line-height: 1.3;
+        font-weight: var(--acuity-font-weight-book);
+        color: var(--acuity-fg-default);
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+      }
+      #s3 .s3-textarea::placeholder {
+        color: var(--acuity-fg-muted);
+        opacity: 0.5;
+      }
+
+      /* "POPULAR IN …" label + inline chip row (no scroll on desktop) */
+      #s3 .s3-popular-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--acuity-spacing-16);
+        padding: 0 var(--acuity-spacing-16);
+      }
+      #s3 .s3-popular-label {
+        display: inline-block;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: var(--acuity-font-weight-semibold);
+        line-height: 16px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+        flex-shrink: 0;
+      }
+      #s3 .chips-row {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: visible;       /* mobile has horizontal-scroll; desktop wraps */
+        gap: var(--acuity-spacing-8);
+        padding: 0;
+      }
+      #s3 .chip--plain {
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+        font-size: 15px;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S5 desktop — 2-pane grid (preview | list) + bottombar.
+         Preview iframe on the left with a floating theme card + viewport
+         toggle on top. c3_a keeps in-preview customization (unlike c3_b).
+      ══════════════════════════════════════════════════════════════ */
+      #s5.screen.active {
+        display: grid;
+        grid-template-columns: 8fr 4fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+          "preview list"
+          "bottombar bottombar";
+        background: var(--acuity-bg-base);
+        height: 100dvh;
+        overflow: hidden;
+        position: relative;
+      }
+      #s5 .desktop-top-nav {
+        display: flex;
+        position: absolute;
+        inset: 0 0 auto 0;
+        z-index: var(--acuity-z-sticky);
+        background: transparent;
+        pointer-events: none;
+      }
+      #s5 .desktop-top-nav > * { pointer-events: auto; }
+      #s5 .top-nav { display: none; }
+      #s5 .s5-preview-pane { grid-area: preview; }
+      #s5 .wizard-body     { grid-area: list; }
+      #s5 .bottom-nav      { grid-area: bottombar; }
+
+      /* Left pane: gray bg + centered browser frame with the iframe */
+      .s5-preview-pane {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--acuity-color-neutral-gray-10, #fafafa);
+        padding: 120px var(--acuity-spacing-64) var(--acuity-spacing-64);
+        position: relative;
+        overflow: hidden;
+      }
+      .s5-browser-frame {
+        width: 100%;
+        max-width: 1024px;
+        height: 100%;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-lg);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: var(--acuity-shadow-light-200);
+        transition: max-width 0.24s ease;
+      }
+      .s5-browser-bar {
+        display: flex;
+        align-items: center;
+        gap: var(--acuity-spacing-12);
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+        background: var(--acuity-bg-inset);
+        border-bottom: 1px solid var(--acuity-border-default);
+      }
+      .s5-browser-dots { display: flex; gap: 6px; flex-shrink: 0; }
+      .s5-browser-dots > span {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+      }
+      .s5-browser-url {
+        flex: 1;
+        height: 22px;
+        background: var(--acuity-bg-base);
+        border-radius: var(--acuity-border-radius-round);
+      }
+      .s5-browser-content {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+      }
+      .s5-preview-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      /* Viewport toggle: constrain the frame width when 'mobile' is picked */
+      .s5-preview-pane--mobile .s5-browser-frame { max-width: 420px; }
+
+      /* Floating controls anchored to the top of the preview pane */
+      .s5-preview-controls {
+        position: absolute;
+        top: var(--acuity-spacing-32);
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-16);
+        z-index: var(--acuity-z-sticky);
+        pointer-events: none;
+      }
+      .s5-preview-controls > * { pointer-events: auto; }
+
+      /* Theme card — floating pill with Aa font / palette fan / BUTTON / pencil */
+      .s5-theme-card {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--acuity-spacing-8);
+        padding: 6px 8px;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-round);
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+      .s5-theme-aa,
+      .s5-theme-fan,
+      .s5-theme-mini-btn,
+      .s5-theme-edit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--acuity-fg-default);
+      }
+      .s5-theme-aa {
+        width: 40px;
+        height: 32px;
+        border-radius: var(--acuity-border-radius-sm);
+        font-family: var(--acuity-font-family-display);
+        font-size: 20px;
+        line-height: 1;
+      }
+      .s5-theme-aa:hover,
+      .s5-theme-mini-btn:hover,
+      .s5-theme-edit:hover { background: var(--acuity-bg-inset); }
+      .s5-theme-fan {
+        display: inline-flex;
+        padding: 4px;
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      .s5-theme-fan > span {
+        width: 20px;
+        height: 24px;
+        display: inline-block;
+      }
+      .s5-theme-mini-btn {
+        padding: 6px var(--acuity-spacing-16);
+        background: var(--acuity-fg-default);
+        color: var(--acuity-bg-base);
+        border-radius: 0;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: var(--acuity-font-weight-semibold);
+        letter-spacing: 1px;
+      }
+      .s5-theme-mini-btn:hover { background: var(--acuity-fg-default); opacity: 0.9; }
+      .s5-theme-edit {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--acuity-border-radius-sm);
+      }
+
+      /* Viewport-toggle segmented control — separate pill from theme card */
+      .s5-segmented {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-round);
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+      .s5-segment {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 32px;
+        background: transparent;
+        border: none;
+        border-radius: var(--acuity-border-radius-round);
+        color: var(--acuity-fg-muted);
+        cursor: pointer;
+      }
+      .s5-segment--active {
+        background: var(--acuity-bg-inset);
+        color: var(--acuity-fg-default);
+      }
+
+      /* Right pane: the existing wizard-body, sized to the list column */
+      #s5 .wizard-body {
+        overflow-y: auto;
+        padding: 80px var(--acuity-spacing-32) var(--acuity-spacing-32);
+        background: var(--acuity-bg-base);
+      }
+      #s5 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--acuity-spacing-8);
+        max-width: none;
+      }
+      #s5 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 28px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+      }
+      #s5 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S9 desktop — shares s5's grid shell.
+         Right pane keeps c3_a's shared/per-appt availability editor;
+         only layout + typography scale up to the desktop right column.
+      ══════════════════════════════════════════════════════════════ */
+      #s9.screen.active {
+        display: grid;
+        grid-template-columns: 8fr 4fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+          "preview list"
+          "bottombar bottombar";
+        background: var(--acuity-bg-base);
+        height: 100dvh;
+        overflow: hidden;
+        position: relative;
+      }
+      #s9 .desktop-top-nav {
+        display: flex;
+        position: absolute;
+        inset: 0 0 auto 0;
+        z-index: var(--acuity-z-sticky);
+        background: transparent;
+        pointer-events: none;
+      }
+      #s9 .desktop-top-nav > * { pointer-events: auto; }
+      #s9 .top-nav { display: none; }
+      #s9 .s5-preview-pane { grid-area: preview; }
+      #s9 .wizard-body     { grid-area: list; }
+      #s9 .bottom-nav      { grid-area: bottombar; }
+
+      #s9 .wizard-body {
+        overflow-y: auto;
+        padding: 80px var(--acuity-spacing-32) var(--acuity-spacing-32);
+        background: var(--acuity-bg-base);
+      }
+      #s9 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--acuity-spacing-8);
+        max-width: none;
+      }
+      #s9 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 28px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+      }
+      #s9 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S10 desktop — Figma 3962-20507.
+         Centered hero + URL row + browser preview with floating pencil.
+         The mobile s10-body (widget mock + palette pills) is hidden on
+         desktop; the whole customization/share treatment lives here.
+      ══════════════════════════════════════════════════════════════ */
+      #s10.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-inset);
+        height: 100dvh;
+        overflow: hidden;
+        position: relative;
+      }
+      #s10 .top-nav,
+      #s10 .s10-body,
+      #s10 .bottom-nav { display: none; }
+      #s10 .desktop-top-nav {
+        display: flex;
+        position: relative;
+        z-index: var(--acuity-z-sticky);
+      }
+      #s10 .s10-desktop-body { display: flex; }
+
+      #s10 .s10-desktop-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-32);
+        padding: 0 var(--acuity-spacing-32) var(--acuity-spacing-32);
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .s10-desktop-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-8);
+        text-align: center;
+        width: 100%;
+      }
+      .s10-desktop-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.3;
+        letter-spacing: -0.5px;
+        color: var(--acuity-fg-default);
+      }
+      .s10-desktop-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* URL display/edit + Copy + Customize link row */
+      .s10-share-row {
+        display: flex;
+        align-items: center;
+        gap: var(--acuity-spacing-16);
+      }
+      .s10-url-display,
+      .s10-url-input {
+        width: 320px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: var(--acuity-spacing-20) 11px;
+        background: var(--acuity-bg-inset);
+        border: 0.5px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-xs);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: var(--acuity-font-weight-book);
+        color: var(--acuity-fg-muted);
+        overflow: hidden;
+      }
+      .s10-url-display > span {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .s10-url-affix { color: var(--acuity-fg-muted); flex-shrink: 0; }
+      .s10-url-value {
+        color: var(--acuity-fg-default);
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        outline: none;
+        cursor: text;
+        caret-color: var(--acuity-color-dawn-purple-100);
+      }
+      .s10-share-row[data-mode="edit"] .s10-url-display { display: none; }
+      .s10-share-row[data-mode="edit"] .s10-url-input   { display: flex; background: var(--acuity-bg-default); color: var(--acuity-fg-default); }
+
+      .s10-copy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-12);
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-32) var(--acuity-spacing-12) var(--acuity-spacing-20);
+        background: var(--acuity-color-dawn-purple-100);
+        color: var(--acuity-fg-on-strong);
+        border: none;
+        border-radius: var(--acuity-border-radius-md);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        cursor: pointer;
+        min-width: 56px;
+      }
+      .s10-copy-btn:hover { opacity: 0.92; }
+
+      .s10-customize-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-20);
+        background: transparent;
+        color: var(--acuity-color-dawn-purple-100);
+        border: 0.5px solid var(--acuity-color-dawn-purple-100);
+        border-radius: var(--acuity-border-radius-md);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        cursor: pointer;
+        min-width: 56px;
+      }
+      .s10-customize-btn:hover { background: var(--acuity-bg-inset); }
+
+      /* Preview pane — flatten S5's gray-bg treatment; frame flexes to fill */
+      #s10 .s10-preview-pane {
+        background: transparent;
+        padding: 0;
+        position: relative;
+        overflow: visible;
+        flex-direction: column;
+        gap: var(--acuity-spacing-32);
+        width: 100%;
+        max-width: 880px;
+        align-items: center;
+        flex: 1;
+        min-height: 0;
+      }
+      #s10 .s10-preview-pane .s5-browser-frame {
+        width: 100%;
+        flex: 1;
+        min-height: 320px;
+      }
+
+      /* Floating pencil edit — top-left of the preview frame */
+      .s10-edit-btn {
+        position: absolute;
+        top: var(--acuity-spacing-24);
+        left: var(--acuity-spacing-24);
+        z-index: var(--acuity-z-sticky);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+      .s10-edit-btn:hover { background: var(--acuity-bg-inset); }
+    }
+
   </style>
 </head>
 <body>
@@ -3978,6 +5213,20 @@
          S1 — Intro (c3_a: Immerse)
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen active" id="s1">
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <nav class="top-nav" style="background:var(--acuity-bg-inset);">
         <div style="width:60px;"></div>
         <div></div>
@@ -3986,9 +5235,38 @@
 
       <div class="s1-body">
         <div class="s1-header">
-          <span class="welcome-lbl">Welcome to Acuity</span>
-          <h1 class="intro-heading">Get your first booking ready in minutes</h1>
+          <span class="welcome-lbl">Welcome to Acuity Scheduling</span>
+          <h1 class="intro-heading">Get your booking page ready in minutes</h1>
         </div>
+
+        <!-- Desktop-only: 3-column intro steps (matches c3_b's s1).
+             Hidden on mobile; the s1-carousel below carries mobile's UX. -->
+        <ul class="intro-steps">
+          <li class="intro-step">
+            <span class="step-num">1.</span>
+            <div class="step-text">
+              <span class="step-title">Tell us about you</span>
+              <span class="step-desc">We&rsquo;ll personalize the setup to how you work.</span>
+            </div>
+            <img class="step-img" src="assets/s1-intro-1.png" alt="">
+          </li>
+          <li class="intro-step">
+            <span class="step-num">2.</span>
+            <div class="step-text">
+              <span class="step-title">Add your services</span>
+              <span class="step-desc">Start from our suggestions or build your own.</span>
+            </div>
+            <img class="step-img" src="assets/s1-intro-2.png" alt="">
+          </li>
+          <li class="intro-step">
+            <span class="step-num">3.</span>
+            <div class="step-text">
+              <span class="step-title">Customize &amp; share</span>
+              <span class="step-desc">Share your booking page and start accepting appointments.</span>
+            </div>
+            <img class="step-img" src="assets/s1-intro-3.png" alt="">
+          </li>
+        </ul>
 
         <div class="s1-carousel-wrapper">
           <div class="s1-carousel">
@@ -4042,6 +5320,20 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen screen--fixed" id="s1_5">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s1','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4053,8 +5345,9 @@
       </nav>
 
       <div class="wizard-header" style="padding: var(--acuity-spacing-8) 22px 0; flex-shrink: 0;">
-        <h2 class="wizard-heading">What is your business name?</h2>
-        <p class="wizard-subheading">This will be your page title for now. You'll be able to upload your logo later.</p>
+        <span class="wizard-eyebrow">Step 1 of 5</span>
+        <h2 class="wizard-heading">What&rsquo;s your business name?</h2>
+        <p class="wizard-subheading">We&rsquo;ll use it to give your page a title and a custom link.</p>
       </div>
 
       <div class="s3-body">
@@ -4063,7 +5356,7 @@
             id="business-name-input"
             class="s3-textarea"
             rows="2"
-            placeholder="Your business name"
+            placeholder="e.g. Cedar Group"
             aria-label="Business name"
             autocomplete="off"
           ></textarea>
@@ -4071,6 +5364,12 @@
       </div>
 
       <div class="bottom-nav">
+        <button class="s5-back-btn" type="button" onclick="showScreen('s1','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button class="btn-primary" onclick="showScreen('s2')">Next</button>
       </div>
 
@@ -4081,6 +5380,20 @@
          S2 — Industry select
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s2">
+
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
 
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s1_5','back')" aria-label="Back">
@@ -4094,8 +5407,9 @@
 
       <div class="wizard-body">
         <div class="wizard-header">
-          <h2 class="wizard-heading">What industry are you in?</h2>
-          <p class="wizard-subheading">This helps us tailor your experience and make recommendations.</p>
+          <span class="wizard-eyebrow">Step 2 of 5</span>
+          <h2 class="wizard-heading">What kind of business do you run?</h2>
+          <p class="wizard-subheading">This helps us speak your language throughout your setup.</p>
         </div>
 
         <div class="industry-grid">
@@ -4157,6 +5471,20 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen screen--fixed" id="s3">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s2','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4169,8 +5497,9 @@
 
       <!-- Header: top-pinned, same position as all wizard steps -->
       <div class="wizard-header" style="padding: var(--acuity-spacing-8) 22px 0; flex-shrink: 0;">
-        <h2 class="wizard-heading">What best describes what you do?</h2>
-        <p class="wizard-subheading">What clients usually book with you. The more specific, the better we can tailor your setup.</p>
+        <span class="wizard-eyebrow">Step 3 of 5</span>
+        <h2 class="wizard-heading">Tell us what you do</h2>
+        <p class="wizard-subheading">Describe your industry or the services you provide.</p>
       </div>
 
       <!-- Body: fills remaining space. Textarea centered, chips at bottom. -->
@@ -4188,12 +5517,23 @@
         </div>
 
         <!-- Chips: populated dynamically by buildS3Chips() on industry select.
-             Supports infinite horizontal scroll in batches of 5. -->
-        <div class="chips-row" id="chips-row"></div>
+             Supports infinite horizontal scroll in batches of 5.
+             Desktop-only label prepends "POPULAR IN {vertical}" — synced by
+             _syncS3PopularLabel() when the screen enters. -->
+        <div class="s3-popular-row">
+          <span class="s3-popular-label" id="s3-popular-label">Popular industries</span>
+          <div class="chips-row" id="chips-row"></div>
+        </div>
 
       </div><!-- /s3-body -->
 
       <div class="bottom-nav">
+        <button class="s5-back-btn" type="button" onclick="showScreen('s2','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button id="s3-next" class="btn-primary btn-primary--disabled" onclick="showScreen('s4')">Next</button>
       </div>
 
@@ -4217,6 +5557,78 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s5">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Desktop-only: browser-frame preview + floating theme card + viewport toggle -->
+      <div class="s5-preview-pane" aria-hidden="true">
+        <div class="s5-browser-frame">
+          <div class="s5-browser-bar">
+            <div class="s5-browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="s5-browser-url"></div>
+          </div>
+          <div class="s5-browser-content" id="s5-browser-content">
+            <iframe
+              class="s5-preview-iframe"
+              id="s5-preview-iframe"
+              src="../scheduling-page.html?view=select"
+              title="Scheduling page preview"
+              loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <!-- Floating theme card + viewport toggle — c3_a keeps in-preview
+             customization (unlike c3_b which moved it to a dedicated step) -->
+        <div class="s5-preview-controls">
+          <div class="s5-theme-card">
+            <button class="s5-theme-aa" type="button" onclick="openFont(this)" aria-label="Choose font">Aa</button>
+            <button class="s5-theme-fan" type="button" onclick="openPalette(this)" aria-label="Choose color palette">
+              <span style="background:#ffffff"></span>
+              <span style="background:#e0e0e0"></span>
+              <span style="background:#9e9e9e"></span>
+              <span style="background:#424242"></span>
+              <span style="background:#000000"></span>
+            </button>
+            <button class="s5-theme-mini-btn" type="button" onclick="openButtonStyle(this)" aria-label="Choose button style">BUTTON</button>
+            <button class="s5-theme-edit" type="button" aria-label="Edit page" onclick="openS5EditGlobal()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 2.5L15.5 5.5L6.5 14.5H3.5V11.5L12.5 2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.5 4.5L13.5 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="s5-segmented" role="group" aria-label="Preview viewport">
+            <button class="s5-segment s5-segment--active" type="button" aria-pressed="true" aria-label="Desktop preview" onclick="setPreviewMode(this, 'desktop')">
+              <svg width="18" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 19h6M11 15v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="s5-segment" type="button" aria-pressed="false" aria-label="Mobile preview" onclick="setPreviewMode(this, 'mobile')">
+              <svg width="12" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="2" width="10" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="11" cy="17.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s3','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4230,8 +5642,9 @@
       <div class="wizard-body s5-wizard-body">
 
         <div class="wizard-header">
-          <h2 class="wizard-heading">Add your first appointment</h2>
-          <p class="wizard-subheading">Choose up to 3 services to start with, or create your own. You can edit it anytime.</p>
+          <span class="wizard-eyebrow">Step 4 of 5</span>
+          <h2 class="wizard-heading">Add your first appointments</h2>
+          <p class="wizard-subheading" id="s5-subheading">Here are some suggestions based on your business. Pick up to 3, or add your own to start with.</p>
         </div>
 
         <div class="s5-carousel">
@@ -4269,6 +5682,12 @@
       </div>
 
       <div class="bottom-nav">
+        <button class="s5-back-btn" type="button" onclick="showScreen('s3','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button id="s5-continue" class="btn-primary btn-primary--disabled">Continue with selection</button>
       </div>
 
@@ -4310,6 +5729,7 @@
                 type="text"
                 aria-label="Service name"
                 onblur="exitNameEdit()"
+                oninput="_fitSheetNameEl(this)"
               >
             </div>
 
@@ -4329,6 +5749,7 @@
                   id="sheet-desc-textarea"
                   class="sheet-desc-textarea"
                   rows="3"
+                  maxlength="512"
                   placeholder="Describe your service…"
                   aria-label="Service description"
                 ></textarea>
@@ -4353,6 +5774,10 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="sheet-desc-meta-row">
+                <span class="sheet-char-counter" id="sheet-char-counter">0/512</span>
+                <p class="sheet-desc-error" id="sheet-desc-error" hidden>Max. character limit reached</p>
             </div>
 
           </div><!-- /sheet-top -->
@@ -4473,7 +5898,7 @@
       <div class="palette-sheet modal-sheet" id="palette-sheet">
 
         <div class="subsheet-header">
-          <span class="subsheet-title">Edit palette</span>
+          <span class="subsheet-title">Edit color palette</span>
           <button class="subsheet-close" onclick="closePalette()" aria-label="Close">
             <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
@@ -4482,19 +5907,19 @@
         </div>
 
         <div class="palette-list">
-          <div class="palette-row palette-selected" onclick="selectPalette(this,['#ffffff','#e0e0e0','#9e9e9e','#424242','#000000'])">
+          <div class="palette-row palette-selected" onclick="selectPalette(this,['#ffffff','#e8e8e8','#9e9e9e','#424242','#111111'])">
             <div class="palette-swatch" style="background:#ffffff"></div>
-            <div class="palette-swatch" style="background:#e0e0e0"></div>
+            <div class="palette-swatch" style="background:#e8e8e8"></div>
             <div class="palette-swatch" style="background:#9e9e9e"></div>
             <div class="palette-swatch" style="background:#424242"></div>
-            <div class="palette-swatch" style="background:#000000"></div>
+            <div class="palette-swatch" style="background:#111111"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#fff0f0','#f8bbd9','#9c27b0','#880e4f','#4a148c'])">
-            <div class="palette-swatch" style="background:#fff0f0"></div>
-            <div class="palette-swatch" style="background:#f8bbd9"></div>
-            <div class="palette-swatch" style="background:#9c27b0"></div>
-            <div class="palette-swatch" style="background:#880e4f"></div>
-            <div class="palette-swatch" style="background:#4a148c"></div>
+          <div class="palette-row" onclick="selectPalette(this,['#fce8f0','#d4b3f5','#9b2fbe','#8e1055','#3d0070'])">
+            <div class="palette-swatch" style="background:#fce8f0"></div>
+            <div class="palette-swatch" style="background:#d4b3f5"></div>
+            <div class="palette-swatch" style="background:#9b2fbe"></div>
+            <div class="palette-swatch" style="background:#8e1055"></div>
+            <div class="palette-swatch" style="background:#3d0070"></div>
           </div>
           <div class="palette-row" onclick="selectPalette(this,['#fafaf5','#f5f0e8','#c8b89a','#6b5c45','#2c1810'])">
             <div class="palette-swatch" style="background:#fafaf5"></div>
@@ -4503,29 +5928,46 @@
             <div class="palette-swatch" style="background:#6b5c45"></div>
             <div class="palette-swatch" style="background:#2c1810"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#f8fff8','#e8f5e9','#ffd54f','#90caf9','#37474f'])">
+          <div class="palette-row" onclick="selectPalette(this,['#f8fff8','#d8f0da','#ffd54f','#90caf9','#37474f'])">
             <div class="palette-swatch" style="background:#f8fff8"></div>
-            <div class="palette-swatch" style="background:#e8f5e9"></div>
+            <div class="palette-swatch" style="background:#d8f0da"></div>
             <div class="palette-swatch" style="background:#ffd54f"></div>
             <div class="palette-swatch" style="background:#90caf9"></div>
             <div class="palette-swatch" style="background:#37474f"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#fff8f0','#ffe0b2','#ff7043','#424242','#000000'])">
+          <div class="palette-row" onclick="selectPalette(this,['#fff8f0','#ffd8a8','#ff6b35','#2d2d2d','#0a0a0a'])">
             <div class="palette-swatch" style="background:#fff8f0"></div>
-            <div class="palette-swatch" style="background:#ffe0b2"></div>
-            <div class="palette-swatch" style="background:#ff7043"></div>
-            <div class="palette-swatch" style="background:#424242"></div>
-            <div class="palette-swatch" style="background:#000000"></div>
+            <div class="palette-swatch" style="background:#ffd8a8"></div>
+            <div class="palette-swatch" style="background:#ff6b35"></div>
+            <div class="palette-swatch" style="background:#2d2d2d"></div>
+            <div class="palette-swatch" style="background:#0a0a0a"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#f9ffe0','#f0f4c3','#ef5350','#388e3c','#1b5e20'])">
-            <div class="palette-swatch" style="background:#f9ffe0"></div>
-            <div class="palette-swatch" style="background:#f0f4c3"></div>
+          <div class="palette-row" onclick="selectPalette(this,['#f2ffe0','#c8e896','#ef5350','#2e7d32','#1a3d1e'])">
+            <div class="palette-swatch" style="background:#f2ffe0"></div>
+            <div class="palette-swatch" style="background:#c8e896"></div>
             <div class="palette-swatch" style="background:#ef5350"></div>
-            <div class="palette-swatch" style="background:#388e3c"></div>
+            <div class="palette-swatch" style="background:#2e7d32"></div>
+            <div class="palette-swatch" style="background:#1a3d1e"></div>
+          </div>
+          <div class="palette-row" onclick="selectPalette(this,['#f0e8ff','#c5a8f5','#5c35e8','#1a0060','#08002a'])">
+            <div class="palette-swatch" style="background:#f0e8ff"></div>
+            <div class="palette-swatch" style="background:#c5a8f5"></div>
+            <div class="palette-swatch" style="background:#5c35e8"></div>
+            <div class="palette-swatch" style="background:#1a0060"></div>
+            <div class="palette-swatch" style="background:#08002a"></div>
+          </div>
+          <div class="palette-row" onclick="selectPalette(this,['#f0fff5','#b8e8c8','#4caf50','#1b5e20','#0a2211'])">
+            <div class="palette-swatch" style="background:#f0fff5"></div>
+            <div class="palette-swatch" style="background:#b8e8c8"></div>
+            <div class="palette-swatch" style="background:#4caf50"></div>
             <div class="palette-swatch" style="background:#1b5e20"></div>
+            <div class="palette-swatch" style="background:#0a2211"></div>
           </div>
         </div>
 
+        <div class="overlay-confirm-footer">
+          <button class="overlay-confirm-btn" onclick="closePalette()">Select</button>
+        </div>
 
       </div>
     </div><!-- /palette-overlay -->
@@ -4549,32 +5991,76 @@
         <div class="font-list">
           <div class="font-row font-selected" onclick="selectFont(0)">
             <span class="font-row-aa" style="font-family:'Source Sans Pro',sans-serif">Aa</span>
-            <span class="font-row-name">Source Sans Pro</span>
+            <span class="font-row-name" style="font-family:'Source Sans Pro',sans-serif">Source Sans Pro</span>
           </div>
           <div class="font-row" onclick="selectFont(1)">
             <span class="font-row-aa" style="font-family:'Poppins',sans-serif">Aa</span>
-            <span class="font-row-name">Poppins</span>
+            <span class="font-row-name" style="font-family:'Poppins',sans-serif">Poppins</span>
           </div>
           <div class="font-row" onclick="selectFont(2)">
             <span class="font-row-aa" style="font-family:'Playfair Display',serif">Aa</span>
-            <span class="font-row-name">Playfair Display</span>
+            <span class="font-row-name" style="font-family:'Playfair Display',serif">Playfair Display</span>
           </div>
           <div class="font-row" onclick="selectFont(3)">
             <span class="font-row-aa" style="font-family:'Raleway',sans-serif">Aa</span>
-            <span class="font-row-name">Raleway</span>
+            <span class="font-row-name" style="font-family:'Raleway',sans-serif">Raleway</span>
           </div>
           <div class="font-row" onclick="selectFont(4)">
             <span class="font-row-aa" style="font-family:'Quicksand',sans-serif">Aa</span>
-            <span class="font-row-name">Quicksand</span>
+            <span class="font-row-name" style="font-family:'Quicksand',sans-serif">Quicksand</span>
           </div>
           <div class="font-row" onclick="selectFont(5)">
             <span class="font-row-aa" style="font-family:'Oswald',sans-serif">Aa</span>
-            <span class="font-row-name">Oswald</span>
+            <span class="font-row-name" style="font-family:'Oswald',sans-serif">Oswald</span>
           </div>
+          <div class="font-row" onclick="selectFont(6)">
+            <span class="font-row-aa" style="font-family:'Concert One',cursive">Aa</span>
+            <span class="font-row-name" style="font-family:'Concert One',cursive">Concert One</span>
+          </div>
+          <div class="font-row" onclick="selectFont(7)">
+            <span class="font-row-aa" style="font-family:'IBM Plex Mono',monospace">Aa</span>
+            <span class="font-row-name" style="font-family:'IBM Plex Mono',monospace">IBM Plex Mono</span>
+          </div>
+        </div>
+
+        <div class="overlay-confirm-footer">
+          <button class="overlay-confirm-btn" onclick="closeFont()">Select</button>
         </div>
 
       </div>
     </div><!-- /font-overlay -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Button-style overlay — opened by openButtonStyle()
+         Ported from c3_b for the c3_a desktop theme card.
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div class="btnstyle-overlay modal-overlay" id="btnstyle-overlay" hidden onclick="if(event.target===this)closeButtonStyle()">
+      <div class="btnstyle-sheet modal-sheet" id="btnstyle-sheet">
+        <div class="subsheet-header">
+          <span class="subsheet-title">Button style</span>
+          <button class="subsheet-close" onclick="closeButtonStyle()" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <div class="btnstyle-list">
+          <button class="btnstyle-row btnstyle-selected" type="button" onclick="selectButtonStyle('sharp')" data-style="sharp">
+            <span class="btnstyle-preview" style="border-radius:0">BOOK</span>
+            <span class="btnstyle-name">Sharp</span>
+          </button>
+          <button class="btnstyle-row" type="button" onclick="selectButtonStyle('rounded')" data-style="rounded">
+            <span class="btnstyle-preview" style="border-radius:6px">BOOK</span>
+            <span class="btnstyle-name">Rounded</span>
+          </button>
+          <button class="btnstyle-row" type="button" onclick="selectButtonStyle('pill')" data-style="pill">
+            <span class="btnstyle-preview" style="border-radius:999px">BOOK</span>
+            <span class="btnstyle-name">Pill</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /btnstyle-overlay -->
 
 
     <!-- ═══════════════════════════════════════════════════════════════
@@ -4593,8 +6079,8 @@
         </div>
 
         <div style="padding:20px 22px 32px;overflow-y:auto;-webkit-overflow-scrolling:touch;">
-          <p style="font-size:14px;color:#888;font-family:var(--acuity-font-family-sans);margin-bottom:16px;">
-            Here's what similar businesses in your area typically charge.
+          <p id="pricing-tips-header" style="font-size:14px;color:#888;font-family:var(--acuity-font-family-sans);margin-bottom:16px;">
+            Here's what similar businesses typically charge.
           </p>
           <div id="pricing-tips-rows">
             <!-- Built dynamically by openPricingTips() -->
@@ -4629,26 +6115,58 @@
         <!-- Panels — only one visible at a time -->
         <div class="create-panels-wrap">
 
-          <!-- panel-c1 — Name (20%) -->
+          <!-- panel-c1/c2 — Name + Description (shared panel; C2 state via .in-c2-state class) -->
           <div class="create-panel" id="panel-c1">
             <div class="create-body">
 
-              <div class="create-panel-header">
-                <h2 class="create-panel-title">Give your appointment a name</h2>
+              <!-- Header slot: both headers share the same height; only one visible at a time -->
+              <div class="create-header-slot">
+                <div class="create-panel-header" id="c1-panel-header">
+                  <h2 class="create-panel-title">Give your appointment a name</h2>
+                </div>
+                <div class="create-panel-header" id="c2-panel-header">
+                  <h2 class="create-panel-title">Give your appointment a description</h2>
+                  <p class="create-panel-subtitle">This is optional. You can leave it blank.</p>
+                </div>
               </div>
 
-              <div class="big-input-wrap">
-                <input
-                  type="text"
-                  id="create-name-input"
-                  class="big-input"
-                  placeholder="Hair Styling"
-                  aria-label="Appointment name"
-                  autocomplete="off"
-                >
-              </div>
+              <!-- Persistent big-input-wrap: shared across C1 and C2 -->
+              <div class="big-input-wrap" id="create-big-input-wrap">
 
-              <div class="chips-row">
+                <!-- C1: name input, vertically centered -->
+                <div id="create-name-area">
+                  <textarea
+                    id="create-name-input"
+                    class="big-input"
+                    placeholder="Hair Styling"
+                    aria-label="Appointment name"
+                    autocomplete="off"
+                    rows="1"
+                  ></textarea>
+                </div>
+
+                <!-- C2: name echo (morphs from big input) -->
+                <p class="create-name-echo" id="create-desc-title">Hair Styling</p>
+
+                <!-- C2: description zone (expands below echo) -->
+                <div class="c2-desc-zone" id="create-desc-zone">
+                  <textarea
+                    id="create-desc-input"
+                    class="c2-desc-input"
+                    aria-label="Service description"
+                    autocomplete="off"
+                    maxlength="512"
+                  ></textarea>
+                  <div class="desc-ghost" id="desc-ghost">
+                    <span class="desc-ghost-text" id="desc-ghost-text">A relaxing treatment tailored to your hair type…</span>
+                  </div>
+                </div>
+                <p class="c2-char-counter" id="c2-char-counter">0/512</p>
+
+              </div><!-- /big-input-wrap -->
+
+              <!-- C1: chips row -->
+              <div class="chips-row" id="c1-chips-row">
                 <button class="chip--plain">Haircut</button>
                 <button class="chip--plain">Blowout</button>
                 <button class="chip--plain">Color Treatment</button>
@@ -4656,36 +6174,7 @@
                 <button class="chip--plain">Scalp Treatment</button>
               </div>
 
-            </div>
-          </div>
-
-          <!-- panel-c2 — Description (40%) -->
-          <div class="create-panel" id="panel-c2" hidden>
-            <div class="create-body">
-
-              <div class="create-panel-header">
-                <h2 class="create-panel-title">Give your appointment a description</h2>
-                <p class="create-panel-subtitle">This is optional. You can leave it blank.</p>
-              </div>
-
-              <div class="big-input-wrap">
-
-                <p class="create-name-echo" id="create-desc-title">Hair Styling</p>
-
-                <div class="c2-desc-zone">
-                  <textarea
-                    id="create-desc-input"
-                    class="c2-desc-input"
-                    aria-label="Service description"
-                    autocomplete="off"
-                  ></textarea>
-                  <div class="desc-ghost" id="desc-ghost">
-                    <span class="desc-ghost-text" id="desc-ghost-text">A relaxing treatment tailored to your hair type…</span>
-                  </div>
-                </div>
-
-              </div>
-
+              <!-- C2: AI bar (revealed by in-c2-state) -->
               <div class="c2-ai-bar c2-ai-bar--collapsed" id="c2-ai-bar">
                 <button type="button" class="c2-ai-btn" id="c2-ai-toggle" aria-label="AI writing suggestions" aria-expanded="false" onclick="toggleC2AiBar(event)">
                   <img class="c2-ai-btn-icon--closed" src="assets/icon-sparkles-ai.svg" alt="" width="16" height="16">
@@ -4703,7 +6192,10 @@
               </div>
 
             </div>
-          </div>
+          </div><!-- /panel-c1 -->
+
+          <!-- panel-c2: empty placeholder — C2 content lives in panel-c1 (in-c2-state) -->
+          <div class="create-panel" id="panel-c2" hidden aria-hidden="true"></div>
 
           <!-- panel-c3 — Duration (60%) -->
           <div class="create-panel" id="panel-c3" hidden>
@@ -4730,6 +6222,10 @@
                 <button class="chip--plain">45 min</button>
                 <button class="chip--plain">60 min</button>
                 <button class="chip--plain">90 min</button>
+                <button class="chip--plain">2 hours</button>
+                <button class="chip--plain">3 hours</button>
+                <button class="chip--plain">4 hours</button>
+                <button class="chip--plain">5 hours</button>
               </div>
 
             </div>
@@ -4753,11 +6249,15 @@
               </div>
 
               <div class="chips-row">
+                <button class="chip--plain">$0</button>
+                <button class="chip--plain">$25</button>
                 <button class="chip--plain">$50</button>
                 <button class="chip--plain">$75</button>
                 <button class="chip--plain">$100</button>
                 <button class="chip--plain">$150</button>
                 <button class="chip--plain">$200</button>
+                <button class="chip--plain">$250</button>
+                <button class="chip--plain">$500</button>
               </div>
 
             </div>
@@ -4855,6 +6355,77 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s9">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Desktop-only: browser-frame preview showing the datetime view.
+           Same shell as s5 — theme card + viewport toggle float on top. -->
+      <div class="s5-preview-pane" aria-hidden="true">
+        <div class="s5-browser-frame">
+          <div class="s5-browser-bar">
+            <div class="s5-browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="s5-browser-url"></div>
+          </div>
+          <div class="s5-browser-content">
+            <iframe
+              class="s5-preview-iframe"
+              id="s9-preview-iframe"
+              src="../scheduling-page.html?view=datetime"
+              title="Scheduling page preview (date &amp; time)"
+              loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="s5-preview-controls">
+          <div class="s5-theme-card">
+            <button class="s5-theme-aa" type="button" onclick="openFont(this)" aria-label="Choose font">Aa</button>
+            <button class="s5-theme-fan" type="button" onclick="openPalette(this)" aria-label="Choose color palette">
+              <span style="background:#ffffff"></span>
+              <span style="background:#e0e0e0"></span>
+              <span style="background:#9e9e9e"></span>
+              <span style="background:#424242"></span>
+              <span style="background:#000000"></span>
+            </button>
+            <button class="s5-theme-mini-btn" type="button" onclick="openButtonStyle(this)" aria-label="Choose button style">BUTTON</button>
+            <button class="s5-theme-edit" type="button" aria-label="Edit page" onclick="openS5EditGlobal()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 2.5L15.5 5.5L6.5 14.5H3.5V11.5L12.5 2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.5 4.5L13.5 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="s5-segmented" role="group" aria-label="Preview viewport">
+            <button class="s5-segment s5-segment--active" type="button" aria-pressed="true" aria-label="Desktop preview" onclick="setPreviewMode(this, 'desktop')">
+              <svg width="18" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 19h6M11 15v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="s5-segment" type="button" aria-pressed="false" aria-label="Mobile preview" onclick="setPreviewMode(this, 'mobile')">
+              <svg width="12" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="2" width="10" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="11" cy="17.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s5','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4868,8 +6439,9 @@
       <div class="wizard-body">
 
         <div class="wizard-header">
+          <span class="wizard-eyebrow">Step 5 of 5</span>
           <h2 class="wizard-heading" style="font-family:var(--acuity-font-family-display)">When can clients book you?</h2>
-          <p class="wizard-subheading">This sets when your appointments will appear as available. You can adjust this anytime.</p>
+          <p class="wizard-subheading">Clients will see these hours on your booking page. You can customize per service and add exceptions later.</p>
         </div>
 
         <!-- Shared availability block (single-appointment or shared mode) -->
@@ -4889,7 +6461,7 @@
         </div>
 
         <!-- "Set different hours" link — only shown when 2+ appointments selected -->
-        <div id="s9-diff-link-wrap" style="padding-top: var(--acuity-spacing-16);" hidden>
+        <div id="s9-diff-link-wrap" hidden>
           <button class="s9-toggle-link" onclick="s9SetDifferentHours()">Set different hours for different appointments</button>
         </div>
 
@@ -4904,6 +6476,12 @@
       </div>
 
       <div class="bottom-nav">
+        <button class="s5-back-btn" type="button" onclick="showScreen('s5','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button class="btn-primary" onclick="showScreen('s10')">Finish</button>
       </div>
 
@@ -4914,6 +6492,84 @@
          S10 — Celebratory / Ready to book
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s10">
+
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-text" type="button" onclick="showScreen('s_home')">Close setup</button>
+      </nav>
+
+      <!-- Desktop-only body: centered header + URL row + browser preview.
+           Matches Figma 3962-20507. Palette/font/dark customization stays
+           in the s5/s9 preview theme cards, not here. -->
+      <div class="s10-desktop-body" aria-hidden="true">
+
+        <div class="s10-desktop-header">
+          <h2 class="s10-desktop-heading">You are ready for your first booking!</h2>
+          <p class="s10-desktop-subheading">Share your page and let clients book with you.</p>
+        </div>
+
+        <!-- URL display + Copy + Customize link row -->
+        <div class="s10-share-row" id="s10-share-row" data-mode="readonly">
+          <div class="s10-url-display" id="s10-url-display">
+            <span id="s10-url-full">https://cedargroup.as.me</span>
+          </div>
+          <label class="s10-url-input" for="s10-url-value" hidden>
+            <span class="s10-url-affix">https://</span>
+            <span
+              class="s10-url-value"
+              id="s10-url-value"
+              contenteditable="true"
+              spellcheck="false"
+              role="textbox"
+              aria-label="Booking page URL slug"
+              onkeydown="_s10UrlKeyDown(event)"
+              oninput="_s10UrlSanitize(this)">cedargroup</span>
+            <span class="s10-url-affix">.as.me</span>
+          </label>
+          <button class="s10-copy-btn" type="button" onclick="copyS10Link()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="9" height="11" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M5.5 3V2a1 1 0 0 1 1-1H13a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            Copy
+          </button>
+          <button class="s10-customize-btn" type="button" onclick="toggleS10UrlEdit()" id="s10-customize-btn">Customize link</button>
+        </div>
+
+        <div class="s5-preview-pane s10-preview-pane">
+          <!-- Floating pencil edit — jumps back to S5 to reopen the appointment editor -->
+          <button class="s10-edit-btn" type="button" onclick="showScreen('s5','back')" aria-label="Edit page">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 18l3.5-1 10-10-2.5-2.5-10 10L4 18z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="s5-browser-frame">
+            <div class="s5-browser-bar">
+              <div class="s5-browser-dots">
+                <span style="background:#ff5f57"></span>
+                <span style="background:#febc2e"></span>
+                <span style="background:#28c840"></span>
+              </div>
+              <div class="s5-browser-url"></div>
+            </div>
+            <div class="s5-browser-content">
+              <iframe
+                class="s5-preview-iframe"
+                id="s10-preview-iframe"
+                src="../scheduling-page.html?view=select"
+                title="Scheduling page preview"
+                loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s9','back')" aria-label="Back">
@@ -4935,7 +6591,7 @@
         <!-- Header — left aligned -->
         <div class="s10-header">
           <h2 class="s10-heading">You are ready for your first booking!</h2>
-          <p class="s10-subheading" id="s10-subheading">Check your page, share your link and let clients book with you.</p>
+          <p class="s10-subheading" id="s10-subheading">Your booking page is live — share your link and start taking appointments.</p>
         </div>
 
         <!-- Booking page preview: gray shell + floating widget card + style pickers -->
@@ -4945,10 +6601,11 @@
           <div class="booking-widget-wrap">
             <div class="booking-widget">
 
-              <!-- Date / hours header -->
-              <div class="widget-date-header" id="widget-date-header">
-                Tuesday to Sunday&nbsp;
-                <span class="widget-date-muted">10 am — 7 pm</span>
+              <!-- Date / hours header — rewritten by populateS10() -->
+              <div id="widget-date-headers">
+                <div class="widget-date-header">
+                  Tuesday to Sunday&nbsp;<span class="widget-date-muted">10 am — 7 pm</span>
+                </div>
               </div>
 
               <!-- Service content — rewritten by populateS10() -->
@@ -5001,7 +6658,7 @@
   <path d="M10 6.5H6.5V15.5H15.5V12H17V17H5V5H10V6.5ZM16.9961 5V9.5L15.5 11V7.5L11.0605 12.001L10 10.9404L14.376 6.5H11.0537L12.5 5H16.9961Z" fill="white"/>
 </svg>
         </button>
-        <button class="btn-ghost" onclick="showScreen('s_home')">Finish setup</button>
+        <button class="btn-ghost" onclick="showScreen('s_home')">Go to dashboard</button>
       </div>
 
     </section>
@@ -5388,6 +7045,10 @@
 
     // Industry taxonomy now comes from ACUITY_TEMPLATES[topKey].s3_chips — no hardcoded list needed.
 
+    // ─── Anthropic API key ────────────────────────────────────────────────────
+    // Paste your key here for local demo use only. Never commit a real key.
+    const ANTHROPIC_API_KEY = '';
+
     // ─── State ────────────────────────────────────────────────────────────────
     const state = {};
     state.currentIndustry         = 'beauty';
@@ -5398,6 +7059,9 @@
     state.apptEdits        = {};   // id → {name, duration, price, description?, image?} — overrides from edit sheet + upload
     state.selectedHoursLabel  = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
     state._availStaggerDone   = false; // true after the first suggestions render on a given S5 visit
+    state.businessName        = '';    // set on S1.5; feeds the preview payload
+    state.businessDesc        = '';    // reserved (c3_a has no customize step; kept for payload symmetry)
+    state.siteSlug            = '';    // set on S10 URL editor
 
     // ─── SVG icon strings ─────────────────────────────────────────────────────
     const ICON_PENCIL = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -5575,6 +7239,9 @@
       const atLimit = state.selectedAppts.length >= 3;
       document.getElementById('s5-available').classList.toggle('at-limit', atLimit);
       document.querySelector('.new-appt-btn').classList.toggle('new-appt-btn--disabled', atLimit);
+
+      // Keep the desktop S5 preview iframe in sync with selectedAppts
+      renderPreview('s5');
     }
 
     // ─── Catalog actions ──────────────────────────────────────────────────────
@@ -5656,7 +7323,7 @@
       exitNameEdit(appt.name);
 
       // Fields
-      document.getElementById('field-duration').value = parseInt(appt.duration);
+      document.getElementById('field-duration').value = parseDurationMinutes(appt.duration);
       document.getElementById('field-price').value    = parseFloat(appt.price.replace('$', ''));
 
       // Description: expand if service already has one, otherwise start collapsed
@@ -5671,6 +7338,7 @@
         descSection.querySelector('textarea').value = '';
         resetDescTrigger();
       }
+      _updateSheetCounter();
 
       // Image: render uploaded image if present, otherwise show icon-imageplus placeholder
       const imageArea = document.querySelector('#edit-overlay .sheet-image-upload');
@@ -5685,6 +7353,7 @@
       const overlay = document.getElementById('edit-overlay');
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
+        _fitSheetNameEl(document.getElementById('sheet-name-display'));
         requestAnimationFrame(() => {
           overlay.classList.add('edit-open');
         });
@@ -5750,13 +7419,23 @@
 
     // ─── Service name field toggle ─────────────────────────────────────────────
 
+    function _fitSheetNameEl(el) {
+      if (!el || !el.offsetWidth) return;
+      const MAX = 32, MIN = 18;
+      el.style.fontSize = MAX + 'px';
+      let fs = MAX;
+      while (el.scrollWidth > el.offsetWidth && fs > MIN) {
+        el.style.fontSize = --fs + 'px';
+      }
+    }
+
     function activateNameEdit() {
       const display = document.getElementById('sheet-name-display');
       const input   = document.getElementById('sheet-service-name');
       input.value = display.textContent.trim();
-      input.style.width = display.offsetWidth + 'px';
       display.classList.add('editing');
       input.classList.add('editing');
+      _fitSheetNameEl(input);
       input.focus();
       input.select();
     }
@@ -5770,6 +7449,7 @@
       display.textContent = val;
       display.classList.remove('editing');
       input.classList.remove('editing');
+      _fitSheetNameEl(display);
     }
 
     // ─── Description toggle ───────────────────────────────────────────────────
@@ -6068,19 +7748,22 @@
 
     function selectS3Chip(btn) {
       const val = btn.textContent.trim();
-      const idx = state.s3SelectedChips.indexOf(val);
-      if (idx === -1) {
-        state.s3SelectedChips.push(val);
+      const wasSelected = btn.classList.contains('chip--selected');
+
+      // Single-select: deselect all chips, then select only the tapped one
+      document.querySelectorAll('#s3 .chip--plain').forEach(c => c.classList.remove('chip--selected'));
+      state.s3SelectedChips = [];
+      state.currentIndustrySpecific = '';
+
+      if (!wasSelected) {
         btn.classList.add('chip--selected');
+        state.s3SelectedChips = [val];
         state.currentIndustrySpecific = val;
-      } else {
-        state.s3SelectedChips.splice(idx, 1);
-        btn.classList.remove('chip--selected');
-        state.currentIndustrySpecific = state.s3SelectedChips[state.s3SelectedChips.length - 1] || '';
       }
+
       window._selectedIndustry = state.currentIndustrySpecific || null;
       const ta = document.getElementById('s3-textarea');
-      ta.value = state.s3SelectedChips.join(', ');
+      ta.value = state.s3SelectedChips[0] || '';
       updateS3Next();
     }
 
@@ -6096,9 +7779,13 @@
     const CREATE_PANELS   = ['panel-c1', 'panel-c2', 'panel-c3', 'panel-c4', 'panel-c5'];
     const CREATE_PROGRESS = [20, 40, 60, 80, 100];
     let _currentCreatePanel = 'panel-c1';
+    let _c2AiBarAutoOpened  = false; // auto-open only once per create session
 
     function openCreate() {
       _currentCreatePanel = 'panel-c1';
+      _c2AiBarAutoOpened  = false;
+      const panel1 = document.getElementById('panel-c1');
+      if (panel1) { panel1.classList.add('c1c2-no-transition'); panel1.classList.remove('in-c2-state'); void panel1.offsetWidth; panel1.classList.remove('c1c2-no-transition'); }
       const s5Body = document.querySelector('#s5 .wizard-body');
       if (s5Body) s5Body.scrollTop = 0;
       navigateCreate('panel-c1');
@@ -6134,54 +7821,223 @@
       }, 300);
     }
 
+    // ─── C1↔C2 layout animation helpers ─────────────────────────────────────
+
+    function _fitC1Name() {
+      const ta = document.getElementById('create-name-input');
+      if (!ta) return;
+      const MAX_FS = 32, MIN_FS = 18, MAX_H = 80;
+      ta.style.fontSize = MAX_FS + 'px';
+      let fs = MAX_FS;
+      while (ta.scrollHeight > MAX_H && fs > MIN_FS) {
+        ta.style.fontSize = --fs + 'px';
+      }
+    }
+
+    function _setupC2State() {
+      // Restore desc draft, reset ghost — called whenever entering C2 view
+      const inp      = document.getElementById('create-desc-input');
+      const ghost    = document.getElementById('desc-ghost');
+      const ghostTxt = document.getElementById('desc-ghost-text');
+      const title    = document.getElementById('create-desc-title');
+      if (inp) { inp.value = descDraft || ''; descDraft = ''; }
+      if (ghost) {
+        ghost.classList.remove('ai-active');
+        if (inp && inp.value) ghost.setAttribute('hidden', '');
+        else ghost.removeAttribute('hidden');
+      }
+      if (ghostTxt) ghostTxt.textContent = _defaultGhostText();
+      if (title) title.classList.toggle('has-content', !!(inp && inp.value));
+    }
+
+    function _maybeAutoOpenAiBar() {
+      if (!_c2AiBarAutoOpened) {
+        _c2AiBarAutoOpened = true;
+        setTimeout(() => {
+          const bar = document.getElementById('c2-ai-bar');
+          if (bar && bar.classList.contains('c2-ai-bar--collapsed')) toggleC2AiBar(null);
+        }, 500);
+      }
+    }
+
+    // Animate within panel-c1 between C1 and C2 states — FLIP for forward, CSS for backward.
+    // Headers are handled entirely by CSS (translateX transitions on the .create-header-slot grid).
+    function _animateC1C2(goForward) {
+      const panel1   = document.getElementById('panel-c1');
+      const echo     = document.getElementById('create-desc-title');
+      const nameArea = document.getElementById('create-name-area');
+      const descZone = document.getElementById('create-desc-zone');
+      if (!panel1) return;
+
+      if (!goForward) {
+        // Cancel any in-flight FLIP so the backward CSS transitions take over cleanly.
+        if (echo)     { echo.style.transition = ''; echo.style.transform = ''; echo.style.transformOrigin = ''; echo.style.textAlign = ''; }
+        if (nameArea) { nameArea.style.transition = ''; }
+        if (descZone) { descZone.style.transition = ''; descZone.style.maxHeight = ''; descZone.style.opacity = ''; }
+
+        const descInp = document.getElementById('create-desc-input');
+        if (descInp) {
+          descDraft = descInp.value;
+          if (document.activeElement === descInp) descInp.blur();
+        }
+        panel1.classList.remove('in-c2-state');
+        return;
+      }
+
+      // ── Forward: C1 → C2 ────────────────────────────────────────────────────
+      const inp = document.getElementById('create-name-input');
+      if (!inp || !echo || !nameArea || !descZone) return;
+
+      echo.textContent = inp.value.trim() || inp.placeholder;
+      _setupC2State();
+
+      // FLIP — READ FIRST: capture input's on-screen position before any state change.
+      const fromRect = inp.getBoundingClientRect();
+      const fromCX = fromRect.left + fromRect.width  / 2;
+      const fromCY = fromRect.top  + fromRect.height / 2;
+
+      // Freeze only the three wrap children so in-c2-state gives accurate final coords.
+      // Headers animate via their own CSS transitions — no freezing needed.
+      nameArea.style.transition = 'none';
+      echo.style.transition     = 'none';
+      descZone.style.transition = 'none';
+
+      panel1.classList.add('in-c2-state');
+
+      // FLIP — READ LAST: echo at its true C2 position (nameArea collapsed instantly).
+      void echo.offsetWidth;
+      const toRect = echo.getBoundingClientRect();
+      const toCX = toRect.left + toRect.width  / 2;
+      const toCY = toRect.top  + toRect.height / 2;
+
+      // FLIP — INVERT: position echo at the input's visual center, scaled to match
+      // the input's current font-size (possibly shrunk by _fitC1Name) → echo's 18px.
+      // text-align:center mirrors the input's centered appearance.
+      const currentFs = parseFloat(inp.style.fontSize) || 32;
+      const scale = currentFs / 18;
+      echo.style.transformOrigin = 'center center';
+      echo.style.transform       = `translate(${fromCX - toCX}px, ${fromCY - toCY}px) scale(${scale})`;
+      echo.style.textAlign       = 'center';
+
+      // Hold desc-zone collapsed while echo travels; expand it separately.
+      descZone.style.maxHeight = '0';
+      descZone.style.opacity   = '0';
+
+      // FLIP — PLAY: paint the inverted state, then animate to natural C2 position.
+      void echo.offsetWidth;
+      echo.style.transition = 'transform 420ms cubic-bezier(0.22,1,0.36,1)';
+      echo.style.transform  = '';
+
+      // Reveal desc-zone once the echo is in motion.
+      setTimeout(() => {
+        descZone.style.transition = 'max-height 500ms cubic-bezier(0.22,1,0.36,1), opacity 360ms ease';
+        descZone.style.maxHeight  = '600px';
+        descZone.style.opacity    = '1';
+      }, 80);
+
+      // Cleanup: return echo + nameArea inline styles to CSS control.
+      echo.addEventListener('transitionend', function onEnd(e) {
+        if (e.propertyName !== 'transform') return;
+        echo.style.transition      = '';
+        echo.style.transform       = '';
+        echo.style.transformOrigin = '';
+        echo.style.textAlign       = '';
+        nameArea.style.transition  = '';
+        echo.removeEventListener('transitionend', onEnd);
+      });
+
+      setTimeout(() => {
+        descZone.style.transition = '';
+        descZone.style.maxHeight  = '';
+        descZone.style.opacity    = '';
+      }, 680);
+
+      _maybeAutoOpenAiBar();
+    }
+
     function navigateCreate(targetId) {
       const fromId  = _currentCreatePanel;
       const fromIdx = CREATE_PANELS.indexOf(fromId);
       const toIdx   = CREATE_PANELS.indexOf(targetId);
-      const fromEl  = document.getElementById(fromId);
-      const toEl    = document.getElementById(targetId);
 
-      if (fromEl && toEl && fromId !== targetId) {
-        const goForward = toIdx > fromIdx;
-        const exitX  = goForward ? '-16px' : '16px';
-        const enterX = goForward ? '16px'  : '-16px';
+      // panel-c2 shares panel-c1's DOM element; map for actual DOM operations
+      const domId = id => id === 'panel-c2' ? 'panel-c1' : id;
+      const fromDomId = domId(fromId);
+      const toDomId   = domId(targetId);
 
-        // Fade outgoing panel out
-        fromEl.style.transition = 'opacity 150ms ease, transform 150ms ease';
-        fromEl.style.opacity    = '0';
-        fromEl.style.transform  = `translateX(${exitX})`;
+      if (fromDomId === toDomId && fromId !== targetId) {
+        // C1 ↔ C2: layout animation within the shared panel-c1 DOM element
+        _animateC1C2(targetId === 'panel-c2');
 
-        setTimeout(() => {
-          fromEl.style.transition = '';
-          fromEl.style.opacity    = '';
-          fromEl.style.transform  = '';
-          fromEl.hidden = true;
+      } else if (fromDomId !== toDomId) {
+        // Standard panel fade-slide (for C2→C3, C3→C2, and all C3–C5 transitions)
+        const fromEl = document.getElementById(fromDomId);
+        const toEl   = document.getElementById(toDomId);
 
-          // Set incoming at start position (instant, no transition)
-          toEl.hidden = false;
-          toEl.style.transition = 'none';
-          toEl.style.opacity    = '0';
-          toEl.style.transform  = `translateX(${enterX})`;
+        if (fromEl && toEl) {
+          const goForward = toIdx > fromIdx;
+          const exitX  = goForward ? '-16px' : '16px';
+          const enterX = goForward ? '16px'  : '-16px';
 
-          // Double rAF so browser registers start state before animating
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            toEl.style.transition = 'opacity 200ms ease 120ms, transform 200ms ease 120ms';
-            toEl.style.opacity    = '1';
-            toEl.style.transform  = 'translateX(0)';
-          }));
+          // When leaving C2 (panel-c1 in C2 state), strip state before slide-out
+          if (fromId === 'panel-c2') {
+            const p1 = document.getElementById('panel-c1');
+            if (p1) { p1.classList.add('c1c2-no-transition'); p1.classList.remove('in-c2-state'); void p1.offsetWidth; p1.classList.remove('c1c2-no-transition'); }
+          }
 
-          // Clean up inline styles after animation completes
+          fromEl.style.transition = 'opacity 150ms ease, transform 150ms ease';
+          fromEl.style.opacity    = '0';
+          fromEl.style.transform  = `translateX(${exitX})`;
+
           setTimeout(() => {
-            toEl.style.transition = '';
-            toEl.style.opacity    = '';
-            toEl.style.transform  = '';
-          }, 340);
-        }, 150);
+            fromEl.style.transition = '';
+            fromEl.style.opacity    = '';
+            fromEl.style.transform  = '';
+            fromEl.hidden = true;
+
+            // When entering C2 from C3+ (back nav), apply state instantly (no animation)
+            if (targetId === 'panel-c2') {
+              const p1 = document.getElementById('panel-c1');
+              if (p1) {
+                p1.classList.add('c1c2-no-transition', 'in-c2-state');
+                void p1.offsetWidth;
+                p1.classList.remove('c1c2-no-transition');
+              }
+              _setupC2State();
+              _maybeAutoOpenAiBar();
+            }
+
+            toEl.hidden = false;
+            toEl.style.transition = 'none';
+            toEl.style.opacity    = '0';
+            toEl.style.transform  = `translateX(${enterX})`;
+
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              toEl.style.transition = 'opacity 200ms ease 120ms, transform 200ms ease 120ms';
+              toEl.style.opacity    = '1';
+              toEl.style.transform  = 'translateX(0)';
+            }));
+
+            setTimeout(() => {
+              toEl.style.transition = '';
+              toEl.style.opacity    = '';
+              toEl.style.transform  = '';
+            }, 340);
+          }, 150);
+        }
+
       } else {
-        // Same panel (initial open) or missing elements — no animation
-        CREATE_PANELS.forEach(id => {
+        // Same DOM panel and same logical panel (initial open) — instant, no animation
+        const panel1 = document.getElementById('panel-c1');
+        if (panel1) {
+          panel1.classList.add('c1c2-no-transition');
+          panel1.classList.remove('in-c2-state');
+          void panel1.offsetWidth;
+          panel1.classList.remove('c1c2-no-transition');
+        }
+        ['panel-c1', 'panel-c3', 'panel-c4', 'panel-c5'].forEach(id => {
           const el = document.getElementById(id);
-          if (el) el.hidden = (id !== targetId);
+          if (el) el.hidden = (id !== toDomId);
         });
       }
 
@@ -6209,40 +8065,15 @@
         }
       }
 
-      // AI pricing: fire when user reaches the price step
-      if (targetId === 'panel-c4') {
-        suggestPrice();
-      }
+      if (targetId === 'panel-c4') suggestPrice();
 
-      // Collage fly-in animation when entering c5 with no image uploaded
       if (targetId === 'panel-c5') {
         const frame = document.getElementById('c5-collage-frame');
         const placeholder = document.getElementById('c5-placeholder');
         if (frame && placeholder && !placeholder.hidden) {
           frame.classList.remove('c5-anim');
-          // Start after panel slide-in finishes (~470ms total, fire at ~350ms for overlap)
           setTimeout(() => frame.classList.add('c5-anim'), 350);
         }
-      }
-
-      // Restore desc draft and reset ghost when entering panel-c2
-      if (targetId === 'panel-c2') {
-        const inp      = document.getElementById('create-desc-input');
-        const ghost    = document.getElementById('desc-ghost');
-        const ghostTxt = document.getElementById('desc-ghost-text');
-        if (inp) {
-          inp.value = descDraft || '';
-          descDraft = '';
-        }
-        // Ghost shows when input is empty; hides when there's content
-        if (ghost) {
-          ghost.classList.remove('ai-active');
-          if (inp && inp.value) ghost.setAttribute('hidden', '');
-          else ghost.removeAttribute('hidden');
-        }
-        if (ghostTxt) ghostTxt.textContent = _defaultGhostText();
-        const title = document.getElementById('create-desc-title');
-        if (title) title.classList.toggle('has-content', !!(inp && inp.value));
       }
     }
 
@@ -6265,9 +8096,15 @@
 
       // Animate incoming screen in
       incoming.classList.add('active', enterCls);
+      history.replaceState(null, '', '#' + id);
       const body = incoming.querySelector('.screen-body, .wizard-body');
       if (body) body.scrollTop = 0;
       setTimeout(() => { incoming.classList.remove(enterCls); }, 400);
+
+      // S3: sync the "Popular in {vertical}" desktop label with S2's pick
+      if (id === 's3') {
+        _syncS3PopularLabel();
+      }
 
       // S4: AI loading — auto-advance to S5 after 2s
       if (id === 's4') {
@@ -6278,17 +8115,29 @@
       if (id === 's5') {
         state.catalogOverride = null;
         state._availStaggerDone = false;
+        const s5Subheading = document.getElementById('s5-subheading');
+        if (s5Subheading) {
+          s5Subheading.textContent = (window._activeTier === 'generic')
+            ? 'Here are some popular appointment types to get you started. Pick up to 3, or add your own.'
+            : 'Here are some suggestions based on your business. Pick up to 3, or add your own to start with.';
+        }
         generateAISuggestions();
+        // Hydrate the desktop preview iframe on entry (renderCatalog will
+        // keep it in sync from here as the user picks/removes appointments)
+        renderPreview('s5');
       }
 
-      // S9: render availability
+      // S9: render availability + hydrate the desktop datetime preview
       if (id === 's9') {
         renderAvailability();
+        renderPreview('s9');
       }
 
-      // S10: populate dynamic content from state
+      // S10: populate dynamic content from state + hydrate the desktop preview
       if (id === 's10') {
         populateS10();
+        _s10RefreshUrlDisplay();
+        renderPreview('s10');
       }
 
       // s_home: show the correct state (setup vs ready) based on arrival path
@@ -6371,6 +8220,7 @@
       const val = btn.textContent.trim();
       document.getElementById('create-name-input').value = val;
       document.getElementById('create-desc-title').textContent = val;
+      _fitC1Name();
     }
 
     // ─── Name echo: s_c1 input → s_c2 title ──────────────────────────────────
@@ -6378,6 +8228,13 @@
     document.getElementById('create-name-input').addEventListener('input', function() {
       const val = this.value.trim();
       document.getElementById('create-desc-title').textContent = val || this.placeholder;
+      _fitC1Name();
+
+      // Filter C1 chips by match
+      const query = val.toLowerCase();
+      document.querySelectorAll('#panel-c1 .chip--plain').forEach(chip => {
+        chip.hidden = !!(query && !chip.textContent.trim().toLowerCase().includes(query));
+      });
     });
 
     // ─── Create sub-flow writeback ────────────────────────────────────────────
@@ -6407,7 +8264,9 @@
 
       // Reset inputs for next use
       nameEl.value = '';
-      if (descEl) descEl.value = '';
+      _fitC1Name();
+      if (descEl) { descEl.value = ''; }
+      _updateC2Counter();
       if (durSpan)   { durSpan.textContent = '60';  durSpan.classList.remove('is-set'); }
       if (priceSpan) { priceSpan.textContent = '0'; priceSpan.classList.remove('is-set'); }
       document.getElementById('create-desc-title').textContent =
@@ -6426,6 +8285,37 @@
       resetDescGhost();
 
       closeCreate(); // renderCatalog() fires inside closeCreate() after animation
+    }
+
+    // ─── Char counter helpers ─────────────────────────────────────────────────
+    const DESC_MAX = 512;
+
+    function _updateC2Counter() {
+      const inp     = document.getElementById('create-desc-input');
+      const counter = document.getElementById('c2-char-counter');
+      if (!inp || !counter) return;
+      const len = inp.value.length;
+      if (len >= DESC_MAX) {
+        counter.textContent = DESC_MAX + '/' + DESC_MAX + ' max. character limit reached';
+        counter.classList.add('is-maxed');
+      } else {
+        counter.textContent = len + '/' + DESC_MAX;
+        counter.classList.remove('is-maxed');
+      }
+    }
+
+    function _updateSheetCounter() {
+      const ta      = document.getElementById('sheet-desc-textarea');
+      const counter = document.getElementById('sheet-char-counter');
+      const error   = document.getElementById('sheet-desc-error');
+      const zone    = document.getElementById('sheet-desc-zone');
+      if (!ta || !counter) return;
+      const len = ta.value.length;
+      const atMax = len >= DESC_MAX;
+      counter.textContent = len + '/' + DESC_MAX;
+      counter.classList.toggle('is-maxed', atMax);
+      if (zone)  zone.classList.toggle('is-maxed', atMax);
+      if (error) error.hidden = !atMax;
     }
 
     // ─── panel-c2 input: hide ghost when user types ──────────────────────────
@@ -6454,8 +8344,15 @@
             }
           }
           if (title) title.classList.toggle('has-content', inp.value.length > 0);
+          _updateC2Counter();
         });
       }
+    }());
+
+    // ─── Sheet desc textarea: char counter ───────────────────────────────────
+    ;(function() {
+      const ta = document.getElementById('sheet-desc-textarea');
+      if (ta) ta.addEventListener('input', _updateSheetCounter);
     }());
 
     // ─── Image upload wiring (panel-c5) ──────────────────────────────────────
@@ -6512,7 +8409,9 @@
     document.querySelectorAll('#panel-c3 .chip--plain').forEach(chip => {
       chip.addEventListener('click', function() {
         const span = document.querySelector('#panel-c3 .duration-num');
-        span.textContent = parseInt(this.textContent);
+        const txt  = this.textContent.trim();
+        const hrsMatch = txt.match(/^(\d+)\s*h/i);
+        span.textContent = hrsMatch ? parseInt(hrsMatch[1]) * 60 : parseInt(txt);
         span.classList.add('is-set');
       });
     });
@@ -6683,20 +8582,32 @@
     let s9_editCtx = null;
 
     function renderAvailability() {
-      // Reset to shared mode whenever S9 is entered
-      state.s9_isDifferentHours = false;
       _s9NormalizeBlockDayData(state.s9SharedBlock);
       _s9UpdateMainBlock(state.s9SharedBlock);
 
-      const diffWrap  = document.getElementById('s9-diff-link-wrap');
-      const perWrap   = document.getElementById('s9-per-appt-wrap');
-      const sameWrap  = document.getElementById('s9-same-link-wrap');
-      const sharedWrap= document.getElementById('s9-shared-wrap');
+      const diffWrap   = document.getElementById('s9-diff-link-wrap');
+      const perWrap    = document.getElementById('s9-per-appt-wrap');
+      const sameWrap   = document.getElementById('s9-same-link-wrap');
+      const sharedWrap = document.getElementById('s9-shared-wrap');
 
-      if (sharedWrap) sharedWrap.hidden = false;
-      if (diffWrap)   diffWrap.hidden   = (state.selectedAppts.length < 2);
-      if (perWrap)    perWrap.hidden    = true;
-      if (sameWrap)   sameWrap.hidden   = true;
+      const inPerAppt = state.s9_isDifferentHours
+        && state.s9PerApptBlocks.length === state.selectedAppts.length
+        && state.selectedAppts.length > 0;
+
+      if (inPerAppt) {
+        // Re-entering S9 while per-appt mode was active — restore it
+        _s9RenderPerApptBlocks();
+        if (sharedWrap) sharedWrap.hidden = true;
+        if (diffWrap)   diffWrap.hidden   = true;
+        if (perWrap)    perWrap.hidden    = false;
+        if (sameWrap)   sameWrap.hidden   = false;
+      } else {
+        state.s9_isDifferentHours = false;
+        if (sharedWrap) sharedWrap.hidden = false;
+        if (diffWrap)   diffWrap.hidden   = (state.selectedAppts.length < 2);
+        if (perWrap)    perWrap.hidden    = true;
+        if (sameWrap)   sameWrap.hidden   = true;
+      }
 
       _s9UpdateHoursLabel();
     }
@@ -6710,52 +8621,71 @@
       timeEl.textContent = timeLabel;
     }
 
+    function _s9FmtTime(t) {
+      return (t || '').replace(/:00\b/, '').replace(' AM', ' am').replace(' PM', ' pm').trim();
+    }
+
+    function _s9FmtRange(start, end) {
+      const s = _s9FmtTime(start), e = _s9FmtTime(end);
+      return (s.slice(-3) === e.slice(-3) ? s.slice(0, -3) : s) + ' – ' + e;
+    }
+
     function _s9BlockSummary(block) {
       const activeDays = block.dayData
-        .map((d, i) => {
-          const e = _s9NormalizeDayEntry(d);
-          return e.enabled ? i : null;
-        })
+        .map((d, i) => (_s9NormalizeDayEntry(d).enabled ? i : null))
         .filter(i => i !== null);
       const daysLabel = _s9BuildDaysLabel(activeDays);
       let timeLabel = '';
+      let allSame = false;
       if (activeDays.length > 0) {
-        const first = _s9NormalizeDayEntry(block.dayData[activeDays[0]]);
-        if (first.ranges.length > 0) {
-          const r = first.ranges[0];
-          timeLabel = 'From ' + r.start + ' to ' + r.end;
+        const firstRanges = _s9NormalizeDayEntry(block.dayData[activeDays[0]]).ranges;
+        allSame = activeDays.every(dayIdx => {
+          const r = _s9NormalizeDayEntry(block.dayData[dayIdx]).ranges;
+          return r.length === firstRanges.length
+            && r.every((rng, i) => rng.start === firstRanges[i].start && rng.end === firstRanges[i].end);
+        });
+        if (allSame) {
+          timeLabel = firstRanges.map(r => _s9FmtRange(r.start, r.end)).join(', ');
+        } else {
+          // Different schedules per day — count total range entries
+          const total = activeDays.reduce((sum, di) =>
+            sum + _s9NormalizeDayEntry(block.dayData[di]).ranges.length, 0);
+          timeLabel = `${total} time block${total !== 1 ? 's' : ''}`;
         }
       }
-      return { daysLabel, timeLabel };
+      return { daysLabel, timeLabel, allSame };
     }
 
     function _s9BuildDaysLabel(activeDayIndices) {
       if (activeDayIndices.length === 0) return 'No days selected';
-      if (activeDayIndices.length === 7) return 'Every day';
+      if (activeDayIndices.length === 7) return 'Everyday';
       let contiguous = true;
       for (let i = 1; i < activeDayIndices.length; i++) {
         if (activeDayIndices[i] !== activeDayIndices[i-1] + 1) { contiguous = false; break; }
       }
-      if (contiguous && activeDayIndices.length > 2) {
-        return _S9_DAYS_ABBREV[activeDayIndices[0]] + ' to ' + _S9_DAYS_ABBREV[activeDayIndices[activeDayIndices.length - 1]];
-      }
-      return activeDayIndices.map(d => _S9_DAYS_ABBREV[d]).join(', ');
+      if (activeDayIndices.length === 1) return 'Every ' + _S9_DAYS_FULL[activeDayIndices[0]];
+      if (activeDayIndices.length === 2) return _S9_DAYS_FULL[activeDayIndices[0]] + ' and ' + _S9_DAYS_FULL[activeDayIndices[1]];
+      if (contiguous) return _S9_DAYS_FULL[activeDayIndices[0]] + ' to ' + _S9_DAYS_FULL[activeDayIndices[activeDayIndices.length - 1]];
+      const abbrevs = activeDayIndices.map(d => _S9_DAYS_ABBREV[d]);
+      return abbrevs.slice(0, -1).join(', ') + ', and ' + abbrevs[abbrevs.length - 1];
     }
 
     function _s9UpdateHoursLabel() {
       const { daysLabel, timeLabel } = _s9BlockSummary(state.s9SharedBlock);
-      state.selectedHoursLabel = daysLabel + ' · ' + timeLabel;
+      state.selectedHoursLabel = timeLabel ? daysLabel + ' · ' + timeLabel : daysLabel;
+      // Live-sync the desktop S9 datetime preview whenever the shared block
+      // changes so the day columns / slot grid track the user's edits.
+      renderPreview('s9');
     }
 
     function s9SetDifferentHours() {
       state.s9_isDifferentHours = true;
-      if (state.s9PerApptBlocks.length !== state.selectedAppts.length) {
-        state.s9PerApptBlocks = state.selectedAppts.map((_, i) => ({
-          id: 'appt_' + i,
-          dayData: _s9MakeDefaultDayData()
-        }));
-      }
-      document.getElementById('s9-shared-wrap').hidden  = true;
+      // Each appt block inherits the current global availability (always fresh from global)
+      state.s9PerApptBlocks = state.selectedAppts.map((_, i) => ({
+        id: 'appt_' + i,
+        dayData: JSON.parse(JSON.stringify(state.s9SharedBlock.dayData))
+      }));
+      document.getElementById('s9-shared-wrap').hidden   = true;
       document.getElementById('s9-diff-link-wrap').hidden = true;
       _s9RenderPerApptBlocks();
       document.getElementById('s9-per-appt-wrap').hidden  = false;
@@ -6764,7 +8694,11 @@
 
     function s9SetSameHours() {
       state.s9_isDifferentHours = false;
-      document.getElementById('s9-shared-wrap').hidden  = false;
+      state.s9PerApptBlocks = [];
+      // Global block is shown as it was last configured — not overwritten by per-appt state
+      _s9UpdateMainBlock(state.s9SharedBlock);
+      _s9UpdateHoursLabel();
+      document.getElementById('s9-shared-wrap').hidden   = false;
       document.getElementById('s9-diff-link-wrap').hidden = (state.selectedAppts.length < 2);
       document.getElementById('s9-per-appt-wrap').hidden  = true;
       document.getElementById('s9-same-link-wrap').hidden = true;
@@ -6868,23 +8802,113 @@
     }
 
     function _s9RangeRowHTML(dayIdx, ri, range) {
-      const isFirst = ri === 0;
-      const actionsHtml = isFirst
-        ? `<div class="s9-range-row-actions">
-        <button type="button" class="s9-range-icon-btn" onclick="s9AddRange(${dayIdx})" aria-label="Add time range"><img src="assets/icon-Plus.svg" width="22" height="22" alt="" aria-hidden="true"></button>
-        <button type="button" class="s9-range-icon-btn" onclick="s9CopyDayToAll(${dayIdx})" aria-label="Copy times to all other days"><img src="assets/icon-duplicate.svg" width="22" height="22" alt="" aria-hidden="true"></button>
-      </div>`
-        : `<div class="s9-range-row-actions s9-range-row-actions--tail">
-        <button type="button" class="s9-range-icon-btn" onclick="s9RemoveRange(${dayIdx},${ri})" aria-label="Remove time range"><img src="assets/icon-Minus.svg" width="22" height="22" alt="" aria-hidden="true"></button>
-      </div>`;
       const startVal = _s9Time12ToInputValue(range.start);
       const endVal   = _s9Time12ToInputValue(range.end);
+      const _svgPlus      = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M10.25 10.25V5H11.75V10.25H17V11.75H11.75V17H10.25V11.75H5V10.25H10.25Z" fill="currentColor"/></svg>`;
+      const _svgEllipsis  = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M12.8002 11.0002C12.8002 11.9943 11.9943 12.8002 11.0002 12.8002C10.0061 12.8002 9.2002 11.9943 9.2002 11.0002C9.2002 10.0061 10.0061 9.2002 11.0002 9.2002C11.9943 9.2002 12.8002 10.0061 12.8002 11.0002Z" fill="currentColor"/><path d="M4.8002 11.0003C4.8002 11.9944 3.99431 12.8003 3.0002 12.8003C2.00608 12.8003 1.2002 11.9944 1.2002 11.0003C1.2002 10.0061 2.00608 9.20026 3.0002 9.20026C3.99431 9.20026 4.8002 10.0061 4.8002 11.0003Z" fill="currentColor"/><path d="M19.0002 12.8002C19.9943 12.8002 20.8002 11.9943 20.8002 11.0002C20.8002 10.0061 19.9943 9.2002 19.0002 9.2002C18.0061 9.2002 17.2002 10.0061 17.2002 11.0002C17.2002 11.9943 18.0061 12.8002 19.0002 12.8002Z" fill="currentColor"/></svg>`;
+      const _svgTrash     = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M13 5.5H17V7H16.5V16.5L16.4922 16.6533C16.4205 17.3593 15.8593 17.9205 15.1533 17.9922L15 18H7L6.84668 17.9922C6.09028 17.9154 5.5 17.2767 5.5 16.5V7H5V5.5H9V4H13V5.5ZM7 16.5H15V7H7V16.5ZM10 15H8.5V8.5H10V15ZM13.5 15H12V8.5H13.5V15Z" fill="currentColor"/></svg>`;
+      const actionsHtml = ri === 0
+        ? `<div class="s9-range-row-actions">
+            <button type="button" class="s9-range-icon-btn" onclick="s9AddRange(${dayIdx})" aria-label="Add time range">
+              ${_svgPlus}
+            </button>
+            <button type="button" class="s9-range-icon-btn" onclick="openS9DayMenu(${dayIdx},this)" aria-label="More options for ${_S9_DAYS_FULL[dayIdx]}">
+              ${_svgEllipsis}
+            </button>
+          </div>`
+        : `<div class="s9-range-row-actions">
+            <button type="button" class="s9-range-icon-btn s9-range-icon-btn--destructive" onclick="s9RemoveRange(${dayIdx},${ri})" aria-label="Remove time range">
+              ${_svgTrash}
+            </button>
+          </div>`;
       return `<div class="s9-range-row" data-range="${ri}">
         <input type="time" class="s9-time-pill" step="1800" value="${startVal}" data-day="${dayIdx}" data-range="${ri}" data-role="start" aria-label="Start time">
         <span class="s9-range-sep">—</span>
         <input type="time" class="s9-time-pill" step="1800" value="${endVal}" data-day="${dayIdx}" data-range="${ri}" data-role="end" aria-label="End time">
         ${actionsHtml}
       </div>`;
+    }
+
+    let _s9DayMenuCleanup = null;
+
+    function openS9DayMenu(dayIdx, triggerEl) {
+      _closeS9DayMenu();
+      const block   = _s9GetEditingBlock();
+      const entry   = block ? _s9NormalizeDayEntry(block.dayData[dayIdx]) : { enabled: false, ranges: [] };
+      const hasMulti = entry.enabled && entry.ranges.length >= 2;
+      const rect    = triggerEl.getBoundingClientRect();
+
+      const _S9_ICONS = {
+        'Plus':      `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M10.25 10.25V5H11.75V10.25H17V11.75H11.75V17H10.25V11.75H5V10.25H10.25Z" fill="currentColor"/></svg>`,
+        'duplicate': `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 14V5H14V8H17V17H8V14H5ZM6.5 6.5H12.5V12.5H6.5V6.5ZM9.5 14V15.6667H15.5V9.5H14V14H9.5Z" fill="currentColor"/></svg>`,
+        'trash-bin': `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M13 5.5H17V7H16.5V16.5L16.4922 16.6533C16.4205 17.3593 15.8593 17.9205 15.1533 17.9922L15 18H7L6.84668 17.9922C6.09028 17.9154 5.5 17.2767 5.5 16.5V7H5V5.5H9V4H13V5.5ZM7 16.5H15V7H7V16.5ZM10 15H8.5V8.5H10V15ZM13.5 15H12V8.5H13.5V15Z" fill="currentColor"/></svg>`,
+      };
+      const ico = name => _S9_ICONS[name] || '';
+      const actionItems = [
+        { icon: ico('Plus'),       label: 'Add new time range',        fn: () => { s9AddRange(dayIdx);        _closeS9DayMenu(); } },
+        { icon: ico('duplicate'),  label: 'Copy this time to all',     fn: () => { s9CopyDayToAll(dayIdx);    _closeS9DayMenu(); } },
+        ...(hasMulti ? [{ icon: ico('trash-bin'), label: 'Clear the first time range', fn: () => { s9ClearFirstRange(dayIdx); _closeS9DayMenu(); }, destructive: true }] : []),
+        { icon: ico('trash-bin'),  label: 'Clear day',                 fn: () => { s9ClearDay(dayIdx);        _closeS9DayMenu(); }, destructive: true },
+      ];
+
+      const menu = document.createElement('div');
+      menu.className = 's9-day-menu';
+      menu.innerHTML = [
+        ...actionItems.slice(0, 2).map(item =>
+          `<button type="button" class="s9-day-menu-item">${item.icon}${item.label}</button>`),
+        `<div class="s9-day-menu-separator"></div>`,
+        ...actionItems.slice(2).map(item =>
+          `<button type="button" class="s9-day-menu-item s9-day-menu-item--destructive">${item.icon}${item.label}</button>`),
+      ].join('');
+
+      menu.style.visibility = 'hidden';
+      document.body.appendChild(menu);
+      const menuH = menu.offsetHeight;
+      const menuW = menu.offsetWidth;
+      const below = window.innerHeight - rect.bottom;
+      const top   = (below >= menuH + 8) ? rect.bottom + 4 : rect.top - menuH - 4;
+      menu.style.left       = Math.min(rect.left, window.innerWidth - menuW - 8) + 'px';
+      menu.style.top        = top + 'px';
+      menu.style.visibility = '';
+
+      menu.querySelectorAll('.s9-day-menu-item').forEach((btn, i) => {
+        btn.addEventListener('click', actionItems[i].fn);
+      });
+
+      const dismiss = e => { if (!menu.contains(e.target)) _closeS9DayMenu(); };
+      setTimeout(() => document.addEventListener('click', dismiss), 0);
+      _s9DayMenuCleanup = () => {
+        document.removeEventListener('click', dismiss);
+        menu.remove();
+        _s9DayMenuCleanup = null;
+      };
+    }
+
+    function _closeS9DayMenu() {
+      if (_s9DayMenuCleanup) _s9DayMenuCleanup();
+    }
+
+    function s9ClearDay(dayIdx) {
+      const block = _s9GetEditingBlock();
+      if (!block) return;
+      _s9ReadTimeInputsIntoBlock(block, dayIdx);
+      const entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      entry.enabled = false;
+      block.dayData[dayIdx] = entry;
+      _s9RefreshDayRow(block, dayIdx);
+      _s9UpdateHoursLabel();
+    }
+
+    function s9ClearFirstRange(dayIdx) {
+      const block = _s9GetEditingBlock();
+      if (!block) return;
+      _s9ReadTimeInputsIntoBlock(block, dayIdx);
+      const entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
+      if (entry.ranges.length < 2) return;
+      entry.ranges.shift();
+      block.dayData[dayIdx] = entry;
+      _s9RefreshDayRow(block, dayIdx);
+      _s9UpdateHoursLabel();
     }
 
     function _s9GetEditingBlock() {
@@ -6930,7 +8954,16 @@
       if (!entry.enabled || entry.ranges.length >= 5) return;
       _s9ReadTimeInputsIntoBlock(block, dayIdx);
       entry = _s9NormalizeDayEntry(block.dayData[dayIdx]);
-      entry.ranges.push(_S9_DEFAULT_RANGE());
+      const lastEnd = entry.ranges[entry.ranges.length - 1].end;
+      const addHour = t12 => {
+        const val  = _s9Time12ToInputValue(t12);
+        const [h, m] = val.split(':').map(Number);
+        const mins = Math.min(h * 60 + m + 60, 23 * 60 + 30);
+        return _s9InputValueToTime12(String(Math.floor(mins / 60)).padStart(2, '0') + ':' + String(mins % 60).padStart(2, '0'));
+      };
+      const newStart = addHour(lastEnd);
+      const newEnd   = addHour(newStart);
+      entry.ranges.push({ start: newStart, end: newEnd });
       block.dayData[dayIdx] = entry;
       _s9RefreshDayBody(block, dayIdx);
     }
@@ -7027,9 +9060,10 @@
 
     // ─── S10: populate from state ─────────────────────────────────────────────
 
-    let _currentPalette = ['#ffffff','#e0e0e0','#9e9e9e','#424242','#000000'];
-    let _currentFont    = "'Source Sans Pro', sans-serif";
-    let _s10DarkMode    = false;
+    let _currentPalette     = ['#ffffff','#e0e0e0','#9e9e9e','#424242','#000000'];
+    let _currentFont        = "'Source Sans Pro', sans-serif";
+    let _currentButtonStyle = 'sharp';   // 'sharp' | 'rounded' | 'pill'
+    let _s10DarkMode        = false;
 
     function _colorIsDark(hex) {
       if (!hex || hex[0] !== '#') return false;
@@ -7042,25 +9076,28 @@
       const btn = document.getElementById('contrast-pill-btn');
       if (btn) btn.classList.toggle('dark-active', _s10DarkMode);
       _applyWidgetTheme();
+      _refreshAllPreviews();
     }
 
     function _applyWidgetTheme() {
       const p = _currentPalette;
-      // Light: bg=p[0], header=p[4], accent=p[2]
-      // Dark:  bg=p[4], header=p[3], accent=p[1]
+      // Light:  BG=color-1(p[0])  Header=color-2(p[1])  Accent/Button=color-4(p[3])
+      // Dark:   BG=color-5(p[4])  Header=color-4(p[3])  Accent/Button=color-2(p[1])
       const bg     = _s10DarkMode ? p[4] : p[0];
-      const hdrBg  = _s10DarkMode ? p[3] : p[4];
-      const accent = _s10DarkMode ? p[1] : p[2];
+      const hdrBg  = _s10DarkMode ? p[3] : p[1];
+      const accent = _s10DarkMode ? p[1] : p[3];
 
-      const header  = document.getElementById('widget-date-header');
-      const content = document.getElementById('widget-content');
+      const widgetEl = document.querySelector('.booking-widget');
+      const content  = document.getElementById('widget-content');
 
-      if (header) {
-        header.style.background = hdrBg;
-        header.style.color      = _colorIsDark(hdrBg) ? '#ffffff' : '#0e0e0e';
-        header.style.fontFamily = _currentFont;
-        const muted = header.querySelector('.widget-date-muted');
-        if (muted) muted.style.color = _colorIsDark(hdrBg) ? 'rgba(255,255,255,0.7)' : 'rgba(14,14,14,0.7)';
+      if (widgetEl) {
+        widgetEl.querySelectorAll('.widget-date-header').forEach(header => {
+          header.style.background = hdrBg;
+          header.style.color      = _colorIsDark(hdrBg) ? '#ffffff' : '#0e0e0e';
+          header.style.fontFamily = _currentFont;
+          const muted = header.querySelector('.widget-date-muted');
+          if (muted) muted.style.color = _colorIsDark(hdrBg) ? 'rgba(255,255,255,0.7)' : 'rgba(14,14,14,0.7)';
+        });
       }
       if (content) content.style.background = bg;
 
@@ -7089,53 +9126,84 @@
     }
 
     function populateS10() {
-      // Date header — split state.selectedHoursLabel on · into days / hours parts
-      const dateEl = document.getElementById('widget-date-header');
-      if (dateEl) {
-        const parts = state.selectedHoursLabel.split('·');
-        const days  = (parts[0] || 'Monday to Friday').trim();
-        const hours = (parts[1] || '9:00 AM to 5:00 PM').trim();
-        dateEl.innerHTML = days + '&nbsp;<span class="widget-date-muted">' + hours + '</span>';
-      }
+      // Sync any pending availability edits before rendering
+      _s9UpdateHoursLabel();
 
+      const _makeHeaderRow = (labelHtml, timeLabel, allSame) => {
+        const mutedHtml = (allSame && timeLabel)
+          ? `&nbsp;<span class="widget-date-muted">${timeLabel}</span>`
+          : '';
+        return `<div class="widget-date-header"><span class="widget-date-days">${labelHtml}</span>${mutedHtml}</div>`;
+      };
+
+      const _makeMultiCard = (raw) => {
+        const appt = applyEdits(raw);
+        const imgHtml  = appt.image       ? `<img class="widget-multi-card-img" src="${appt.image}" alt="">` : '';
+        const descHtml = appt.description ? `<span class="widget-multi-card-desc">${appt.description}</span>` : '';
+        return `<div class="widget-multi-card">
+          ${imgHtml}
+          <div class="widget-multi-card-info">
+            <span class="widget-multi-card-name">${appt.name}</span>
+            <span class="widget-multi-card-meta">${formatDuration(appt.duration)} · ${appt.price}</span>
+            ${descHtml}
+          </div>
+          <button class="widget-book-btn" style="font-size:8px;padding:7px 10px;pointer-events:none;white-space:nowrap;flex-shrink:0;">BOOK</button>
+        </div>`;
+      };
+
+      // Date / hours header rows
+      const headersEl = document.getElementById('widget-date-headers');
       const content    = document.getElementById('widget-content');
       const subheading = document.getElementById('s10-subheading');
 
-      if (state.selectedAppts.length > 1) {
-        // ── Multi-appointment layout ──────────────────────────────────────
-        if (subheading) subheading.textContent = 'Share your page and let clients book with you.';
+      const isPerApptDiff = state.s9_isDifferentHours && state.s9PerApptBlocks.length === state.selectedAppts.length && state.selectedAppts.length > 0;
 
-        // Reset content to vertical flex (multi uses widget-multi-cards list)
+      if (isPerApptDiff) {
+        // ── Per-appointment different-hours layout ─────────────────────────
+        // Each appointment gets its own [date-header + card] group, stacked vertically.
+        if (subheading) subheading.textContent = 'Share your page and let clients book with you.';
+        if (headersEl) headersEl.innerHTML = ''; // shared header not used in this mode
+        if (content) {
+          content.style.flexDirection = '';
+          content.style.alignItems    = '';
+          content.style.gap           = '';
+          content.style.padding       = '0';
+          content.innerHTML = `<div class="widget-appt-groups">
+            ${state.selectedAppts.map((raw, i) => {
+              const block = state.s9PerApptBlocks[i];
+              const { daysLabel, timeLabel, allSame } = _s9BlockSummary(block);
+              return `<div class="widget-appt-group">
+                ${_makeHeaderRow(daysLabel, timeLabel, allSame)}
+                ${_makeMultiCard(raw)}
+              </div>`;
+            }).join('')}
+          </div>`;
+        }
+
+      } else if (state.selectedAppts.length > 1) {
+        // ── Multi-appointment shared-hours layout ─────────────────────────
+        if (subheading) subheading.textContent = 'Share your page and let clients book with you.';
+        if (headersEl) {
+          const { daysLabel, timeLabel, allSame } = _s9BlockSummary(state.s9SharedBlock);
+          headersEl.innerHTML = _makeHeaderRow(daysLabel, timeLabel, allSame);
+        }
         if (content) {
           content.style.flexDirection = '';
           content.style.alignItems    = '';
           content.style.gap           = '';
           content.style.padding       = '0';
           content.innerHTML = `<div class="widget-multi-cards">
-            ${state.selectedAppts.map(raw => {
-              const appt = applyEdits(raw);
-              const imgHtml = appt.image
-                ? `<img class="widget-multi-card-img" src="${appt.image}" alt="">`
-                : '';
-              const descHtml = appt.description
-                ? `<span class="widget-multi-card-desc">${appt.description}</span>`
-                : '';
-              return `<div class="widget-multi-card">
-                ${imgHtml}
-                <div class="widget-multi-card-info">
-                  <span class="widget-multi-card-name">${appt.name}</span>
-                  <span class="widget-multi-card-meta">${formatDuration(appt.duration)} · ${appt.price}</span>
-                  ${descHtml}
-                </div>
-                <button class="widget-book-btn" style="font-size:8px;padding:7px 10px;pointer-events:none;white-space:nowrap;flex-shrink:0;">BOOK</button>
-              </div>`;
-            }).join('')}
+            ${state.selectedAppts.map(raw => _makeMultiCard(raw)).join('')}
           </div>`;
         }
 
       } else {
         // ── Single appointment layout ─────────────────────────────────────
-        if (subheading) subheading.textContent = 'Share this appointment and let clients book with you.';
+        if (subheading) subheading.textContent = 'Share your page and let clients book with you.';
+        if (headersEl) {
+          const { daysLabel, timeLabel, allSame } = _s9BlockSummary(state.s9SharedBlock);
+          headersEl.innerHTML = _makeHeaderRow(daysLabel, timeLabel, allSame);
+        }
 
         const first = applyEdits(state.selectedAppts[0] || {});
 
@@ -7522,7 +9590,7 @@
         ? (_getSheetServiceLabel() || 'this service')
         : ((document.getElementById('create-desc-title') || {}).textContent || 'this service').trim();
 
-      const prompt = `Write a short, compelling description for a service called "${serviceName}". The user says: "${val}". Return only the description text, no quotes, no explanation, max 2 sentences. Do not repeat or quote the user's instructions verbatim.`;
+      const prompt = `Write a booking page description for an appointment service called "${serviceName}". The client's guidance: "${val}". Default to exactly 1 sentence — only write more if the guidance explicitly requests more detail or a longer description. Return only the description text — no quotes, no labels, no explanation.`;
 
       let result = '';
       try {
@@ -7531,7 +9599,12 @@
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
           signal: controller.signal,
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+          },
           body: JSON.stringify({
             model: 'claude-haiku-4-5-20251001',
             max_tokens: 128,
@@ -7747,18 +9820,22 @@
       }
 
       _applyWidgetTheme();
-      setTimeout(closePalette, 200);
+      _syncS5ThemeCardPalette(colors);
+      _refreshAllPreviews();
+      // Don't auto-close — user taps the Select button to confirm
     }
 
     // ─── Font overlay ─────────────────────────────────────────────────────────
 
     const FONTS = [
       { name: 'Source Sans Pro', family: "'Source Sans Pro', sans-serif" },
-      { name: 'Poppins',          family: "'Poppins', sans-serif" },
-      { name: 'Playfair Display', family: "'Playfair Display', serif" },
-      { name: 'Raleway',          family: "'Raleway', sans-serif" },
-      { name: 'Quicksand',        family: "'Quicksand', sans-serif" },
-      { name: 'Oswald',           family: "'Oswald', sans-serif" },
+      { name: 'Poppins',         family: "'Poppins', sans-serif" },
+      { name: 'Playfair Display',family: "'Playfair Display', serif" },
+      { name: 'Raleway',         family: "'Raleway', sans-serif" },
+      { name: 'Quicksand',       family: "'Quicksand', sans-serif" },
+      { name: 'Oswald',          family: "'Oswald', sans-serif" },
+      { name: 'Concert One',     family: "'Concert One', cursive" },
+      { name: 'IBM Plex Mono',   family: "'IBM Plex Mono', monospace" },
     ];
 
     function openFont() {
@@ -7781,15 +9858,83 @@
       );
       _currentFont = font.family;
       _applyWidgetTheme();
+      _refreshAllPreviews();
 
       // Update font pill
       const pillAa   = document.getElementById('s10-font-pill-aa');
       const pillName = document.getElementById('s10-font-pill-name');
       if (pillAa)   pillAa.style.fontFamily = font.family;
-      if (pillName) pillName.textContent    = font.name;
-
-      setTimeout(closeFont, 200);
+      if (pillName) { pillName.textContent = font.name; pillName.style.fontFamily = font.family; }
+      _syncS5ThemeCardFont(font.family);
+      // Don't auto-close — user taps the Select button to confirm
     }
+
+    // ─── Button-style picker (c3_a desktop theme card) ───────────────────
+    function openButtonStyle(/* trigger */) {
+      const overlay = document.getElementById('btnstyle-overlay');
+      if (!overlay) return;
+      overlay.removeAttribute('hidden');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.getElementById('btnstyle-sheet').classList.add('btnstyle-sheet-open');
+      }));
+    }
+
+    function closeButtonStyle() {
+      const sheet = document.getElementById('btnstyle-sheet');
+      if (sheet) sheet.classList.remove('btnstyle-sheet-open');
+      setTimeout(() => {
+        const overlay = document.getElementById('btnstyle-overlay');
+        if (overlay) overlay.setAttribute('hidden', '');
+      }, 280);
+    }
+
+    function selectButtonStyle(style) {
+      _currentButtonStyle = style;
+      document.querySelectorAll('.btnstyle-row').forEach(r =>
+        r.classList.toggle('btnstyle-selected', r.dataset.style === style)
+      );
+      _syncS5ThemeCardButton(style);
+      _refreshAllPreviews();
+      setTimeout(closeButtonStyle, 200);
+    }
+
+    // Mirror current theme-card state onto the floating pill after each pick.
+    function _syncS5ThemeCardButton(style) {
+      const el = document.querySelector('.s5-theme-mini-btn');
+      if (!el) return;
+      el.style.borderRadius =
+        style === 'pill' ? '999px' :
+        style === 'rounded' ? '6px' : '0px';
+    }
+    function _syncS5ThemeCardFont(family) {
+      const el = document.querySelector('.s5-theme-aa');
+      if (el && family) el.style.fontFamily = family;
+    }
+    function _syncS5ThemeCardPalette(colors) {
+      const fan = document.querySelector('.s5-theme-fan');
+      if (!fan || !Array.isArray(colors)) return;
+      const swatches = fan.children;
+      colors.forEach((c, i) => { if (swatches[i]) swatches[i].style.background = c; });
+    }
+
+    // Desktop-only: viewport toggle between desktop-width and mobile-width
+    // preview. Adds/removes .s5-preview-pane--mobile which shrinks the
+    // browser frame's max-width. Scoped to the clicked segmented control.
+    function setPreviewMode(btn, mode) {
+      const pane = btn.closest('.s5-preview-pane');
+      if (!pane) return;
+      pane.classList.toggle('s5-preview-pane--mobile', mode === 'mobile');
+      const segs = pane.querySelectorAll('.s5-segment');
+      segs.forEach((seg, i) => {
+        const isActive = (i === 0 && mode !== 'mobile') || (i === 1 && mode === 'mobile');
+        seg.classList.toggle('s5-segment--active', isActive);
+        seg.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    // Placeholder stub — S5 desktop's pencil affordance jumps back to editing
+    // an existing card. Wire later; for now it's a visual no-op.
+    function openS5EditGlobal() { /* no-op */ }
 
     // ─── Pricing tips overlay ─────────────────────────────────────────────────
 
@@ -7803,14 +9948,64 @@
       other:     [['Consultation','$60–$150'],['Session','$50–$120'],['Workshop','$40–$100'],['Package','$200–$500']],
     };
 
+    let _userCity        = null;
+    let _userCityPromise = null;
+
+    function _fetchUserCity() {
+      if (_userCity !== null) return Promise.resolve(_userCity);
+      if (_userCityPromise) return _userCityPromise;
+      _userCityPromise = new Promise(resolve => {
+        if (!navigator.geolocation) return resolve(null);
+        navigator.geolocation.getCurrentPosition(async pos => {
+          try {
+            const { latitude: lat, longitude: lon } = pos.coords;
+            const r = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+              { headers: { 'Accept-Language': 'en' } }
+            );
+            if (r.ok) {
+              const d = await r.json();
+              _userCity = d.address?.city || d.address?.town || d.address?.village || null;
+            }
+          } catch (_) {}
+          resolve(_userCity);
+        }, () => resolve(null), { timeout: 5000 });
+      });
+      return _userCityPromise;
+    }
+
+    function _matchPricingRow(rows, serviceName) {
+      if (!serviceName) return null;
+      const lower = serviceName.toLowerCase();
+      for (const [svc] of rows) {
+        if (lower.includes(svc.toLowerCase()) || svc.toLowerCase().split(' ').some(w => lower.includes(w))) {
+          return svc;
+        }
+      }
+      return null;
+    }
+
     function openPricingTips() {
-      const rows = PRICING_ROWS[state.currentIndustry] || PRICING_ROWS.other;
+      const rows       = PRICING_ROWS[state.currentIndustry] || PRICING_ROWS.other;
+      const c1Name     = (document.getElementById('create-desc-title') || {}).textContent || '';
+      const matchedSvc = _matchPricingRow(rows, c1Name);
+
       document.getElementById('pricing-tips-rows').innerHTML = rows.map(([svc, range]) =>
-        `<div class="pricing-tip-row">
+        `<div class="pricing-tip-row${matchedSvc === svc ? ' pricing-tip-row--match' : ''}">
           <span class="pricing-tip-service">${svc}</span>
           <span class="pricing-tip-range">${range}</span>
         </div>`
       ).join('');
+
+      const headerEl = document.getElementById('pricing-tips-header');
+      if (headerEl) headerEl.textContent = "Here's what similar businesses typically charge.";
+
+      // Async: refine with city name if geolocation is available
+      _fetchUserCity().then(city => {
+        if (city && headerEl) {
+          headerEl.textContent = `Here's what similar businesses in ${city} typically charge.`;
+        }
+      });
 
       const overlay = document.getElementById('pricing-tips-overlay');
       overlay.removeAttribute('hidden');
@@ -7911,6 +10106,129 @@
       setTimeout(() => toast.classList.remove('copy-toast-visible'), 1500);
     }
 
+    // ─── Live scheduling-page preview iframe (desktop) ────────────────────
+    // Same shape as c3_b's implementation — one iframe per preview-bearing
+    // screen, kept in sync via postMessage (no reloads, no white-flash).
+    // `_PREVIEWS` starts empty; each desktop screen phase adds its entry.
+
+    const _PREVIEWS = {
+      s5:  { iframeId: 's5-preview-iframe',  opts: { view: 'select',   skeletonOnEmpty: true } },
+      s9:  { iframeId: 's9-preview-iframe',  opts: { view: 'datetime', skeletonOnEmpty: true } },
+      s10: { iframeId: 's10-preview-iframe', opts: { view: 'select' } },
+    };
+
+    // '60 min' / '1 hr 30 min' / '1 hr' → minutes; defaults to 60.
+    function _parseDurationMin(s) {
+      const str = String(s || '');
+      let mins = 0;
+      const hr  = str.match(/(\d+)\s*hr/i);
+      const min = str.match(/(\d+)\s*min/i);
+      if (hr)  mins += parseInt(hr[1], 10)  * 60;
+      if (min) mins += parseInt(min[1], 10);
+      return mins > 0 ? mins : 60;
+    }
+
+    // Return a 7-day availability array matching scheduling-page.html's shape:
+    // `[{ enabled, ranges:[{start,end}] }, …]`, Sun..Sat. c3_a's S9 doesn't
+    // yet expose per-day ranges, so we derive a single window from
+    // `state.selectedHoursLabel` and apply it to every enabled day. When
+    // c3_a's S9 gains per-day editing this function is where the fidelity
+    // upgrade goes.
+    function _buildAvailability() {
+      const label = String(state.selectedHoursLabel || '');
+      const parts = label.split('·').map(s => s.trim());
+      const daysLabel  = parts[0] || '';
+      const hoursLabel = parts[1] || '';
+      // Which weekdays are open (Sun=0..Sat=6)?
+      const enabledDays = (() => {
+        const l = daysLabel.toLowerCase();
+        if (l.includes('every'))             return [1,1,1,1,1,1,1];
+        if (l.includes('tuesday to sunday')) return [1,0,1,1,1,1,1];
+        if (l.includes('monday to saturday'))return [0,1,1,1,1,1,1];
+        if (l.includes('monday to friday'))  return [0,1,1,1,1,1,0];
+        return [1,1,1,1,1,1,1];
+      })();
+      // Parse "10 am – 8 pm" (or similar) → { start, end }
+      const range = (() => {
+        const m = hoursLabel.match(/(\d{1,2}(?::\d{2})?)\s*(am|pm)\s*[–-]\s*(\d{1,2}(?::\d{2})?)\s*(am|pm)/i);
+        const fmt = (t, ap) => {
+          const [h, mm = '00'] = t.split(':');
+          return `${parseInt(h, 10)}:${mm.padStart(2, '0')} ${ap.toUpperCase()}`;
+        };
+        return m
+          ? { start: fmt(m[1], m[2]), end: fmt(m[3], m[4]) }
+          : { start: '9:00 AM', end: '5:00 PM' };
+      })();
+      return enabledDays.map(on => ({
+        enabled: !!on,
+        ranges: on ? [range] : [],
+      }));
+    }
+
+    // Build the payload scheduling-page.html expects on `preview-update`.
+    // `opts.view`: which sched-view to render ('select' | 'datetime' | …).
+    // `opts.skeletonOnEmpty`: render placeholder cards when no appointments
+    //   have been selected yet (used by S5/S9 previews before selection).
+    function _buildPreviewPayload(opts) {
+      opts = opts || {};
+      const hasSelection = state.selectedAppts.length > 0;
+      const services = hasSelection
+        ? state.selectedAppts.map(raw => {
+            const a = applyEdits(raw);
+            return {
+              name:        a.name,
+              duration:    a.duration,
+              price:       a.price,
+              description: a.description || '',
+            };
+          })
+        : [];
+      const duration = hasSelection ? _parseDurationMin(services[0].duration) : 60;
+      return {
+        view:         opts.view || 'select',
+        services,
+        palette:      _currentPalette,
+        font:         _currentFont,
+        dark:         _s10DarkMode,
+        btnStyle:     (typeof _currentButtonStyle !== 'undefined') ? _currentButtonStyle : 'sharp',
+        skeleton:     !!(opts.skeletonOnEmpty && !hasSelection),
+        availability: _buildAvailability(),
+        duration,
+        businessName: state.businessName || '',
+        businessDesc: state.businessDesc || '',
+      };
+    }
+
+    // First delivery waits for `load` on the iframe (contentWindow isn't ready
+    // yet); subsequent syncs post immediately. `dataset.ready` gates that.
+    function _syncPreviewIframe(iframe, opts) {
+      if (!iframe) return;
+      const payload = _buildPreviewPayload(opts);
+      const post = () => {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: 'preview-update', payload }, '*');
+          }
+        } catch (_) { /* cross-origin or not yet attached */ }
+      };
+      if (iframe.dataset.ready === '1') { post(); return; }
+      iframe.addEventListener('load', () => {
+        iframe.dataset.ready = '1';
+        post();
+      });
+      post();
+    }
+
+    function renderPreview(screenId) {
+      const cfg = _PREVIEWS[screenId];
+      if (!cfg) return;
+      _syncPreviewIframe(document.getElementById(cfg.iframeId), cfg.opts);
+    }
+
+    function _refreshAllPreviews() {
+      Object.keys(_PREVIEWS).forEach(renderPreview);
+    }
+
     // ─── S10 Open scheduling page ─────────────────────────────────────────────
 
     function serializeForSchedulingPage() {
@@ -7933,16 +10251,119 @@
       params.set('palette', JSON.stringify(_currentPalette));
       params.set('font',    _currentFont);
       params.set('dark',    _s10DarkMode ? '1' : '0');
-      return 'scheduling-page.html?' + params.toString();
+      return '../scheduling-page.html?' + params.toString();
     }
 
     function openSchedulingPage() {
       window.open(serializeForSchedulingPage(), '_blank');
     }
 
+    // ─── S10 share URL (desktop) ──────────────────────────────────────────
+    // Read-only display by default; "Customize link" toggles to an editable
+    // slug that's clamped to `[a-z0-9-]`. State stored inline in the DOM
+    // (contenteditable span) — same shape as the c3_b version before it
+    // was removed.
+
+    function _s10CurrentUrl() {
+      const slugEl = document.getElementById('s10-url-value');
+      const raw    = (slugEl && slugEl.textContent || 'cedargroup').trim();
+      const slug   = raw.toLowerCase().replace(/[^a-z0-9-]/g, '') || 'cedargroup';
+      return 'https://' + slug + '.as.me';
+    }
+
+    function _s10RefreshUrlDisplay() {
+      const full = document.getElementById('s10-url-full');
+      if (full) full.textContent = _s10CurrentUrl();
+    }
+
+    function toggleS10UrlEdit() {
+      const row  = document.getElementById('s10-share-row');
+      const btn  = document.getElementById('s10-customize-btn');
+      const slug = document.getElementById('s10-url-value');
+      if (!row) return;
+      const editing = row.dataset.mode === 'edit';
+      if (editing) {
+        row.dataset.mode = 'readonly';
+        if (btn) btn.textContent = 'Customize link';
+        _s10RefreshUrlDisplay();
+      } else {
+        row.dataset.mode = 'edit';
+        if (btn) btn.textContent = 'Done';
+        if (slug) {
+          slug.focus();
+          const range = document.createRange();
+          range.selectNodeContents(slug);
+          range.collapse(false);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }
+    }
+
+    // Enforce slug-safe chars as the user types.
+    function _s10UrlSanitize(el) {
+      const raw   = el.textContent || '';
+      const clean = raw.toLowerCase().replace(/[^a-z0-9-]/g, '');
+      if (raw !== clean) {
+        el.textContent = clean;
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      _s10RefreshUrlDisplay();
+    }
+
+    // Enter commits + exits edit mode.
+    function _s10UrlKeyDown(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.target.blur();
+        toggleS10UrlEdit();
+      }
+    }
+
+    function copyS10Link() {
+      const url = _s10CurrentUrl();
+      const fallback = () => {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity  = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (_) { /* ignore */ }
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showCopyToast, () => { fallback(); showCopyToast(); });
+      } else {
+        fallback();
+        showCopyToast();
+      }
+    }
+
     // ─── S3: dynamic chips (from ACUITY_TEMPLATES JSON) ──────────────────────
 
     let _s3ChipOffset = 0;
+
+    // Desktop-only: update the "POPULAR IN {vertical}" label above the chip
+    // row from state.currentIndustry. Falls back to "Popular industries"
+    // when no vertical is picked or the key is 'other'.
+    function _syncS3PopularLabel() {
+      const el = document.getElementById('s3-popular-label');
+      if (!el) return;
+      const key   = state.currentIndustry;
+      const label = key && key !== 'other' && INDUSTRY_TEMPLATE_KEY[key]
+        ? `Popular in ${INDUSTRY_TEMPLATE_KEY[key]}`
+        : 'Popular industries';
+      el.textContent = label;
+    }
 
     function buildS3Chips(industry, filter) {
       const topKey   = INDUSTRY_TEMPLATE_KEY[industry] || 'Beauty';
@@ -8036,7 +10457,12 @@
           const res = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             signal: controller.signal,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': ANTHROPIC_API_KEY,
+              'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true',
+            },
             body: JSON.stringify({
               model: 'claude-haiku-4-5-20251001',
               max_tokens: 64,
@@ -8085,6 +10511,14 @@
       });
     }
 
+    // Parse any duration string to minutes: "1 hour" → 60, "1.5 hours" → 90, "45 min" → 45.
+    function parseDurationMinutes(d) {
+      const s = (d || '').trim();
+      const h = s.match(/^(\d+(?:\.\d+)?)\s*h/i);
+      if (h) return Math.round(parseFloat(h[1]) * 60);
+      return parseInt(s) || 0;
+    }
+
     function generateAISuggestions() {
       const availEl = document.getElementById('s5-available');
 
@@ -8121,7 +10555,12 @@
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
           signal: controller.signal,
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+          },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
             max_tokens: 256,
@@ -8234,18 +10673,23 @@
       buildS3Chips('beauty');
       rebuildCreateChips();
       applyIndustryData();
+      const _hashTarget = location.hash.slice(1);
+      if (_hashTarget && document.getElementById(_hashTarget) && _hashTarget !== 's4') {
+        showScreen(_hashTarget);
+      }
     });
 
     // ─── Keyboard-aware viewport compression ─────────────────────────────────
-    // Tracks the visual viewport height (shrinks when keyboard opens) and
-    // compresses the active screen to fit, rather than letting the browser
-    // scroll/pan to the focused input.
+    // Detects keyboard open/close via visualViewport height compression.
+    // Using focus/blur caused a bug where the nav re-hid when tapping nav
+    // buttons after dismissing the keyboard (the blur hadn't fired yet on iOS).
     (function() {
       if (!window.visualViewport) return;
 
       var appEl      = document.querySelector('.app');
-      var lastVh     = 0;       // change-detection guard for setProperty
-      var screenBody = null;    // cached for the duration of each keyboard session
+      var lastVh     = 0;
+      var naturalVh  = window.visualViewport.height; // full height before keyboard
+      var screenBody = null;
       var resetTimer = null;
 
       var resetScroll = function() {
@@ -8253,35 +10697,38 @@
         window.scrollTo(0, 0);
       };
 
-      // Fires throughout the keyboard open animation — also catches orientation
-      // changes, but the keyboard-active guard keeps resetScroll from running then.
       var setVh = function() {
         var h = window.visualViewport.height;
-        if (h !== lastVh) {
-          lastVh = h;
-          document.documentElement.style.setProperty('--visible-height', h + 'px');
-        }
-        if (appEl.classList.contains('keyboard-active')) resetScroll();
+        if (h === lastVh) return;
+        lastVh = h;
+        document.documentElement.style.setProperty('--visible-height', h + 'px');
+        // Keyboard is open when the viewport is compressed by more than 120px
+        var keyboardOpen = (naturalVh - h) > 120;
+        appEl.classList.toggle('keyboard-active', keyboardOpen);
+        if (keyboardOpen) resetScroll();
+        else screenBody = null;
       };
       window.visualViewport.addEventListener('resize', setVh);
       setVh();
 
+      // Re-baseline naturalVh after orientation changes (new full height)
+      window.addEventListener('orientationchange', function() {
+        setTimeout(function() { naturalVh = window.visualViewport.height; }, 500);
+      });
+
+      // Focus/blur: only track screenBody for scroll-reset — NOT keyboard-active
       var KBD_INPUTS = ['business-name-input', 's3-textarea', 'create-name-input', 'create-desc-input', 'c2-prompt-input'];
       KBD_INPUTS.forEach(function(id) {
         var el = document.getElementById(id);
         if (!el) return;
         el.addEventListener('focus', function() {
           screenBody = document.querySelector('.screen.active .screen-body');
-          appEl.classList.add('keyboard-active');
-          resetScroll();
-          // iOS finishes its async scroll-to-input after the focus event; reset again
           clearTimeout(resetTimer);
           resetTimer = setTimeout(resetScroll, 80);
         });
         el.addEventListener('blur', function() {
           clearTimeout(resetTimer);
-          appEl.classList.remove('keyboard-active');
-          screenBody = null;
+          // keyboard-active is removed by setVh when the viewport expands back
         });
       });
       var c2pi = document.getElementById('c2-prompt-input');

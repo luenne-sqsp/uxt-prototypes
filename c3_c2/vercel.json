@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/c3_c2/index.html" },
+    { "source": "/assets/(.*)", "destination": "/c3_c2/assets/$1" },
+    { "source": "/templates/(.*)", "destination": "/c3_c2/templates/$1" }
+  ]
+}

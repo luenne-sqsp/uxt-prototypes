@@ -1,0 +1,87 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+ * Brand palettes — user-pickable 5-swatch palettes for the page they're building.
+ *
+ * These are NOT Acuity-native tokens. They live in the `--brand-*` namespace
+ * and represent the colors of the user's own site (booking page, widgets,
+ * previews). Acuity chrome (nav, sheets, controls) keeps using `--acuity-*`.
+ *
+ * Switch palettes by setting `data-brand-palette="<name>"` on <html> or any
+ * ancestor of the content you want themed.
+ *
+ * Values match Figma node 7689:192111 (Customize Panel > Colors), Color 1
+ * (lightest) through Color 5 (darkest).
+ * ────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Default palette — neutral, pre-customization. Matches the first preset shown
+     in the picker UI. */
+  --brand-palette-1: #ffffff;
+  --brand-palette-2: #fafafa;
+  --brand-palette-3: #dddddd;
+  --brand-palette-4: #222222;
+  --brand-palette-5: #000000;
+}
+
+[data-brand-palette="neutral"] {
+  --brand-palette-1: #ffffff;
+  --brand-palette-2: #fafafa;
+  --brand-palette-3: #dddddd;
+  --brand-palette-4: #222222;
+  --brand-palette-5: #000000;
+}
+
+[data-brand-palette="orchid"] {
+  --brand-palette-1: #fcf0f0;
+  --brand-palette-2: #d1c8f4;
+  --brand-palette-3: #ae9def;
+  --brand-palette-4: #9b2929;
+  --brand-palette-5: #531a4a;
+}
+
+[data-brand-palette="desert"] {
+  --brand-palette-1: #f6f3ec;
+  --brand-palette-2: #ece4da;
+  --brand-palette-3: #b9a590;
+  --brand-palette-4: #574c3f;
+  --brand-palette-5: #36302a;
+}
+
+[data-brand-palette="meadow"] {
+  --brand-palette-1: #ffffff;
+  --brand-palette-2: #f4f3e8;
+  --brand-palette-3: #f5f374;
+  --brand-palette-4: #7f9feb;
+  --brand-palette-5: #404d67;
+}
+
+[data-brand-palette="sunset"] {
+  --brand-palette-1: #fafaf9;
+  --brand-palette-2: #facf9f;
+  --brand-palette-3: #ff6123;
+  --brand-palette-4: #191a1a;
+  --brand-palette-5: #0d0d0d;
+}
+
+[data-brand-palette="lime"] {
+  --brand-palette-1: #f4f2ea;
+  --brand-palette-2: #eff483;
+  --brand-palette-3: #dfefff;
+  --brand-palette-4: #e24a39;
+  --brand-palette-5: #184027;
+}
+
+[data-brand-palette="forest"] {
+  --brand-palette-1: #ffffff;
+  --brand-palette-2: #e1dfd9;
+  --brand-palette-3: #209d50;
+  --brand-palette-4: #026528;
+  --brand-palette-5: #001b0b;
+}
+
+[data-brand-palette="violet"] {
+  --brand-palette-1: #f9f0fb;
+  --brand-palette-2: #cad5ca;
+  --brand-palette-3: #8075ff;
+  --brand-palette-4: #6321ee;
+  --brand-palette-5: #211a1d;
+}

@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Acuity — C04-A: Description to Booking Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../ds/font.css">
+  <link rel="stylesheet" href="../ds/tokens.css">
+  <link rel="stylesheet" href="../ds/tokens.dark.css">
+  <link rel="stylesheet" href="../ds/brand-fonts.css">
+  <link rel="stylesheet" href="../ds/brand-palettes.css">
+  <link rel="stylesheet" href="../ds/components.css">
+  <style>
+    /* ─── Reset ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--acuity-font-family-sans);
+      background: var(--acuity-bg-default);
+      color: var(--acuity-fg-default);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── App container ──────────────────────────────────────────────────── */
+    .app {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 480px;
+      margin-inline: auto;
+      position: relative;
+      overflow: hidden;
+      background: var(--acuity-bg-base);
+    }
+    @media (min-width: 768px) {
+      body { background: var(--acuity-bg-default); }
+      .app { box-shadow: var(--acuity-shadow-light-300); }
+    }
+
+    /* ─── Screen system ──────────────────────────────────────────────────── */
+    .screen {
+      display: none;
+      flex-direction: column;
+      height: 100dvh;
+      background: var(--acuity-bg-base);
+      padding-top: env(safe-area-inset-top);
+    }
+    .screen.active { display: flex; }
+
+    .screen-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Forward + back transitions (lifted from c3_a, same timings) */
+    .screen-exit,
+    .screen-exit-back {
+      display: flex !important;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes screenExit       { from { opacity: 1; transform: translateX(0); }   to { opacity: 0; transform: translateX(-14px); } }
+      @keyframes screenEnter      { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes screenExitRight  { from { opacity: 1; transform: translateX(0); }   to { opacity: 0; transform: translateX(24px); } }
+      @keyframes screenEnterLeft  { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+      .screen-exit       { animation: screenExit       160ms ease forwards; }
+      .screen-enter      { animation: screenEnter      280ms ease; }
+      .screen-exit-back  { animation: screenExitRight  160ms ease forwards; }
+      .screen-enter-back { animation: screenEnterLeft  280ms ease; }
+    }
+
+    /* ─── S1 — Entry ─────────────────────────────────────────────────────── */
+    .s1-input-wrap { padding: 0 var(--acuity-spacing-24) var(--acuity-spacing-24); }
+    .s1-textarea .acuity-input__wrapper { align-items: stretch; }
+    .s1-textarea .acuity-textarea { min-height: 160px; }
+
+    /* ─── S2 — Follow-up questions ───────────────────────────────────────── */
+    .s2-questions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-16);
+      padding: 0 var(--acuity-spacing-24) var(--acuity-spacing-24);
+    }
+
+    /* ─── S3 — Parsing ───────────────────────────────────────────────────── */
+    .s3-body { display: flex; align-items: center; justify-content: center; padding: var(--acuity-spacing-24); }
+    .parsing-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--acuity-spacing-24);
+      width: 100%;
+      max-width: 360px;
+    }
+    .parsing-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-12);
+      width: 100%;
+    }
+    .parsing-step {
+      display: flex;
+      align-items: center;
+      gap: var(--acuity-spacing-12);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-default);
+      border-radius: var(--acuity-border-radius-md);
+      color: var(--acuity-fg-muted);
+      opacity: 0.65;
+      transition: opacity 220ms ease, color 220ms ease;
+      font-size: 14px;
+      font-weight: var(--acuity-font-weight-medium);
+      line-height: 1.4;
+    }
+    .parsing-step--done {
+      color: var(--acuity-fg-default);
+      opacity: 1;
+    }
+    .parsing-step__icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--acuity-fg-brand);
+    }
+    .parsing-step--done .parsing-step__icon { color: var(--acuity-fg-success); }
+
+    /* ─── S4 — Draft ─────────────────────────────────────────────────────── */
+    .s4-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      text-align: center;
+      padding: var(--acuity-spacing-24) var(--acuity-spacing-24) var(--acuity-spacing-16);
+    }
+    .s4-heading {
+      margin: 0;
+      font-family: var(--acuity-font-family-display);
+      font-size: 24px;
+      font-weight: var(--acuity-font-weight-book);
+      line-height: 1.25;
+      letter-spacing: -1px;
+      color: var(--acuity-fg-default);
+    }
+    .s4-sub {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--acuity-fg-muted);
+      max-width: 320px;
+    }
+    .s4-customize-btn {
+      margin: var(--acuity-spacing-24) var(--acuity-spacing-24) var(--acuity-spacing-24);
+      width: calc(100% - var(--acuity-spacing-24) * 2);
+    }
+
+    /* The draft preview is the user's brand page — it uses --brand-* tokens. */
+    .draft-preview {
+      margin: 0 var(--acuity-spacing-16);
+      border-radius: var(--acuity-border-radius-lg);
+      overflow: hidden;
+      box-shadow: var(--acuity-shadow-light-200);
+      font-family: var(--brand-font-family);
+      --preview-bg:     var(--brand-palette-1);
+      --preview-text:   var(--brand-palette-5);
+      --preview-header: var(--brand-palette-5);
+      --preview-on-header: var(--brand-palette-1);
+      --preview-accent: var(--brand-palette-4);
+      --preview-on-accent: var(--brand-palette-1);
+      --preview-muted:  var(--brand-palette-3);
+      --preview-border: rgba(0, 0, 0, 0.08);
+      background: var(--preview-bg);
+      color: var(--preview-text);
+    }
+    .draft-preview[data-dark="true"] {
+      --preview-bg:     var(--brand-palette-5);
+      --preview-text:   var(--brand-palette-1);
+      --preview-header: var(--brand-palette-4);
+      --preview-on-header: var(--brand-palette-1);
+      --preview-accent: var(--brand-palette-2);
+      --preview-on-accent: var(--brand-palette-5);
+      --preview-muted:  var(--brand-palette-3);
+      --preview-border: rgba(255, 255, 255, 0.12);
+    }
+    .draft-preview__header {
+      background: var(--preview-header);
+      color: var(--preview-on-header);
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-24) var(--acuity-spacing-32);
+      text-align: center;
+    }
+    .draft-preview__title {
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+    .draft-preview__select-row {
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-24);
+      text-align: center;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--preview-text);
+      border-bottom: 1px solid var(--preview-border);
+    }
+    .draft-preview__service {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--acuity-spacing-12);
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-20);
+      border-bottom: 1px solid var(--preview-border);
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      color: inherit;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      transition: background 0.12s ease;
+    }
+    .draft-preview__service:last-of-type { border-bottom: none; }
+    .draft-preview__service:hover { background: var(--preview-border); }
+    .draft-preview__service-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+    .draft-preview__service-name {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--preview-accent);
+      line-height: 1.3;
+    }
+    .draft-preview__service-meta {
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--preview-text);
+      opacity: 0.7;
+    }
+    .draft-preview__service-desc {
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--preview-text);
+      opacity: 0.75;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+    .draft-preview__book {
+      padding: 6px 12px;
+      background: var(--preview-accent);
+      color: var(--preview-on-accent);
+      border: none;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      cursor: default;
+      pointer-events: none;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+    .draft-preview__edit-hint {
+      flex-shrink: 0;
+      color: var(--preview-muted);
+      opacity: 0.6;
+    }
+    .draft-preview__footer {
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-24) var(--acuity-spacing-20);
+      text-align: center;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 11px;
+      color: var(--preview-text);
+      opacity: 0.5;
+      letter-spacing: 0.4px;
+    }
+
+    /* ─── S5 — Published ─────────────────────────────────────────────────── */
+    .s5-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-24);
+      padding: var(--acuity-spacing-24);
+    }
+    .s5-celebrate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--acuity-spacing-12);
+      text-align: center;
+      padding-top: var(--acuity-spacing-24);
+    }
+    .s5-heading {
+      margin: 0;
+      font-family: var(--acuity-font-family-display);
+      font-size: 28px;
+      font-weight: var(--acuity-font-weight-book);
+      line-height: 1.25;
+      letter-spacing: -1px;
+      color: var(--acuity-fg-default);
+    }
+    .s5-sub {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--acuity-fg-muted);
+      max-width: 320px;
+    }
+    .s5-url-row {
+      display: flex;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-default);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+      border-radius: var(--acuity-border-radius-md);
+    }
+    .s5-url {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--acuity-font-family-mono);
+      font-size: 13px;
+      color: var(--acuity-fg-default);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ─── Copy toast ─────────────────────────────────────────────────────── */
+    .copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 96px;
+      transform: translateX(-50%) translateY(8px);
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-16);
+      background: var(--acuity-bg-overlay-strong, rgba(14,14,14,0.92));
+      color: var(--acuity-color-neutral-gray-base);
+      border-radius: var(--acuity-border-radius-round);
+      font-size: 13px;
+      font-weight: var(--acuity-font-weight-medium);
+      z-index: var(--acuity-z-toast);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .copy-toast.copy-toast--visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── Drawer ─────────────────────────────────────────────────────────── */
+    .drawer-dialog { max-height: 86vh; }
+    .drawer-header { position: relative; }
+    .drawer-back-btn { margin-right: calc(-1 * var(--acuity-spacing-8)); }
+    .drawer-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-16);
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-24) var(--acuity-spacing-24);
+    }
+    .drawer-view { display: flex; flex-direction: column; gap: var(--acuity-spacing-16); }
+    .drawer-menu { list-style: none; display: flex; flex-direction: column; }
+    .drawer-menu-row {
+      width: 100%;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+    }
+    .drawer-menu-row:hover { background: var(--acuity-bg-default); }
+    .drawer-menu-row:focus-visible {
+      outline: 2px solid var(--acuity-border-brand);
+      outline-offset: -2px;
+    }
+    .drawer-section { display: flex; flex-direction: column; gap: var(--acuity-spacing-8); }
+    .drawer-section__title {
+      margin: 0;
+      font-size: 12px;
+      font-weight: var(--acuity-font-weight-medium);
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      color: var(--acuity-fg-muted);
+      text-transform: uppercase;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--acuity-spacing-8);
+    }
+    .palette-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: var(--acuity-spacing-8);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-thick) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      cursor: pointer;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+    .palette-swatch:hover { border-color: var(--acuity-border-strong); }
+    .palette-swatch--selected {
+      border-color: var(--acuity-border-brand);
+      box-shadow: 0 0 0 2px var(--acuity-bg-brand-subtle);
+    }
+    .palette-swatch__dots {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 18px;
+    }
+    .palette-swatch__dot {
+      flex: 1;
+      height: 100%;
+      border-radius: 3px;
+    }
+    .palette-swatch__name {
+      font-size: 11px;
+      font-weight: var(--acuity-font-weight-medium);
+      color: var(--acuity-fg-default);
+      text-transform: capitalize;
+      text-align: center;
+    }
+
+    .font-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--acuity-spacing-8);
+    }
+    .font-chip {
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-12);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-thick) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-round);
+      cursor: pointer;
+      font-size: 14px;
+      transition: border-color 0.12s ease, background 0.12s ease;
+    }
+    .font-chip:hover { border-color: var(--acuity-border-strong); }
+    .font-chip--selected {
+      border-color: var(--acuity-border-brand);
+      background: var(--acuity-bg-brand-subtle);
+      color: var(--acuity-fg-brand);
+    }
+
+    .drawer-services-list { list-style: none; display: flex; flex-direction: column; }
+    .drawer-service-row {
+      width: 100%;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+    }
+    .drawer-service-row:hover { background: var(--acuity-bg-default); }
+    .drawer-service-row__meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+    .drawer-service-row__price {
+      font-size: 13px;
+      font-weight: var(--acuity-font-weight-medium);
+      color: var(--acuity-fg-default);
+    }
+    .drawer-add-service { margin-top: var(--acuity-spacing-8); align-self: flex-start; }
+
+    .drawer-edit-actions {
+      display: flex;
+      justify-content: flex-start;
+      padding-top: var(--acuity-spacing-8);
+    }
+
+    /* Mini scheduling-page preview lives inside .draft-preview, but the drawer
+       services view also needs a tighter row layout. Reuse acuity-mini-row. */
+  </style>
+</head>
+<body>
+
+  <div class="app" id="app">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         S1 — Entry: describe your business
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen active" id="s1">
+      <nav class="acuity-top-nav">
+        <span class="acuity-top-nav__back" style="visibility:hidden;width:36px;height:36px;display:inline-block;"></span>
+        <h1 class="acuity-top-nav__title">New booking page</h1>
+        <span class="acuity-top-nav__action" style="visibility:hidden;width:36px;height:36px;display:inline-block;"></span>
+      </nav>
+      <div class="screen-body">
+        <header class="acuity-wizard-header">
+          <span class="acuity-ai-badge">
+            <span class="acuity-ai-badge__icon">
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-sparkles.svg')"></span>
+            </span>
+            Powered by Acuity AI
+          </span>
+          <h2 class="acuity-wizard-header__heading">Tell us about your business</h2>
+          <p class="acuity-wizard-header__subheading">In a sentence or two, describe what you do, what you offer, and your prices. We'll build your booking page from that.</p>
+        </header>
+        <div class="s1-input-wrap">
+          <label class="acuity-input acuity-input--md s1-textarea">
+            <span class="acuity-input__wrapper">
+              <textarea id="s1-description" class="acuity-input__field acuity-textarea" rows="6" placeholder="e.g. I'm a dog groomer offering baths ($40, 30 min) and full grooms ($80, 90 min). I work Tuesday to Saturday." aria-label="Describe your business"></textarea>
+            </span>
+            <span class="acuity-input__error" id="s1-error" hidden>Add a quick description so we can get started.</span>
+          </label>
+        </div>
+      </div>
+      <div class="acuity-bottom-nav">
+        <button id="s1-submit" class="acuity-button acuity-button--primary acuity-button--lg acuity-button--full-width" onclick="submitDescription()">Continue</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         S2 — Follow-up Q&A
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen" id="s2">
+      <nav class="acuity-top-nav">
+        <button class="acuity-icon-button acuity-icon-button--ghost acuity-top-nav__back" aria-label="Back" onclick="showScreen('s1','back')">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-chevron-left.svg')"></span>
+        </button>
+        <h1 class="acuity-top-nav__title">A few more details</h1>
+        <span class="acuity-top-nav__action" style="visibility:hidden;width:36px;height:36px;display:inline-block;"></span>
+      </nav>
+      <div class="screen-body">
+        <header class="acuity-wizard-header">
+          <span class="acuity-ai-badge">
+            <span class="acuity-ai-badge__icon">
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-sparkles.svg')"></span>
+            </span>
+            Just a couple of follow-ups
+          </span>
+          <h2 class="acuity-wizard-header__heading">Almost there</h2>
+          <p class="acuity-wizard-header__subheading">Help us finalize your page with a quick answer or two.</p>
+        </header>
+        <div class="s2-questions" id="s2-questions"></div>
+      </div>
+      <div class="acuity-bottom-nav">
+        <button id="s2-submit" class="acuity-button acuity-button--primary acuity-button--lg acuity-button--full-width" onclick="submitFollowups()">Continue</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         S3 — Parsing
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen" id="s3">
+      <div class="screen-body s3-body">
+        <div class="parsing-wrap">
+          <span class="acuity-ai-badge">
+            <span class="acuity-ai-badge__icon">
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-sparkles.svg')"></span>
+            </span>
+            Working on it
+          </span>
+          <ul class="parsing-list" id="parsing-list">
+            <li class="parsing-step" data-step="services">
+              <span class="parsing-step__icon"><span class="acuity-spinner acuity-spinner--sm"></span></span>
+              <span class="parsing-step__label">Identifying your services…</span>
+            </li>
+            <li class="parsing-step" data-step="pricing">
+              <span class="parsing-step__icon"><span class="acuity-spinner acuity-spinner--sm"></span></span>
+              <span class="parsing-step__label">Detecting durations and pricing…</span>
+            </li>
+            <li class="parsing-step" data-step="draft">
+              <span class="parsing-step__icon"><span class="acuity-spinner acuity-spinner--sm"></span></span>
+              <span class="parsing-step__label">Drafting your booking page…</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         S4 — Draft preview + editing
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen" id="s4">
+      <nav class="acuity-top-nav">
+        <button class="acuity-icon-button acuity-icon-button--ghost acuity-top-nav__back" aria-label="Back" onclick="goBackFromDraft()">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-chevron-left.svg')"></span>
+        </button>
+        <h1 class="acuity-top-nav__title">Your draft</h1>
+        <button class="acuity-icon-button acuity-icon-button--ghost acuity-top-nav__action" aria-label="Open customize menu" onclick="openDrawer('menu')">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-edit.svg')"></span>
+        </button>
+      </nav>
+      <div class="screen-body">
+        <div class="s4-intro">
+          <span class="acuity-ai-badge">
+            <span class="acuity-ai-badge__icon">
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-sparkles.svg')"></span>
+            </span>
+            Draft ready
+          </span>
+          <h2 class="s4-heading">Here's your booking page</h2>
+          <p class="s4-sub">Tap any service to edit, or open <strong>Customize</strong> for colors, fonts, and settings.</p>
+        </div>
+        <div class="draft-preview" id="draft-preview" data-brand-palette="neutral" data-brand-font="source-sans-pro"></div>
+        <button class="acuity-button acuity-button--secondary acuity-button--md s4-customize-btn" onclick="openDrawer('menu')">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-edit.svg')"></span>
+          <span>Customize page</span>
+        </button>
+      </div>
+      <div class="acuity-bottom-nav">
+        <button id="s4-finish" class="acuity-button acuity-button--primary acuity-button--lg acuity-button--full-width" onclick="finishDraft()">Finish &amp; publish</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         S5 — Published
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen" id="s5">
+      <nav class="acuity-top-nav">
+        <button class="acuity-icon-button acuity-icon-button--ghost acuity-top-nav__back" aria-label="Back" onclick="showScreen('s4','back')">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-chevron-left.svg')"></span>
+        </button>
+        <h1 class="acuity-top-nav__title">You're live</h1>
+        <span class="acuity-top-nav__action" style="visibility:hidden;width:36px;height:36px;display:inline-block;"></span>
+      </nav>
+      <div class="screen-body s5-body">
+        <div class="s5-celebrate">
+          <span class="acuity-ai-badge">
+            <span class="acuity-ai-badge__icon">
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-check.svg')"></span>
+            </span>
+            Published
+          </span>
+          <h2 class="s5-heading">Your booking page is live</h2>
+          <p class="s5-sub">Share this link with your customers, or keep customizing in Acuity.</p>
+        </div>
+        <div class="s5-url-row">
+          <span class="s5-url" id="s5-url">book.acuity.com/your-business</span>
+          <button class="acuity-icon-button acuity-icon-button--ghost" aria-label="Copy link" onclick="copyLink()">
+            <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-link.svg')"></span>
+          </button>
+        </div>
+        <button class="acuity-button acuity-button--primary acuity-button--lg acuity-button--full-width" onclick="openBookingPage()">
+          <span>Open booking page</span>
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-external.svg')"></span>
+        </button>
+      </div>
+      <div class="acuity-bottom-nav">
+        <button class="acuity-button acuity-button--tertiary acuity-button--md acuity-button--full-width" onclick="continueInAcuity()">Continue customizing in Acuity</button>
+      </div>
+    </section>
+
+    <!-- Copy toast -->
+    <div class="copy-toast" id="copy-toast" role="status" aria-live="polite">Link copied</div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       Drawer (one sheet, multiple views)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="acuity-dialog-backdrop acuity-dialog-backdrop--bottom" id="drawer-backdrop" onclick="onDrawerBackdropClick(event)" aria-hidden="true">
+    <div class="acuity-dialog drawer-dialog" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <header class="acuity-dialog__header drawer-header">
+        <button class="acuity-icon-button acuity-icon-button--ghost drawer-back-btn" id="drawer-back" hidden aria-label="Back" onclick="onDrawerBackClick()">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-chevron-left.svg')"></span>
+        </button>
+        <h2 class="acuity-dialog__title" id="drawer-title">Customize</h2>
+        <button class="acuity-icon-button acuity-icon-button--ghost" aria-label="Close" onclick="closeDrawer()">
+          <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-cross-lg.svg')"></span>
+        </button>
+      </header>
+      <div class="acuity-dialog__body drawer-body">
+
+        <div class="drawer-view" data-view="menu">
+          <ul class="drawer-menu" role="menu">
+            <li><button class="acuity-mini-row drawer-menu-row" onclick="goToDrawerView('customize')" role="menuitem">
+              <span class="acuity-mini-row__label">Customize page</span>
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-chevron-right.svg');color:var(--acuity-fg-muted)"></span>
+            </button></li>
+            <li><button class="acuity-mini-row drawer-menu-row" onclick="goToDrawerView('services')" role="menuitem">
+              <span class="acuity-mini-row__label">Edit services</span>
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-chevron-right.svg');color:var(--acuity-fg-muted)"></span>
+            </button></li>
+            <li><button class="acuity-mini-row drawer-menu-row" onclick="goToDrawerView('settings')" role="menuitem">
+              <span class="acuity-mini-row__label">Settings</span>
+              <span class="acuity-icon acuity-icon--sm" style="--icon:url('../ds/icons/icon-chevron-right.svg');color:var(--acuity-fg-muted)"></span>
+            </button></li>
+          </ul>
+        </div>
+
+        <div class="drawer-view" data-view="customize" hidden>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Business name</span>
+            <span class="acuity-input__wrapper">
+              <input id="cust-business-name" type="text" class="acuity-input__field" placeholder="Your business name" oninput="setBusinessName(this.value)">
+            </span>
+          </label>
+          <div class="drawer-section">
+            <h3 class="drawer-section__title">Color palette</h3>
+            <div class="palette-grid" id="palette-grid"></div>
+          </div>
+          <div class="drawer-section">
+            <h3 class="drawer-section__title">Font</h3>
+            <div class="font-grid" id="font-grid"></div>
+          </div>
+        </div>
+
+        <div class="drawer-view" data-view="services" hidden>
+          <ul class="drawer-services-list" id="drawer-services-list"></ul>
+          <button class="acuity-button acuity-button--secondary acuity-button--md drawer-add-service" onclick="addService()">
+            <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-plus.svg')"></span>
+            <span>Add service</span>
+          </button>
+        </div>
+
+        <div class="drawer-view" data-view="service-edit" hidden>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Service name</span>
+            <span class="acuity-input__wrapper">
+              <input id="svc-name" type="text" class="acuity-input__field" oninput="updateEditingService('name', this.value)">
+            </span>
+          </label>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Duration</span>
+            <span class="acuity-input__wrapper">
+              <input id="svc-duration" type="text" class="acuity-input__field" placeholder="e.g. 30 min" oninput="updateEditingService('duration', this.value)">
+            </span>
+          </label>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Price</span>
+            <span class="acuity-input__wrapper">
+              <input id="svc-price" type="text" class="acuity-input__field" placeholder="e.g. $40" oninput="updateEditingService('price', this.value)">
+            </span>
+          </label>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Description (optional)</span>
+            <span class="acuity-input__wrapper">
+              <textarea id="svc-description" class="acuity-input__field acuity-textarea" rows="3" oninput="updateEditingService('description', this.value)"></textarea>
+            </span>
+          </label>
+          <div class="drawer-edit-actions">
+            <button class="acuity-button acuity-button--destructive acuity-button--md" onclick="removeService()">
+              <span class="acuity-icon acuity-icon--md" style="--icon:url('../ds/icons/icon-trash-bin.svg')"></span>
+              <span>Remove service</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="drawer-view" data-view="settings" hidden>
+          <label class="acuity-input acuity-input--md">
+            <span class="acuity-input__label">Business hours</span>
+            <span class="acuity-input__wrapper">
+              <input id="cust-hours" type="text" class="acuity-input__field" placeholder="e.g. Tuesday to Saturday · 9 am – 5 pm" oninput="setHours(this.value)">
+            </span>
+          </label>
+          <div class="acuity-mini-row" style="padding-left:0;padding-right:0;">
+            <span class="acuity-mini-row__label">Dark mode preview</span>
+            <label class="acuity-toggle-switch">
+              <input id="cust-dark" type="checkbox" class="acuity-toggle-switch__input" onchange="setDark(this.checked)">
+              <span class="acuity-toggle-switch__track">
+                <span class="acuity-toggle-switch__thumb"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+
+    // ─── ARCHETYPES ─────────────────────────────────────────────────────────
+    // Hand-authored mock-AI knowledge. Designers/PMs: edit copy here.
+    const ARCHETYPES = {
+      groomer: {
+        keywords: ['dog', 'groom', 'pet', 'puppy', 'cat', 'kitten', 'pets'],
+        defaultName: 'Happy Tails Grooming',
+        hours: 'Tuesday to Saturday · 9 am – 5 pm',
+        services: [
+          { name: 'Bath & Brush', duration: '30 min', price: '$40', description: 'Warm bath, conditioner, brush-out, ear clean.' },
+          { name: 'Full Groom',   duration: '90 min', price: '$80', description: 'Bath, haircut, nail trim, and finishing touches.' },
+          { name: 'Nail Trim',    duration: '15 min', price: '$15', description: 'Quick nail trim, no appointment needed.' },
+        ],
+      },
+      hair: {
+        keywords: ['hair', 'salon', 'stylist', 'cut', 'color', 'blowout', 'barber', 'balayage'],
+        defaultName: 'Studio Shears',
+        hours: 'Tuesday to Saturday · 10 am – 7 pm',
+        services: [
+          { name: "Women's Cut",          duration: '60 min', price: '$75',  description: 'Consultation, shampoo, cut and style.' },
+          { name: 'Color & Highlights',   duration: '3 hr',   price: '$180', description: 'Full color, partial highlights, blow-dry.' },
+          { name: 'Blowout',              duration: '45 min', price: '$50',  description: 'Shampoo and styled blowout.' },
+        ],
+      },
+      tutor: {
+        keywords: ['tutor', 'lesson', 'student', 'math', 'reading', 'test', 'school', 'sat', 'act'],
+        defaultName: 'Bright Path Tutoring',
+        hours: 'Monday to Friday · 3 pm – 8 pm',
+        services: [
+          { name: '1-on-1 Tutoring',  duration: '60 min', price: '$60', description: 'Focused one-on-one help in your subject of choice.' },
+          { name: 'Test Prep Session', duration: '90 min', price: '$95', description: 'Targeted practice for SAT, ACT, or finals.' },
+          { name: 'Group Lesson',      duration: '60 min', price: '$35', description: 'Small-group practice (up to 4 students).' },
+        ],
+      },
+      generic: {
+        keywords: [],
+        defaultName: 'Your Business',
+        hours: 'Monday to Friday · 9 am – 5 pm',
+        services: [
+          { name: 'Initial Consultation', duration: '30 min', price: '$0',  description: 'A free intro to see if we\'re a good fit.' },
+          { name: 'Standard Service',     duration: '60 min', price: '$85', description: 'Our most-booked service.' },
+          { name: 'Follow-up',            duration: '30 min', price: '$45', description: 'Continued support after your first session.' },
+        ],
+      },
+    };
+
+    // ─── PALETTES + FONTS ───────────────────────────────────────────────────
+    // Resolved 5-color hex arrays mirror the values in ds/brand-palettes.css
+    // and feed scheduling-page.html via URLSearchParams.
+    const PALETTES = {
+      neutral: ['#ffffff', '#e8e8e8', '#9e9e9e', '#424242', '#111111'],
+      orchid:  ['#fce8f0', '#d4b3f5', '#9b2fbe', '#8e1055', '#3d0070'],
+      desert:  ['#fafaf5', '#f5f0e8', '#c8b89a', '#6b5c45', '#2c1810'],
+      meadow:  ['#f8fff8', '#d8f0da', '#ffd54f', '#90caf9', '#37474f'],
+      sunset:  ['#fff8f0', '#ffd8a8', '#ff6b35', '#2d2d2d', '#0a0a0a'],
+      lime:    ['#f2ffe0', '#c8e896', '#ef5350', '#2e7d32', '#1a3d1e'],
+      forest:  ['#f0fff5', '#b8e8c8', '#4caf50', '#1b5e20', '#0a2211'],
+      violet:  ['#f0e8ff', '#c5a8f5', '#5c35e8', '#1a0060', '#08002a'],
+    };
+    const FONTS = {
+      'source-sans-pro':  { label: 'Source Sans',   family: "'Source Sans 3', 'Source Sans Pro', Helvetica, Arial, sans-serif" },
+      'poppins':          { label: 'Poppins',       family: "'Poppins', Helvetica, Arial, sans-serif" },
+      'raleway':          { label: 'Raleway',       family: "'Raleway', Helvetica, Arial, sans-serif" },
+      'quicksand':        { label: 'Quicksand',     family: "'Quicksand', Helvetica, Arial, sans-serif" },
+      'oswald':           { label: 'Oswald',        family: "'Oswald', Helvetica, Arial, sans-serif" },
+      'playfair-display': { label: 'Playfair',      family: "'Playfair Display', Times, serif" },
+      'concert-one':      { label: 'Concert One',   family: "'Concert One', Helvetica, Arial, sans-serif" },
+    };
+
+    // ─── State ──────────────────────────────────────────────────────────────
+    const state = {
+      description: '',
+      parseResult: null,
+      followupAnswers: {},
+      businessName: '',
+      services: [],
+      hours: '',
+      paletteName: 'neutral',
+      fontName: 'source-sans-pro',
+      dark: false,
+      drawerView: null,
+      editingServiceId: null,
+      cameToDraftFrom: 's1',
+    };
+    let _svcCounter = 0;
+    const nextSvcId = () => `svc-${++_svcCounter}`;
+
+    // ─── Mock AI parser ─────────────────────────────────────────────────────
+    function parseDescription(text) {
+      const lc = (text || '').toLowerCase();
+
+      // Pick archetype by first-hit ordered scan.
+      const order = ['groomer', 'hair', 'tutor'];
+      let archetypeKey = 'generic';
+      for (const key of order) {
+        if (ARCHETYPES[key].keywords.some(k => lc.includes(k))) {
+          archetypeKey = key;
+          break;
+        }
+      }
+      const archetype = ARCHETYPES[archetypeKey];
+
+      // Business name detection — case-insensitive signal phrase, then capture
+      // 1-5 strictly Title-Case words. Inline (?i:...) keeps the signal lax
+      // while the captured group stays case-sensitive so we don't gobble verbs.
+      const nameMatch =
+        text.match(/(?i:called|named)\s+([A-Z][\w&'\-]+(?:\s+[A-Z][\w&'\-]+){0,4})/) ||
+        text.match(/(?i:my business is|we're called|i run|i own)\s+([A-Z][\w&'\-]+(?:\s+[A-Z][\w&'\-]+){0,4})/) ||
+        text.match(/^([A-Z][\w&'\-]+(?:\s+[A-Z][\w&'\-]+){0,4})(?:\s+is|\s+offers|\s+does|,)/);
+      const businessName = nameMatch ? nameMatch[1].trim().replace(/[.!?]$/, '') : '';
+
+      // Hours detection: any day-of-week, weekday/weekend (incl. plural), or a clock time.
+      const hoursMatch = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|weekdays?|weekends?|mon|tue|wed|thu|fri|sat|sun)\b/i.test(text)
+        || /\d\s*(am|pm)\b/i.test(text);
+
+      const services = archetype.services.map(s => ({ id: nextSvcId(), ...s }));
+
+      const questions = [];
+      if (!businessName) {
+        questions.push({ id: 'businessName', label: "What's your business name?", placeholder: 'e.g. Happy Tails Grooming' });
+      }
+      if (!hoursMatch) {
+        questions.push({ id: 'hours', label: 'What days and hours are you open?', placeholder: 'e.g. Tuesday to Saturday, 9 am – 5 pm' });
+      }
+
+      if (questions.length === 0) {
+        return {
+          status: 'complete',
+          archetype: archetypeKey,
+          businessName,
+          services,
+          hours: archetype.hours,
+        };
+      }
+      return {
+        status: 'needs_info',
+        archetype: archetypeKey,
+        services,
+        businessName,                   // may be '' — filled in by follow-up
+        hours: hoursMatch ? archetype.hours : '',
+        questions,
+      };
+    }
+
+    // ─── Screen transitions ─────────────────────────────────────────────────
+    function showScreen(id, direction) {
+      const dir      = direction || 'forward';
+      const outgoing = document.querySelector('.screen.active');
+      const incoming = document.getElementById(id);
+      if (!incoming || incoming === outgoing) return;
+
+      const exitCls  = dir === 'back' ? 'screen-exit-back'  : 'screen-exit';
+      const enterCls = dir === 'back' ? 'screen-enter-back' : 'screen-enter';
+
+      if (outgoing) {
+        outgoing.classList.remove('active');
+        outgoing.classList.add(exitCls);
+        setTimeout(() => outgoing.classList.remove(exitCls), 220);
+      }
+
+      incoming.classList.add('active', enterCls);
+      const body = incoming.querySelector('.screen-body');
+      if (body) body.scrollTop = 0;
+      setTimeout(() => incoming.classList.remove(enterCls), 400);
+
+      // Screen-specific lifecycle hooks
+      if (id === 's3') runParsingSequence();
+      if (id === 's4') renderDraft();
+      if (id === 's5') renderPublished();
+    }
+
+    // ─── S1 — submit description ────────────────────────────────────────────
+    function submitDescription() {
+      const ta  = document.getElementById('s1-description');
+      const err = document.getElementById('s1-error');
+      const text = ta.value.trim();
+      if (text.length < 6) {
+        err.hidden = false;
+        ta.focus();
+        return;
+      }
+      err.hidden = true;
+      state.description = text;
+      _svcCounter = 0;                    // restart ids so revisits don't compound
+      state.parseResult = parseDescription(text);
+
+      if (state.parseResult.status === 'needs_info') {
+        renderFollowupQuestions(state.parseResult.questions);
+        showScreen('s2');
+      } else {
+        applyParseResultToState();
+        state.cameToDraftFrom = 's1';
+        showScreen('s3');
+      }
+    }
+
+    function renderFollowupQuestions(questions) {
+      const wrap = document.getElementById('s2-questions');
+      wrap.innerHTML = questions.map(q => `
+        <label class="acuity-input acuity-input--md">
+          <span class="acuity-input__label">${escapeHtml(q.label)}</span>
+          <span class="acuity-input__wrapper">
+            <input
+              type="text"
+              class="acuity-input__field"
+              data-question-id="${q.id}"
+              placeholder="${escapeHtml(q.placeholder)}"
+              value="${escapeHtml(state.followupAnswers[q.id] || '')}"
+              aria-label="${escapeHtml(q.label)}">
+          </span>
+        </label>
+      `).join('');
+    }
+
+    function submitFollowups() {
+      const inputs = document.querySelectorAll('#s2-questions [data-question-id]');
+      const answers = {};
+      inputs.forEach(el => { answers[el.dataset.questionId] = el.value.trim(); });
+      state.followupAnswers = { ...state.followupAnswers, ...answers };
+      applyParseResultToState();
+      state.cameToDraftFrom = 's2';
+      showScreen('s3');
+    }
+
+    function applyParseResultToState() {
+      const pr = state.parseResult;
+      const archetype = ARCHETYPES[pr.archetype];
+      state.businessName =
+        state.followupAnswers.businessName ||
+        pr.businessName ||
+        archetype.defaultName;
+      state.services = pr.services.map(s => ({ ...s }));
+      state.hours = state.followupAnswers.hours || pr.hours || archetype.hours;
+    }
+
+    // ─── S3 — parsing animation ─────────────────────────────────────────────
+    function runParsingSequence() {
+      const steps = document.querySelectorAll('#parsing-list .parsing-step');
+      // Reset state in case we revisit this screen.
+      steps.forEach(el => {
+        el.classList.remove('parsing-step--done');
+        const icon = el.querySelector('.parsing-step__icon');
+        icon.innerHTML = '<span class="acuity-spinner acuity-spinner--sm"></span>';
+      });
+
+      const delays = [300, 600, 900];
+      steps.forEach((el, i) => {
+        setTimeout(() => markParsingStepDone(el), delays[i]);
+      });
+      setTimeout(() => showScreen('s4'), 1150);
+    }
+
+    function markParsingStepDone(el) {
+      el.classList.add('parsing-step--done');
+      const icon = el.querySelector('.parsing-step__icon');
+      icon.innerHTML = '<span class="acuity-icon acuity-icon--sm" style="--icon:url(\'../ds/icons/icon-check.svg\')"></span>';
+    }
+
+    // ─── S4 — draft preview render ──────────────────────────────────────────
+    function renderDraft() {
+      const wrap = document.getElementById('draft-preview');
+      wrap.setAttribute('data-brand-palette', state.paletteName);
+      wrap.setAttribute('data-brand-font', state.fontName);
+      wrap.setAttribute('data-dark', state.dark ? 'true' : 'false');
+
+      const servicesHtml = state.services.map(svc => `
+        <button class="draft-preview__service" onclick="openDrawer('service-edit','${svc.id}')" aria-label="Edit ${escapeHtml(svc.name)}">
+          <span class="draft-preview__service-info">
+            <span class="draft-preview__service-name">${escapeHtml(svc.name)}</span>
+            <span class="draft-preview__service-meta">${escapeHtml(svc.duration)} · ${escapeHtml(svc.price)}</span>
+            ${svc.description ? `<span class="draft-preview__service-desc">${escapeHtml(svc.description)}</span>` : ''}
+          </span>
+          <span class="draft-preview__book">Book</span>
+        </button>
+      `).join('');
+
+      wrap.innerHTML = `
+        <div class="draft-preview__header">
+          <h3 class="draft-preview__title">${escapeHtml(state.businessName || 'Your Business')}</h3>
+        </div>
+        <div class="draft-preview__select-row">Select Appointment</div>
+        ${servicesHtml || '<div class="draft-preview__select-row" style="opacity:0.6">No services yet — add one from Customize.</div>'}
+        <div class="draft-preview__footer">${escapeHtml(state.hours || 'Hours coming soon')}</div>
+      `;
+    }
+
+    function goBackFromDraft() {
+      showScreen(state.cameToDraftFrom || 's1', 'back');
+    }
+
+    function finishDraft() {
+      showScreen('s5');
+    }
+
+    // ─── S5 — published render ──────────────────────────────────────────────
+    function renderPublished() {
+      const slug = slugify(state.businessName) || 'your-business';
+      document.getElementById('s5-url').textContent = `book.acuity.com/${slug}`;
+    }
+
+    function slugify(s) {
+      return (s || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function buildSchedulingUrl() {
+      const params = new URLSearchParams();
+      params.set('services', JSON.stringify(state.services.map(s => ({
+        name: s.name, duration: s.duration, price: s.price, description: s.description || '',
+      }))));
+      params.set('businessName', state.businessName || '');
+      params.set('hours', state.hours || '');
+      params.set('palette', JSON.stringify(PALETTES[state.paletteName] || PALETTES.neutral));
+      params.set('font', FONTS[state.fontName]?.family || FONTS['source-sans-pro'].family);
+      params.set('dark', state.dark ? '1' : '0');
+      return 'scheduling-page.html?' + params.toString();
+    }
+
+    function copyLink() {
+      const slug = slugify(state.businessName) || 'your-business';
+      const url  = `https://book.acuity.com/${slug}`;
+      const showToast = () => {
+        const t = document.getElementById('copy-toast');
+        if (!t) return;
+        t.classList.add('copy-toast--visible');
+        setTimeout(() => t.classList.remove('copy-toast--visible'), 1500);
+      };
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(url).then(showToast, showToast);
+      } else {
+        showToast();
+      }
+    }
+
+    function openBookingPage() {
+      window.open(buildSchedulingUrl(), '_blank');
+    }
+
+    function continueInAcuity() {
+      alert("That's the end of the prototype — in the real product, this hands off to the full Acuity scheduling app.");
+    }
+
+    // ─── Drawer ─────────────────────────────────────────────────────────────
+    const DRAWER_TITLES = {
+      menu:           'Customize',
+      customize:      'Customize page',
+      services:       'Edit services',
+      'service-edit': 'Edit service',
+      settings:       'Settings',
+    };
+
+    function openDrawer(view, editId) {
+      if (editId) state.editingServiceId = editId;
+      buildPalettePicker();
+      buildFontPicker();
+      syncCustomizeInputs();
+      goToDrawerView(view || 'menu');
+      const bd = document.getElementById('drawer-backdrop');
+      bd.classList.add('acuity-dialog-backdrop--visible');
+      bd.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeDrawer() {
+      const bd = document.getElementById('drawer-backdrop');
+      bd.classList.remove('acuity-dialog-backdrop--visible');
+      bd.setAttribute('aria-hidden', 'true');
+      state.drawerView = null;
+      state.editingServiceId = null;
+    }
+
+    function onDrawerBackdropClick(e) {
+      if (e.target === e.currentTarget) closeDrawer();
+    }
+
+    function goToDrawerView(view) {
+      state.drawerView = view;
+      document.querySelectorAll('.drawer-view').forEach(el => {
+        el.hidden = el.dataset.view !== view;
+      });
+      document.getElementById('drawer-title').textContent = DRAWER_TITLES[view] || 'Customize';
+      const showBack = view !== 'menu';
+      document.getElementById('drawer-back').hidden = !showBack;
+
+      if (view === 'services') renderDrawerServices();
+      if (view === 'service-edit') populateServiceEdit();
+      if (view === 'customize') syncCustomizeInputs();
+      if (view === 'settings') syncSettingsInputs();
+    }
+
+    function onDrawerBackClick() {
+      if (state.drawerView === 'service-edit') goToDrawerView('services');
+      else goToDrawerView('menu');
+    }
+
+    // ─── Customize view ─────────────────────────────────────────────────────
+    function buildPalettePicker() {
+      const grid = document.getElementById('palette-grid');
+      grid.innerHTML = Object.keys(PALETTES).map(name => {
+        const dots = PALETTES[name].slice(0, 5).map(c => `<span class="palette-swatch__dot" style="background:${c}"></span>`).join('');
+        const sel = name === state.paletteName ? ' palette-swatch--selected' : '';
+        return `<button class="palette-swatch${sel}" type="button" onclick="setPalette('${name}')" aria-pressed="${name === state.paletteName}" aria-label="${name} palette">
+          <span class="palette-swatch__dots">${dots}</span>
+          <span class="palette-swatch__name">${name}</span>
+        </button>`;
+      }).join('');
+    }
+
+    function buildFontPicker() {
+      const grid = document.getElementById('font-grid');
+      grid.innerHTML = Object.keys(FONTS).map(name => {
+        const f = FONTS[name];
+        const sel = name === state.fontName ? ' font-chip--selected' : '';
+        return `<button class="font-chip${sel}" type="button" onclick="setFont('${name}')" aria-pressed="${name === state.fontName}" style="font-family:${f.family}">${f.label}</button>`;
+      }).join('');
+    }
+
+    function syncCustomizeInputs() {
+      const bn = document.getElementById('cust-business-name');
+      if (bn && bn.value !== state.businessName) bn.value = state.businessName || '';
+    }
+
+    function syncSettingsInputs() {
+      const h = document.getElementById('cust-hours');
+      if (h && h.value !== state.hours) h.value = state.hours || '';
+      const d = document.getElementById('cust-dark');
+      if (d) d.checked = !!state.dark;
+    }
+
+    function setPalette(name) {
+      if (!PALETTES[name]) return;
+      state.paletteName = name;
+      buildPalettePicker();
+      renderDraft();
+    }
+
+    function setFont(name) {
+      if (!FONTS[name]) return;
+      state.fontName = name;
+      buildFontPicker();
+      renderDraft();
+    }
+
+    function setBusinessName(value) {
+      state.businessName = value;
+      renderDraft();
+    }
+
+    function setHours(value) {
+      state.hours = value;
+      renderDraft();
+    }
+
+    function setDark(on) {
+      state.dark = !!on;
+      renderDraft();
+    }
+
+    // ─── Services drawer view ───────────────────────────────────────────────
+    function renderDrawerServices() {
+      const list = document.getElementById('drawer-services-list');
+      list.innerHTML = state.services.map(svc => `
+        <li><button class="acuity-mini-row drawer-service-row" type="button" onclick="openServiceEdit('${svc.id}')">
+          <span class="acuity-mini-row__label">${escapeHtml(svc.name)}</span>
+          <span class="drawer-service-row__meta">
+            <span class="drawer-service-row__price">${escapeHtml(svc.price)}</span>
+            <span class="acuity-mini-row__meta">${escapeHtml(svc.duration)}</span>
+          </span>
+        </button></li>
+      `).join('') || '<li style="padding:var(--acuity-spacing-16) 0;color:var(--acuity-fg-muted);font-size:14px;">No services yet — add one below.</li>';
+    }
+
+    function openServiceEdit(id) {
+      state.editingServiceId = id;
+      goToDrawerView('service-edit');
+    }
+
+    function populateServiceEdit() {
+      const svc = state.services.find(s => s.id === state.editingServiceId);
+      if (!svc) return;
+      document.getElementById('svc-name').value        = svc.name || '';
+      document.getElementById('svc-duration').value    = svc.duration || '';
+      document.getElementById('svc-price').value       = svc.price || '';
+      document.getElementById('svc-description').value = svc.description || '';
+    }
+
+    function updateEditingService(field, value) {
+      const svc = state.services.find(s => s.id === state.editingServiceId);
+      if (!svc) return;
+      svc[field] = value;
+      renderDraft();
+    }
+
+    function addService() {
+      const newSvc = { id: nextSvcId(), name: 'New service', duration: '30 min', price: '$0', description: '' };
+      state.services.push(newSvc);
+      state.editingServiceId = newSvc.id;
+      renderDraft();
+      goToDrawerView('service-edit');
+    }
+
+    function removeService() {
+      state.services = state.services.filter(s => s.id !== state.editingServiceId);
+      state.editingServiceId = null;
+      renderDraft();
+      goToDrawerView('services');
+    }
+
+    // ─── Utility ────────────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Submit on Cmd/Ctrl+Enter inside the description textarea.
+    document.addEventListener('DOMContentLoaded', () => {
+      const ta = document.getElementById('s1-description');
+      if (ta) {
+        ta.addEventListener('keydown', (e) => {
+          if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+            e.preventDefault();
+            submitDescription();
+          }
+        });
+      }
+      // Close drawer on Esc
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const bd = document.getElementById('drawer-backdrop');
+          if (bd?.classList.contains('acuity-dialog-backdrop--visible')) closeDrawer();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

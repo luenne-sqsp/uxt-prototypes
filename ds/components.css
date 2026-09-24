@@ -1,0 +1,1034 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+ * Acuity component primitives + text-style utilities.
+ *
+ * Plain HTML + CSS classes. No build step. Class naming: `.acuity-<component>`
+ * with `--<variant>` modifier suffix. Components consume tokens from
+ * tokens.css and brand-*.css; they MUST NOT introduce raw color/spacing values.
+ * ────────────────────────────────────────────────────────────────────────────── */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Icon utility
+ *
+ * Renders an SVG from ds/icons/ tinted with the current text color. Pass the
+ * icon URL through `--acuity-icon` (or just `--icon`). Defaults to 16x16 — size
+ * variants change both width and height.
+ *
+ * Use this when you need the icon to inherit color (inside buttons, chips,
+ * etc.). For static decorative icons that don't need tinting, a plain
+ * `<img src="../ds/icons/icon-x.svg">` works too.
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  -webkit-mask: var(--acuity-icon, var(--icon, none)) center / contain no-repeat;
+          mask: var(--acuity-icon, var(--icon, none)) center / contain no-repeat;
+}
+.acuity-icon--xs { width: 12px; height: 12px; }
+.acuity-icon--sm { width: 14px; height: 14px; }
+.acuity-icon--md { width: 16px; height: 16px; }
+.acuity-icon--lg { width: 20px; height: 20px; }
+.acuity-icon--xl { width: 24px; height: 24px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Text-style utility classes
+ *
+ * Pack the Figma-style `--acuity-text-style-*` composites into real CSS rules.
+ * Default = desktop styles. `.text-mobile-*` variants override for mobile.
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.text-label {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 10px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 16px;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+}
+.text-caption {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 12px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 16px;
+}
+.text-action {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 13px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.4;
+  letter-spacing: 0.25px;
+}
+.text-body-book {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 22px;
+}
+.text-body-medium {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 22px;
+}
+.text-body-semibold {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-semibold);
+  line-height: 22px;
+}
+.text-body-mono {
+  font-family: var(--acuity-font-family-mono);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 22px;
+}
+.text-subtitle-book {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 18px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.4;
+}
+.text-subtitle-medium {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 18px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.4;
+}
+.text-subtitle-semibold {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 18px;
+  font-weight: var(--acuity-font-weight-semibold);
+  line-height: 1.4;
+}
+.text-section-title-sm {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 22px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.35;
+}
+.text-section-title-lg {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 26px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+.text-title-sm {
+  font-family: var(--acuity-font-family-display);
+  font-size: 20px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.4;
+}
+.text-title-lg {
+  font-family: var(--acuity-font-family-display);
+  font-size: 28px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.35;
+}
+.text-display-title {
+  font-family: var(--acuity-font-family-display);
+  font-size: 36px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+.text-hero-figure {
+  font-family: var(--acuity-font-family-display);
+  font-size: 52px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+/* Mobile overrides — apply by adding `.text-mobile-*` AFTER the base class,
+   or use the `text-mobile-*` standalone on mobile-only surfaces. */
+.text-mobile-label {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 10px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.text-mobile-action {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 12px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.4;
+  letter-spacing: 0.25px;
+}
+.text-mobile-subtitle-medium {
+  font-size: 16px;
+}
+.text-mobile-section-title-lg {
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+.text-mobile-title-lg {
+  font-family: var(--acuity-font-family-display);
+  font-size: 20px;
+}
+.text-mobile-display-title {
+  font-family: var(--acuity-font-family-display);
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+.text-mobile-hero-figure {
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Button
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--acuity-spacing-8);
+  border: var(--acuity-border-width-default) solid transparent;
+  border-radius: var(--acuity-border-radius-md);
+  font-family: var(--acuity-font-family-sans);
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  min-width: 56px;
+  transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, opacity 0.12s ease;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+.acuity-button:focus-visible {
+  outline: 2px solid var(--acuity-border-brand);
+  outline-offset: 2px;
+}
+.acuity-button:disabled,
+.acuity-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.acuity-button--sm { padding: var(--acuity-spacing-8) var(--acuity-spacing-24); font-size: 14px; line-height: 1.5; }
+.acuity-button--md { padding: var(--acuity-spacing-12) var(--acuity-spacing-24); font-size: 16px; line-height: 1.4; }
+.acuity-button--lg { padding: var(--acuity-spacing-16) var(--acuity-spacing-24); font-size: 16px; line-height: 1.4; }
+
+.acuity-button--icon-only.acuity-button--sm { padding: var(--acuity-spacing-12); min-width: 0; }
+.acuity-button--icon-only.acuity-button--md { padding: var(--acuity-spacing-16); min-width: 0; }
+.acuity-button--icon-only.acuity-button--lg { padding: var(--acuity-spacing-20); min-width: 0; }
+
+.acuity-button--full-width { width: 100%; }
+
+.acuity-button--primary {
+  background: var(--acuity-bg-brand-strong);
+  color: var(--acuity-bg-brand-on-strong);
+}
+.acuity-button--primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-evening-dark-blue-90); }
+.acuity-button--primary:active:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-evening-dark-blue-90); }
+
+.acuity-button--secondary {
+  background: transparent;
+  color: var(--acuity-color-evening-dark-blue-100);
+  border-color: var(--acuity-color-evening-dark-blue-100);
+}
+.acuity-button--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--acuity-bg-brand-subtle);
+  border-color: var(--acuity-color-evening-dark-blue-90);
+}
+.acuity-button--secondary:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--acuity-bg-brand-default);
+  border-color: var(--acuity-color-evening-dark-blue-90);
+}
+
+.acuity-button--tertiary {
+  background: transparent;
+  color: var(--acuity-color-evening-dark-blue-100);
+}
+.acuity-button--tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
+  text-decoration: underline;
+  color: var(--acuity-color-evening-dark-blue-90);
+}
+
+.acuity-button--destructive {
+  background: transparent;
+  color: var(--acuity-fg-danger);
+}
+.acuity-button--destructive:hover:not(:disabled):not([aria-disabled="true"]) {
+  text-decoration: underline;
+  color: var(--acuity-color-system-red-80);
+}
+
+.acuity-button--ghost {
+  background: transparent;
+  color: var(--acuity-fg-default);
+}
+.acuity-button--ghost:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--acuity-bg-default);
+}
+
+.acuity-button--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+.acuity-button--loading .acuity-button__label { visibility: hidden; }
+.acuity-button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: acuity-spin 0.65s linear infinite;
+}
+
+@keyframes acuity-spin { to { transform: rotate(360deg); } }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Icon button
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: var(--acuity-border-width-default) solid transparent;
+  border-radius: var(--acuity-border-radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, opacity 0.12s ease;
+  -webkit-font-smoothing: antialiased;
+}
+.acuity-icon-button:focus-visible {
+  outline: 2px solid var(--acuity-border-brand);
+  outline-offset: 2px;
+}
+.acuity-icon-button:disabled,
+.acuity-icon-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Fixed boxes, not padding-derived — matches Figma's Icon Button component
+   (UXT Library file, node 313:218): X-Small/Small/Default-Medium/Large.
+   The icon/svg content sizes itself independently inside the box (see
+   .acuity-icon's own --xs..--xl scale) rather than being forced to 22px
+   at every size, since existing consumers use smaller glyphs than Figma's. */
+.acuity-icon-button--xs { width: 22px; height: 22px; }
+.acuity-icon-button--sm { width: 28px; height: 28px; }
+.acuity-icon-button--md { width: 36px; height: 36px; }
+.acuity-icon-button--lg { width: 44px; height: 44px; }
+
+.acuity-icon-button--ghost { color: var(--acuity-fg-muted); }
+.acuity-icon-button--ghost:hover:not(:disabled) { background: var(--acuity-bg-default); color: var(--acuity-fg-default); }
+
+.acuity-icon-button--primary { background: var(--acuity-bg-brand-strong); color: var(--acuity-bg-brand-on-strong); }
+.acuity-icon-button--primary:hover:not(:disabled) { background: var(--acuity-color-evening-dark-blue-90); }
+
+.acuity-icon-button--secondary { color: var(--acuity-color-evening-dark-blue-100); border-color: var(--acuity-color-evening-dark-blue-100); }
+.acuity-icon-button--secondary:hover:not(:disabled) { background: var(--acuity-bg-brand-subtle); }
+
+.acuity-icon-button--destructive { color: var(--acuity-fg-danger); }
+.acuity-icon-button--destructive:hover:not(:disabled) { background: var(--acuity-bg-danger-default); color: var(--acuity-color-system-red-80); }
+
+/* Strong/Default/Alt/Subtle — a second variant axis matching Figma's Icon
+   Button component verbatim (node 313:218). Kept separate from the
+   Primary/Secondary/Ghost/Destructive axis above (already in production use
+   in S10's share dialog) rather than merged/renamed into it, since the two
+   don't map 1:1. Disabled state intentionally relies on the generic
+   opacity rule above rather than Figma's per-variant disabled colors —
+   Figma's Strong+Disabled binds background and icon to the same gray
+   token, rendering the icon invisible; opacity-fade avoids that bug. */
+.acuity-icon-button--strong { background: var(--acuity-color-dawn-purple-100); color: var(--acuity-fg-on-strong); }
+.acuity-icon-button--strong:hover:not(:disabled) { background: var(--acuity-color-dawn-purple-90); }
+
+.acuity-icon-button--default { background: var(--acuity-bg-default); color: var(--acuity-color-neutral-gray-100); }
+.acuity-icon-button--default:hover:not(:disabled) { background: var(--acuity-color-neutral-gray-30); }
+
+.acuity-icon-button--alt { color: var(--acuity-color-neutral-gray-100); border-color: var(--acuity-color-neutral-gray-100); border-width: var(--acuity-border-width-hairline); }
+.acuity-icon-button--alt:hover:not(:disabled) { background: var(--acuity-bg-inset); }
+
+.acuity-icon-button--subtle { color: var(--acuity-color-neutral-gray-100); }
+.acuity-icon-button--subtle:hover:not(:disabled) { background: var(--acuity-bg-inset); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Card
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-card {
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-lg);
+  box-sizing: border-box;
+}
+.acuity-card--borderless { border-color: transparent; }
+
+.acuity-card--padding-none { padding: 0; }
+.acuity-card--padding-sm { padding: var(--acuity-spacing-12); }
+.acuity-card--padding-md { padding: var(--acuity-spacing-16); }
+.acuity-card--padding-lg { padding: var(--acuity-spacing-24); }
+
+.acuity-card--shadow-sm { box-shadow: var(--acuity-shadow-light-100); }
+.acuity-card--shadow-md { box-shadow: var(--acuity-shadow-light-200); }
+.acuity-card--shadow-lg { box-shadow: var(--acuity-shadow-light-300); }
+
+.acuity-card--interactive {
+  cursor: pointer;
+  transition: box-shadow 0.12s ease, border-color 0.18s ease-out, transform 0.12s ease;
+}
+.acuity-card--interactive:hover {
+  border-color: var(--acuity-border-strong);
+  box-shadow: var(--acuity-shadow-light-200);
+}
+.acuity-card--interactive:active { transform: translateY(1px); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Chip
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--acuity-spacing-4);
+  border: var(--acuity-border-width-thick) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-round);
+  background: var(--acuity-bg-base);
+  color: var(--acuity-fg-muted);
+  font-family: var(--acuity-font-family-sans);
+  font-weight: var(--acuity-font-weight-book);
+  white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.18s ease-out, border-color 0.18s ease-out, color 0.18s ease-out;
+}
+.acuity-chip--sm { padding: var(--acuity-spacing-2) var(--acuity-spacing-8); font-size: 12px; line-height: 18px; }
+.acuity-chip--md { padding: var(--acuity-spacing-4) var(--acuity-spacing-12); font-size: 13px; line-height: 20px; }
+
+.acuity-chip--interactive { cursor: pointer; }
+.acuity-chip--interactive:hover:not([disabled]):not(.acuity-chip--selected) {
+  border-color: var(--acuity-border-strong);
+  color: var(--acuity-fg-default);
+  background: var(--acuity-bg-default);
+}
+.acuity-chip--interactive:focus-visible {
+  outline: 2px solid var(--acuity-border-brand);
+  outline-offset: 2px;
+}
+
+.acuity-chip--selected {
+  background: var(--acuity-bg-brand-strong);
+  border-color: var(--acuity-bg-brand-strong);
+  color: var(--acuity-bg-brand-on-strong);
+  font-weight: var(--acuity-font-weight-medium);
+}
+
+.acuity-chip--neutral { color: var(--acuity-fg-muted); }
+.acuity-chip--brand { background: var(--acuity-bg-brand-subtle); border-color: var(--acuity-border-brand); color: var(--acuity-fg-brand); }
+.acuity-chip--success { background: var(--acuity-bg-success-default); border-color: var(--acuity-border-success); color: var(--acuity-fg-success); }
+.acuity-chip--danger { background: var(--acuity-bg-danger-default); border-color: var(--acuity-border-danger); color: var(--acuity-fg-danger); }
+.acuity-chip--warning { background: var(--acuity-bg-warning-default); border-color: var(--acuity-border-warning); color: var(--acuity-fg-warning); }
+.acuity-chip--info { background: var(--acuity-bg-info-default); border-color: var(--acuity-border-info); color: var(--acuity-fg-info); }
+
+.acuity-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.12s ease, background 0.18s ease-out;
+}
+.acuity-chip__remove:hover { opacity: 1; background: rgba(0, 0, 0, 0.1); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Input + Textarea
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--acuity-spacing-4);
+  font-family: var(--acuity-font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+.acuity-input__label {
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.5;
+  color: var(--acuity-fg-default);
+}
+.acuity-input__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-md);
+  transition: border-color 0.18s ease-out, box-shadow 0.12s ease;
+}
+.acuity-input__wrapper:focus-within {
+  border-color: var(--acuity-border-brand);
+  box-shadow: 0 0 0 3px var(--acuity-bg-brand-subtle);
+}
+.acuity-input__field {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--acuity-fg-default);
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+.acuity-input__field::placeholder { color: var(--acuity-fg-disabled); }
+
+.acuity-input--sm .acuity-input__field { padding: var(--acuity-spacing-8) var(--acuity-spacing-12); font-size: 14px; line-height: 1.5; }
+.acuity-input--md .acuity-input__field { padding: var(--acuity-spacing-12) var(--acuity-spacing-16); font-size: 16px; line-height: 1.4; }
+
+.acuity-input__icon-leading,
+.acuity-input__icon-trailing {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  color: var(--acuity-fg-muted);
+  pointer-events: none;
+}
+.acuity-input__icon-leading { left: var(--acuity-spacing-12); }
+.acuity-input__icon-trailing { right: var(--acuity-spacing-12); }
+.acuity-input--has-leading-icon .acuity-input__field { padding-left: var(--acuity-spacing-40); }
+.acuity-input--has-trailing-icon .acuity-input__field { padding-right: var(--acuity-spacing-40); }
+
+.acuity-input__helper { font-size: 12px; line-height: 16px; color: var(--acuity-fg-muted); }
+.acuity-input__error { font-size: 12px; line-height: 16px; color: var(--acuity-fg-danger); }
+.acuity-input--error .acuity-input__wrapper { border-color: var(--acuity-border-danger); }
+.acuity-input--error .acuity-input__wrapper:focus-within { box-shadow: 0 0 0 3px var(--acuity-bg-danger-default); }
+
+.acuity-input--disabled .acuity-input__wrapper { background: var(--acuity-bg-inset); border-color: var(--acuity-border-muted); }
+.acuity-input--disabled .acuity-input__field { cursor: not-allowed; color: var(--acuity-fg-disabled); }
+
+.acuity-textarea { resize: vertical; min-height: 64px; field-sizing: content; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Radio card
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-radio-card {
+  display: block;
+  cursor: pointer;
+  font-family: var(--acuity-font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+.acuity-radio-card__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.acuity-radio-card__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--acuity-spacing-12);
+  padding: var(--acuity-spacing-16);
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-thick) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-md);
+  transition: border-color 0.18s ease-out, background 0.18s ease-out, box-shadow 0.12s ease;
+  user-select: none;
+}
+.acuity-radio-card:hover .acuity-radio-card__card { border-color: var(--acuity-border-strong); }
+.acuity-radio-card__input:checked + .acuity-radio-card__card {
+  border-color: var(--acuity-border-brand);
+  background: var(--acuity-bg-brand-subtle);
+}
+.acuity-radio-card__input:focus-visible + .acuity-radio-card__card {
+  box-shadow: 0 0 0 3px var(--acuity-bg-brand-subtle);
+}
+.acuity-radio-card__icon { flex-shrink: 0; display: flex; align-items: center; color: var(--acuity-fg-muted); }
+.acuity-radio-card__input:checked + .acuity-radio-card__card .acuity-radio-card__icon { color: var(--acuity-fg-brand); }
+.acuity-radio-card__content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--acuity-spacing-4); }
+.acuity-radio-card__title { font-size: 14px; font-weight: var(--acuity-font-weight-medium); line-height: 1.4; color: var(--acuity-fg-default); }
+.acuity-radio-card__description { font-size: 13px; line-height: 1.5; color: var(--acuity-fg-muted); }
+.acuity-radio-card__media { flex-shrink: 0; display: flex; align-items: center; }
+
+/* --tile: icon-over-label layout for grids of single-choice options (e.g. an
+   industry picker) instead of the default icon-left row layout. */
+.acuity-radio-card--tile .acuity-radio-card__card {
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--acuity-spacing-8);
+  text-align: center;
+}
+.acuity-radio-card--tile .acuity-radio-card__content { align-items: center; }
+.acuity-radio-card--tile .acuity-radio-card__title { font-weight: var(--acuity-font-weight-book); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Toggle switch (iOS-style on/off)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.acuity-toggle-switch__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.acuity-toggle-switch__track {
+  position: absolute;
+  inset: 0;
+  background: var(--acuity-color-neutral-gray-40);
+  border-radius: var(--acuity-border-radius-round);
+  transition: background 0.18s ease-out;
+  cursor: pointer;
+}
+.acuity-toggle-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--acuity-bg-base);
+  border-radius: 50%;
+  box-shadow: var(--acuity-shadow-light-100);
+  transition: transform 0.18s ease;
+}
+.acuity-toggle-switch__input:checked + .acuity-toggle-switch__track { background: var(--acuity-bg-brand-strong); }
+.acuity-toggle-switch__input:checked + .acuity-toggle-switch__track .acuity-toggle-switch__thumb { transform: translateX(14px); }
+.acuity-toggle-switch__input:focus-visible + .acuity-toggle-switch__track {
+  outline: 2px solid var(--acuity-border-brand);
+  outline-offset: 2px;
+}
+.acuity-toggle-switch__input:disabled + .acuity-toggle-switch__track { opacity: 0.45; cursor: not-allowed; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Dialog + Sheet (bottom-sheet variant)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--acuity-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--acuity-spacing-16);
+  background: var(--acuity-bg-overlay-scrim);
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.acuity-dialog-backdrop--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.acuity-dialog {
+  position: relative;
+  width: 342px;
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-lg);
+  box-shadow: var(--acuity-shadow-light-400);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.acuity-dialog-backdrop--visible .acuity-dialog {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.acuity-dialog--sm { max-width: 400px; }
+.acuity-dialog--md { max-width: 560px; }
+.acuity-dialog--lg { max-width: 720px; }
+
+.acuity-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--acuity-spacing-16);
+  padding: var(--acuity-spacing-24) var(--acuity-spacing-32) var(--acuity-spacing-4) ;
+  flex-shrink: 0;
+}
+.acuity-dialog__title {
+  margin: 0;
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.3;
+  color: var(--acuity-fg-default);
+}
+.acuity-dialog__description {
+  margin: var(--acuity-spacing-4) 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--acuity-fg-muted);
+}
+.acuity-dialog__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--acuity-spacing-16) var(--acuity-spacing-32);
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--acuity-fg-default);
+}
+.acuity-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--acuity-spacing-8);
+  padding: var(--acuity-spacing-8) var(--acuity-spacing-32);
+  border-top: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+  flex-shrink: 0;
+}
+
+.acuity-dialog__footer .acuity-button--tertiary { font-size: 14px; font-weight: var(--acuity-font-weight-medium); color: var(--acuity-fg-default);}
+.acuity-dialog__footer .acuity-button--destructive { font-size: 14px; font-weight: var(--acuity-font-weight-medium); color: var(--acuity-fg-danger);}
+
+/* Sheet variant — same dialog, anchored to bottom, top-corner rounded only. */
+.acuity-dialog-backdrop--bottom {
+  align-items: flex-end;
+  padding: 0;
+  z-index: var(--acuity-z-sheet);
+}
+.acuity-dialog-backdrop--bottom .acuity-dialog {
+  border-radius: var(--acuity-border-radius-sheet) var(--acuity-border-radius-sheet) 0 0;
+  max-width: 100%;
+  max-height: 92vh;
+  transform: translateY(100%);
+  border-bottom: none;
+}
+.acuity-dialog-backdrop--bottom.acuity-dialog-backdrop--visible .acuity-dialog {
+  transform: translateY(0);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Spinner
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: acuity-spin 0.65s linear infinite;
+}
+.acuity-spinner--xs { width: 12px; height: 12px; border-width: 1.5px; }
+.acuity-spinner--sm { width: 16px; height: 16px; }
+.acuity-spinner--md { width: 20px; height: 20px; }
+.acuity-spinner--lg { width: 28px; height: 28px; border-width: 3px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Stepper (linear step indicator)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--acuity-spacing-4);
+}
+.acuity-stepper__step {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acuity-bg-default);
+  transition: background 0.2s ease-out, transform 0.15s ease;
+}
+.acuity-stepper__step--current {
+  background: var(--acuity-bg-brand-strong);
+  transform: scale(1.35);
+}
+.acuity-stepper__step--complete { background: var(--acuity-color-evening-dark-blue-80); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Appointment card (domain primitive)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-appointment-card {
+  display: flex;
+  align-items: center;
+  gap: var(--acuity-spacing-12);
+  padding: var(--acuity-spacing-16);
+  background: var(--acuity-bg-base);
+  border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+  border-radius: var(--acuity-border-radius-md);
+}
+.acuity-appointment-card--with-image { align-items: flex-start; }
+.acuity-appointment-card--ai { background: var(--acuity-bg-brand-subtle); }
+.acuity-appointment-card--selected-item { background: var(--acuity-bg-default); }
+
+.acuity-appointment-card__thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--acuity-border-radius-sm);
+  background: var(--acuity-bg-default);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.acuity-appointment-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.acuity-appointment-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--acuity-spacing-2);
+}
+.acuity-appointment-card__name {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.4;
+  color: var(--acuity-fg-default);
+}
+.acuity-appointment-card__meta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--acuity-fg-muted);
+}
+.acuity-appointment-card__description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--acuity-fg-muted);
+}
+.acuity-appointment-card__actions {
+  display: flex;
+  gap: var(--acuity-spacing-4);
+  flex-shrink: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Top nav + Bottom nav
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-top-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--acuity-z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--acuity-spacing-8);
+  padding: var(--acuity-spacing-8);
+  background: var(--acuity-bg-base);
+  border-bottom: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+}
+.acuity-top-nav__back { flex-shrink: 0; }
+.acuity-top-nav__title {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-family: var(--acuity-font-family-sans);
+  font-size: 16px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.4;
+  color: var(--acuity-fg-default);
+}
+.acuity-top-nav__action { flex-shrink: 0; }
+.acuity-top-nav__step-label {
+  font-family: var(--acuity-font-family-sans);
+  font-size: var(--acuity-font-size-11);
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: var(--acuity-fg-muted);
+  text-transform: uppercase;
+}
+
+.acuity-bottom-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--acuity-z-sticky);
+  display: flex;
+  flex-direction: column;
+  gap: var(--acuity-spacing-8);
+  padding: var(--acuity-spacing-12) var(--acuity-spacing-16) max(var(--acuity-spacing-12), env(safe-area-inset-bottom));
+  background: var(--acuity-bg-base);
+  border-top: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+  box-shadow: var(--acuity-shadow-light-inverted-200);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Wizard header
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-wizard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--acuity-spacing-8);
+  padding: var(--acuity-spacing-24) var(--acuity-spacing-24) var(--acuity-spacing-16);
+  text-align: center;
+}
+.acuity-wizard-header__heading {
+  margin: 0;
+  font-family: var(--acuity-font-family-display);
+  font-size: 24px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.25;
+  letter-spacing: -1px;
+  color: var(--acuity-fg-default);
+}
+.acuity-wizard-header__subheading {
+  margin: 0;
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.5;
+  color: var(--acuity-fg-muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Mini row (compact two-column row)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-mini-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--acuity-spacing-12);
+  padding: var(--acuity-spacing-16);
+  border-bottom: var(--acuity-border-width-default) solid var(--acuity-border-muted);
+}
+.acuity-mini-row:last-child { border-bottom: none; }
+.acuity-mini-row__label {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 14px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 1.5;
+  color: var(--acuity-fg-default);
+}
+.acuity-mini-row__meta {
+  font-family: var(--acuity-font-family-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--acuity-fg-muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Big input (wizard title field, ghost styling)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-big-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--acuity-fg-default);
+  font-family: var(--acuity-font-family-display);
+  font-size: 32px;
+  font-weight: var(--acuity-font-weight-book);
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  text-align: center;
+  field-sizing: content;
+  -webkit-font-smoothing: antialiased;
+}
+.acuity-big-input::placeholder { color: var(--acuity-fg-disabled); }
+.acuity-big-input:focus-visible { outline: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * Character counter
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.acuity-char-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--acuity-spacing-8);
+  font-family: var(--acuity-font-family-sans);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--acuity-fg-muted);
+}
+.acuity-char-counter__error {
+  color: var(--acuity-fg-danger);
+  visibility: hidden;
+}
+.acuity-char-counter--is-maxed .acuity-char-counter__count { color: var(--acuity-fg-danger); }
+.acuity-char-counter--is-maxed .acuity-char-counter__error { visibility: visible; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * AI badge (animated conic-gradient border)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+@property --acuity-ai-badge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.acuity-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--acuity-spacing-4);
+  padding: var(--acuity-spacing-4) var(--acuity-spacing-12);
+  font-family: var(--acuity-font-family-sans);
+  font-size: 12px;
+  font-weight: var(--acuity-font-weight-medium);
+  line-height: 16px;
+  color: var(--acuity-fg-brand);
+  border-radius: var(--acuity-border-radius-round);
+  background:
+    linear-gradient(var(--acuity-bg-brand-subtle), var(--acuity-bg-brand-subtle)) padding-box,
+    conic-gradient(
+      from var(--acuity-ai-badge-angle),
+      var(--acuity-color-dawn-violet-60),
+      var(--acuity-color-dawn-purple-60),
+      var(--acuity-color-evening-navy-60),
+      var(--acuity-color-dawn-violet-60)
+    ) border-box;
+  border: 1.5px solid transparent;
+  animation: acuity-ai-badge-spin 4s linear infinite;
+}
+@keyframes acuity-ai-badge-spin {
+  to { --acuity-ai-badge-angle: 360deg; }
+}
+.acuity-ai-badge__icon { display: flex; align-items: center; flex-shrink: 0; }

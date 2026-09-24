@@ -1,3 +1,7 @@
 .DS_Store
 *.swp
 .vercel
+.env*.local
+node_modules
+.tools/
+.env*

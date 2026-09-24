@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acuity — Icon Library</title>
+  <link rel="stylesheet" href="./font.css">
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./tokens.dark.css">
+  <link rel="stylesheet" href="./components.css">
+  <style>
+    body {
+      margin: 0;
+      padding: var(--acuity-spacing-32);
+      background: var(--acuity-bg-inset);
+      color: var(--acuity-fg-default);
+      font-family: var(--acuity-font-family-sans);
+    }
+    .toolbar {
+      display: flex;
+      gap: var(--acuity-spacing-12);
+      align-items: center;
+      flex-wrap: wrap;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      margin-bottom: var(--acuity-spacing-24);
+      position: sticky;
+      top: var(--acuity-spacing-16);
+      z-index: var(--acuity-z-sticky);
+    }
+    .toolbar input {
+      flex: 1;
+      min-width: 200px;
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-12);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-sm);
+      font-family: var(--acuity-font-family-sans);
+      background: var(--acuity-bg-base);
+      color: var(--acuity-fg-default);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--acuity-spacing-8);
+    }
+    .cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-8);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      cursor: pointer;
+      text-align: center;
+      word-break: break-word;
+    }
+    .cell:hover { background: var(--acuity-bg-default); border-color: var(--acuity-border-strong); }
+    .cell code { font-family: var(--acuity-font-family-mono); font-size: var(--acuity-font-size-11); color: var(--acuity-fg-muted); }
+    .cell[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Filter 977 icons…" autofocus>
+    <span class="text-caption" id="count" style="color: var(--acuity-fg-muted);"></span>
+    <button class="acuity-button acuity-button--secondary acuity-button--sm" id="theme">Dark</button>
+  </div>
+  <p class="text-caption" style="color: var(--acuity-fg-muted); margin: 0 0 var(--acuity-spacing-16);">
+    Imported from the Rosetta Figma library. Click any icon to copy its <code>.acuity-icon</code> markup.
+  </p>
+  <div class="grid" id="grid"></div>
+  <script>
+    const NAMES = ["accordion-glyph","accordion","adjust-glyph","adjust-rows-glyph","adjust-rows","adjust","ai-glyph","ai","album-glyph","album","align-horizontal-center-glyph","align-horizontal-center","align-horizontal-left-glyph","align-horizontal-left","align-horizontal-right-glyph","align-horizontal-right","align-vertical-bottom","align-vertical-center-glyph","align-vertical-center","align-vertical-down-glyph","align-vertical-top","align-vertical-up-glyph","app-store-glyph","app-store","appear-glyph","appear","archive-glyph","archive","arrow-down-left-glyph","arrow-down-right-glyph","arrow-down","arrow-left-glyph","arrow-left","arrow-right-glyph","arrow-right","arrow-small-down-glyph","arrow-up-circle-filled-glyph","arrow-up-circle-filled","arrow-up-glyph","arrow-up-left-glyph","arrow-up-right-glyph","arrow-up","arrows-down-up-glyph","arrows-down-up","arrows-left-right-glyph","arrows-left-right","arrows-right-left-glyph","arrows-right-left","arrows-up-down-glyph","arrows-up-down","aspect-ratio-1-x-1-glyph","aspect-ratio-1-x-1","aspect-ratio-16-x-9-glyph","aspect-ratio-16-x-9","aspect-ratio-2-x-3-glyph","aspect-ratio-2-x-3","aspect-ratio-3-x-2-glyph","aspect-ratio-3-x-2","aspect-ratio-3-x-4-glyph","aspect-ratio-3-x-4","aspect-ratio-4-x-3-glyph","aspect-ratio-4-x-3","aspect-ratio-4-x-5-glyph","aspect-ratio-4-x-5","aspect-ratio-5-x-4-glyph","aspect-ratio-5-x-4","aspect-ratio-9-x-16-glyph","aspect-ratio-9-x-16","aspect-ratio-anamorphic-horizontal-glyph","aspect-ratio-anamorphic-horizontal","aspect-ratio-anamorphic-vertical-glyph","aspect-ratio-anamorphic-vertical","aspect-ratio-custom-glyph","aspect-ratio-custom","audio-glyph","audio","automation-glyph","automation","autoplay-glyph","autoplay","bank-glyph","bank","bar-chart-glyph","bar-chart","blog-glyph","blog-lock-glyph","blog-lock","blog","blur-glyph","blur","bold-glyph","bold","book-spark-glyph","book-spark-lock-glyph","book-spark-locked","book-spark","border-all-glyph","border-all","border-bottom-glyph","border-bottom","border-center-horizontal-glyph","border-center-horizontal","border-center-vertical-glyph","border-center-vertical","border-left-glyph","border-left-right-glyph","border-left-right","border-left","border-right-glyph","border-right","border-top-bottom-glyph","border-top-bottom","border-top-glyph","border-top","branching-glyph","branching","brightness-glyph","brightness","bug-glyph","bug","bulleted-list-glyph","bulleted-list","business-glyph","business","calendar-glyph","calendar-star-glyph","calendar-star","calendar","camera-glyph","camera","capital-glyph","capital","carousel-glyph","carousel","chat-check-glyph","chat-check","chat-glyph","chat","check","checkbox-glyph","checkbox","checkmark-circle-filled-glyph","checkmark-circle-glyph","checkmark-circle","checkmark-glyph","checkmark-shield-glyph","checkmark-shield","checkmark","chevron-down-glyph","chevron-down","chevron-large-down","chevron-large-left","chevron-large-right","chevron-large-up","chevron-left-glyph","chevron-left-right-glyph","chevron-left","chevron-right-glyph","chevron-right","chevron-small-down","chevron-small-left-right","chevron-small-left","chevron-small-right","chevron-small-up-down","chevron-small-up","chevron-up-down-glyph","chevron-up-glyph","chevron-up","circle-glyph","circle-indeterminate-glyph","circle-indeterminate","circle","clear-formatting-glyph","clear-formatting","clipboard-glyph","clipboard-text-glyph","clipboard-text","clipboard","code-glyph","code","collapse-glyph","collapse","color-fill-glyph","color-fill","color-palette-glyph","color-palette-sparkle-glyph","color-palette-sparkle","color-palette","comment","contact-card-glyph","contact-card","contrast-glyph","contrast","corner-bottom-left-glyph","corner-bottom-left","corner-bottom-right-glyph","corner-bottom-right","corner-top-left-glyph","corner-top-left","corner-top-right-glyph","corner-top-right","cover-page-glyph","cover-page","credit-card-glyph","credit-card","credit-glyph","credit","crop-glyph","crop","cross-glyph","cross-large","cross-lg","cross-octagon-filled-glyph","cross-octagon-glyph","cross-octagon","cross-sm","cross-small-circle-glyph","cross-small-circle","cross-small-glyph","cross-small","csv-glyph","csv","currency-glyph","currency","decrease-indent-glyph","decrease-indent","desktop-glyph","desktop-unlinked-glyph","desktop-unlinked","desktop","diamond-glyph","diamond","dimension-x-glyph","dimension-x","dimension-y-glyph","dimension-y","dimension-z-glyph","dimension-z","dollar-sign-glyph","dollar-sign","donation-glyph","donation","download-glyph","download","drag-glyph","drag","dropdown-glyph","dropdown","duplicate-glyph","duplicate","ease-glyph","ease","edit-glyph","edit","ellipses-glyph","ellipses","ellipsis","emoji-glyph","emoji","empty-page-glyph","empty-page","events-glyph","events","exclamation-mark-circle-filled-glyph","exclamation-mark-circle-glyph","exclamation-mark-circle","expand-glyph","expand","external-link-glyph","external-link","external-selling-glyph","external-selling","external","eyedropper-glyph","eyedropper","feature-gate-glyph","feature-gate-lock-glyph","feature-gate-lock","feature-gate","filters-glyph","filters","fitness-glyph","fitness","flash-auto-glyph","flash-auto","flash-glyph","flash-off-glyph","flash-off","flash","flip-x-axis-glyph","flip-x-axis","flip-y-axis-glyph","flip-y-axis","focal-point-glyph","focal-point","folder-glyph","folder","font-family-glyph","font-family","funnel-glyph","funnel","gallery-glyph","gallery","gap-horizontal-glyph","gap-horizontal","gap-vertical-glyph","gap-vertical","gift-card-glyph","gift-card","gift-glyph","gift","global-code-glyph","global-code","global-content-glyph","global-content","global-glyph","global-image-glyph","global-image","global-text-glyph","global-text","global","grid-3x3-glyph","grid-3x3","group-align-horizontal-center-glyph","group-align-horizontal-center","group-align-horizontal-left-glyph","group-align-horizontal-left","group-align-horizontal-right-glyph","group-align-horizontal-right","group-align-vertical-bottom-glyph","group-align-vertical-bottom","group-align-vertical-center-glyph","group-align-vertical-center","group-align-vertical-top-glyph","group-align-vertical-top","h1-glyph","h1","h2-glyph","h2","h3-glyph","h3","h4-glyph","h4","h5-glyph","h5","h6-glyph","h6","heart-filled-glyph","heart-filled","heart-glyph","heart","height-glyph","height","hide-glyph","hide","highlights-glyph","highlights","history-glyph","history","home-glyph","home-small-glyph","home-small","home","hot-glyph","hot","hover-glyph","hover","image-block-card-glyph","image-block-card","image-block-collage-glyph","image-block-collage","image-block-inline-glyph","image-block-inline","image-block-overlap-glyph","image-block-overlap","image-block-poster-glyph","image-block-poster","image-block-stack-glyph","image-block-stack","image-glyph","image-plus","image","in-back-glyph","in-back","in-glyph","in-out-back-glyph","in-out-back","in-out-glyph","in-out","in","increase-indent-glyph","increase-indent","index-glyph","index-stacked-glyph","index-stacked","index","industry-beauty","industry-business","industry-education","industry-fitness","industry-utility","industry-wellness","infinity-glyph","infinity","info-circle-filled-glyph","info-circle-glyph","info-circle","insert-card-glyph","insert-card","insert-glyph","insert","invoice-glyph","invoice","italic-glyph","italic","key-glyph","key","keyboard-glyph","keyboard","layer-above-glyph","layer-above","layer-below-glyph","layer-below","layers-glyph","layers","layout-glyph","layout","letter-spacing-glyph","letter-spacing","line-chart-glyph","line-chart","line-dashed-glyph","line-dashed","line-glyph","line-height-glyph","line-height","line","linear-glyph","linear","link-glyph","link","location-glyph","location","lock-glyph","lock","logo-500px-glyph","logo-500px","logo-amazon-glyph","logo-amazon","logo-android-glyph","logo-android","logo-apple-glyph","logo-apple-news-glyph","logo-apple-news","logo-apple","logo-bandsintown-glyph","logo-bandsintown","logo-behance-glyph","logo-behance","logo-big-cartel-glyph","logo-big-cartel","logo-blogger-glyph","logo-blogger","logo-bluesky-glyph","logo-bluesky","logo-chow-now-glyph","logo-chow-now","logo-chrome-glyph","logo-chrome","logo-code-pen-glyph","logo-code-pen","logo-discord-glyph","logo-discord","logo-dribbble-glyph","logo-dribbble","logo-dropbox-glyph","logo-dropbox","logo-evernote-glyph","logo-evernote","logo-facebook-glyph","logo-facebook","logo-figma-glyph","logo-figma","logo-flickr-glyph","logo-flickr","logo-foursquare-glyph","logo-foursquare","logo-getty-images-glyph","logo-getty-images","logo-git-hub-glyph","logo-git-hub","logo-goodreads-glyph","logo-goodreads","logo-google-glyph","logo-google-play-glyph","logo-google-play","logo-google","logo-houzz-glyph","logo-houzz","logo-i-tunes-glyph","logo-i-tunes","logo-imdb-glyph","logo-imdb","logo-instagram-glyph","logo-instagram","logo-linked-in-glyph","logo-linked-in","logo-mastodon-glyph","logo-mastodon","logo-medium-glyph","logo-medium","logo-meetup-glyph","logo-meetup","logo-open-table-glyph","logo-open-table","logo-pandora-glyph","logo-pandora","logo-pinterest-glyph","logo-pinterest","logo-podcast-glyph","logo-podcast","logo-reddit-glyph","logo-reddit","logo-rss-glyph","logo-rss","logo-scheduling-glyph","logo-scheduling","logo-shopify-glyph","logo-shopify","logo-smug-mug-glyph","logo-smug-mug","logo-snapchat-glyph","logo-snapchat","logo-sound-cloud-glyph","logo-sound-cloud","logo-spotify-glyph","logo-spotify","logo-squarespace-circle-glyph","logo-squarespace-circle","logo-squarespace-glyph","logo-squarespace","logo-stitcher-glyph","logo-stitcher","logo-stumble-upon-glyph","logo-stumble-upon","logo-the-dots-glyph","logo-the-dots","logo-threads-glyph","logo-threads","logo-tidal-glyph","logo-tidal","logo-tik-tok-glyph","logo-tik-tok","logo-titan-glyph","logo-titan","logo-tock-glyph","logo-tock","logo-trip-advisor-glyph","logo-trip-advisor","logo-tumblr-glyph","logo-tumblr","logo-twitch-glyph","logo-twitch","logo-twitter-glyph","logo-twitter","logo-unfold-glyph","logo-unfold","logo-usps-glyph","logo-usps","logo-vevo-glyph","logo-vevo","logo-vimeo-glyph","logo-vimeo","logo-vsco-glyph","logo-vsco","logo-whats-app-glyph","logo-whats-app","logo-word-press-glyph","logo-word-press","logo-x-glyph","logo-x","logo-yelp-glyph","logo-yelp","logo-you-tube-glyph","logo-you-tube","logo-zb-glyph","logo-zb","logo-zola-glyph","logo-zola","logout-glyph","logout","loop-glyph","loop","mail-glyph","mail","marquee-glyph","marquee","maximize-glyph","maximize","media-effect-glyph","media-effect","menu-glyph","menu","message-glyph","message-plus-glyph","message-plus","message","mic-glyph","mic-off-glyph","mic-off","mic","minimize-glyph","minimize","minus-circle-glyph","minus-circle","minus-glyph","minus-small-glyph","minus-small","minus","mobile-glyph","mobile","moon-glyph","moon","mouse-move-glyph","mouse-move","multi-column-glyph","multi-column","multiple-half-glyph","multiple-half","multiple-one-glyph","multiple-one","multiple-two-glyph","multiple-two","not-allowed-glyph","not-allowed","notification-bell-glyph","notification-bell","number-glyph","number","numbered-list-glyph","numbered-list","opacity-glyph","opacity","orders-glyph","orders","out-back-glyph","out-back","out-glyph","out","p1-glyph","p1","p2-glyph","p2","p3-glyph","p3","padding-bottom-glyph","padding-bottom","padding-center-horizontal-glyph","padding-center-horizontal","padding-center-vertical-glyph","padding-center-vertical","padding-left-glyph","padding-left-right-glyph","padding-left-right","padding-left","padding-right-glyph","padding-right","padding-top-bottom-glyph","padding-top-bottom","padding-top-glyph","padding-top","page-glyph","page","paragraph-glyph","paragraph","pause-circle-glyph","pause","pdp-full-glyph","pdp-full","pdp-half-glyph","pdp-half","pdp-simple-glyph","pdp-simple","pdp-wrap-glyph","pdp-wrap","people-glyph","people","percent-glyph","percent","performance-glyph","performance","person-glyph","person-group-glyph","person-group","person-lock-glyph","person-lock","person-settings-glyph","person-settings","person","phone-call-glyph","phone-call","phone-glyph","phone","photo-glyph","pie-chart-glyph","pie-chart","pin-filled-glyph","pin-filled","pin-glyph","pin","play-glyph","play","plug-glyph","plug","plus-filled","plus-glyph","plus","point-of-sale-glyph","point-of-sale","portfolio-glyph","portfolio","press-glyph","press","preview-glyph","preview","print-glyph","print","product-glyph","product","project-glyph","project","question-mark-circle-filled-glyph","question-mark-circle-glyph","question-mark-circle","question-mark-glyph","question-mark","quote-glyph","quote","radio-glyph","radio","receipt-glyph","receipt","redo-glyph","redo","refresh-glyph","refresh","repeat-glyph","repeat","reset-styles-glyph","reset-styles","restaurant-menu-glyph","restaurant-menu","rich-text-editor-glyph","rich-text-editor","rotate-left-glyph","rotate-left","rotate-right-glyph","rotate-right","rounded-corners-glyph","rounded-corners","rounded-end-cap-glyph","rounded-end-cap","rounded-rectangle-glyph","rounded-rectangle","saturation-glyph","saturation","scale-height-glyph","scale-height","scale-width-glyph","scale-width","scroll-glyph","scroll","search-glyph","search","service-bell-glyph","service-bell","settings-glyph","settings","setup-guide-glyph","setup-guide","shadows-glyph","shadows","shapes-glyph","shapes","share-glyph","share-locked-glyph","share-locked","share","sharpen-glyph","sharpen","shipping-glyph","shipping","shopping-bag-glyph","shopping-bag","show-glyph","show","shuffle-glyph","shuffle","sidebar-edit-glyph","sidebar-edit","signature-glyph","signature","site-preview-glyph","site-preview","slideshow-glyph","slideshow","social-links-glyph","social-links","sort-down-glyph","sort-down","sort-up-glyph","sort-up","sparkles-glyph","sparkles","speed-fast-glyph","speed-fast","speed-slow-glyph","speed-slow","spotlight-glyph","spotlight","spring-glyph","spring","square-end-cap-glyph","square-end-cap","stack-align-horizontal-bottom-glyph","stack-align-horizontal-bottom","stack-align-horizontal-center-glyph","stack-align-horizontal-center","stack-align-horizontal-top-glyph","stack-align-horizontal-top","stack-align-placeholder-glyph","stack-align-placeholder","stack-align-vertical-center-glyph","stack-align-vertical-center","stack-align-vertical-left-glyph","stack-align-vertical-left","stack-align-vertical-right-glyph","stack-align-vertical-right","stack-filled-glyph","stack-filled","stack-glyph","stack-horizontal-glyph","stack-horizontal","stack-padding-bottom-glyph","stack-padding-bottom","stack-padding-left-glyph","stack-padding-left","stack-padding-right-glyph","stack-padding-right","stack-padding-top-glyph","stack-padding-top","stack-vertical-glyph","stack-vertical","stack","star-circle-glyph","star-circle","star-filled-100","star-filled-50-glyph","star-filled-50","star-filled-glyph","star-glyph","star","stop-filled-glyph","stop-filled","stop-glyph","stop","store-glyph","store","straighten-left-glyph","straighten-left","straighten-right-glyph","straighten-right","strike-glyph","strikethrough-glyph","strikethrough","style-glyph","style","subscript-glyph","subscript","superscript-glyph","superscript","survey-glyph","survey","t-shirt-graphic-glyph","t-shirt-graphic","table-sort-glyph","table-sort","tablet-glyph","tablet","tag-cloud-glyph","tag-cloud","tag-glyph","tag","tap-glyph","tap","target-group-glyph","target-group","text-align-center-glyph","text-align-center","text-align-justify-glyph","text-align-justify","text-align-left-glyph","text-align-left","text-align-right-glyph","text-align-right","text-area-glyph","text-area","text-glyph","text-highlight-glyph","text-highlight","text-scale-glyph","text-scale","text-small-glyph","text-small","text","thumbs-down-glyph","thumbs-down","thumbs-up-glyph","thumbs-up","ticket-star-glyph","ticket-star","time-glyph","time","timer-10s-glyph","timer-10s","timer-3s-glyph","timer-3s","timer-5s-glyph","timer-5s","timer-glyph","timer-off-glyph","timer-off","timer","trash-bin","trash-glyph","trash","type-scale-larger-glyph","type-scale-larger","type-scale-smaller-glyph","type-scale-smaller","underline-glyph","underline","undo-glyph","undo","unlink-glyph","unlock-glyph","unlock","unread-glyph","unread","upload-glyph","upload","video-empty-glyph","video-empty","video-glyph","video","videos-glyph","videos-lock-glyph","videos-locked","videos","volume-high-glyph","volume-high","volume-low-glyph","volume-low","volume-off-glyph","volume-off","volume-zero-glyph","volume-zero","website-glyph","website-lock-glyph","website-lock","website","weight-glyph","weight","white-balance-glyph","white-balance","width-glyph","width"];
+    const grid = document.getElementById("grid");
+    const count = document.getElementById("count");
+
+    grid.innerHTML = NAMES.map((n) =>
+      '<div class="cell" data-name="' + n + '">' +
+      '<span class="acuity-icon acuity-icon--lg" style="--icon: url(\'./icons/icon-' + n + '.svg\')"></span>' +
+      '<code>' + n + '</code></div>'
+    ).join("");
+
+    const cells = [...grid.children];
+    const render = (q) => {
+      let shown = 0;
+      for (const cell of cells) {
+        const hit = cell.dataset.name.includes(q);
+        cell.hidden = !hit;
+        if (hit) shown++;
+      }
+      count.textContent = shown + " of " + NAMES.length;
+    };
+    render("");
+
+    document.getElementById("q").addEventListener("input", (e) =>
+      render(e.target.value.trim().toLowerCase().replace(/\s+/g, "-"))
+    );
+
+    grid.addEventListener("click", (e) => {
+      const cell = e.target.closest(".cell");
+      if (!cell) return;
+      const markup = '<span class="acuity-icon acuity-icon--md" style="--icon: url(\'../ds/icons/icon-' +
+        cell.dataset.name + '.svg\')"></span>';
+      navigator.clipboard.writeText(markup);
+      const code = cell.querySelector("code");
+      const original = code.textContent;
+      code.textContent = "copied!";
+      setTimeout(() => { code.textContent = original; }, 900);
+    });
+
+    document.getElementById("theme").addEventListener("click", (e) => {
+      const dark = document.documentElement.dataset.theme === "dark";
+      document.documentElement.dataset.theme = dark ? "light" : "dark";
+      e.target.textContent = dark ? "Dark" : "Light";
+    });
+  </script>
+</body>
+</html>

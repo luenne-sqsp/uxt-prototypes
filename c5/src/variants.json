@@ -1,0 +1,111 @@
+{
+  "id": "c5",
+  "title": "C05: Guided setup",
+  "defaultPreset": "v1",
+  "entryScreen": "s1",
+
+  "screens": [
+    {
+      "id": "s1",
+      "label": "Intro",
+      "order": 0,
+      "slots": [],
+      "variants": [
+        { "key": "a", "label": "Card-stack carousel", "component": "s1/S1Intro.a.vue" }
+      ]
+    },
+    {
+      "id": "s2",
+      "label": "Industry",
+      "order": 1,
+      "slots": ["topNav"],
+      "variants": [
+        { "key": "a", "label": "Auto-advance on tap", "component": "s2/S2Industry.a.vue" }
+      ]
+    },
+    {
+      "id": "s3",
+      "label": "Specialty",
+      "order": 2,
+      "slots": ["topNav"],
+      "variants": [
+        { "key": "a", "label": "Chip grid",     "component": "s3/S3Specialty.a.vue" },
+        { "key": "b", "label": "Explicit Next / inline expand", "component": "s3/S3Specialty.b.vue" }
+      ]
+    },
+    {
+      "id": "s4",
+      "label": "AI loading",
+      "order": 3,
+      "slots": [],
+      "variants": [
+        { "key": "a", "label": "Spinner, auto-advance", "component": "s4/S4Loading.a.vue" }
+      ]
+    },
+    {
+      "id": "s5",
+      "label": "Catalog",
+      "order": 4,
+      "slots": ["topNav"],
+      "variants": [
+        { "key": "a", "label": "AI suggestions", "component": "s5/S5Catalog.a.vue" }
+      ]
+    },
+    {
+      "id": "s9",
+      "label": "Availability",
+      "order": 5,
+      "slots": ["topNav"],
+      "variants": [
+        { "key": "a", "label": "Per-appointment cards", "component": "s9/S9Availability.a.vue" }
+      ]
+    },
+    {
+      "id": "s10",
+      "label": "Ready",
+      "order": 6,
+      "slots": ["topNav"],
+      "variants": [
+        { "key": "a", "label": "Mobile widget emphasis", "component": "s10/S10Ready.a.vue" }
+      ]
+    },
+    {
+      "id": "s_loading_home",
+      "label": "Loading (to home)",
+      "order": 0,
+      "slots": [],
+      "variants": [
+        { "key": "a", "label": "Spinner", "component": "s_loading_home/SLoadingHome.a.vue" }
+      ]
+    },
+    {
+      "id": "s_home",
+      "label": "Home",
+      "order": 7,
+      "slots": [],
+      "variants": [
+        { "key": "a", "label": "Setup / ready states", "component": "s_home/SHomeA_Default.vue" }
+      ]
+    }
+  ],
+
+  "components": [
+    {
+      "id": "topNav",
+      "label": "Top nav",
+      "variants": [
+        { "key": "a", "label": "Back + step label", "component": "TopNav/TopNav.a.vue" }
+      ]
+    }
+  ],
+
+  "base": {
+    "screens": { "s1": "a", "s2": "a", "s3": "a", "s4": "a", "s5": "a", "s9": "a", "s10": "a", "s_loading_home": "a", "s_home": "a" },
+    "slots": { "topNav": "a" }
+  },
+
+  "presets": [
+    { "key": "v1", "label": "Baseline", "note": "Chip-grid specialty picker, auto-advance.", "screens": {}, "slots": {} },
+    { "key": "v2", "label": "Explicit Next", "note": "Specialty requires an explicit Next tap; inline-expand for freeform text.", "screens": { "s3": "b" }, "slots": {} }
+  ]
+}

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" data-brand-palette="neutral">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V1 — Auto-advance / Inline Expand · S2–S3 Explorations</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600&family=Quicksand:wght@400;500;600&family=Oswald:wght@400;500;600&family=Concert+One&display=swap">
+  <link rel="stylesheet" href="../../ds/tokens.css">
+  <link rel="stylesheet" href="../../ds/font.css">
+  <link rel="stylesheet" href="../../ds/components.css">
+  <link rel="stylesheet" href="../../ds/brand-palettes.css">
+  <link rel="stylesheet" href="../../ds/brand-fonts.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { cursor: pointer; }
+
+    body {
+      font-family: var(--acuity-font-family-sans);
+      background: var(--acuity-bg-base);
+      color: var(--acuity-fg-default);
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Screen system ───────────────────────────────────────── */
+    .screen {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes enterForward {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes enterBack {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .screen-enter      { animation: enterForward 220ms ease forwards; }
+    .screen-enter-back { animation: enterBack    220ms ease forwards; }
+
+    /* ── Desktop chrome ──────────────────────────────────────── */
+    .chrome-top {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-32);
+    }
+    .chrome-logo {
+      color: var(--acuity-fg-default);
+      line-height: 0;
+      text-decoration: none;
+    }
+    .chrome-close {
+      appearance: none;
+      background: none;
+      border: none;
+      padding: var(--acuity-spacing-4);
+      color: var(--acuity-fg-muted);
+      line-height: 0;
+      border-radius: var(--acuity-border-radius-sm);
+      transition: color 120ms;
+    }
+    .chrome-close:hover { color: var(--acuity-fg-default); }
+
+    .chrome-bottom {
+      flex-shrink: 0;
+      border-top: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-32);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── Scrollable body ─────────────────────────────────────── */
+    .screen-body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      padding: var(--acuity-spacing-48) var(--acuity-spacing-32);
+    }
+
+    /* ── Centered content column ─────────────────────────────── */
+    .content {
+      width: 100%;
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-32);
+    }
+
+    /* ── Wizard heading block ────────────────────────────────── */
+    .wiz-eyebrow {
+      font-size: var(--acuity-font-size-11);
+      font-weight: var(--acuity-font-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--acuity-fg-muted);
+      margin-bottom: var(--acuity-spacing-8);
+    }
+    .wiz-title {
+      font-family: var(--acuity-font-family-display);
+      font-size: 34px;
+      font-weight: var(--acuity-font-weight-book);
+      line-height: 1.15;
+      color: var(--acuity-fg-default);
+      margin-bottom: var(--acuity-spacing-8);
+    }
+    .wiz-sub {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--acuity-fg-muted);
+    }
+
+    /* ── Shared card base ────────────────────────────────────── */
+    .picker-card {
+      appearance: none;
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      color: var(--acuity-fg-default);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: var(--acuity-font-weight-medium);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 140ms, background 140ms;
+    }
+    .picker-card:hover:not(.selected) {
+      border-color: var(--acuity-border-strong);
+      background: var(--acuity-bg-inset);
+    }
+    .picker-card.selected {
+      border-color: var(--acuity-fg-default);
+      border-width: var(--acuity-border-width-heavy);
+    }
+
+    /* ── S2 — Industry grid ──────────────────────────────────── */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--acuity-spacing-12);
+    }
+    .industry-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--acuity-spacing-8);
+      padding: var(--acuity-spacing-24) var(--acuity-spacing-16);
+    }
+    .industry-card--full {
+      grid-column: 1 / -1;
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-24);
+    }
+    .industry-icon {
+      width: 22px;
+      height: 22px;
+      opacity: 0.65;
+    }
+
+    /* ── S3 — Specialty grid ─────────────────────────────────── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--acuity-spacing-12);
+    }
+    .spec-card {
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-12);
+    }
+
+    /* ── S3 — "Something else" button ───────────────────────── */
+    .something-else-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--acuity-spacing-8);
+      padding: var(--acuity-spacing-16) var(--acuity-spacing-24);
+    }
+
+    /* ── S3 — "Something else" expanded textarea ─────────────── */
+    .something-else-expanded {
+      display: none;
+      flex-direction: column;
+      gap: var(--acuity-spacing-8);
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .something-else-expanded.visible {
+      display: flex;
+      animation: fadeSlideIn 180ms ease forwards;
+    }
+    .something-else-label {
+      font-size: 13px;
+      font-weight: var(--acuity-font-weight-medium);
+      color: var(--acuity-fg-muted);
+    }
+    .something-else-textarea {
+      width: 100%;
+      min-height: 112px;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      color: var(--acuity-fg-default);
+      line-height: 1.55;
+      resize: none;
+      outline: none;
+      transition: border-color 140ms;
+    }
+    .something-else-textarea:focus { border-color: var(--acuity-border-strong); }
+    .something-else-textarea::placeholder { color: var(--acuity-fg-disabled); }
+
+    /* ── S3-Other — big ghost input + chips wrapper ───────────── */
+    .big-input-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: var(--acuity-spacing-24);
+    }
+    .big-ghost-input {
+      flex: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: var(--acuity-font-family-display);
+      font-size: 28px;
+      font-weight: var(--acuity-font-weight-book);
+      color: var(--acuity-fg-default);
+      text-align: center;
+      caret-color: var(--acuity-fg-default);
+      /* vertically center the text within flex: 1 */
+      padding: 0;
+      line-height: 1;
+    }
+    .big-ghost-input::placeholder { color: var(--acuity-fg-disabled); }
+
+    /* ── S3-Other — popular chips row (inside big-input-wrap) ─── */
+    .popular-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .popular-row::-webkit-scrollbar { display: none; }
+
+    .popular-label {
+      font-size: var(--acuity-font-size-11);
+      font-weight: var(--acuity-font-weight-semibold);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--acuity-fg-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .popular-chip {
+      flex-shrink: 0;
+      appearance: none;
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-round);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 13px;
+      font-weight: var(--acuity-font-weight-medium);
+      color: var(--acuity-fg-default);
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-16);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 140ms, background 140ms;
+    }
+    .popular-chip:hover:not(.selected) {
+      border-color: var(--acuity-border-strong);
+      background: var(--acuity-bg-inset);
+    }
+    .popular-chip.selected {
+      border-color: var(--acuity-fg-default);
+      border-width: var(--acuity-border-width-heavy);
+    }
+
+    /* ── Nav buttons ─────────────────────────────────────────── */
+    .btn-back {
+      appearance: none;
+      background: none;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: var(--acuity-font-weight-medium);
+      color: var(--acuity-fg-muted);
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-4);
+      border-radius: var(--acuity-border-radius-sm);
+      transition: color 120ms;
+    }
+    .btn-back:hover { color: var(--acuity-fg-default); }
+
+    .btn-next {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--acuity-spacing-8);
+      background: var(--acuity-fg-default);
+      color: var(--acuity-fg-on-strong);
+      border: none;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: var(--acuity-font-weight-medium);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-24);
+      border-radius: var(--acuity-border-radius-md);
+      transition: opacity 140ms;
+    }
+    .btn-next:not(:disabled):hover { opacity: 0.82; }
+    .btn-next:disabled { opacity: 0.32; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       S2 — Industry picker
+       Behavior: clicking a card immediately advances (auto-advance).
+       Going back restores the last selection visually.
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="screen active" id="s2">
+
+    <div class="chrome-top">
+      <a class="chrome-logo" href="#" aria-label="Acuity">
+        <svg width="9" height="20" viewBox="0 0 9 20" fill="none"><ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/><ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/></svg>
+      </a>
+      <button class="chrome-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 9.586L16.293 4.293L17.707 5.707L12.414 11L17.707 16.293L16.293 17.707L11 12.414L5.707 17.707L4.293 16.293L9.586 11L4.293 5.707L5.707 4.293L11 9.586Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="screen-body">
+      <div class="content">
+        <div>
+          <p class="wiz-eyebrow">Step 1 of 5</p>
+          <h1 class="wiz-title">What industry are you in?</h1>
+          <p class="wiz-sub">This will help us make relevant recommendations for you</p>
+        </div>
+
+        <div class="industry-grid" id="s2-grid">
+          <button class="picker-card industry-card" data-industry="beauty" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-beauty.svg" alt="">
+            <span>Beauty</span>
+          </button>
+          <button class="picker-card industry-card" data-industry="wellness" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-wellness.svg" alt="">
+            <span>Wellness</span>
+          </button>
+          <button class="picker-card industry-card" data-industry="fitness" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-fitness.svg" alt="">
+            <span>Fitness</span>
+          </button>
+          <button class="picker-card industry-card" data-industry="business" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-business.svg" alt="">
+            <span>Business Services</span>
+          </button>
+          <button class="picker-card industry-card" data-industry="home_services" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-utility.svg" alt="">
+            <span>Home Services</span>
+          </button>
+          <button class="picker-card industry-card" data-industry="arts_education" onclick="selectIndustry(this)">
+            <img class="industry-icon" src="../../c3_b/assets/s2-icon-education.svg" alt="">
+            <span>Arts &amp; Education</span>
+          </button>
+          <button class="picker-card industry-card industry-card--full" data-industry="other" onclick="selectIndustry(this)">
+            <span>Other</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- S2 only needs Back — card click auto-advances -->
+    <div class="chrome-bottom">
+      <button class="btn-back" onclick="goBack()">
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       S3 — Specialty picker (standard industries)
+       Behavior: "Something else" morphs inline into a textarea.
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="screen" id="s3">
+
+    <div class="chrome-top">
+      <a class="chrome-logo" href="#" aria-label="Acuity">
+        <svg width="9" height="20" viewBox="0 0 9 20" fill="none"><ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/><ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/></svg>
+      </a>
+      <button class="chrome-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 9.586L16.293 4.293L17.707 5.707L12.414 11L17.707 16.293L16.293 17.707L11 12.414L5.707 17.707L4.293 16.293L9.586 11L4.293 5.707L5.707 4.293L11 9.586Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="screen-body">
+      <div class="content">
+        <div>
+          <p class="wiz-eyebrow">Step 2 of 5</p>
+          <h1 class="wiz-title">What is your specialty?</h1>
+          <p class="wiz-sub">Select the option that best matches your business</p>
+        </div>
+
+        <div class="spec-grid" id="s3-grid">
+          <!-- Populated by JS when entering S3 -->
+        </div>
+
+        <button class="picker-card something-else-btn" id="s3-something-else-btn" onclick="expandSomethingElse()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 0.5L8.5 5.5H13.5L9.5 8.5L11 13L7 10.5L3 13L4.5 8.5L0.5 5.5H5.5L7 0.5Z" fill="currentColor" opacity="0.5"/>
+          </svg>
+          Something else
+        </button>
+
+        <div class="something-else-expanded" id="s3-something-else-expanded">
+          <span class="something-else-label">Something else</span>
+          <textarea
+            class="something-else-textarea"
+            id="s3-something-else-input"
+            placeholder="I'm a dog groomer offering baths ($50, 30 min) and full grooms ($100, 60min). We're open Tuesdays…"
+            oninput="onSomethingElseInput()"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <button class="btn-back" onclick="goBack()">
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <button class="btn-next" id="s3-next" onclick="advanceFrom('s4')" disabled>
+        Next
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M1.5 1.5L8.5 8L1.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       S3-Other — "Tell us what you do"
+       Shown when "Other" is selected in S2.
+       Behavior: ghost big-input. Typing filters chips from the
+       full templates JSON. Chips populate the input on click.
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="screen" id="s3-other">
+
+    <div class="chrome-top">
+      <a class="chrome-logo" href="#" aria-label="Acuity">
+        <svg width="9" height="20" viewBox="0 0 9 20" fill="none"><ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/><ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/></svg>
+      </a>
+      <button class="chrome-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 9.586L16.293 4.293L17.707 5.707L12.414 11L17.707 16.293L16.293 17.707L11 12.414L5.707 17.707L4.293 16.293L9.586 11L4.293 5.707L5.707 4.293L11 9.586Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="screen-body">
+      <div class="content" style="height: 100%;">
+        <div>
+          <p class="wiz-eyebrow">Step 1 of 5</p>
+          <h1 class="wiz-title">Tell us what you do</h1>
+          <p class="wiz-sub">Describe your industry or the services you provide</p>
+        </div>
+
+        <!-- Big input fills remaining space; chips sit at the bottom of this wrapper -->
+        <div class="big-input-wrap">
+          <input
+            class="big-ghost-input"
+            type="text"
+            id="s3-other-input"
+            autocomplete="off"
+            spellcheck="false"
+            oninput="onOtherInput()"
+          >
+          <!-- Chips rendered here by JS; default = curated popular list -->
+          <div class="popular-row" id="s3-other-chips"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <button class="btn-back" onclick="goBack()">
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <button class="btn-next" id="s3-other-next" onclick="advanceFrom('s4')" disabled>
+        Next
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M1.5 1.5L8.5 8L1.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       S4 — Placeholder
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="screen" id="s4">
+
+    <div class="chrome-top">
+      <a class="chrome-logo" href="#" aria-label="Acuity">
+        <svg width="9" height="20" viewBox="0 0 9 20" fill="none"><ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/><ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/></svg>
+      </a>
+      <button class="chrome-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 9.586L16.293 4.293L17.707 5.707L12.414 11L17.707 16.293L16.293 17.707L11 12.414L5.707 17.707L4.293 16.293L9.586 11L4.293 5.707L5.707 4.293L11 9.586Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="screen-body">
+      <div class="content" style="align-items: center; justify-content: center; text-align: center; height: 100%;">
+        <div>
+          <p class="wiz-eyebrow">Step 3 of 5</p>
+          <h1 class="wiz-title">Next step</h1>
+          <p class="wiz-sub">Placeholder — this exploration ends here</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <button class="btn-back" onclick="goBack()">
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <button class="btn-next" disabled>
+        Next
+        <svg width="7" height="12" viewBox="0 0 10 16" fill="none"><path d="M1.5 1.5L8.5 8L1.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+  </section>
+
+
+  <script>
+    // ── Navigation state ──────────────────────────────────────────────────
+    let selectedIndustry  = null;
+    let somethingElseOpen = false;
+    const navHistory      = [];
+
+    function showScreen(id, back = false) {
+      const current = document.querySelector('.screen.active');
+      const next    = document.getElementById(id);
+      if (current) {
+        current.classList.remove('active', 'screen-enter', 'screen-enter-back');
+        if (!back) navHistory.push(current.id);
+      }
+      next.classList.remove('screen-enter', 'screen-enter-back');
+      next.classList.add('active', back ? 'screen-enter-back' : 'screen-enter');
+    }
+
+    function goBack() {
+      const prev = navHistory.pop();
+      if (prev) showScreen(prev, true);
+    }
+
+    function advanceFrom(id) {
+      showScreen(id);
+    }
+
+    // ── S2 ────────────────────────────────────────────────────────────────
+    // Auto-advances immediately on selection. The selected class persists in
+    // the DOM so going back restores the visual state.
+    function selectIndustry(card) {
+      document.querySelectorAll('#s2-grid .picker-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedIndustry = card.dataset.industry;
+
+      if (selectedIndustry === 'other') {
+        showScreen('s3-other');
+        document.getElementById('s3-other-input').focus();
+      } else {
+        buildS3(selectedIndustry);
+        showScreen('s3');
+      }
+    }
+
+    // ── S3 ────────────────────────────────────────────────────────────────
+    const SPECIALTIES = {
+      beauty:         ['Hair', 'Nails', 'Lash & Brows', 'Barber', 'Skincare', 'Makeup'],
+      wellness:       ['Massage', 'Acupuncture', 'Day Spa', 'Med Spa', 'Physical Therapy', 'Mental Health'],
+      fitness:        ['Personal Training', 'Yoga', 'Sports Coaching', 'Pilates', 'Dance Lessons', 'Gym'],
+      business:       ['Consulting', 'Professional Coaching', 'Legal', 'Photography', 'Marketing', 'Finance'],
+      home_services:  ['Cleaning', 'Home Repair', 'Auto Care', 'Plumbing & HVAC', 'Construction', 'Landscaping'],
+      arts_education: ['Music', 'Tutoring', 'Dance', 'Theater', 'Ceramics', 'Visual Arts'],
+    };
+
+    function buildS3(industry) {
+      const specs = SPECIALTIES[industry] || [];
+      document.getElementById('s3-grid').innerHTML = specs.map(s =>
+        `<button class="picker-card spec-card" onclick="selectSpecialty(this)">${s}</button>`
+      ).join('');
+      somethingElseOpen = false;
+      document.getElementById('s3-something-else-btn').style.display = '';
+      document.getElementById('s3-something-else-expanded').classList.remove('visible');
+      document.getElementById('s3-something-else-input').value = '';
+      document.getElementById('s3-next').disabled = true;
+    }
+
+    function selectSpecialty(card) {
+      if (somethingElseOpen) collapseSomethingElse();
+      document.querySelectorAll('#s3-grid .picker-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      document.getElementById('s3-next').disabled = false;
+    }
+
+    function expandSomethingElse() {
+      somethingElseOpen = true;
+      document.querySelectorAll('#s3-grid .picker-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('s3-something-else-btn').style.display = 'none';
+      document.getElementById('s3-something-else-expanded').classList.add('visible');
+      document.getElementById('s3-something-else-input').focus();
+      document.getElementById('s3-next').disabled = true;
+    }
+
+    function collapseSomethingElse() {
+      somethingElseOpen = false;
+      document.getElementById('s3-something-else-btn').style.display = '';
+      document.getElementById('s3-something-else-expanded').classList.remove('visible');
+      document.getElementById('s3-something-else-input').value = '';
+    }
+
+    function onSomethingElseInput() {
+      const filled = document.getElementById('s3-something-else-input').value.trim().length > 0;
+      document.getElementById('s3-next').disabled = !filled;
+    }
+
+    // ── S3-Other ──────────────────────────────────────────────────────────
+    const DEFAULT_CHIPS = [
+      'Pet Services & Animal Care',
+      'Food & Beverage',
+      'Creative & Media Services',
+      'Events & Hospitality',
+    ];
+
+    // Populated from templates JSON on load; starts with DEFAULT_CHIPS as fallback
+    let ALL_INDUSTRIES = [...DEFAULT_CHIPS];
+
+    async function loadTemplates() {
+      try {
+        const resp = await fetch('../../c3_b/templates/acuity_appointment_templates.json');
+        const data = await resp.json();
+        const seen = new Set(DEFAULT_CHIPS.map(s => s.toLowerCase()));
+        for (const [topIndustry, content] of Object.entries(data)) {
+          // Add top-level industry name
+          if (!seen.has(topIndustry.toLowerCase())) {
+            ALL_INDUSTRIES.push(topIndustry);
+            seen.add(topIndustry.toLowerCase());
+          }
+          // Add each s3_chip (skip generic "Other" entries)
+          for (const chip of (content.s3_chips || [])) {
+            const key = chip.toLowerCase();
+            if (chip !== 'Other' && !seen.has(key)) {
+              ALL_INDUSTRIES.push(chip);
+              seen.add(key);
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load templates JSON, using defaults:', e);
+      }
+      renderOtherChips(DEFAULT_CHIPS);
+    }
+
+    // Word-level search: tokens ≥ 3 chars, skip common stopwords
+    const STOPWORDS = new Set(['the', 'and', 'for', 'with', 'that', 'this', 'have',
+                               'from', 'are', 'was', 'but', 'not', 'what', 'all',
+                               'can', 'her', 'him', 'his', 'she', 'you', 'will',
+                               'our', 'out', 'day', 'get', 'has', 'how', 'its']);
+
+    function filterIndustryList(query) {
+      const q = query.trim();
+      if (!q) return DEFAULT_CHIPS;
+
+      const tokens = (q.toLowerCase().match(/\b\w+\b/g) || [])
+        .filter(t => t.length >= 3 && !STOPWORDS.has(t));
+
+      if (!tokens.length) return DEFAULT_CHIPS;
+
+      const scored = ALL_INDUSTRIES
+        .map(name => ({
+          name,
+          score: tokens.reduce((n, t) => n + (name.toLowerCase().includes(t) ? 1 : 0), 0),
+        }))
+        .filter(x => x.score > 0)
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+
+      return scored.map(x => x.name).slice(0, 8);
+    }
+
+    function renderOtherChips(labels) {
+      const container  = document.getElementById('s3-other-chips');
+      const inputValue = document.getElementById('s3-other-input').value;
+
+      if (!labels.length) {
+        container.innerHTML = `<span class="popular-label" style="opacity:0.4">No suggestions found</span>`;
+        return;
+      }
+
+      container.innerHTML =
+        `<span class="popular-label">Popular industries</span>` +
+        labels.map(l => {
+          const sel = l === inputValue ? ' selected' : '';
+          return `<button class="popular-chip${sel}" data-text="${l.replace(/"/g, '&quot;')}" onclick="toggleOtherChip(this)">${l}</button>`;
+        }).join('');
+    }
+
+    function onOtherInput() {
+      const val    = document.getElementById('s3-other-input').value;
+      const filled = val.trim().length > 0;
+      document.getElementById('s3-other-next').disabled = !filled;
+      // Clear chip selection when the user types manually
+      document.querySelectorAll('#s3-other-chips .popular-chip').forEach(c => c.classList.remove('selected'));
+      // Filter and re-render chips based on input
+      renderOtherChips(filterIndustryList(val));
+    }
+
+    function toggleOtherChip(chip) {
+      const input    = document.getElementById('s3-other-input');
+      const text     = chip.dataset.text;
+      const isActive = chip.classList.contains('selected');
+
+      document.querySelectorAll('#s3-other-chips .popular-chip').forEach(c => c.classList.remove('selected'));
+
+      if (isActive) {
+        input.value = '';
+      } else {
+        chip.classList.add('selected');
+        input.value = text;
+      }
+      input.focus();
+      document.getElementById('s3-other-next').disabled = !input.value.trim();
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    loadTemplates();
+  </script>
+
+</body>
+</html>

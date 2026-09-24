@@ -6,15 +6,22 @@
   <title>Acuity — C03-B: Simplify</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&family=Quicksand&family=Oswald&display=swap">
-  <link rel="stylesheet" href="./ds/font.css">
-  <link rel="stylesheet" href="./ds/tokens.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&family=Quicksand&family=Oswald&family=Concert+One&family=IBM+Plex+Mono&display=swap">
+  <link rel="stylesheet" href="../ds/font.css">
+  <link rel="stylesheet" href="../ds/tokens.css">
+  <link rel="stylesheet" href="../ds/tokens.dark.css">
+  <link rel="stylesheet" href="../ds/brand-fonts.css">
+  <link rel="stylesheet" href="../ds/brand-palettes.css">
+  <link rel="stylesheet" href="../ds/components.css">
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
   <style>
 
     /* ─── Reset ──────────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
+    /* The browser default for [hidden] is display:none, but many of our flex/grid
+       rules win on specificity. This restores the intent without per-rule overrides. */
+    [hidden] { display: none !important; }
     body {
       font-family: var(--acuity-font-family-sans);
       background: var(--acuity-bg-default);
@@ -368,6 +375,41 @@
       color: var(--acuity-color-dawn-purple-100);
     }
 
+    /* ─── S3 "Other" describe (visible when vertical = Other) ───────────
+       Big centered ghost textarea; user describes their business in
+       free-text and the Next button routes into S4 with either a matched
+       template or a synthetic one built by _s3OtherGenerateTemplate(). */
+    .s3-other-describe {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 40vh;
+      padding: var(--acuity-spacing-24) 0;
+    }
+    .s3-other-textarea {
+      width: 100%;
+      max-width: 900px;
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: none;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 22px;
+      line-height: 1.4;
+      font-weight: var(--acuity-font-weight-book);
+      color: var(--acuity-fg-default);
+      text-align: center;
+      padding: 0;
+      overflow: hidden;
+    }
+    .s3-other-textarea::placeholder {
+      color: var(--acuity-fg-muted);
+      opacity: 0.6;
+    }
+    /* Disabled Next when the textarea is empty */
+    #s3-other-next[disabled] { opacity: 0.4; pointer-events: none; }
+
     /* ─── S3 body ─────────────────────────────────────────────────────────────
        Fills all space below the header. Textarea floats in the center;
        chips are pinned to its bottom edge.
@@ -543,7 +585,6 @@
     }
 
     .chip-set { display: contents; }
-    .chip-set[hidden] { display: none; }
 
 
     /* ══════════════════════════════════════════════════════════════════════
@@ -764,7 +805,6 @@
       flex-direction: column;
       gap: var(--acuity-spacing-8);
     }
-    .selected-section[hidden] { display: none; }
 
     .selected-label {
       font-family: var(--acuity-font-family-sans);
@@ -915,7 +955,7 @@
 
     /* Display state — acts like a link/button, dashed underline hugs text width */
     .sheet-name-display {
-      display: inline-block;
+      display: block;
       background: none;
       border: none;
       border-bottom: 1px dashed #574f8a;
@@ -928,8 +968,10 @@
       letter-spacing: -0.2px;
       color: var(--acuity-fg-default);
       text-align: center;
-      max-width: 100%;
-      word-break: break-word;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       -webkit-tap-highlight-color: transparent;
     }
     .sheet-name-display.editing { display: none; }
@@ -937,8 +979,7 @@
     /* Edit state — hidden until the display button is tapped */
     .sheet-service-name {
       display: none;
-      width: auto;
-      min-width: 60px;
+      width: 100%;
       border: none;
       outline: none;
       background: transparent;
@@ -951,6 +992,7 @@
       letter-spacing: -0.2px;
       color: var(--acuity-fg-default);
       text-align: center;
+      white-space: nowrap;
       caret-color: var(--acuity-color-dawn-purple-100);
     }
     .sheet-service-name.editing { display: block; }
@@ -981,7 +1023,6 @@
       display: flex;
       flex-direction: column;
     }
-    .sheet-description-section[hidden] { display: none !important; }
 
     .sheet-desc-textarea {
       width: 100%;
@@ -1004,6 +1045,49 @@
     .sheet-description-section:focus-within .sheet-desc-textarea {
       border-color: var(--acuity-color-dawn-purple-100);
     }
+
+    /* ── Char counter — sheet desc ───────────────────────────────────────── */
+    .sheet-desc-meta-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 4px;
+    }
+    .sheet-char-counter {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: rgba(14,14,14,0.45);
+      text-align: right;
+    }
+    .sheet-char-counter.is-maxed { color: #c32d38; }
+    .sheet-description-section.is-maxed .sheet-desc-textarea {
+      border-color: #db3642;
+    }
+    .sheet-desc-error {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: #c32d38;
+      margin-top: 4px;
+    }
+
+    /* ── Char counter — C2 create desc ──────────────────────────────────── */
+    .c2-char-counter {
+      flex-shrink: 0;
+      width: 100%;
+      padding: 0 22px;
+      text-align: center;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 1px;
+      color: var(--acuity-color-dawn-purple-100);
+      opacity: 0.5;
+    }
+    .c2-char-counter.is-maxed { color: #c32d38; opacity: 1; }
 
     /* ─── Fields: Duration + Price ────────────────────────────────── */
     .sheet-fields {
@@ -1347,6 +1431,16 @@
       caret-color: var(--acuity-color-dawn-purple-100);
       text-align: center;
       -webkit-appearance: none;
+      display: block;
+      resize: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .big-input:focus {
+      field-sizing: content;
+      max-height: 80px;
+      white-space: pre-wrap;
     }
     .big-input::placeholder {
       color: var(--acuity-color-dawn-purple-100);
@@ -1500,7 +1594,6 @@
       user-select: none;
       z-index: 2;
     }
-    .desc-ghost[hidden] { display: none; }
     .desc-ghost-text {
       font-family: var(--acuity-font-family-sans);
       font-size: 16px;
@@ -1566,7 +1659,10 @@
       line-height: 1;
       color: var(--acuity-color-dawn-purple-100);
       opacity: 0.2;
-      min-width: 110px;
+      /* Fixed (not min) — must match the tap-to-edit <input>'s own
+         width:160px inline style below, or swapping span<->input on edit
+         shifts the +/- buttons on either side of it. */
+      width: 160px;
       text-align: center;
     }
 
@@ -1612,6 +1708,11 @@
       line-height: 1;
       color: var(--acuity-color-dawn-purple-100);
       opacity: 0.2;
+      /* Fixed, matching the tap-to-edit <input>'s width:160px inline style
+         below — otherwise swapping span<->input on edit shifts the "$"
+         prefix next to it. */
+      width: 160px;
+      text-align: center;
     }
 
     .price-hint-wrap {
@@ -1672,7 +1773,6 @@
       justify-content: center;
       gap: 33px;
     }
-    #c5-placeholder[hidden] { display: none; }
 
     .create-image-heading {
       display: flex;
@@ -1729,7 +1829,7 @@
       left: 38px; top: 7px;
       transform: translateX(7px) translateY(28px);
       background: linear-gradient(135deg, #e0dcf9, #d0cbf5);
-      box-shadow: 0 0 1px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.12);
+      box-shadow: var(--acuity-shadow-light-200);
     }
     .c5-card--front {
       width: 138px; height: 106px;
@@ -2470,20 +2570,66 @@
     ══════════════════════════════════════════════════════════════════════ */
 
     .palette-overlay,
-    .font-overlay {
+    .font-overlay,
+    .btnstyle-overlay {
       background: rgba(0, 0, 0, 0.5);
       display: flex;
       z-index: 60;
     }
-    .palette-overlay[hidden],
-    .font-overlay[hidden] { display: none; }
+
+    /* Button-style picker rows */
+    .btnstyle-sheet { max-height: 60dvh; }
+    .btnstyle-list {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .btnstyle-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border: none;
+      background: none;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btnstyle-row:last-child { border-bottom: none; }
+    .btnstyle-row.btnstyle-selected .btnstyle-name { color: var(--acuity-color-dawn-purple-100); font-weight: 600; }
+    .btnstyle-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #313131;
+      color: var(--acuity-fg-on-strong);
+      font-family: 'Source Sans Pro', var(--acuity-font-family-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      min-width: 60px;
+      height: 32px;
+      padding: 0 14px;
+    }
+    .btnstyle-name {
+      font-size: 14px;
+      font-family: var(--acuity-font-family-sans);
+      color: var(--acuity-fg-default);
+    }
 
     .palette-sheet,
     .font-sheet {
       max-height: 80dvh;
     }
-    .palette-sheet.palette-sheet-open { transform: translateY(0); }
-    .font-sheet.font-sheet-open       { transform: translateY(0); }
+    .palette-sheet.palette-sheet-open  { transform: translateY(0); }
+    .font-sheet.font-sheet-open        { transform: translateY(0); }
+    .btnstyle-sheet.btnstyle-sheet-open { transform: translateY(0); }
 
     .subsheet-header {
       display: flex;
@@ -2597,7 +2743,6 @@
       display: flex;
       z-index: 60;
     }
-    .pricing-tips-overlay[hidden] { display: none; }
 
     .pricing-tips-sheet {
       background: white;
@@ -2626,7 +2771,6 @@
       display: flex;
       z-index: 80;
     }
-    .proto-tooltip-overlay[hidden] { display: none; }
 
     .proto-tooltip-card {
       background: white;
@@ -3265,7 +3409,6 @@
       display: flex;
       flex-direction: column;
     }
-    .create-panel[hidden] { display: none; }
 
     /* ─── AI skeleton cards (S5 loading state) ──────────────────────────── */
     .appt-card--skeleton {
@@ -3568,6 +3711,1397 @@
       .create-sheet         { transition: transform 0.9s cubic-bezier(0.32, 0.72, 0, 1); }
     }
 
+
+    /* ══════════════════════════════════════════════════════════════════════
+       Desktop two-pane layout (≥1024px)
+       ─ Each wizard screen becomes a 2-column grid: contextual aside on
+         the left, existing top-nav / wizard-body / bottom-nav stack on
+         the right. Overlays become centered modals.
+    ══════════════════════════════════════════════════════════════════════ */
+
+    /* Aside, desktop top-nav, desktop eyebrow — hidden on mobile */
+    .screen-aside    { display: none; }
+    .desktop-top-nav { display: none; }
+    .wizard-eyebrow  { display: none; }
+    /* S5 desktop-only elements */
+    .s5-preview-pane { display: none; }
+    .s5-back-btn     { display: none; }
+    /* s5-list-top is transparent on mobile so its children flow into the
+       wizard-body stack (matching the old mobile layout); the desktop label
+       and create button stay hidden until the @media kicks in. */
+    .s5-list-top     { display: contents; }
+    .s5-list-label   { display: none; }
+    .s5-create-btn   { display: none; }
+    .s9-list-label   { display: none; }
+    /* S10 desktop-only body */
+    .s10-desktop-body { display: none; }
+    .desktop-nav-text { display: none; }
+
+    /* ─── s_customize form primitives (usable at any viewport width) ─────
+       The s_customize step itself is desktop-only in the flow, but a
+       desktop user who resizes down needs a functional mobile version. */
+    .customize-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-8);
+    }
+    .customize-field-label {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 13px;
+      font-weight: var(--acuity-font-weight-semibold);
+      color: var(--acuity-fg-default);
+    }
+    .customize-field-help {
+      margin: 0;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 13px;
+      color: var(--acuity-fg-muted);
+    }
+    .customize-field-input {
+      width: 100%;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      border: 1px solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 15px;
+      color: var(--acuity-fg-default);
+      background: var(--acuity-bg-base);
+      outline: none;
+      box-sizing: border-box;
+    }
+    .customize-field-input:focus { border-color: var(--acuity-color-dawn-purple-100); }
+    .customize-field-textarea { resize: vertical; min-height: 72px; }
+    .customize-add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      padding: var(--acuity-spacing-8) 0;
+      background: transparent;
+      border: none;
+      color: var(--acuity-color-dawn-purple-100);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 14px;
+      font-weight: var(--acuity-font-weight-medium);
+      cursor: pointer;
+    }
+    .customize-url-composite {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      gap: 4px;
+    }
+    .customize-url-prefix,
+    .customize-url-suffix {
+      font-family: var(--acuity-font-family-sans);
+      font-size: 15px;
+      color: var(--acuity-fg-muted);
+      flex-shrink: 0;
+    }
+    .customize-url-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 15px;
+      color: var(--acuity-fg-default);
+      outline: none;
+      padding: 0;
+    }
+    .customize-url-composite--error { border-color: var(--acuity-fg-danger); }
+    .customize-field-error {
+      margin: 0;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 13px;
+      color: var(--acuity-fg-danger);
+    }
+    .customize-picker-fan {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-sm);
+      overflow: hidden;
+    }
+    .customize-picker-fan > span {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+    }
+    .customize-picker-fontglyph {
+      font-family: var(--acuity-font-family-display);
+      font-size: 18px;
+      line-height: 1;
+      color: var(--acuity-fg-default);
+    }
+    .customize-picker-fontname { flex: 1; text-align: left; }
+    .customize-picker-btnsample {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px var(--acuity-spacing-16);
+      background: var(--acuity-fg-default);
+      color: var(--acuity-bg-base);
+      border-radius: 0;
+      font-family: var(--acuity-font-family-sans);
+      font-size: 11px;
+      font-weight: var(--acuity-font-weight-semibold);
+      letter-spacing: 1px;
+    }
+    .customize-picker-caret { color: var(--acuity-fg-muted); }
+    .customize-picker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--acuity-spacing-12);
+      width: 100%;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-base);
+      border: 1px solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 15px;
+      color: var(--acuity-fg-default);
+      cursor: pointer;
+    }
+    .customize-picker:hover { background: var(--acuity-bg-inset); }
+
+    @media (min-width: 1024px) {
+
+      /* ── App container: drop mobile cap, fill viewport ────────────── */
+      .app {
+        max-width: none;
+        min-height: 100dvh;
+        box-shadow: none;
+      }
+
+      /* ── Screen becomes a 2-column grid ───────────────────────────── */
+      .screen.active {
+        display: grid;
+        grid-template-columns: minmax(360px, 38%) 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "aside nav"
+          "aside body"
+          "aside footer";
+        min-height: 100dvh;
+      }
+      .screen-aside       { grid-area: aside; }
+      .screen .top-nav    { grid-area: nav; }
+      .screen .wizard-body,
+      .screen .screen-body { grid-area: body; }
+      .screen .bottom-nav { grid-area: footer; }
+
+      /* Relax mobile-only height constraints */
+      #s1 { max-height: none; overflow: visible; }
+      .screen--fixed { height: auto; min-height: 100dvh; }
+
+      /* ── Aside shell ─────────────────────────────────────────────── */
+      .screen-aside {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-32);
+        padding: var(--acuity-spacing-48);
+        background: var(--acuity-bg-inset);
+        border-right: 1px solid var(--acuity-border-default);
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Progress block */
+      .aside-progress {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-8);
+      }
+      .aside-progress-label {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+      }
+      .aside-progress-bar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      .aside-progress-seg {
+        height: 3px;
+        border-radius: var(--acuity-border-radius-round);
+        background: var(--acuity-border-default);
+      }
+      .aside-progress-seg--done { background: var(--acuity-fg-default); }
+
+      /* Copy block (headline + body) — pushed to bottom by default */
+      .aside-copy {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-8);
+        margin-top: auto;
+      }
+      .aside-copy--top { margin-top: 0; }
+      .aside-eyebrow {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+      }
+      .aside-headline {
+        font-family: var(--acuity-font-family-display);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1.25;
+        color: var(--acuity-fg-default);
+      }
+      .aside-body {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+        max-width: 360px;
+      }
+
+      /* ── S9 week-at-a-glance calendar mock ───────────────────────── */
+      .aside-week {
+        background: var(--acuity-bg-base);
+        border-radius: var(--acuity-border-radius-xl);
+        box-shadow: var(--acuity-shadow-light-100);
+        padding: var(--acuity-spacing-24);
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-12);
+      }
+      .aside-week-row {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 6px;
+      }
+      .aside-week-row--head span {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--acuity-fg-muted);
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .aside-week-cell {
+        height: 64px;
+        border-radius: var(--acuity-border-radius-sm);
+        background: var(--acuity-bg-inset);
+        border: 1px solid var(--acuity-border-muted);
+      }
+      .aside-week-cell--on {
+        background: var(--acuity-fg-default);
+        border-color: var(--acuity-fg-default);
+      }
+      .aside-week-times {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--acuity-font-family-mono, var(--acuity-font-family-sans));
+        font-size: 11px;
+        color: var(--acuity-fg-muted);
+      }
+      .aside-week-spacer {
+        flex: 1;
+        height: 1px;
+        background: var(--acuity-border-muted);
+        margin: 0 var(--acuity-spacing-12);
+      }
+
+      /* ── Right column: top-nav + wizard-body + bottom-nav ─────────── */
+      .top-nav { padding-inline: var(--acuity-spacing-32); }
+      .step-label { display: none; }
+
+      .wizard-body {
+        padding: var(--acuity-spacing-48) var(--acuity-spacing-48) var(--acuity-spacing-32);
+        gap: var(--acuity-spacing-24);
+      }
+      .wizard-header { text-align: left; gap: var(--acuity-spacing-8); }
+      .wizard-heading { font-size: 28px; max-width: 480px; }
+      .wizard-subheading { font-size: 15px; max-width: 520px; }
+      .wizard-eyebrow { 
+        font-family: var(--acuity-font-family-sans);
+        font-size: 12px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* ── S1 desktop hero (single-column, not two-pane) ────────────── */
+      #s1.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-base);
+      }
+      /* S1 doesn't use the screen-aside on desktop — single-column hero */
+      #s1 .screen-aside { display: none; }
+
+      /* Desktop-only top-nav (Acuity logo + close X) */
+      .desktop-top-nav {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-32);
+        background: transparent;
+      }
+      .desktop-nav-logo {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--acuity-fg-default);
+        text-decoration: none;
+      }
+      .desktop-nav-close {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        border-radius: var(--acuity-border-radius-round);
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+        transition: background 0.12s ease;
+      }
+      .desktop-nav-close:hover { background: var(--acuity-bg-inset); }
+      .desktop-nav-close:active { background: var(--acuity-bg-default); }
+
+      /* Body: centered hero column */
+      #s1 .screen-body { flex: 1; overflow-y: auto; display: flex; align-items: center; justify-content: center; }
+      .s1-body {
+        width: 100%;
+        max-width: 1100px;
+        padding: var(--acuity-spacing-48) var(--acuity-spacing-64);
+        margin-inline: auto;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-64);
+      }
+
+      /* Hero copy block */
+      .s1-header {
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 560px;
+      }
+      .welcome-lbl {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 12px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 16px;
+        letter-spacing: 0.75px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-muted);
+      }
+      .intro-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 40px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 1.1;
+        letter-spacing: -0.2px;
+        color: var(--acuity-fg-default);
+        max-width: 100%;
+      }
+
+      /* 3-column horizontal intro-steps */
+      .intro-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--acuity-spacing-32);
+        width: 100%;
+        max-width: 900px;
+        list-style: none;
+      }
+      .intro-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-32);
+        text-align: center;
+      }
+      .step-num { display: none; }
+      .step-img {
+        display: block;
+        width: 140px;
+        height: 140px;
+        border-radius: var(--acuity-border-radius-md);
+        object-fit: contain;
+        align-self: center;
+        order: -1;
+      }
+      .step-text {
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: var(--acuity-spacing-4);
+      }
+      .step-title {
+        font-family: var(--acuity-font-family-display);
+        font-size: 18px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.4;
+        color: var(--acuity-fg-default);
+      }
+      .step-desc {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+        text-align: center;
+      }
+
+      /* Bottom-nav: row layout, right-aligned CTA */
+      .bottom-nav {
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--acuity-spacing-12);
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-48) var(--acuity-spacing-32);
+        border-top: 1px solid var(--acuity-border-muted);
+        background: var(--acuity-bg-base);
+      }
+      .bottom-nav .btn-primary { width: auto; min-width: 200px; }
+      .bottom-nav .btn-ghost   { width: auto; min-width: auto; }
+
+      /* S1 bottom-nav: right-aligned "Start setup" only, with top shadow */
+      #s1 .bottom-nav {
+        justify-content: flex-end;
+        background: var(--acuity-bg-base);
+        border-top: none;
+        box-shadow: 0 0 0.5px rgba(0,0,0,0.08), 0 -2px 4px rgba(0,0,0,0.06);
+        padding: var(--acuity-spacing-12) var(--acuity-spacing-32);
+      }
+      #s1 .bottom-nav .btn-ghost { display: none; }
+      #s1 .bottom-nav .btn-primary {
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-20);
+        min-width: 160px;
+        font-family: var(--acuity-font-family-sans);
+        font-weight: var(--acuity-font-weight-book);
+      }
+
+      /* ── S2 + S3 desktop: shared single-column centered layout ─────
+            Header (eyebrow + title + subtitle) centered above a wide
+            options grid; matches Figma nodes 3948-13698 / 3948-13659. */
+      #s2.screen.active,
+      #s3.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-base);
+      }
+      #s2 .top-nav,
+      #s3 .top-nav { display: none; }
+      #s2 .desktop-top-nav,
+      #s3 .desktop-top-nav { display: flex; }
+
+      #s2 .wizard-body,
+      #s3 .wizard-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-48);
+        padding: var(--acuity-spacing-64);
+        max-width: none;
+      }
+      #s2 .wizard-header,
+      #s3 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--acuity-spacing-8);
+        max-width: 640px;
+      }
+      #s2 .wizard-eyebrow,
+      #s3 .wizard-eyebrow { display: inline-block; }
+      #s2 .wizard-heading,
+      #s3 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+        color: var(--acuity-fg-default);
+      }
+      #s2 .wizard-subheading,
+      #s3 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* Industry grid: 3-col rigid grid with a full-width Other row */
+      #s2 .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--acuity-spacing-16);
+        width: 100%;
+        max-width: 848px;
+      }
+      #s2 .industry-card {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        padding: var(--acuity-spacing-32) 11px;
+        gap: 6px;
+        border-color: var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      #s2 .industry-icon { width: 16px; height: 16px; }
+      #s2 .industry-label {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-default);
+      }
+      #s2 .industry-card--other {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        padding: var(--acuity-spacing-24) 11px;
+      }
+
+      /* Spec chips: 3-col rigid grid, uniform tile size */
+      #s3 .spec-chips-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: stretch;
+        justify-content: stretch;
+        gap: var(--acuity-spacing-16);
+        width: 100%;
+        max-width: 848px;
+        padding: 0;
+      }
+      #s3 .spec-chip-large {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        padding: var(--acuity-spacing-24) 22px;
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-default);
+        text-align: center;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S5 desktop: full-vh split layout
+         ─ Top-nav fixed at top (transparent, overlays panels)
+         ─ Bottom-nav fixed at bottom, full width
+         ─ Middle row: preview pane LEFT (8fr) + appointment list RIGHT (4fr)
+           each scrolls independently
+      ══════════════════════════════════════════════════════════════ */
+      /* S5 + S9 share the same full-vh shell (preview LEFT, list RIGHT,
+         bottom-nav full-width). Per-screen content lives further down. */
+      #s5.screen.active,
+      #s9.screen.active,
+      #s_customize.screen.active {
+        display: grid;
+        grid-template-columns: 8fr 4fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+          "preview list"
+          "bottombar bottombar";
+        background: var(--acuity-bg-base);
+        height: 100dvh;
+        overflow: hidden;
+        position: relative;
+      }
+      #s5 .desktop-top-nav,
+      #s9 .desktop-top-nav,
+      #s_customize .desktop-top-nav {
+        display: flex;
+        position: absolute;
+        inset: 0 0 auto 0;
+        z-index: var(--acuity-z-sticky);
+        background: transparent;
+        pointer-events: none;
+      }
+      #s5 .desktop-top-nav > *,
+      #s9 .desktop-top-nav > *,
+      #s_customize .desktop-top-nav > * { pointer-events: auto; }
+      #s5 .top-nav,
+      #s9 .top-nav,
+      #s_customize .top-nav { display: none; }
+      #s5 .s5-preview-pane,
+      #s9 .s5-preview-pane,
+      #s_customize .s5-preview-pane { grid-area: preview; }
+      #s5 .wizard-body,
+      #s9 .wizard-body,
+      #s_customize .wizard-body { grid-area: list; }
+      #s5 .bottom-nav,
+      #s9 .bottom-nav,
+      #s_customize .bottom-nav { grid-area: bottombar; }
+
+      /* ── Left pane: gray bg, centered browser frame with iframe ───── */
+      .s5-preview-pane {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--acuity-color-neutral-gray-10, #fafafa);
+        padding: 120px var(--acuity-spacing-64) var(--acuity-spacing-64);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .s5-browser-frame {
+        width: 100%;
+        max-width: 1024px;
+        height: 100%;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-lg);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: max-width 0.25s ease;
+      }
+      .s5-browser-bar {
+        display: flex;
+        align-items: center;
+        gap: var(--acuity-spacing-16);
+        padding: 12px 16px;
+        background: #f3f4f6;
+        border-bottom: 1px solid var(--acuity-border-default);
+        flex-shrink: 0;
+      }
+      .s5-browser-dots {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .s5-browser-dots > span {
+        width: 10px;
+        height: 10px;
+        border-radius: var(--acuity-border-radius-round);
+        display: block;
+      }
+      .s5-browser-url {
+        flex: 1;
+        padding: 6px 12px;
+        min-height: 24px;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: 6px;
+        font-family: var(--acuity-font-family-mono, monospace);
+        font-size: 11px;
+        color: var(--acuity-color-neutral-gray-60, #b7b7b7);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .s5-browser-content {
+        flex: 1;
+        min-height: 0;
+        background: var(--acuity-bg-base);
+        display: flex;
+        flex-direction: column;
+      }
+      .s5-preview-iframe {
+        flex: 1;
+        width: 100%;
+        border: none;
+        display: block;
+        background: var(--acuity-bg-base);
+      }
+
+      /* Mobile preview mode: shrink the browser frame to phone width */
+      .s5-preview-pane--mobile .s5-browser-frame { max-width: 420px; }
+
+      /* Floating preview controls (theme card + segmented control) */
+      .s5-preview-controls {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        display: flex;
+        gap: var(--acuity-spacing-24);
+        align-items: flex-start;
+        filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.02)) drop-shadow(0 12px 16px rgba(0,0,0,0.06));
+      }
+      .s5-theme-card {
+        height: 60px;
+        background: var(--acuity-color-neutral-gray-10, #fafafa);
+        border-radius: var(--acuity-border-radius-md);
+        padding: 6px 22px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .s5-theme-aa {
+        font-family: 'Source Sans Pro', var(--acuity-font-family-sans);
+        font-size: 24px;
+        font-weight: 700;
+        color: #000;
+        line-height: 1;
+        width: 40px;
+        height: 32px;
+        text-align: center;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        border-radius: var(--acuity-border-radius-xs);
+      }
+      .s5-theme-aa:hover { background: rgba(0,0,0,0.04); }
+      .s5-theme-fan {
+        width: 75px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        border-radius: var(--acuity-border-radius-xs);
+      }
+      .s5-theme-fan:hover { background: rgba(0,0,0,0.04); }
+      .s5-theme-fan > span {
+        position: absolute;
+        width: 32px;
+        height: 24px;
+        box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+        border-radius: var(--acuity-border-radius-xs);
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+        padding: 2px;
+      }
+      .s5-theme-fan > span:nth-child(1) { transform: translate(-50%, -50%) translateX(-26px); z-index: 5; }
+      .s5-theme-fan > span:nth-child(2) { transform: translate(-50%, -50%) translateX(-13px); z-index: 4; }
+      .s5-theme-fan > span:nth-child(3) { transform: translate(-50%, -50%); z-index: 3; }
+      .s5-theme-fan > span:nth-child(4) { transform: translate(-50%, -50%) translateX(13px); z-index: 2; }
+      .s5-theme-fan > span:nth-child(5) { transform: translate(-50%, -50%) translateX(26px); z-index: 1; }
+      .s5-theme-mini-btn {
+        background: #000;
+        color: var(--acuity-fg-on-strong);
+        font-family: 'Source Sans Pro', var(--acuity-font-family-sans);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.25px;
+        text-transform: uppercase;
+        padding: 2px 4px;
+        border: none;
+        height: 32px;
+        min-width: 55px;
+        cursor: pointer;
+      }
+      .s5-theme-mini-btn:hover { opacity: 0.85; }
+      .s5-segmented {
+        height: 60px;
+        background: var(--acuity-color-neutral-gray-10, #fafafa);
+        border-radius: var(--acuity-border-radius-md);
+        padding: 6px 12px;
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+      .s5-segment {
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: none;
+        border-radius: var(--acuity-border-radius-xs);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+      }
+      .s5-segment--active { background: var(--acuity-bg-default); }
+
+      /* ── Right pane: appointment list ─────────────────────────────── */
+      #s5 .wizard-body {
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+        padding: 80px 32px 100px;
+        background: var(--acuity-bg-base);
+        overflow-y: auto;
+      }
+      #s5 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--acuity-spacing-8);
+        max-width: none;
+      }
+      #s5 .wizard-eyebrow { display: inline-block; }
+      #s5 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 24px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.4;
+        color: var(--acuity-fg-default);
+        max-width: none;
+      }
+      #s5 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+        max-width: none;
+      }
+
+      /* "Your appointments (N)" header + selected list + create button */
+      #s5 .s5-list-top {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-12);
+      }
+      /* Hide the now-redundant "Selected" sub-label; the wrapping
+         "YOUR APPOINTMENTS (N)" header above already labels this list. */
+      #s5 .selected-label { display: none; }
+      #s5 .selected-section { gap: var(--acuity-spacing-8); }
+      #s5 .s5-list-label {
+        display: inline-block;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 10px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-color-dawn-purple-100);
+      }
+      .s5-create-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 11px;
+        padding: var(--acuity-spacing-20) var(--acuity-spacing-16);
+        background: rgba(255,255,255,0.9);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-md);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 22px;
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+        transition: background 0.12s ease, border-color 0.12s ease;
+      }
+      .s5-create-btn:hover { background: var(--acuity-bg-inset); }
+
+      /* Carousel container (Suggestions) */
+      #s5 .s5-carousel {
+        background: var(--acuity-color-dawn-purple-10);
+        padding: var(--acuity-spacing-12);
+        border-radius: var(--acuity-border-radius-lg);
+        gap: var(--acuity-spacing-16);
+      }
+
+      /* AI badge — inherits mobile gradient-border + spin animation */
+
+      /* Appointment cards inside the carousel */
+      #s5 .appt-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-8);
+      }
+      #s5 .appt-card {
+        background: var(--acuity-bg-base);
+        padding: var(--acuity-spacing-16);
+        border-radius: var(--acuity-border-radius-md);
+        align-items: center;
+      }
+      #s5 .appt-card--ai { background: var(--acuity-bg-base); }
+      #s5 .appt-card--selected-item { background: var(--acuity-bg-base); }
+      #s5 .appt-name {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-medium);
+        color: var(--acuity-color-dawn-purple-100);
+      }
+      #s5 .appt-meta {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        color: var(--acuity-color-dawn-purple-100);
+      }
+      #s5 .appt-card-actions {
+        gap: var(--acuity-spacing-24);
+        align-items: center;
+      }
+      #s5 .appt-icon-btn {
+        width: 16px;
+        height: 16px;
+        color: var(--acuity-fg-default);
+      }
+      /* Add (+) button gets a bordered square treatment */
+      #s5 .appt-card--ai .appt-card-actions > .appt-icon-btn:last-child {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #9d9ab1;
+        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Mobile-only elements hidden on desktop */
+      #s5 .new-appt-btn { display: none; }
+
+      /* Shared S5/S9 bottom-nav: Back on left, primary CTA on right */
+      #s5 .bottom-nav,
+      #s9 .bottom-nav {
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--acuity-spacing-12) 23px;
+        box-shadow: 0 0 0.5px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06);
+        border-top: none;
+      }
+      /* Global wizard "Back" button — used by every step's .bottom-nav.
+         Kept as .s5-back-btn to avoid touching every usage, but the scope
+         is intentionally screen-agnostic now. */
+      .s5-back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-12);
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-32) var(--acuity-spacing-16) var(--acuity-spacing-20);
+        background: transparent;
+        border: 0.5px solid var(--acuity-color-dawn-purple-100);
+        border-radius: var(--acuity-border-radius-md);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        color: var(--acuity-color-dawn-purple-100);
+        cursor: pointer;
+        min-width: 120px;
+      }
+      #s5 .s5-back-btn { min-width: 56px; }   /* S5 hugs the label */
+      .s5-back-btn:hover { background: var(--acuity-bg-inset); }
+      /* Global wizard "Next/Finish/Continue" primary in .bottom-nav */
+      .bottom-nav .btn-primary {
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-20);
+        min-width: 120px;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         s_customize desktop: shares the S5 grid shell above; right pane
+         is a scrollable form instead of a list.
+      ══════════════════════════════════════════════════════════════ */
+      #s_customize .customize-form-pane {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-24);
+        padding: 80px var(--acuity-spacing-48) var(--acuity-spacing-32);
+        background: var(--acuity-bg-base);
+        overflow-y: auto;
+      }
+      #s_customize .customize-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--acuity-spacing-8);
+        max-width: none;
+      }
+      #s_customize .customize-header .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        line-height: 1.25;
+        letter-spacing: -0.32px;
+      }
+      #s_customize .customize-form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--acuity-spacing-24);
+      }
+      /* Preview pane inherits the .s5-preview-pane styling; only the
+         floating viewport toggle needs a custom anchor. */
+      #s_customize .customize-preview-viewport {
+        position: absolute;
+        top: var(--acuity-spacing-32);
+        right: var(--acuity-spacing-32);
+        display: flex;
+        align-items: center;
+        gap: var(--acuity-spacing-8);
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-md);
+        padding: 6px;
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+
+      /* All .customize-* primitives live BEFORE this @media block so they
+         style the mobile-resized layout too. Only desktop-only tweaks stay
+         inside here (see #s_customize .customize-form-pane above). */
+
+      /* ══════════════════════════════════════════════════════════════
+         S9 desktop: shares the S5 grid shell above; only the right pane
+         content (availability editor) differs.
+      ══════════════════════════════════════════════════════════════ */
+      /* Right pane (availability editor) */
+      #s9 .wizard-body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 80px 80px 80px 32px;
+        background: var(--acuity-bg-base);
+        overflow-y: auto;
+      }
+      #s9 .wizard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--acuity-spacing-8);
+        max-width: none;
+      }
+      #s9 .wizard-eyebrow { display: inline-block; }
+      #s9 .wizard-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 24px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.4;
+        color: var(--acuity-fg-default);
+        max-width: none;
+      }
+      #s9 .wizard-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 16px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+        max-width: none;
+      }
+      /* "YOUR AVAILABILITY" section label above the grid */
+      .s9-list-label {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 10px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-color-dawn-purple-100);
+      }
+
+      /* ── S4 loading / s_loading_home: skip the grid ───────────────── */
+      #s4.screen.active,
+      #s_loading_home.screen.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #s4 .screen-aside,
+      #s_loading_home .screen-aside { display: none; }
+      #s4 .loading-wrap dotlottie-player,
+      #s_loading_home .loading-wrap dotlottie-player {
+        width: 120px !important;
+        height: 120px !important;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+         S10 desktop: single-column gray-bg hero with shareable URL
+                      + browser-frame iframe + theme controls
+      ══════════════════════════════════════════════════════════════ */
+      #s10.screen.active {
+        display: flex;
+        flex-direction: column;
+        background: var(--acuity-bg-inset);
+        height: 100dvh;
+        overflow: hidden;
+        position: relative;
+      }
+      /* Hide the mobile top-nav, body, and bottom-nav on desktop */
+      #s10 .top-nav,
+      #s10 .s10-body,
+      #s10 .bottom-nav { display: none; }
+
+      /* "Close setup" text button in the top-nav */
+      .desktop-nav-text {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 16.5px 11px;
+        font-family: var(--acuity-font-family-sans);
+        font-size: 12px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--acuity-fg-default);
+        border-radius: var(--acuity-border-radius-sm);
+      }
+      .desktop-nav-text:hover { background: var(--acuity-bg-default); }
+
+      /* Desktop body wrapper — fills the area below the absolute top-nav */
+      #s10 .s10-desktop-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-32);
+        padding: var(--acuity-spacing-0) var(--acuity-spacing-32) var(--acuity-spacing-32);
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* Hero header */
+      .s10-desktop-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--acuity-spacing-8);
+        text-align: center;
+        width: 100%;
+      }
+      .s10-desktop-heading {
+        font-family: var(--acuity-font-family-display);
+        font-size: 32px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.3;
+        letter-spacing: -0.5px;
+        color: var(--acuity-fg-default);
+      }
+      .s10-desktop-subheading {
+        font-family: var(--acuity-font-family-sans);
+        font-size: 14px;
+        font-weight: var(--acuity-font-weight-book);
+        line-height: 1.5;
+        color: var(--acuity-fg-muted);
+      }
+
+      /* Share + Open scheduling page CTA row (new S10 layout).
+         Legacy s10-share-row / s10-url-* / s10-copy-btn / s10-customize-btn
+         styles were removed — the URL editor now lives on s_customize. */
+      .s10-cta-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-16);
+      }
+      .s10-share-btn,
+      .s10-open-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--acuity-spacing-8);
+        padding: var(--acuity-spacing-16) var(--acuity-spacing-24);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 15px;
+        font-weight: var(--acuity-font-weight-medium);
+        cursor: pointer;
+        min-width: 120px;
+        width: auto;
+      }
+      .s10-share-btn {
+        background: var(--acuity-color-dawn-purple-100);
+        color: var(--acuity-fg-on-strong);
+        border: none;
+        border-radius: var(--acuity-border-radius-md);
+      }
+      .s10-share-btn:hover { opacity: 0.92; }
+      .s10-open-btn {
+        background: var(--acuity-bg-base);
+        color: var(--acuity-fg-default);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-md);
+      }
+      .s10-open-btn:hover { background: var(--acuity-bg-inset); }
+
+      /* Pencil edit — floats top-left of the S10 preview frame */
+      .s10-edit-btn {
+        position: absolute;
+        top: var(--acuity-spacing-24);
+        left: var(--acuity-spacing-24);
+        z-index: var(--acuity-z-sticky);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--acuity-bg-base);
+        border: 1px solid var(--acuity-border-default);
+        border-radius: var(--acuity-border-radius-sm);
+        color: var(--acuity-fg-default);
+        cursor: pointer;
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+      .s10-edit-btn:hover { background: var(--acuity-bg-inset); }
+
+      /* S10 preview pane: flatten S5's gray-bg / absolute-controls treatment
+         and let the browser frame flex to fill remaining vertical space. */
+      .s10-preview-pane {
+        background: transparent;
+        padding: 0;
+        position: relative;
+        overflow: visible;
+        flex-direction: column;
+        gap: var(--acuity-spacing-32);
+        width: 100%;
+        max-width: 880px;
+        align-items: center;
+        flex: 1;
+        min-height: 0;
+      }
+      .s10-preview-pane .s5-browser-frame {
+        width: 100%;
+        flex: 1;
+        min-height: 320px;
+      }
+      /* s5-browser-content already has flex: 1 + min-height: 0 from S5 base */
+      /* S10 doesn't show the theme picker or desktop/mobile toggle */
+      .s10-preview-pane .s5-preview-controls { display: none; }
+
+      /* S10 view-stepper — preview every step of the customer's booking flow */
+      .s10-view-stepper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--acuity-spacing-4);
+        padding: var(--acuity-spacing-4);
+        background: var(--acuity-bg-inset);
+        border-radius: var(--acuity-border-radius-round);
+      }
+      .s10-view-step {
+        appearance: none;
+        background: transparent;
+        border: none;
+        padding: var(--acuity-spacing-8) var(--acuity-spacing-16);
+        border-radius: var(--acuity-border-radius-round);
+        font-family: var(--acuity-font-family-sans);
+        font-size: 13px;
+        font-weight: var(--acuity-font-weight-medium);
+        line-height: 1;
+        color: var(--acuity-fg-muted);
+        cursor: pointer;
+        transition: background 120ms ease, color 120ms ease;
+      }
+      .s10-view-step:hover { color: var(--acuity-fg-default); }
+      .s10-view-step--active {
+        background: var(--acuity-bg-base);
+        color: var(--acuity-fg-default);
+        box-shadow: var(--acuity-shadow-light-100);
+      }
+
+      #s_home.screen.active { display: flex; }
+
+      /* ── Overlays: bottom-sheet → centered modal ─────────────────── */
+      .modal-overlay {
+        justify-content: center;
+        align-items: center;
+        padding: var(--acuity-spacing-32);
+      }
+      .modal-sheet {
+        width: 100%;
+        max-width: 560px;
+        margin: auto;
+        border-radius: var(--acuity-border-radius-xl);
+        max-height: 80vh;
+        transform: scale(0.96);
+        opacity: 0;
+      }
+      /* Each overlay's "open" state — override the mobile translateY(0) */
+      .edit-overlay.edit-open .sheet,
+      .palette-sheet.palette-sheet-open,
+      .font-sheet.font-sheet-open,
+      .btnstyle-sheet.btnstyle-sheet-open,
+      .pricing-tips-sheet.pricing-tips-open,
+      .proto-tooltip-card.proto-tooltip-open {
+        transform: scale(1);
+        opacity: 1;
+      }
+      /* Each overlay's closed state on desktop: scale-down + fade */
+      .palette-sheet,
+      .font-sheet,
+      .btnstyle-sheet,
+      .pricing-tips-sheet,
+      .proto-tooltip-card {
+        transform: scale(0.96);
+        opacity: 0;
+      }
+
+      /* Create overlay: larger modal, scale transition */
+      .create-overlay {
+        align-items: center;
+        justify-content: center;
+        padding: var(--acuity-spacing-32);
+      }
+      .create-sheet {
+        max-width: 720px;
+        width: 100%;
+        height: auto;            /* reset mobile's calc(100dvh - 32px) */
+        max-height: 90vh;
+        min-height: 80vh;
+        border-radius: var(--acuity-border-radius-xl);
+        transform: scale(0.96);
+        opacity: 0;
+      }
+      .chips-row {
+        justify-content: center;
+      }
+      .create-overlay.create-overlay-open .create-sheet {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      /* Variant badge: move out of the aside corner */
+      .variant-badge { left: auto; right: var(--acuity-spacing-12); top: var(--acuity-spacing-12); }
+
+      /* ── Picker dropdowns: anchored to their trigger button (desktop) ───
+         palette / font / button-style sheets become small dropdown popovers
+         instead of centered modals. Position (top/left) is set by JS via
+         _positionDropdown() from the trigger's bounding rect. */
+      .palette-overlay,
+      .font-overlay,
+      .btnstyle-overlay {
+        background: transparent;
+        padding: 0;
+      }
+      .palette-sheet,
+      .font-sheet,
+      .btnstyle-sheet {
+        position: absolute;
+        width: 320px;
+        max-width: 320px;
+        max-height: min(70vh, 480px);
+        margin: 0;
+        border-radius: var(--acuity-border-radius-md);
+        box-shadow: var(--acuity-shadow-light-200);
+        transform: translateY(-4px);
+        opacity: 0;
+      }
+      .palette-sheet.palette-sheet-open,
+      .font-sheet.font-sheet-open,
+      .btnstyle-sheet.btnstyle-sheet-open {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -3583,6 +5117,21 @@
          S1 — Intro (c3_a: Immerse)
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen active" id="s1">
+
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <div class="screen-body">
         <div class="s1-body">
 
@@ -3636,20 +5185,35 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s2">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s1','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <span class="step-label">Step 1 of 4</span>
+        <span class="step-label">Step 1 of 5</span>
         <button class="nav-action" onclick="showScreen('s3')">Skip</button>
       </nav>
 
       <div class="wizard-body">
         <div class="wizard-header">
+          <span class="wizard-eyebrow">Step 1 of 5</span>
           <h2 class="wizard-heading">What industry are you in?</h2>
-          <p class="wizard-subheading">This helps us tailor your experience and make recommendations.</p>
+          <p class="wizard-subheading">This will help us tailor and make relevant recommendations for your experience.</p>
         </div>
 
         <div class="industry-grid">
@@ -3682,18 +5246,18 @@
             <span class="industry-label">Business Services</span>
           </button>
 
-          <button class="industry-card" onclick="selectIndustry(this, 's3', 'utility')">
+          <button class="industry-card" onclick="selectIndustry(this, 's3', 'home_services')">
             <div class="industry-icon-frame">
               <img class="industry-icon" src="assets/s2-icon-utility.svg" alt="">
             </div>
-            <span class="industry-label">Utility</span>
+            <span class="industry-label">Home Services</span>
           </button>
 
-          <button class="industry-card" onclick="selectIndustry(this, 's3', 'education')">
+          <button class="industry-card" onclick="selectIndustry(this, 's3', 'arts_education')">
             <div class="industry-icon-frame">
               <img class="industry-icon" src="assets/s2-icon-education.svg" alt="">
             </div>
-            <span class="industry-label">Education</span>
+            <span class="industry-label">Arts &amp; Education</span>
           </button>
 
           <button class="industry-card industry-card--other" onclick="selectIndustry(this, 's3', 'other')">
@@ -3701,6 +5265,17 @@
           </button>
 
         </div>
+      </div>
+
+      <!-- Global bottom-nav — hidden on S2 for now (cards auto-advance). -->
+      <div class="bottom-nav" id="s2-bottom-nav" hidden>
+        <button class="s5-back-btn" type="button" onclick="showScreen('s1','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+        <button class="btn-primary" type="button" onclick="showScreen('s3')">Next</button>
       </div>
 
     </section>
@@ -3711,24 +5286,63 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen screen--fixed" id="s3">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s2','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <span class="step-label">Step 2 of 4</span>
+        <span class="step-label">Step 2 of 5</span>
         <button class="nav-action" onclick="showScreen('s4')">Skip</button>
       </nav>
 
       <div class="wizard-body">
         <div class="wizard-header">
-          <h2 class="wizard-heading" id="s3-heading">What do you specialize in?</h2>
-          <p class="wizard-subheading">Tap the option that best describes what you do.</p>
+          <span class="wizard-eyebrow">Step 2 of 5</span>
+          <h2 class="wizard-heading" id="s3-heading">What is your specialty?</h2>
+          <p class="wizard-subheading">Select the option that best matches your business.</p>
         </div>
 
         <!-- Spec chips — populated dynamically by showS3Chips() on screen enter -->
         <div class="spec-chips-grid" id="s3-chips-grid"></div>
+
+        <!-- "Other" describe — shown when vertical = Other. Big ghost
+             textarea; on Next we run a lightweight mock of the AI template
+             generator and route into S4 with the resulting catalog. -->
+        <div class="s3-other-describe" id="s3-other-describe" hidden>
+          <textarea
+            id="s3-other-input"
+            class="s3-other-textarea"
+            placeholder="e.g. Dog groomer, Event planner, Hair salon owner, etc"
+            aria-label="Describe your business"
+            rows="1"></textarea>
+        </div>
+      </div>
+
+      <!-- Global bottom-nav — hidden in the chip flow (chips auto-advance),
+           shown in the Other describe flow. Same shape as S5/S9. -->
+      <div class="bottom-nav" id="s3-bottom-nav" hidden>
+        <button class="s5-back-btn" type="button" onclick="showScreen('s2','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+        <button class="btn-primary" id="s3-other-next" onclick="_s3OtherSubmit()" disabled>Next</button>
       </div>
 
     </section>
@@ -3751,30 +5365,102 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s5">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Desktop-only: browser-frame preview + floating theme picker + segmented control -->
+      <div class="s5-preview-pane" aria-hidden="true">
+
+        <div class="s5-browser-frame">
+          <div class="s5-browser-bar">
+            <div class="s5-browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="s5-browser-url"></div>
+          </div>
+          <div class="s5-browser-content" id="s5-browser-content">
+            <iframe
+              class="s5-preview-iframe"
+              id="s5-preview-iframe"
+              src="../scheduling-page.html?view=select"
+              title="Scheduling page preview"
+              loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <!-- Floating controls — theme card removed (customization moved
+             to s_customize step); only the viewport toggle remains. -->
+        <div class="s5-preview-controls">
+          <div class="s5-segmented" role="group" aria-label="Preview viewport">
+            <button class="s5-segment s5-segment--active" type="button" aria-pressed="true" aria-label="Desktop preview" onclick="setPreviewMode(this, 'desktop')">
+              <svg width="18" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 19h6M11 15v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="s5-segment" type="button" aria-pressed="false" aria-label="Mobile preview" onclick="setPreviewMode(this, 'mobile')">
+              <svg width="12" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="2" width="10" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="11" cy="17.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s3','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <span class="step-label">Step 3 of 4</span>
+        <span class="step-label">Step 3 of 5</span>
         <button class="nav-action" onclick="showScreen('s9')">Skip</button>
       </nav>
 
       <div class="wizard-body s5-wizard-body">
 
         <div class="wizard-header">
+          <span class="wizard-eyebrow">Step 3 of 5</span>
           <h2 class="wizard-heading">Add your first appointment</h2>
           <p class="wizard-subheading">Choose up to 3 services to start with, or create your own. You can edit it anytime.</p>
         </div>
 
-        <div class="s5-carousel">
+        <!-- "Your appointments (N)" header + Selected list + Create button.
+             On mobile this container is display:contents so the selected
+             section flows into the wizard-body stack like before. -->
+        <div class="s5-list-top">
+          <span class="s5-list-label">Selected (<span id="s5-list-count">0</span>)</span>
 
-          <!-- Selected section — shown when 1+ appointments added (rendered first) -->
+          <!-- Selected section — shown when 1+ appointments added -->
           <div id="s5-selected-section" class="selected-section" hidden>
             <p class="selected-label">Selected</p>
             <div id="s5-selected" class="appt-list"></div>
           </div>
+
+          <button class="s5-create-btn" onclick="openCreate()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Create new appointment
+          </button>
+        </div>
+
+        <div class="s5-carousel">
 
           <!-- AI badge — text updated by JS once items are selected -->
           <div class="ai-badge" id="s5-ai-badge">
@@ -3790,7 +5476,7 @@
 
         </div>
 
-        <!-- New appointment type — always at bottom of scroll area -->
+        <!-- New appointment type — always at bottom of scroll area (mobile only) -->
         <button class="new-appt-btn" onclick="openCreate()">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -3801,6 +5487,13 @@
       </div>
 
       <div class="bottom-nav">
+        <!-- Desktop-only Back button (left side) -->
+        <button class="s5-back-btn" type="button" onclick="showScreen('s3','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button id="s5-continue" class="btn-primary btn-primary--disabled">Continue with selection</button>
       </div>
 
@@ -3811,7 +5504,7 @@
          Edit overlay — bottom sheet over S5 (not a screen step)
          Opened by openEdit(); closed by closeEdit()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="edit-overlay modal-overlay" id="edit-overlay">
+    <div class="edit-overlay modal-overlay" id="edit-overlay" onclick="if(event.target===this)closeEdit()">
       <div class="sheet modal-sheet">
 
         <!-- Close button — CrossLarge from acuity-ds -->
@@ -3842,6 +5535,7 @@
                 type="text"
                 aria-label="Service name"
                 onblur="exitNameEdit()"
+                oninput="_fitSheetNameEl(this)"
               >
             </div>
 
@@ -3858,12 +5552,18 @@
                  Hidden by default; JS removes [hidden] when trigger is tapped.
                  Chips animate in via :focus-within (CSS only). -->
             <div class="sheet-description-section" id="sheet-desc-expanded" hidden>
+              <div class="sheet-desc-meta-row">
+                <span class="sheet-char-counter" id="sheet-char-counter">0/512</span>
+              </div>
               <textarea
+                id="sheet-desc-textarea"
                 class="sheet-desc-textarea"
                 rows="3"
+                maxlength="512"
                 placeholder="Describe your service…"
                 aria-label="Service description"
               ></textarea>
+              <p class="sheet-desc-error" id="sheet-desc-error" hidden>Max. character limit reached</p>
             </div>
 
           </div><!-- /sheet-top -->
@@ -3912,7 +5612,7 @@
     <!-- ═══════════════════════════════════════════════════════════════
          Palette overlay — opened by openPalette()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="palette-overlay modal-overlay" id="palette-overlay" hidden>
+    <div class="palette-overlay modal-overlay" id="palette-overlay" hidden onclick="if(event.target===this)closePalette()">
       <div class="palette-sheet modal-sheet" id="palette-sheet">
 
         <div class="subsheet-header">
@@ -3925,19 +5625,19 @@
         </div>
 
         <div class="palette-list">
-          <div class="palette-row palette-selected" onclick="selectPalette(this,['#ffffff','#e0e0e0','#9e9e9e','#424242','#000000'])">
+          <div class="palette-row palette-selected" onclick="selectPalette(this,['#ffffff','#e8e8e8','#9e9e9e','#424242','#111111'])">
             <div class="palette-swatch" style="background:#ffffff"></div>
-            <div class="palette-swatch" style="background:#e0e0e0"></div>
+            <div class="palette-swatch" style="background:#e8e8e8"></div>
             <div class="palette-swatch" style="background:#9e9e9e"></div>
             <div class="palette-swatch" style="background:#424242"></div>
-            <div class="palette-swatch" style="background:#000000"></div>
+            <div class="palette-swatch" style="background:#111111"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#fff0f0','#f8bbd9','#9c27b0','#880e4f','#4a148c'])">
-            <div class="palette-swatch" style="background:#fff0f0"></div>
-            <div class="palette-swatch" style="background:#f8bbd9"></div>
-            <div class="palette-swatch" style="background:#9c27b0"></div>
-            <div class="palette-swatch" style="background:#880e4f"></div>
-            <div class="palette-swatch" style="background:#4a148c"></div>
+          <div class="palette-row" onclick="selectPalette(this,['#fce8f0','#d4b3f5','#9b2fbe','#8e1055','#3d0070'])">
+            <div class="palette-swatch" style="background:#fce8f0"></div>
+            <div class="palette-swatch" style="background:#d4b3f5"></div>
+            <div class="palette-swatch" style="background:#9b2fbe"></div>
+            <div class="palette-swatch" style="background:#8e1055"></div>
+            <div class="palette-swatch" style="background:#3d0070"></div>
           </div>
           <div class="palette-row" onclick="selectPalette(this,['#fafaf5','#f5f0e8','#c8b89a','#6b5c45','#2c1810'])">
             <div class="palette-swatch" style="background:#fafaf5"></div>
@@ -3946,26 +5646,40 @@
             <div class="palette-swatch" style="background:#6b5c45"></div>
             <div class="palette-swatch" style="background:#2c1810"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#f8fff8','#e8f5e9','#ffd54f','#90caf9','#37474f'])">
+          <div class="palette-row" onclick="selectPalette(this,['#f8fff8','#d8f0da','#ffd54f','#90caf9','#37474f'])">
             <div class="palette-swatch" style="background:#f8fff8"></div>
-            <div class="palette-swatch" style="background:#e8f5e9"></div>
+            <div class="palette-swatch" style="background:#d8f0da"></div>
             <div class="palette-swatch" style="background:#ffd54f"></div>
             <div class="palette-swatch" style="background:#90caf9"></div>
             <div class="palette-swatch" style="background:#37474f"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#fff8f0','#ffe0b2','#ff7043','#424242','#000000'])">
+          <div class="palette-row" onclick="selectPalette(this,['#fff8f0','#ffd8a8','#ff6b35','#2d2d2d','#0a0a0a'])">
             <div class="palette-swatch" style="background:#fff8f0"></div>
-            <div class="palette-swatch" style="background:#ffe0b2"></div>
-            <div class="palette-swatch" style="background:#ff7043"></div>
-            <div class="palette-swatch" style="background:#424242"></div>
-            <div class="palette-swatch" style="background:#000000"></div>
+            <div class="palette-swatch" style="background:#ffd8a8"></div>
+            <div class="palette-swatch" style="background:#ff6b35"></div>
+            <div class="palette-swatch" style="background:#2d2d2d"></div>
+            <div class="palette-swatch" style="background:#0a0a0a"></div>
           </div>
-          <div class="palette-row" onclick="selectPalette(this,['#f9ffe0','#f0f4c3','#ef5350','#388e3c','#1b5e20'])">
-            <div class="palette-swatch" style="background:#f9ffe0"></div>
-            <div class="palette-swatch" style="background:#f0f4c3"></div>
+          <div class="palette-row" onclick="selectPalette(this,['#f2ffe0','#c8e896','#ef5350','#2e7d32','#1a3d1e'])">
+            <div class="palette-swatch" style="background:#f2ffe0"></div>
+            <div class="palette-swatch" style="background:#c8e896"></div>
             <div class="palette-swatch" style="background:#ef5350"></div>
-            <div class="palette-swatch" style="background:#388e3c"></div>
+            <div class="palette-swatch" style="background:#2e7d32"></div>
+            <div class="palette-swatch" style="background:#1a3d1e"></div>
+          </div>
+          <div class="palette-row" onclick="selectPalette(this,['#f0e8ff','#c5a8f5','#5c35e8','#1a0060','#08002a'])">
+            <div class="palette-swatch" style="background:#f0e8ff"></div>
+            <div class="palette-swatch" style="background:#c5a8f5"></div>
+            <div class="palette-swatch" style="background:#5c35e8"></div>
+            <div class="palette-swatch" style="background:#1a0060"></div>
+            <div class="palette-swatch" style="background:#08002a"></div>
+          </div>
+          <div class="palette-row" onclick="selectPalette(this,['#f0fff5','#b8e8c8','#4caf50','#1b5e20','#0a2211'])">
+            <div class="palette-swatch" style="background:#f0fff5"></div>
+            <div class="palette-swatch" style="background:#b8e8c8"></div>
+            <div class="palette-swatch" style="background:#4caf50"></div>
             <div class="palette-swatch" style="background:#1b5e20"></div>
+            <div class="palette-swatch" style="background:#0a2211"></div>
           </div>
         </div>
 
@@ -3977,7 +5691,7 @@
     <!-- ═══════════════════════════════════════════════════════════════
          Font overlay — opened by openFont()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="font-overlay modal-overlay" id="font-overlay" hidden>
+    <div class="font-overlay modal-overlay" id="font-overlay" hidden onclick="if(event.target===this)closeFont()">
       <div class="font-sheet modal-sheet" id="font-sheet">
 
         <div class="subsheet-header">
@@ -4014,6 +5728,14 @@
             <span class="font-row-aa" style="font-family:'Oswald',sans-serif">Aa</span>
             <span class="font-row-name">Oswald</span>
           </div>
+          <div class="font-row" onclick="selectFont(6)">
+            <span class="font-row-aa" style="font-family:'Concert One',cursive">Aa</span>
+            <span class="font-row-name">Concert One</span>
+          </div>
+          <div class="font-row" onclick="selectFont(7)">
+            <span class="font-row-aa" style="font-family:'IBM Plex Mono',monospace">Aa</span>
+            <span class="font-row-name">IBM Plex Mono</span>
+          </div>
         </div>
 
       </div>
@@ -4021,9 +5743,40 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════════
+         Button-style overlay — opened by openButtonStyle()
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div class="btnstyle-overlay modal-overlay" id="btnstyle-overlay" hidden onclick="if(event.target===this)closeButtonStyle()">
+      <div class="btnstyle-sheet modal-sheet" id="btnstyle-sheet">
+        <div class="subsheet-header">
+          <span class="subsheet-title">Button style</span>
+          <button class="subsheet-close" onclick="closeButtonStyle()" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <div class="btnstyle-list">
+          <button class="btnstyle-row btnstyle-selected" type="button" onclick="selectButtonStyle('sharp')" data-style="sharp">
+            <span class="btnstyle-preview" style="border-radius:0">BOOK</span>
+            <span class="btnstyle-name">Sharp</span>
+          </button>
+          <button class="btnstyle-row" type="button" onclick="selectButtonStyle('rounded')" data-style="rounded">
+            <span class="btnstyle-preview" style="border-radius:6px">BOOK</span>
+            <span class="btnstyle-name">Rounded</span>
+          </button>
+          <button class="btnstyle-row" type="button" onclick="selectButtonStyle('pill')" data-style="pill">
+            <span class="btnstyle-preview" style="border-radius:999px">BOOK</span>
+            <span class="btnstyle-name">Pill</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /btnstyle-overlay -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
          Pricing tips overlay — opened by openPricingTips()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div class="pricing-tips-overlay modal-overlay" id="pricing-tips-overlay" hidden>
+    <div class="pricing-tips-overlay modal-overlay" id="pricing-tips-overlay" hidden onclick="if(event.target===this)closePricingTips()">
       <div class="pricing-tips-sheet modal-sheet" id="pricing-tips-sheet">
 
         <div class="subsheet-header">
@@ -4055,7 +5808,7 @@
          Create overlay — bottom sheet (replaces s_c1–s_c5)
          Opened by openCreate(); closed by closeCreate()
     ═══════════════════════════════════════════════════════════════════ -->
-    <div id="create-overlay" class="create-overlay modal-overlay">
+    <div id="create-overlay" class="create-overlay modal-overlay" onclick="if(event.target===this)closeCreate()">
       <div class="create-sheet modal-sheet" id="create-sheet">
 
         <!-- Shared chrome: fixed at top of sheet -->
@@ -4081,23 +5834,17 @@
               </div>
 
               <div class="big-input-wrap">
-                <input
-                  type="text"
+                <textarea
                   id="create-name-input"
                   class="big-input"
                   placeholder="Hair Styling"
                   aria-label="Appointment name"
                   autocomplete="off"
-                >
+                  rows="1"
+                ></textarea>
               </div>
 
-              <div class="chips-row">
-                <button class="chip--plain">Haircut</button>
-                <button class="chip--plain">Blowout</button>
-                <button class="chip--plain">Color Treatment</button>
-                <button class="chip--plain">Brow Shaping</button>
-                <button class="chip--plain">Scalp Treatment</button>
-              </div>
+              
 
             </div>
           </div>
@@ -4122,11 +5869,13 @@
                     class="c2-desc-input"
                     aria-label="Service description"
                     autocomplete="off"
+                    maxlength="512"
                   />
                   <div class="desc-ghost" id="desc-ghost">
                     <span class="desc-ghost-text" id="desc-ghost-text">A relaxing treatment tailored to your hair type…</span>
                   </div>
                 </div>
+                <p class="c2-char-counter" id="c2-char-counter">0/512</p>
 
               </div>
 
@@ -4283,22 +6032,81 @@
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s9">
 
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Desktop-only: browser-frame preview iframe + floating controls (same template as S5) -->
+      <div class="s5-preview-pane" aria-hidden="true">
+        <div class="s5-browser-frame">
+          <div class="s5-browser-bar">
+            <div class="s5-browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="s5-browser-url"></div>
+          </div>
+          <div class="s5-browser-content">
+            <!-- TODO: when scheduling-page.html gains a Date & Time view, point this iframe at it -->
+            <iframe
+              class="s5-preview-iframe"
+              id="s9-preview-iframe"
+              src="../scheduling-page.html?view=datetime"
+              title="Scheduling page preview (date &amp; time)"
+              loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="s5-preview-controls">
+          <!-- Theme card removed — palette/font/button-style live in s_customize. -->
+          <div class="s5-segmented" role="group" aria-label="Preview viewport">
+            <button class="s5-segment s5-segment--active" type="button" aria-pressed="true" aria-label="Desktop preview" onclick="setPreviewMode(this, 'desktop')">
+              <svg width="18" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 19h6M11 15v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="s5-segment" type="button" aria-pressed="false" aria-label="Mobile preview" onclick="setPreviewMode(this, 'mobile')">
+              <svg width="12" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="2" width="10" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="11" cy="17.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s5','back')" aria-label="Back">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <span class="step-label">Step 4 of 4</span>
-        <button class="nav-action" onclick="showScreen('s10')">Skip</button>
+        <span class="step-label">Step 4 of 5</span>
+        <button class="nav-action" onclick="_advanceFromS9()">Skip</button>
       </nav>
 
       <div class="wizard-body">
 
         <div class="wizard-header">
-          <h2 class="wizard-heading">Set your business hours</h2>
-          <p class="wizard-subheading">Choose the hours you accept bookings from clients. You can edit it anytime.</p>
+          <span class="wizard-eyebrow">Step 4 of 5</span>
+          <h2 class="wizard-heading">When can clients book you?</h2>
+          <p class="wizard-subheading">This sets when your appointments will appear as available. You can adjust this anytime.</p>
         </div>
+
+        <!-- Desktop-only section label above the availability grid -->
+        <span class="s9-list-label">Your availability</span>
 
         <!-- ─── Per-day availability grid — rendered by renderAvailability() ── -->
         <div id="s9-avail-grid" class="s9-avail-grid"></div>
@@ -4306,6 +6114,196 @@
       </div>
 
       <div class="bottom-nav">
+        <!-- Desktop-only Back button (left side) -->
+        <button class="s5-back-btn" type="button" onclick="showScreen('s5','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+        <button class="btn-primary" onclick="_advanceFromS9()">Next</button>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         s_customize — Step 5 of 5: Customize your page
+                       Two-pane on desktop; stacks on mobile.
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section class="screen" id="s_customize">
+
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-close" onclick="goHomeViaLoading()" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 9.58569L16.293 4.29272L17.7072 5.70694L12.4142 10.9999L17.7072 16.2929L16.293 17.7071L11 12.4141L5.70718 17.7069L4.29297 16.2927L9.58579 10.9999L4.29297 5.70709L5.70718 4.29288L11 9.58569Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </nav>
+
+      <nav class="top-nav">
+        <button class="nav-back" onclick="showScreen('s9','back')" aria-label="Back">
+          <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.5 1.5L1.5 8L8.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <span class="step-label">Step 5 of 5</span>
+        <button class="nav-action" onclick="showScreen('s10')">Skip</button>
+      </nav>
+
+      <!-- Desktop-only preview pane on the left -->
+      <div class="s5-preview-pane customize-preview-pane" aria-hidden="true">
+        <div class="s5-browser-frame">
+          <div class="s5-browser-bar">
+            <div class="s5-browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="s5-browser-url"></div>
+          </div>
+          <div class="s5-browser-content">
+            <iframe
+              class="s5-preview-iframe"
+              id="s_customize-preview-iframe"
+              src="../scheduling-page.html?view=select"
+              title="Scheduling page preview"
+              loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="s5-preview-controls customize-preview-viewport">
+          <div class="s5-segmented" role="group" aria-label="Preview viewport">
+            <button class="s5-segment s5-segment--active" type="button" aria-pressed="true" aria-label="Desktop preview" onclick="setPreviewMode(this, 'desktop')">
+              <svg width="18" height="17" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 19h6M11 15v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="s5-segment" type="button" aria-pressed="false" aria-label="Mobile preview" onclick="setPreviewMode(this, 'mobile')">
+              <svg width="12" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="2" width="10" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="11" cy="17.5" r="0.75" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="wizard-body customize-form-pane">
+        <div class="wizard-header customize-header">
+          <span class="wizard-eyebrow">Step 5 of 5</span>
+          <h2 class="wizard-heading">Customize your page</h2>
+          <p class="wizard-subheading">You can adjust these and more settings any time.</p>
+        </div>
+
+        <div class="customize-form">
+          <!-- Site title -->
+          <div class="customize-field">
+            <label class="customize-field-label" for="customize-title">Site title</label>
+            <input
+              type="text"
+              id="customize-title"
+              class="customize-field-input"
+              placeholder="e.g. Cedar Group"
+              oninput="onCustomizeTitleInput(this.value)">
+          </div>
+
+          <!-- Description — hidden until user clicks "Add" -->
+          <button
+            type="button"
+            id="customize-desc-add"
+            class="customize-add-btn"
+            onclick="revealCustomizeDescription()">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M11 5v12M5 11h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Add a business description
+          </button>
+          <div class="customize-field" id="customize-desc-field" hidden>
+            <label class="customize-field-label" for="customize-desc">Business description</label>
+            <textarea
+              id="customize-desc"
+              class="customize-field-input customize-field-textarea"
+              rows="3"
+              placeholder="A short blurb about your business"
+              oninput="state.businessDesc = this.value; renderPreview('s_customize')"></textarea>
+          </div>
+
+          <!-- Site link — composite: https:// prefix + input + .as.me suffix.
+               Auto-mirrors from Site title until the user types here directly. -->
+          <div class="customize-field">
+            <label class="customize-field-label" for="customize-url">Site link</label>
+            <div class="customize-url-composite" id="customize-url-composite">
+              <span class="customize-url-prefix">https://</span>
+              <input
+                type="text"
+                id="customize-url"
+                class="customize-url-input"
+                placeholder="yoursite"
+                oninput="onCustomizeUrlInput(this.value)"
+                onblur="validateCustomizeUrl()">
+              <span class="customize-url-suffix">.as.me</span>
+            </div>
+            <p class="customize-field-error" id="customize-url-error" hidden>This name is already taken. Try another.</p>
+          </div>
+
+          <!-- Color palette picker — reuses openPalette() modal -->
+          <div class="customize-field">
+            <label class="customize-field-label">Color palette</label>
+            <p class="customize-field-help">Pick a palette that reflects your brand.</p>
+            <button type="button" class="customize-picker" onclick="openPalette(this)" aria-label="Choose color palette">
+              <span class="customize-picker-fan" id="customize-palette-fan">
+                <span style="background:#ffffff"></span>
+                <span style="background:#fafafa"></span>
+                <span style="background:#dddddd"></span>
+                <span style="background:#222222"></span>
+                <span style="background:#000000"></span>
+              </span>
+              <span class="customize-picker-caret" aria-hidden="true">
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+          </div>
+
+          <!-- Font picker -->
+          <div class="customize-field">
+            <label class="customize-field-label">Font</label>
+            <p class="customize-field-help">Choose a typeface for your booking page.</p>
+            <button type="button" class="customize-picker" onclick="openFont(this)" aria-label="Choose font">
+              <span class="customize-picker-fontglyph">Aa</span>
+              <span class="customize-picker-fontname" id="customize-font-name">Source Sans Pro</span>
+              <span class="customize-picker-caret" aria-hidden="true">
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+          </div>
+
+          <!-- Button style picker -->
+          <div class="customize-field">
+            <label class="customize-field-label">Button style</label>
+            <button type="button" class="customize-picker" onclick="openButtonStyle(this)" aria-label="Choose button style">
+              <span class="customize-picker-btnsample" id="customize-btn-sample">BUTTON</span>
+              <span class="customize-picker-caret" aria-hidden="true">
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <button class="s5-back-btn" type="button" onclick="showScreen('s9','back')">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 5L7 11L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <button class="btn-primary" onclick="showScreen('s10')">Finish</button>
       </div>
 
@@ -4316,6 +6314,72 @@
          S10 — Celebratory / Ready to book
     ═══════════════════════════════════════════════════════════════════ -->
     <section class="screen" id="s10">
+
+      <!-- Desktop-only top-nav (logo + Close setup text button) -->
+      <nav class="desktop-top-nav" aria-hidden="true">
+        <a class="desktop-nav-logo" href="#" aria-label="Acuity">
+          <svg width="9" height="20" viewBox="0 0 9 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="4.28" cy="4.28" rx="4.28" ry="4.28" fill="currentColor"/>
+            <ellipse cx="4.28" cy="15.72" rx="4.28" ry="4.28" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="desktop-nav-text" type="button" onclick="showScreen('s_home')">Close setup</button>
+      </nav>
+
+      <!-- Desktop-only body — matches Figma 3948-13774: centered hero with
+           Share + Open scheduling page CTAs above a browser-frame preview.
+           Palette / font / URL customization all lives in s_customize now. -->
+      <div class="s10-desktop-body" aria-hidden="true">
+
+        <div class="s10-desktop-header">
+          <h2 class="s10-desktop-heading">You are ready for your first booking!</h2>
+          <p class="s10-desktop-subheading">Share your page and let clients book with you.</p>
+        </div>
+
+        <div class="s10-cta-row">
+          <button class="btn-primary s10-share-btn" type="button" onclick="copyS10Link()">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M11 3v11M6 8l5-5 5 5M4 15v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Share</span>
+          </button>
+          <button class="s10-open-btn" type="button" onclick="openSchedulingPage()">
+            <span>Open scheduling page</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M10 6.5H6.5V15.5H15.5V12H17V17H5V5H10V6.5ZM16.9961 5V9.5L15.5 11V7.5L11.0605 12.001L10 10.9404L14.376 6.5H11.0537L12.5 5H16.9961Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="s5-preview-pane s10-preview-pane">
+          <!-- Floating pencil edit — jumps back to the customize step -->
+          <button class="s10-edit-btn" type="button" onclick="showScreen('s_customize','back')" aria-label="Edit page">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 18l3.5-1 10-10-2.5-2.5-10 10L4 18z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="s5-browser-frame">
+            <div class="s5-browser-bar">
+              <div class="s5-browser-dots">
+                <span style="background:#ff5f57"></span>
+                <span style="background:#febc2e"></span>
+                <span style="background:#28c840"></span>
+              </div>
+              <div class="s5-browser-url"></div>
+            </div>
+            <div class="s5-browser-content">
+              <iframe
+                class="s5-preview-iframe"
+                id="s10-preview-iframe"
+                src="../scheduling-page.html?view=select"
+                title="Scheduling page preview"
+                loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <nav class="top-nav">
         <button class="nav-back" onclick="showScreen('s9','back')" aria-label="Back">
@@ -4369,7 +6433,7 @@
           <div class="style-pickers-row">
 
             <!-- Color swatch fan -->
-            <button class="swatch-fan-pill" onclick="openPalette()" aria-label="Choose color theme">
+            <button class="swatch-fan-pill" onclick="openPalette(this)" aria-label="Choose color theme">
               <div class="swatch-fan">
                 <div class="swatch-card" style="background: #ffffff;"></div>
                 <div class="swatch-card" style="background: #e0e0e0;"></div>
@@ -4380,7 +6444,7 @@
             </button>
 
             <!-- Font pill -->
-            <button class="font-pill" onclick="openFont()" aria-label="Choose font">
+            <button class="font-pill" onclick="openFont(this)" aria-label="Choose font">
               <span class="font-pill-aa" id="s10-font-pill-aa">Aa</span>
               <span class="font-pill-name" id="s10-font-pill-name">Source Sans Pro</span>
             </button>
@@ -4750,23 +6814,23 @@
 
     // Map from internal vertical key → JSON top-level key
     const INDUSTRY_TEMPLATE_KEY = {
-      beauty:    'Beauty',
-      business:  'Business Services',
-      wellness:  'Wellness',
-      fitness:   'Fitness',
-      education: 'Education',
-      utility:   'Utility',
-      other:     'Other',
+      beauty:         'Beauty',
+      business:       'Business Services',
+      wellness:       'Wellness',
+      fitness:        'Fitness',
+      arts_education: 'Arts & Education',
+      home_services:  'Home Services',
+      other:          'Other',
     };
 
     // Direct mapping from S2 chip label (industryKey) → new JSON vertical key
     const VERTICAL_KEY_MAP = {
-      beauty:             'Beauty',
-      wellness:           'Wellness',
-      fitness:            'Fitness',
-      business:           'Business Services',
-      utility:            'Utility',
-      education:          'Education',
+      beauty:         'Beauty',
+      wellness:       'Wellness',
+      fitness:        'Fitness',
+      business:       'Business Services',
+      home_services:  'Home Services',
+      arts_education: 'Arts & Education',
     };
 
     // Resolves the deepest available tier and caches it in window._activeTemplate.
@@ -4810,6 +6874,9 @@
     state.apptEdits        = {};   // id → {name, duration, price} — local overrides from Save
     state.selectedHoursLabel = 'Tuesday to Sunday · 10 am – 8 pm'; // updated from S9
     state._availStaggerDone  = false; // true after first catalog render; stagger only plays once
+    state.businessName       = '';   // set on s_customize Site title input
+    state.businessDesc       = '';   // set on s_customize description textarea
+    state.siteSlug           = '';   // set on s_customize URL input
 
     // ─── SVG icon strings ─────────────────────────────────────────────────────
     const ICON_PENCIL = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4834,6 +6901,11 @@
       return state.apptEdits[appt.id] ? { ...appt, ...state.apptEdits[appt.id] } : appt;
     }
 
+    // True when a price string represents free ($0, $0.00, etc.)
+    function _isFreePrice(p) {
+      return !p || /^\$?0(\.0+)?$/.test(String(p).trim());
+    }
+
     function apptCardHTML(appt, isSelected, idx = 0) {
       const cls     = isSelected ? 'appt-card--selected-item' : 'appt-card--ai';
       const actions = isSelected
@@ -4846,12 +6918,15 @@
       const hasDesc = isSelected && !!appt.description;
       const imgHtml  = hasImg  ? `<img class="appt-thumb" src="${appt.image}" alt="">` : '';
       const descHtml = hasDesc ? `<span class="appt-desc">${appt.description}</span>` : '';
+      const metaText = _isFreePrice(appt.price)
+        ? formatDuration(appt.duration)
+        : `${formatDuration(appt.duration)} @ ${appt.price}`;
 
       return `<div class="appt-card ${cls}${hasImg ? ' appt-card--has-image' : ''}" style="--appt-i:${idx}" data-appt-id="${appt.id}" onclick="openEdit('${appt.id}')">
         ${imgHtml}
         <div class="appt-card-info">
           <span class="appt-name">${appt.name}</span>
-          <span class="appt-meta">${formatDuration(appt.duration)} @ ${appt.price}</span>
+          <span class="appt-meta">${metaText}</span>
           ${descHtml}
         </div>
         <div class="appt-card-actions">${actions}</div>
@@ -4950,6 +7025,9 @@
       // Keep S9 in sync if user navigates back and changes their selection
       renderAvailability();
 
+      // Keep the desktop S5 live preview in sync
+      renderS5Preview();
+
       // Continue button — enabled only when 1+ selected
       const continueBtn = document.getElementById('s5-continue');
       if (state.selectedAppts.length > 0) {
@@ -4959,6 +7037,169 @@
         continueBtn.classList.add('btn-primary--disabled');
         continueBtn.onclick = null;
       }
+    }
+
+    // Desktop-only: live booking-page preview in S5's left pane (browser-frame mock)
+    // Build the scheduling-page.html preview payload from state.selectedAppts
+    // + current theme. The payload is delivered via postMessage so the iframe
+    // never has to reload (no blink). Options:
+    //   { skeletonOnEmpty: true }  — when no selectedAppts, render a skeleton
+    //                                placeholder card (used by S5/S9 preview)
+    //   default                    — pass services as-is (S10 share screen)
+    // Parse '60 min' / '1 hr 30 min' / '1 hr' → minutes (int). Defaults to 60.
+    function _parseDurationMin(s) {
+      const str = String(s || '');
+      let mins = 0;
+      const hr  = str.match(/(\d+)\s*hr/i);
+      const min = str.match(/(\d+)\s*min/i);
+      if (hr)  mins += parseInt(hr[1], 10)  * 60;
+      if (min) mins += parseInt(min[1], 10);
+      return mins > 0 ? mins : 60;
+    }
+
+    // Build a payload field describing the host's S9 availability so the
+    // datetime preview can render real day/slot data. Per-day ranges flow
+    // through verbatim so the slot grid reflects each day's actual hours
+    // (e.g., Tue 10am–8pm yields 10 slots when paired with a 60-min duration).
+    function _buildAvailability() {
+      const block = _availEditingBlock;
+      const fallback = () => Array.from({ length: 7 }, () => ({
+        enabled: true, ranges: [{ start: '9:00 AM', end: '5:00 PM' }],
+      }));
+      if (!block || !Array.isArray(block.dayData)) return fallback();
+      return block.dayData.map(d => ({
+        enabled: !!(d && d.enabled),
+        ranges:  (d && Array.isArray(d.ranges))
+          ? d.ranges.map(r => ({ start: r.start, end: r.end }))
+          : [],
+      }));
+    }
+
+    function _buildPreviewPayload(opts) {
+      opts = opts || {};
+      const hasSelection = state.selectedAppts.length > 0;
+      const services = hasSelection
+        ? state.selectedAppts.map(raw => {
+            const a = applyEdits(raw);
+            return {
+              name:        a.name,
+              duration:    a.duration,
+              price:       a.price,
+              description: a.description || '',
+            };
+          })
+        : [];
+
+      // Slot interval = first selected appt's duration, else default 60 min.
+      const duration = hasSelection
+        ? _parseDurationMin(services[0].duration)
+        : 60;
+
+      return {
+        view:         opts.view || 'select',
+        services,
+        palette:      _currentPalette,
+        font:         _currentFont,
+        dark:         _s10DarkMode,
+        btnStyle:     _currentButtonStyle,
+        skeleton:     !!(opts.skeletonOnEmpty && !hasSelection),
+        availability: _buildAvailability(),
+        duration,
+        businessName: state.businessName || '',
+        businessDesc: state.businessDesc || '',
+      };
+    }
+
+    // Sync a preview iframe with the latest state via postMessage. On the
+    // first call we mark the iframe as 'pending'; once its initial load fires,
+    // subsequent syncs deliver directly without reloading.
+    function _syncPreviewIframe(iframe, opts) {
+      if (!iframe) return;
+      const payload = _buildPreviewPayload(opts);
+      const post = () => {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: 'preview-update', payload }, '*');
+          }
+        } catch (_) { /* cross-origin or not yet attached */ }
+      };
+
+      if (iframe.dataset.ready === '1') {
+        post();
+        return;
+      }
+      // First call: wait for the initial iframe load before postMessaging,
+      // and try once now in case it's already complete (cached).
+      if (!iframe.dataset.bound) {
+        iframe.dataset.bound = '1';
+        iframe.addEventListener('load', () => {
+          iframe.dataset.ready = '1';
+          post();
+        });
+      }
+      post();
+    }
+
+    // Map screen id → iframe id + opts (incl. which scheduling-page view
+    // to render). Adding a new preview-bearing screen is a one-line
+    // addition here.
+    const _PREVIEWS = {
+      s5:           { iframeId: 's5-preview-iframe',           opts: { view: 'select',   skeletonOnEmpty: true } },
+      s9:           { iframeId: 's9-preview-iframe',           opts: { view: 'datetime', skeletonOnEmpty: true } },
+      s_customize:  { iframeId: 's_customize-preview-iframe',  opts: { view: 'select' } },
+      s10:          { iframeId: 's10-preview-iframe',          opts: { view: 'select' } },
+    };
+
+    function renderPreview(screenId) {
+      const cfg = _PREVIEWS[screenId];
+      if (!cfg) return;
+      _syncPreviewIframe(document.getElementById(cfg.iframeId), cfg.opts);
+    }
+
+    // S10 — let the host step through every customer-flow view so they can
+    // see their theme/palette/font across the whole booking journey.
+    function setS10View(viewName, btnEl) {
+      const VIEWS = ['select','datetime','intake','checkout','confirmation'];
+      if (!VIEWS.includes(viewName)) return;
+      _PREVIEWS.s10.opts.view = viewName;
+      renderPreview('s10');
+      const row = btnEl && btnEl.closest('.s10-view-stepper');
+      if (row) {
+        row.querySelectorAll('.s10-view-step').forEach(b => {
+          const isOn = b === btnEl;
+          b.classList.toggle('s10-view-step--active', isOn);
+          b.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+        });
+      }
+    }
+
+    // S5 is the only screen with a sidebar count that has to stay in sync
+    function renderS5Preview() {
+      const countEl = document.getElementById('s5-list-count');
+      if (countEl) countEl.textContent = state.selectedAppts.length;
+      renderPreview('s5');
+    }
+
+    // Refresh every preview iframe (used by theme changes that affect all
+    // screens that embed scheduling-page.html).
+    function _refreshAllPreviews() {
+      renderS5Preview();
+      Object.keys(_PREVIEWS).forEach(id => { if (id !== 's5') renderPreview(id); });
+    }
+
+    // Desktop preview viewport toggle: shrinks the browser frame to a
+    // phone-ish width so the embedded scheduling page reflows responsively.
+    // Scoped to the pane containing the clicked button — works for S5/S9.
+    function setPreviewMode(btn, mode) {
+      const pane = btn.closest('.s5-preview-pane');
+      if (!pane) return;
+      pane.classList.toggle('s5-preview-pane--mobile', mode === 'mobile');
+      const segs = pane.querySelectorAll('.s5-segment');
+      segs.forEach((seg, i) => {
+        const isActive = (i === 0 && mode !== 'mobile') || (i === 1 && mode === 'mobile');
+        seg.classList.toggle('s5-segment--active', isActive);
+        seg.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
     }
 
     // ─── Catalog actions ──────────────────────────────────────────────────────
@@ -5025,6 +7266,7 @@
         descSection.querySelector('textarea').value = '';
         resetDescTrigger();
       }
+      _updateSheetCounter();
 
       // Image: render uploaded image if present, otherwise show icon-imageplus placeholder
       const imageArea = document.querySelector('#edit-overlay .sheet-image-upload');
@@ -5039,6 +7281,7 @@
       const overlay = document.getElementById('edit-overlay');
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
+        _fitSheetNameEl(document.getElementById('sheet-name-display'));
         requestAnimationFrame(() => {
           overlay.classList.add('edit-open');
         });
@@ -5096,13 +7339,23 @@
 
     // ─── Service name field toggle ─────────────────────────────────────────────
 
+    function _fitSheetNameEl(el) {
+      if (!el || !el.offsetWidth) return;
+      const MAX = 32, MIN = 18;
+      el.style.fontSize = MAX + 'px';
+      let fs = MAX;
+      while (el.scrollWidth > el.offsetWidth && fs > MIN) {
+        el.style.fontSize = --fs + 'px';
+      }
+    }
+
     function activateNameEdit() {
       const display = document.getElementById('sheet-name-display');
       const input   = document.getElementById('sheet-service-name');
       input.value = display.textContent.trim();
-      input.style.width = display.offsetWidth + 'px';
       display.classList.add('editing');
       input.classList.add('editing');
+      _fitSheetNameEl(input);
       input.focus();
       input.select();
     }
@@ -5116,6 +7369,7 @@
       display.textContent = val;
       display.classList.remove('editing');
       input.classList.remove('editing');
+      _fitSheetNameEl(display);
     }
 
     // ─── Description toggle ───────────────────────────────────────────────────
@@ -5381,6 +7635,7 @@
 
       // Animate incoming screen in
       incoming.classList.add('active', enterCls);
+      history.replaceState(null, '', '#' + id);
       const body = incoming.querySelector('.screen-body, .wizard-body');
       if (body) body.scrollTop = 0;
       setTimeout(() => { incoming.classList.remove(enterCls); }, 400);
@@ -5401,14 +7656,22 @@
         generateAISuggestions();
       }
 
-      // S9: render availability
+      // S9: render availability + sync preview iframe
       if (id === 's9') {
         renderAvailability();
+        renderPreview('s9');
+      }
+
+      // s_customize: sync inputs from state + refresh the preview
+      if (id === 's_customize') {
+        _syncCustomizeInputs();
+        renderPreview('s_customize');
       }
 
       // S10: populate dynamic content from state
       if (id === 's10') {
         populateS10();
+        renderPreview('s10');
       }
 
       // s_home: show the correct state (setup vs ready) based on arrival path
@@ -5487,10 +7750,60 @@
       rebuildCreateChips();
     }
 
+    // ─── Char counter helpers ─────────────────────────────────────────────────
+    const DESC_MAX = 512;
+
+    function _updateC2Counter() {
+      const inp     = document.getElementById('create-desc-input');
+      const counter = document.getElementById('c2-char-counter');
+      if (!inp || !counter) return;
+      const len = inp.value.length;
+      if (len >= DESC_MAX) {
+        counter.textContent = DESC_MAX + '/' + DESC_MAX + ' max. character limit reached';
+        counter.classList.add('is-maxed');
+      } else {
+        counter.textContent = len + '/' + DESC_MAX;
+        counter.classList.remove('is-maxed');
+      }
+    }
+
+    function _updateSheetCounter() {
+      const ta      = document.getElementById('sheet-desc-textarea');
+      const counter = document.getElementById('sheet-char-counter');
+      const error   = document.getElementById('sheet-desc-error');
+      const section = document.getElementById('sheet-desc-expanded');
+      if (!ta || !counter) return;
+      const len = ta.value.length;
+      const atMax = len >= DESC_MAX;
+      counter.textContent = len + '/' + DESC_MAX;
+      counter.classList.toggle('is-maxed', atMax);
+      if (section) section.classList.toggle('is-maxed', atMax);
+      if (error)   error.hidden = !atMax;
+    }
+
+    ;(function() {
+      const descInp = document.getElementById('create-desc-input');
+      if (descInp) descInp.addEventListener('input', _updateC2Counter);
+      const sheetTa = document.getElementById('sheet-desc-textarea');
+      if (sheetTa) sheetTa.addEventListener('input', _updateSheetCounter);
+    }());
+
+    function _fitC1Name() {
+      const ta = document.getElementById('create-name-input');
+      if (!ta) return;
+      const MAX_FS = 40, MIN_FS = 18, MAX_H = 80;
+      ta.style.fontSize = MAX_FS + 'px';
+      let fs = MAX_FS;
+      while (ta.scrollHeight > MAX_H && fs > MIN_FS) {
+        ta.style.fontSize = --fs + 'px';
+      }
+    }
+
     function selectCreateChip(btn) {
       const val = btn.textContent.trim();
       document.getElementById('create-name-input').value = val;
       document.getElementById('create-desc-title').textContent = val;
+      _fitC1Name();
     }
 
     // ─── Name echo: s_c1 input → s_c2 title ──────────────────────────────────
@@ -5498,6 +7811,7 @@
     document.getElementById('create-name-input').addEventListener('input', function() {
       const val = this.value.trim();
       document.getElementById('create-desc-title').textContent = val || this.placeholder;
+      _fitC1Name();
     });
 
     // ─── Create sub-flow writeback ────────────────────────────────────────────
@@ -5527,7 +7841,9 @@
 
       // Reset inputs for next use
       nameEl.value = '';
-      if (descEl) descEl.value = '';
+      _fitC1Name();
+      if (descEl) { descEl.value = ''; }
+      _updateC2Counter();
       if (durSpan)   { durSpan.textContent = '60';  durSpan.classList.remove('is-set'); }
       if (priceSpan) { priceSpan.textContent = '0'; priceSpan.classList.remove('is-set'); }
       document.getElementById('create-desc-title').textContent =
@@ -5748,34 +8064,64 @@
 
     // ─── S3: specialty chip grid ──────────────────────────────────────────────
 
+    // Fallbacks only — when the JSON hasn't loaded yet. Keys match the
+    // internal vertical keys set via S2 cards. Real chip lists come from
+    // ACUITY_TEMPLATES[vertical].s3_chips in the JSON.
     const SPEC_CHIPS_C = {
-      beauty:    ['Hair', 'Nails', 'Lash & Brows', 'Barber', 'Skincare', 'Makeup', 'Waxing', 'Spa', 'Other'],
-      wellness:  ['Massage', 'Reiki', 'Sound Bath', 'Meditation', 'Nutrition', 'Acupuncture', 'Yoga', 'Therapy', 'Other'],
-      fitness:   ['Personal Training', 'Yoga', 'Pilates', 'Group Class', 'Nutrition', 'Rehab', 'Martial Arts', 'Sports', 'Other'],
-      business:  ['Consulting', 'Coaching', 'Photography', 'Marketing', 'Finance', 'Events', 'Design', 'Legal', 'Other'],
-      utility:   ['Cleaning', 'Plumbing', 'Electrical', 'Landscaping', 'HVAC', 'Handyman', 'Painting', 'Moving', 'Other'],
-      education: ['Tutoring', 'Music', 'Languages', 'Art', 'Test Prep', 'Career', 'Coding', 'Cooking', 'Other'],
+      beauty:         ['Hair', 'Nails', 'Lash & Brows', 'Barber', 'Skincare', 'Makeup', 'Other'],
+      wellness:       ['Massage', 'Acupuncture', 'Day Spa', 'Med Spa', 'Physical Therapy', 'Mental Health', 'Nutrition', 'Other'],
+      fitness:        ['Personal Training', 'Yoga', 'Sports Coaching', 'Pilates', 'Dance Lessons', 'Gym', 'Other'],
+      business:       ['Consulting', 'Professional Coaching', 'Legal', 'Photography', 'Marketing', 'Finance', 'Nonprofit', 'Other'],
+      home_services:  ['Cleaning', 'Home Repair', 'Auto Care', 'Plumbing & HVAC', 'Construction', 'Landscaping', 'Other'],
+      arts_education: ['Music', 'Tutoring', 'Dance', 'Theater', 'Ceramics', 'Visual Arts', 'Other'],
     };
 
     const SPEC_HEADING_C = {
-      beauty:    'What is your beauty specialty?',
-      wellness:  'What is your wellness specialty?',
-      fitness:   'What is your fitness specialty?',
-      business:  'What is your business specialty?',
-      utility:   'What is your utility specialty?',
-      education: 'What is your education specialty?',
+      beauty:         'What is your beauty specialty?',
+      wellness:       'What is your wellness specialty?',
+      fitness:        'What is your fitness specialty?',
+      business:       'What is your business specialty?',
+      home_services:  'What is your home services specialty?',
+      arts_education: 'What is your arts & education specialty?',
     };
 
     function showS3Chips(industry) {
-      const heading  = document.getElementById('s3-heading');
-      const grid     = document.getElementById('s3-chips-grid');
+      const heading   = document.getElementById('s3-heading');
+      const subhead   = document.querySelector('#s3 .wizard-subheading');
+      const grid      = document.getElementById('s3-chips-grid');
+      const describe  = document.getElementById('s3-other-describe');
+      const nav       = document.getElementById('s3-bottom-nav');
+      const isOther   = industry === 'other' || window._selectedVertical === 'Other';
+
+      if (heading) {
+        heading.textContent = isOther
+          ? 'What best describes what you do?'
+          : (SPEC_HEADING_C[industry] || 'What do you specialize in?');
+      }
+      // Other flow drops the subheading entirely (matches Figma 4223-14803).
+      if (subhead) subhead.hidden = isOther;
+
+      // "Other" → big-ghost textarea + shared bottom-nav (Back / Next)
+      if (isOther) {
+        if (grid)     grid.hidden     = true;
+        if (describe) describe.hidden = false;
+        if (nav)      nav.hidden      = false;
+        _initS3OtherDescribe();
+        return;
+      }
+
+      // Standard verticals → chips grid, nav hidden (chips auto-advance)
+      if (describe) describe.hidden = true;
+      if (nav)      nav.hidden      = true;
+      if (grid)     grid.hidden     = false;
+
       const vertical = window._selectedVertical
         && window.ACUITY_TEMPLATES
         && window.ACUITY_TEMPLATES[window._selectedVertical];
-      const chips    = (vertical && vertical.industries && Object.keys(vertical.industries))
+      const chips    = (vertical && vertical.s3_chips)
+        || (vertical && vertical.industries && Object.keys(vertical.industries))
         || SPEC_CHIPS_C[industry]
         || SPEC_CHIPS_C.beauty;
-      if (heading) heading.textContent = SPEC_HEADING_C[industry] || 'What do you specialize in?';
       if (grid) {
         grid.innerHTML = chips.map(label =>
           `<button class="spec-chip-large" onclick="selectS3SpecChip(this,'${label}')">${label}</button>`
@@ -5791,10 +8137,124 @@
       setTimeout(() => showScreen('s4'), 200);
     }
 
+    // ─── S3 "Other" describe ──────────────────────────────────────────────
+    // Free-text description of the business. On submit we first attempt a
+    // keyword match against every known specialty in the templates JSON; if
+    // nothing matches we fall through to `_s3OtherGenerateTemplate()` which
+    // stands in for the real AI generation (temp appointments named after
+    // the user's text). The result is stored on `state.catalogOverride` and
+    // read by S4/S5.
+    let _s3OtherBound = false;
+    let _s3ComboboxPool = null;  // cache the flattened pool for keyword matching
+
+    function _s3BuildPool() {
+      if (_s3ComboboxPool) return _s3ComboboxPool;
+      const seen = new Set();
+      const pool = [];
+      Object.values(window.ACUITY_TEMPLATES || {}).forEach(v => {
+        ((v && v.s3_chips) || []).forEach(t => {
+          const k = t.toLowerCase();
+          if (k === 'other' || seen.has(k)) return;
+          seen.add(k);
+          pool.push(t);
+        });
+      });
+      if (pool.length) _s3ComboboxPool = pool;
+      return pool;
+    }
+
+    function _initS3OtherDescribe() {
+      const input   = document.getElementById('s3-other-input');
+      const nextBtn = document.getElementById('s3-other-next');
+      if (!input || !nextBtn) return;
+
+      // Reset on every entry (isolate between visits)
+      input.value = '';
+      _s3AutosizeTextarea(input);
+      nextBtn.disabled = true;
+
+      if (_s3OtherBound) { setTimeout(() => input.focus(), 60); return; }
+      _s3OtherBound = true;
+
+      input.addEventListener('input', () => {
+        _s3AutosizeTextarea(input);
+        nextBtn.disabled = !input.value.trim();
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey && input.value.trim()) {
+          e.preventDefault();
+          _s3OtherSubmit();
+        }
+      });
+      setTimeout(() => input.focus(), 60);
+    }
+
+    function _s3AutosizeTextarea(el) {
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    }
+
+    // Fabricate a small catalog for verticals we don't have templates for.
+    // In prod this is where the AI call would land; the shape matches the
+    // per-industry entries in CATALOG so downstream S4/S5 need no changes.
+    function _s3OtherGenerateTemplate(userText) {
+      const label = userText.trim().replace(/\.$/, '');
+      // Strip a leading "I'm a" / "I am a" so appointments read naturally.
+      const noun  = label.replace(/^i(?:'m| am)\s+(?:an?\s+)?/i, '').replace(/^an?\s+/i, '');
+      const cap   = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+      const N     = cap(noun);
+      return [
+        { id: 'ot1', name: 'Initial consultation',   duration: '30 min', price: '$50',  description: `Introductory session to discuss your ${noun || 'goals'}.` },
+        { id: 'ot2', name: `${N} session`,           duration: '60 min', price: '$100', description: `Standard ${noun || label} appointment.` },
+        { id: 'ot3', name: 'Follow-up appointment',  duration: '45 min', price: '$75',  description: 'Check-in and progress review.' },
+        { id: 'ot4', name: `${N} extended package`,  duration: '90 min', price: '$150', description: `In-depth ${noun || label} package with expanded scope.` },
+      ];
+    }
+
+    // Match text against known specialties; return the vertical key + label
+    // if a specialty keyword appears in the input, else null.
+    function _s3OtherMatchExisting(userText) {
+      const q    = userText.trim().toLowerCase();
+      const pool = _s3BuildPool();
+      if (!q || !pool.length || !window.ACUITY_TEMPLATES) return null;
+      const hit = pool.find(t => q.includes(t.toLowerCase()) || t.toLowerCase().includes(q));
+      if (!hit) return null;
+      // Locate the vertical that owns this specialty
+      for (const [vKey, v] of Object.entries(window.ACUITY_TEMPLATES)) {
+        const chips = (v && v.s3_chips) || [];
+        if (chips.some(c => c.toLowerCase() === hit.toLowerCase())) {
+          return { vertical: vKey, label: hit };
+        }
+      }
+      return { vertical: null, label: hit };
+    }
+
+    function _s3OtherSubmit() {
+      const input = document.getElementById('s3-other-input');
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+
+      state.currentIndustrySpecific = text;
+      window._selectedIndustry      = text;
+
+      const match = _s3OtherMatchExisting(text);
+      if (match) {
+        // Existing template — S4/S5 will fetch it as usual
+        window._selectedVertical = match.vertical;
+        state.catalogOverride    = null;
+      } else {
+        // Mock the AI path: generate a synthetic catalog for this business
+        state.catalogOverride    = _s3OtherGenerateTemplate(text);
+        window._selectedVertical = 'Other';
+      }
+      showScreen('s4');
+    }
+
     // ─── S9: availability ─────────────────────────────────────────────────────
 
     const _DAYS_FULL     = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const _DAYS_INITIALS = ['S','M','T','W','T','F','S'];
+    const _DAYS_INITIALS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
     const _DAYS_ABBREV   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     let _availEditingBlock   = null;
@@ -5845,6 +8305,9 @@
       for (let i = 0; i < 7; i++) _availReadTimeInputsForDay(_availEditingBlock, i);
       const { daysLabel, timeLabel } = _availBlockSummary(_availEditingBlock);
       state.selectedHoursLabel = timeLabel ? daysLabel + ' · ' + timeLabel : daysLabel;
+      // Live-sync the S9 datetime preview so toggling a day / changing hours
+      // updates the rendered day columns and slot grid immediately.
+      renderPreview('s9');
     }
 
     function _presetToActiveDays(daysStr) {
@@ -5871,7 +8334,18 @@
         };
       }
       const grid = document.getElementById('s9-avail-grid');
-      if (grid) grid.innerHTML = _availGridHTML(_availEditingBlock);
+      if (grid) {
+        grid.innerHTML = _availGridHTML(_availEditingBlock);
+        // Delegated: any time-pill edit re-syncs the live datetime preview.
+        if (!grid.dataset.previewBound) {
+          grid.addEventListener('change', e => {
+            if (e.target.classList && e.target.classList.contains('avail-time-pill')) {
+              _updateSelectedHoursLabel();
+            }
+          });
+          grid.dataset.previewBound = '1';
+        }
+      }
       _updateSelectedHoursLabel();
     }
 
@@ -6171,7 +8645,7 @@
 
     // ─── S10: populate from state ─────────────────────────────────────────────
 
-    let _currentPalette = ['#ffffff','#e0e0e0','#9e9e9e','#424242','#000000'];
+    let _currentPalette = ['#ffffff','#e8e8e8','#9e9e9e','#424242','#111111'];
     let _currentFont    = "'Source Sans Pro', sans-serif";
     let _s10DarkMode    = false;
 
@@ -6190,11 +8664,12 @@
 
     function _applyWidgetTheme() {
       const p = _currentPalette;
-      // Light: bg=p[0], header=p[4], accent=p[2]
-      // Dark:  bg=p[4], header=p[3], accent=p[1]
+      // Mirror c3_a's _applyWidgetTheme (1-indexed roles):
+      //   Light: BG=color-1(p[0])  Header=color-2(p[1])  Accent=color-4(p[3])
+      //   Dark:  BG=color-5(p[4])  Header=color-4(p[3])  Accent=color-2(p[1])
       const bg     = _s10DarkMode ? p[4] : p[0];
-      const hdrBg  = _s10DarkMode ? p[3] : p[4];
-      const accent = _s10DarkMode ? p[1] : p[2];
+      const hdrBg  = _s10DarkMode ? p[3] : p[1];
+      const accent = _s10DarkMode ? p[1] : p[3];
 
       const header  = document.getElementById('widget-date-header');
       const content = document.getElementById('widget-content');
@@ -6230,6 +8705,9 @@
         el.style.color      = _colorIsDark(accent) ? '#ffffff' : '#0e0e0e';
         el.style.fontFamily = _currentFont;
       });
+
+      // Keep all desktop preview iframes (S5/S9/S10) in sync with theme changes
+      _refreshAllPreviews();
     }
 
     function populateS10() {
@@ -6520,11 +8998,34 @@
 
     // ─── Palette overlay ─────────────────────────────────────────────────────
 
-    function openPalette() {
+    // Desktop anchoring helper: place a dropdown sheet under its trigger.
+    // On mobile, the sheet uses its native bottom-sheet position; this fn
+    // is a no-op there.
+    function _positionDropdown(trigger, sheet) {
+      if (!trigger || !sheet) return;
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      if (!isDesktop) {
+        // Mobile: clear any leftover inline positioning so bottom-sheet works
+        sheet.style.top = sheet.style.left = '';
+        return;
+      }
+      const r        = trigger.getBoundingClientRect();
+      const vw       = window.innerWidth;
+      const sheetW   = Math.min(320, vw - 16);
+      const gap      = 8;
+      // Right-align dropdown to the trigger's right edge, clamped to viewport
+      let left = Math.min(vw - sheetW - 8, Math.max(8, r.right - sheetW));
+      sheet.style.top  = (r.bottom + gap) + 'px';
+      sheet.style.left = left + 'px';
+    }
+
+    function openPalette(trigger) {
       const overlay = document.getElementById('palette-overlay');
+      const sheet   = document.getElementById('palette-sheet');
       overlay.removeAttribute('hidden');
+      _positionDropdown(trigger, sheet);
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        document.getElementById('palette-sheet').classList.add('palette-sheet-open');
+        sheet.classList.add('palette-sheet-open');
       }));
     }
 
@@ -6545,6 +9046,7 @@
         colors.forEach((c, i) => { if (cards[i]) cards[i].style.background = c; });
       }
 
+      _syncCustomizePickerVisuals();
       _applyWidgetTheme();
       setTimeout(closePalette, 200);
     }
@@ -6553,18 +9055,22 @@
 
     const FONTS = [
       { name: 'Source Sans Pro', family: "'Source Sans Pro', sans-serif" },
-      { name: 'Poppins',          family: "'Poppins', sans-serif" },
-      { name: 'Playfair Display', family: "'Playfair Display', serif" },
-      { name: 'Raleway',          family: "'Raleway', sans-serif" },
-      { name: 'Quicksand',        family: "'Quicksand', sans-serif" },
-      { name: 'Oswald',           family: "'Oswald', sans-serif" },
+      { name: 'Poppins',         family: "'Poppins', sans-serif" },
+      { name: 'Playfair Display',family: "'Playfair Display', serif" },
+      { name: 'Raleway',         family: "'Raleway', sans-serif" },
+      { name: 'Quicksand',       family: "'Quicksand', sans-serif" },
+      { name: 'Oswald',          family: "'Oswald', sans-serif" },
+      { name: 'Concert One',     family: "'Concert One', cursive" },
+      { name: 'IBM Plex Mono',   family: "'IBM Plex Mono', monospace" },
     ];
 
-    function openFont() {
+    function openFont(trigger) {
       const overlay = document.getElementById('font-overlay');
+      const sheet   = document.getElementById('font-sheet');
       overlay.removeAttribute('hidden');
+      _positionDropdown(trigger, sheet);
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        document.getElementById('font-sheet').classList.add('font-sheet-open');
+        sheet.classList.add('font-sheet-open');
       }));
     }
 
@@ -6581,13 +9087,148 @@
       _currentFont = font.family;
       _applyWidgetTheme();
 
-      // Update font pill
+      // Update font pill (legacy S10 UI — kept for c3_a port)
       const pillAa   = document.getElementById('s10-font-pill-aa');
       const pillName = document.getElementById('s10-font-pill-name');
       if (pillAa)   pillAa.style.fontFamily = font.family;
       if (pillName) pillName.textContent    = font.name;
 
+      _syncCustomizePickerVisuals();
       setTimeout(closeFont, 200);
+    }
+
+    // ─── Button-style picker overlay ─────────────────────────────────────────
+    let _currentButtonStyle = 'sharp';   // 'sharp' | 'rounded' | 'pill'
+
+    function openButtonStyle(trigger) {
+      const overlay = document.getElementById('btnstyle-overlay');
+      const sheet   = document.getElementById('btnstyle-sheet');
+      overlay.removeAttribute('hidden');
+      _positionDropdown(trigger, sheet);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        sheet.classList.add('btnstyle-sheet-open');
+      }));
+    }
+
+    function closeButtonStyle() {
+      document.getElementById('btnstyle-sheet').classList.remove('btnstyle-sheet-open');
+      setTimeout(() => document.getElementById('btnstyle-overlay').setAttribute('hidden', ''), 280);
+    }
+
+    function selectButtonStyle(style) {
+      _currentButtonStyle = style;
+      document.querySelectorAll('.btnstyle-row').forEach(r =>
+        r.classList.toggle('btnstyle-selected', r.dataset.style === style)
+      );
+      _syncCustomizePickerVisuals();
+      // Refresh all preview iframes so the new style takes effect
+      _refreshAllPreviews();
+      setTimeout(closeButtonStyle, 200);
+    }
+
+    // s_customize is desktop-only — mobile users skip straight to S10.
+    // A desktop user who resizes down while on s_customize gets the mobile
+    // responsive treatment of the same step (form stacks, preview hides).
+    function _advanceFromS9() {
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      showScreen(isDesktop ? 's_customize' : 's10');
+    }
+
+    // ─── s_customize form wiring ───────────────────────────────────────────
+    // URLs the mock backend pretends are already taken — used on blur to
+    // surface a "name taken" error. Case-insensitive.
+    const _TAKEN_SLUGS = new Set(['acme']);
+    // Turns "Cedar Group" → "cedargroup", stripping non-alphanumeric chars.
+    function _slugifyTitle(v) {
+      return String(v || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    // Site-title input → state.businessName → preview payload.
+    // Also mirrors into the site link until the user has edited it manually.
+    function onCustomizeTitleInput(v) {
+      state.businessName = (v || '').trim();
+      if (!state.siteSlugUserEdited) {
+        const slug = _slugifyTitle(v);
+        state.siteSlug = slug;
+        const urlEl = document.getElementById('customize-url');
+        if (urlEl) urlEl.value = slug;
+        _clearCustomizeUrlError();
+      }
+      renderPreview('s_customize');
+    }
+    // Legacy alias — kept in case anything still calls it directly.
+    function updateCustomizeBusinessName(v) { onCustomizeTitleInput(v); }
+    // User edits the URL field: mark it as manually edited and stop mirroring.
+    function onCustomizeUrlInput(v) {
+      state.siteSlug = (v || '').trim();
+      state.siteSlugUserEdited = true;
+      _clearCustomizeUrlError();
+    }
+    // Blur validation: mock a "taken" state for slugs in _TAKEN_SLUGS.
+    function validateCustomizeUrl() {
+      const err   = document.getElementById('customize-url-error');
+      const wrap  = document.getElementById('customize-url-composite');
+      const slug  = (state.siteSlug || '').toLowerCase();
+      const taken = slug && _TAKEN_SLUGS.has(slug);
+      if (err)  err.hidden  = !taken;
+      if (wrap) wrap.classList.toggle('customize-url-composite--error', !!taken);
+    }
+    function _clearCustomizeUrlError() {
+      const err  = document.getElementById('customize-url-error');
+      const wrap = document.getElementById('customize-url-composite');
+      if (err)  err.hidden = true;
+      if (wrap) wrap.classList.remove('customize-url-composite--error');
+    }
+
+    // "+ Add a business description" — reveal the textarea + hide the trigger
+    function revealCustomizeDescription() {
+      const addBtn = document.getElementById('customize-desc-add');
+      const field  = document.getElementById('customize-desc-field');
+      if (addBtn) addBtn.hidden = true;
+      if (field)  field.hidden  = false;
+      const ta = document.getElementById('customize-desc');
+      if (ta) setTimeout(() => ta.focus(), 60);
+    }
+
+    // Sync the customize form inputs from state (called on screen entry)
+    function _syncCustomizeInputs() {
+      const title = document.getElementById('customize-title');
+      const url   = document.getElementById('customize-url');
+      const desc  = document.getElementById('customize-desc');
+      if (title && title.value !== state.businessName) title.value = state.businessName;
+      if (url   && url.value   !== state.siteSlug)     url.value   = state.siteSlug;
+      if (desc  && desc.value  !== state.businessDesc) desc.value  = state.businessDesc;
+      // If a description was previously set, reveal the field
+      if (state.businessDesc) {
+        const addBtn = document.getElementById('customize-desc-add');
+        const field  = document.getElementById('customize-desc-field');
+        if (addBtn) addBtn.hidden = true;
+        if (field)  field.hidden  = false;
+      }
+      _syncCustomizePickerVisuals();
+    }
+
+    // Mirror the current palette/font/button-style onto the picker triggers.
+    // Called after each pick so the customize row reflects the choice.
+    function _syncCustomizePickerVisuals() {
+      const fan = document.getElementById('customize-palette-fan');
+      if (fan && Array.isArray(_currentPalette)) {
+        const cards = fan.children;
+        _currentPalette.forEach((c, i) => { if (cards[i]) cards[i].style.background = c; });
+      }
+      const fontName = document.getElementById('customize-font-name');
+      if (fontName && Array.isArray(FONTS)) {
+        const match = FONTS.find(f => f.family === _currentFont);
+        if (match) {
+          fontName.textContent   = match.name;
+          fontName.style.fontFamily = match.family;
+        }
+      }
+      const btnSample = document.getElementById('customize-btn-sample');
+      if (btnSample) {
+        btnSample.style.borderRadius =
+          _currentButtonStyle === 'pill' ? '999px' :
+          _currentButtonStyle === 'rounded' ? '6px' : '0px';
+      }
     }
 
     // ─── Pricing tips overlay ─────────────────────────────────────────────────
@@ -6637,6 +9278,26 @@
       document.getElementById('proto-tooltip-card').classList.remove('proto-tooltip-open');
       setTimeout(() => document.getElementById('proto-tooltip-overlay').setAttribute('hidden', ''), 260);
     }
+
+    // ─── ESC dismisses the topmost open overlay ────────────────────────────────
+    // Order = z-index priority (highest first). The first overlay that's
+    // currently open gets closed.
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+
+      const candidates = [
+        { sel: '#proto-tooltip-overlay:not([hidden])',                close: closeProtoTooltip },
+        { sel: '#create-overlay.create-overlay-open',                 close: closeCreate },
+        { sel: '#edit-overlay.edit-open',                             close: closeEdit },
+        { sel: '#pricing-tips-overlay:not([hidden])',                 close: closePricingTips },
+        { sel: '#btnstyle-overlay:not([hidden])',                     close: closeButtonStyle },
+        { sel: '#font-overlay:not([hidden])',                         close: closeFont },
+        { sel: '#palette-overlay:not([hidden])',                      close: closePalette },
+      ];
+      for (const c of candidates) {
+        if (document.querySelector(c.sel)) { c.close(); e.preventDefault(); return; }
+      }
+    });
 
     // ─── s_home helpers ───────────────────────────────────────────────────────
 
@@ -6710,6 +9371,35 @@
       setTimeout(() => toast.classList.remove('copy-toast-visible'), 1500);
     }
 
+    // ─── S10 share URL — reads state.siteSlug set from s_customize ─────
+    function _s10CurrentUrl() {
+      const raw  = String(state.siteSlug || 'cedargroup').trim();
+      const slug = raw.toLowerCase().replace(/[^a-z0-9-]/g, '') || 'cedargroup';
+      return 'https://' + slug + '.as.me';
+    }
+
+    function copyS10Link() {
+      const url = _s10CurrentUrl();
+      const fallback = () => {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (_) { /* ignore */ }
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showCopyToast, () => { fallback(); showCopyToast(); });
+      } else {
+        fallback();
+        showCopyToast();
+      }
+    }
+
     // ─── S10 Open scheduling page ─────────────────────────────────────────────
 
     function serializeForSchedulingPage() {
@@ -6726,7 +9416,7 @@
       params.set('palette', JSON.stringify(_currentPalette));
       params.set('font',    _currentFont);
       params.set('dark',    _s10DarkMode ? '1' : '0');
-      return 'scheduling-page.html?' + params.toString();
+      return '../scheduling-page.html?' + params.toString();
     }
 
     function openSchedulingPage() {
@@ -7038,6 +9728,10 @@
       buildS3Chips('Beauty');
       rebuildCreateChips();
       applyIndustryData();
+      const _hashTarget = location.hash.slice(1);
+      if (_hashTarget && document.getElementById(_hashTarget) && _hashTarget !== 's4') {
+        showScreen(_hashTarget);
+      }
     });
 
     // ─── SC#4: Migrate inline onclick → addEventListener ─────────────────────

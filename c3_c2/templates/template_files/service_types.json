@@ -1,0 +1,3827 @@
+{
+  "svc_haircut_style": {
+    "name": "Haircut & Style",
+    "duration": "1 hr",
+    "price": "$65"
+  },
+  "svc_color_highlights": {
+    "name": "Color & Highlights",
+    "duration": "3 hrs",
+    "price": "$180"
+  },
+  "svc_keratin_treatment": {
+    "name": "Keratin Treatment",
+    "duration": "3 hrs",
+    "price": "$250"
+  },
+  "svc_blowout": {
+    "name": "Blowout",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_root_touch_up": {
+    "name": "Root Touch-Up",
+    "duration": "1.5 hrs",
+    "price": "$95"
+  },
+  "svc_balayage": {
+    "name": "Balayage",
+    "duration": "3 hrs",
+    "price": "$220"
+  },
+  "svc_classic_manicure": {
+    "name": "Classic Manicure",
+    "duration": "45 min",
+    "price": "$35"
+  },
+  "svc_gel_pedicure": {
+    "name": "Gel Pedicure",
+    "duration": "1 hr",
+    "price": "$55"
+  },
+  "svc_full_set_acrylics": {
+    "name": "Full Set Acrylics",
+    "duration": "1.5 hrs",
+    "price": "$65"
+  },
+  "svc_nail_art_design": {
+    "name": "Nail Art Design",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_gel_manicure": {
+    "name": "Gel Manicure",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_dip_powder_manicure": {
+    "name": "Dip Powder Manicure",
+    "duration": "1 hr",
+    "price": "$55"
+  },
+  "svc_classic_lash_set": {
+    "name": "Classic Lash Set",
+    "duration": "2 hrs",
+    "price": "$120"
+  },
+  "svc_volume_lash_set": {
+    "name": "Volume Lash Set",
+    "duration": "2.5 hrs",
+    "price": "$160"
+  },
+  "svc_lash_fill": {
+    "name": "Lash Fill",
+    "duration": "1 hr",
+    "price": "$70"
+  },
+  "svc_brow_tint_shape": {
+    "name": "Brow Tint & Shape",
+    "duration": "30 min",
+    "price": "$45"
+  },
+  "svc_lash_lift_tint": {
+    "name": "Lash Lift & Tint",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_brow_lamination": {
+    "name": "Brow Lamination",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_haircut": {
+    "name": "Haircut",
+    "duration": "30 min",
+    "price": "$35"
+  },
+  "svc_beard_trim_shape": {
+    "name": "Beard Trim & Shape",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_hot_towel_shave": {
+    "name": "Hot Towel Shave",
+    "duration": "45 min",
+    "price": "$45"
+  },
+  "svc_cut_beard_combo": {
+    "name": "Cut & Beard Combo",
+    "duration": "1 hr",
+    "price": "$55"
+  },
+  "svc_fade": {
+    "name": "Fade",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_kid_s_haircut": {
+    "name": "Kid's Haircut",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_european_facial": {
+    "name": "European Facial",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_chemical_peel": {
+    "name": "Chemical Peel",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_microdermabrasion": {
+    "name": "Microdermabrasion",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_gel_manicure_2": {
+    "name": "Gel Manicure",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_hydrafacial": {
+    "name": "HydraFacial",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_dermaplaning": {
+    "name": "Dermaplaning",
+    "duration": "45 min",
+    "price": "$95"
+  },
+  "svc_bridal_makeup": {
+    "name": "Bridal Makeup",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_event_makeup": {
+    "name": "Event Makeup",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_makeup_lesson": {
+    "name": "Makeup Lesson",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_airbrush_makeup": {
+    "name": "Airbrush Makeup",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_bridal_trial": {
+    "name": "Bridal Trial",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_photoshoot_makeup": {
+    "name": "Photoshoot Makeup",
+    "duration": "1.5 hrs",
+    "price": "$180"
+  },
+  "svc_beauty_consultation": {
+    "name": "Beauty Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_signature_treatment": {
+    "name": "Signature Treatment",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_express_service": {
+    "name": "Express Service",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_refresh_touch_up": {
+    "name": "Refresh & Touch-Up",
+    "duration": "45 min",
+    "price": "$55"
+  },
+  "svc_custom_package": {
+    "name": "Custom Package",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_group_booking": {
+    "name": "Group Booking",
+    "duration": "2 hrs",
+    "price": "$250"
+  },
+  "svc_swedish_massage": {
+    "name": "Swedish Massage",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_deep_tissue_massage": {
+    "name": "Deep Tissue Massage",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_sports_massage": {
+    "name": "Sports Massage",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_hot_stone_massage": {
+    "name": "Hot Stone Massage",
+    "duration": "1.5 hrs",
+    "price": "$130"
+  },
+  "svc_prenatal_massage": {
+    "name": "Prenatal Massage",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_couples_massage": {
+    "name": "Couples Massage",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_initial_acupuncture_visit": {
+    "name": "Initial Acupuncture Visit",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_follow_up_treatment": {
+    "name": "Follow-up Treatment",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_cupping_session": {
+    "name": "Cupping Session",
+    "duration": "45 min",
+    "price": "$80"
+  },
+  "svc_herbal_consultation": {
+    "name": "Herbal Consultation",
+    "duration": "45 min",
+    "price": "$90"
+  },
+  "svc_facial_acupuncture": {
+    "name": "Facial Acupuncture",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_fertility_acupuncture": {
+    "name": "Fertility Acupuncture",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_spa_day_package": {
+    "name": "Spa Day Package",
+    "duration": "3 hrs",
+    "price": "$200"
+  },
+  "svc_sauna_session": {
+    "name": "Sauna Session",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_float_therapy": {
+    "name": "Float Therapy",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_hydrotherapy_session": {
+    "name": "Hydrotherapy Session",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_body_scrub_treatment": {
+    "name": "Body Scrub Treatment",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_couples_spa_package": {
+    "name": "Couples Spa Package",
+    "duration": "2.5 hrs",
+    "price": "$350"
+  },
+  "svc_botox_consultation": {
+    "name": "Botox Consultation",
+    "duration": "30 min",
+    "price": "$150"
+  },
+  "svc_filler_treatment": {
+    "name": "Filler Treatment",
+    "duration": "1 hr",
+    "price": "$600"
+  },
+  "svc_microneedling": {
+    "name": "Microneedling",
+    "duration": "1 hr",
+    "price": "$300"
+  },
+  "svc_hydrafacial_2": {
+    "name": "HydraFacial",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_laser_hair_removal": {
+    "name": "Laser Hair Removal",
+    "duration": "45 min",
+    "price": "$200"
+  },
+  "svc_ipl_photofacial": {
+    "name": "IPL Photofacial",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_initial_evaluation": {
+    "name": "Initial Evaluation",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_follow_up_treatment_2": {
+    "name": "Follow-up Treatment",
+    "duration": "45 min",
+    "price": "$100"
+  },
+  "svc_dry_needling": {
+    "name": "Dry Needling",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_manual_therapy": {
+    "name": "Manual Therapy",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_sports_injury_assessment": {
+    "name": "Sports Injury Assessment",
+    "duration": "1 hr",
+    "price": "$140"
+  },
+  "svc_post_surgical_rehab": {
+    "name": "Post-Surgical Rehab",
+    "duration": "1 hr",
+    "price": "$135"
+  },
+  "svc_intake_assessment": {
+    "name": "Intake Assessment",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_individual_session": {
+    "name": "Individual Session",
+    "duration": "50 min",
+    "price": "$140"
+  },
+  "svc_family_therapy": {
+    "name": "Family Therapy",
+    "duration": "1 hr",
+    "price": "$180"
+  },
+  "svc_crisis_consultation": {
+    "name": "Crisis Consultation",
+    "duration": "30 min",
+    "price": "$100"
+  },
+  "svc_couples_therapy": {
+    "name": "Couples Therapy",
+    "duration": "1 hr",
+    "price": "$180"
+  },
+  "svc_group_therapy_session": {
+    "name": "Group Therapy Session",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_initial_nutrition_consultation": {
+    "name": "Initial Nutrition Consultation",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_follow_up_session": {
+    "name": "Follow-Up Session",
+    "duration": "45 min",
+    "price": "$85"
+  },
+  "svc_meal_plan_review": {
+    "name": "Meal Plan Review",
+    "duration": "45 min",
+    "price": "$90"
+  },
+  "svc_body_composition_assessment": {
+    "name": "Body Composition Assessment",
+    "duration": "30 min",
+    "price": "$60"
+  },
+  "svc_weight_management_session": {
+    "name": "Weight Management Session",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_sports_nutrition_session": {
+    "name": "Sports Nutrition Session",
+    "duration": "1 hr",
+    "price": "$115"
+  },
+  "svc_1_on_1_training_session": {
+    "name": "1-on-1 Training Session",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_fitness_assessment": {
+    "name": "Fitness Assessment",
+    "duration": "1 hr",
+    "price": "$60"
+  },
+  "svc_nutrition_consultation": {
+    "name": "Nutrition Consultation",
+    "duration": "45 min",
+    "price": "$70"
+  },
+  "svc_online_coaching_check_in": {
+    "name": "Online Coaching Check-in",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_small_group_training": {
+    "name": "Small Group Training",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_movement_screen": {
+    "name": "Movement Screen",
+    "duration": "45 min",
+    "price": "$70"
+  },
+  "svc_private_yoga_session": {
+    "name": "Private Yoga Session",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_couples_yoga": {
+    "name": "Couples Yoga",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_yoga_assessment": {
+    "name": "Yoga Assessment",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_prenatal_yoga": {
+    "name": "Prenatal Yoga",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_group_yoga_class": {
+    "name": "Small Group Yoga Class",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_restorative_yoga_session": {
+    "name": "Restorative Yoga Session",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_athlete_assessment": {
+    "name": "Athlete Assessment",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_speed_agility_training": {
+    "name": "Speed & Agility Training",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_sport_specific_skill_session": {
+    "name": "Sport-Specific Skill Session",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_team_strategy_session": {
+    "name": "Team Strategy Session",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_group_sports_clinic": {
+    "name": "Group Sports Clinic",
+    "duration": "1.5 hrs",
+    "price": "$50"
+  },
+  "svc_video_analysis_session": {
+    "name": "Video Analysis Session",
+    "duration": "45 min",
+    "price": "$70"
+  },
+  "svc_private_reformer_session": {
+    "name": "Private Reformer Session",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_mat_pilates_session": {
+    "name": "Mat Pilates Session",
+    "duration": "1 hr",
+    "price": "$70"
+  },
+  "svc_posture_assessment": {
+    "name": "Posture Assessment",
+    "duration": "45 min",
+    "price": "$65"
+  },
+  "svc_intro_to_pilates": {
+    "name": "Intro to Pilates",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_duet_reformer_session": {
+    "name": "Duet Reformer Session",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_group_reformer_class": {
+    "name": "Small Group Reformer Class",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_private_dance_lesson": {
+    "name": "Private Dance Lesson",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_group_dance_class": {
+    "name": "Small Group Dance Class",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_couples_dance_lesson": {
+    "name": "Couples Dance Lesson",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_kids_dance_class": {
+    "name": "Kids Dance Class",
+    "duration": "45 min",
+    "price": "$35"
+  },
+  "svc_wedding_dance_prep": {
+    "name": "Wedding Dance Prep",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_trial_lesson": {
+    "name": "Trial Lesson",
+    "duration": "30 min",
+    "price": "$30"
+  },
+  "svc_new_member_orientation": {
+    "name": "New Member Orientation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_personal_training_session": {
+    "name": "Personal Training Session",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_group_fitness_class": {
+    "name": "Small Group Fitness Class",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_wellness_assessment": {
+    "name": "Wellness Assessment",
+    "duration": "1 hr",
+    "price": "$60"
+  },
+  "svc_gym_tour": {
+    "name": "Gym Tour",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_free_trial_class": {
+    "name": "Free Trial Class",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_strategy_session": {
+    "name": "Strategy Session",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_business_audit": {
+    "name": "Business Audit",
+    "duration": "2 hrs",
+    "price": "$350"
+  },
+  "svc_brand_workshop": {
+    "name": "Brand Workshop",
+    "duration": "2 hrs",
+    "price": "$300"
+  },
+  "svc_discovery_call": {
+    "name": "Discovery Call",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_consulting_hour": {
+    "name": "Consulting Hour",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_quarterly_business_review": {
+    "name": "Quarterly Business Review",
+    "duration": "1.5 hrs",
+    "price": "$275"
+  },
+  "svc_discovery_session": {
+    "name": "Discovery Session",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_executive_coaching_session": {
+    "name": "Executive Coaching Session",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_career_strategy_session": {
+    "name": "Career Strategy Session",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_accountability_check_in": {
+    "name": "Accountability Check-in",
+    "duration": "30 min",
+    "price": "$75"
+  },
+  "svc_leadership_coaching_session": {
+    "name": "Leadership Coaching Session",
+    "duration": "1 hr",
+    "price": "$185"
+  },
+  "svc_life_coaching_session": {
+    "name": "Life Coaching Session",
+    "duration": "1 hr",
+    "price": "$140"
+  },
+  "svc_initial_consultation": {
+    "name": "Initial Consultation",
+    "duration": "30 min",
+    "price": "$150"
+  },
+  "svc_contract_review": {
+    "name": "Contract Review",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_case_strategy_session": {
+    "name": "Case Strategy Session",
+    "duration": "1 hr",
+    "price": "$300"
+  },
+  "svc_notary_services": {
+    "name": "Notary Services",
+    "duration": "30 min",
+    "price": "$50"
+  },
+  "svc_estate_planning_session": {
+    "name": "Estate Planning Session",
+    "duration": "1.5 hrs",
+    "price": "$350"
+  },
+  "svc_document_review": {
+    "name": "Document Review",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_headshot_session": {
+    "name": "Headshot Session",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_brand_photography": {
+    "name": "Brand Photography",
+    "duration": "2 hrs",
+    "price": "$400"
+  },
+  "svc_product_photography": {
+    "name": "Product Photography",
+    "duration": "2 hrs",
+    "price": "$350"
+  },
+  "svc_event_coverage": {
+    "name": "Event Coverage",
+    "duration": "4 hrs",
+    "price": "$800"
+  },
+  "svc_family_portrait_session": {
+    "name": "Family Portrait Session",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_engagement_session": {
+    "name": "Engagement Session",
+    "duration": "1.5 hrs",
+    "price": "$275"
+  },
+  "svc_marketing_strategy_session": {
+    "name": "Marketing Strategy Session",
+    "duration": "1 hr",
+    "price": "$180"
+  },
+  "svc_social_media_audit": {
+    "name": "Social Media Audit",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_content_planning_meeting": {
+    "name": "Content Planning Meeting",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_campaign_review": {
+    "name": "Campaign Review",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_seo_audit": {
+    "name": "SEO Audit",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_financial_planning_session": {
+    "name": "Financial Planning Session",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_retirement_planning": {
+    "name": "Retirement Planning",
+    "duration": "1.5 hrs",
+    "price": "$250"
+  },
+  "svc_portfolio_review": {
+    "name": "Portfolio Review",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_investment_strategy_call": {
+    "name": "Investment Strategy Call",
+    "duration": "45 min",
+    "price": "$150"
+  },
+  "svc_tax_planning_session": {
+    "name": "Tax Planning Session",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_annual_financial_review": {
+    "name": "Annual Financial Review",
+    "duration": "1.5 hrs",
+    "price": "$250"
+  },
+  "svc_volunteer_orientation": {
+    "name": "Volunteer Orientation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_donor_meeting": {
+    "name": "Donor Meeting",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_grant_consultation": {
+    "name": "Grant Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_program_intake_meeting": {
+    "name": "Program Intake Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_board_meeting": {
+    "name": "Board Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_fundraising_planning_session": {
+    "name": "Fundraising Planning Session",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_standard_home_cleaning": {
+    "name": "Standard Home Cleaning",
+    "duration": "2 hrs",
+    "price": "$120"
+  },
+  "svc_deep_clean": {
+    "name": "Deep Clean",
+    "duration": "4 hrs",
+    "price": "$250"
+  },
+  "svc_move_in_out_cleaning": {
+    "name": "Move-In/Out Cleaning",
+    "duration": "4 hrs",
+    "price": "$300"
+  },
+  "svc_commercial_cleaning": {
+    "name": "Commercial Cleaning",
+    "duration": "3 hrs",
+    "price": "$200"
+  },
+  "svc_airbnb_turnover_clean": {
+    "name": "Airbnb Turnover Clean",
+    "duration": "1.5 hrs",
+    "price": "$130"
+  },
+  "svc_window_cleaning": {
+    "name": "Window Cleaning",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_home_assessment": {
+    "name": "Home Assessment",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_repair_consultation": {
+    "name": "Repair Consultation",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_project_estimate_visit": {
+    "name": "Project Estimate Visit",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_maintenance_walkthrough": {
+    "name": "Maintenance Walkthrough",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_handyman_visit": {
+    "name": "Handyman Visit",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_punch_list_walkthrough": {
+    "name": "Punch List Walkthrough",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_oil_change_inspection": {
+    "name": "Oil Change & Inspection",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_tire_rotation": {
+    "name": "Tire Rotation",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_brake_service": {
+    "name": "Brake Service",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_diagnostic_scan": {
+    "name": "Diagnostic Scan",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_state_inspection": {
+    "name": "State Inspection",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_wheel_alignment": {
+    "name": "Wheel Alignment",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_plumbing_inspection": {
+    "name": "Plumbing Inspection",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_ac_tune_up": {
+    "name": "AC Tune-Up",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_furnace_service": {
+    "name": "Furnace Service",
+    "duration": "1.5 hrs",
+    "price": "$130"
+  },
+  "svc_drain_cleaning": {
+    "name": "Drain Cleaning",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_water_heater_service": {
+    "name": "Water Heater Service",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_leak_detection_visit": {
+    "name": "Leak Detection Visit",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_design_consultation": {
+    "name": "Design Consultation",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_progress_meeting": {
+    "name": "Progress Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_lawn_care_consultation": {
+    "name": "Lawn Care Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_garden_design_meeting": {
+    "name": "Garden Design Meeting",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_tree_trimming_estimate": {
+    "name": "Tree Trimming Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_irrigation_system_consult": {
+    "name": "Irrigation System Consult",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_seasonal_cleanup_estimate": {
+    "name": "Seasonal Cleanup Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_hardscape_design_consult": {
+    "name": "Hardscape Design Consult",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_guitar_lesson": {
+    "name": "Guitar Lesson",
+    "duration": "30 min",
+    "price": "$45"
+  },
+  "svc_piano_lesson": {
+    "name": "Piano Lesson",
+    "duration": "45 min",
+    "price": "$55"
+  },
+  "svc_vocal_coaching": {
+    "name": "Vocal Coaching",
+    "duration": "1 hr",
+    "price": "$70"
+  },
+  "svc_drum_lesson": {
+    "name": "Drum Lesson",
+    "duration": "30 min",
+    "price": "$45"
+  },
+  "svc_music_theory_session": {
+    "name": "Music Theory Session",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_trial_lesson_2": {
+    "name": "Trial Lesson",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_1_on_1_tutoring_session": {
+    "name": "1-on-1 Tutoring Session",
+    "duration": "1 hr",
+    "price": "$60"
+  },
+  "svc_test_prep_session": {
+    "name": "Test Prep Session",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_homework_help": {
+    "name": "Homework Help",
+    "duration": "45 min",
+    "price": "$45"
+  },
+  "svc_academic_assessment": {
+    "name": "Academic Assessment",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_sat_prep_session": {
+    "name": "SAT Prep Session",
+    "duration": "1.5 hrs",
+    "price": "$95"
+  },
+  "svc_college_essay_session": {
+    "name": "College Essay Session",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_acting_class": {
+    "name": "Acting Class",
+    "duration": "1.5 hrs",
+    "price": "$60"
+  },
+  "svc_audition_coaching": {
+    "name": "Audition Coaching",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_improv_workshop": {
+    "name": "Improv Workshop",
+    "duration": "2 hrs",
+    "price": "$50"
+  },
+  "svc_private_coaching_session": {
+    "name": "Private Coaching Session",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_monologue_coaching": {
+    "name": "Monologue Coaching",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_scene_study_session": {
+    "name": "Scene Study Session",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_pottery_wheel_class": {
+    "name": "Pottery Wheel Class",
+    "duration": "2 hrs",
+    "price": "$65"
+  },
+  "svc_hand_building_workshop": {
+    "name": "Hand-Building Workshop",
+    "duration": "2 hrs",
+    "price": "$55"
+  },
+  "svc_open_studio_session": {
+    "name": "Open Studio Session",
+    "duration": "2 hrs",
+    "price": "$35"
+  },
+  "svc_glazing_finishing": {
+    "name": "Glazing & Finishing",
+    "duration": "1.5 hrs",
+    "price": "$45"
+  },
+  "svc_date_night_pottery": {
+    "name": "Date Night Pottery",
+    "duration": "2 hrs",
+    "price": "$110"
+  },
+  "svc_kids_pottery_class": {
+    "name": "Kids Pottery Class",
+    "duration": "1.5 hrs",
+    "price": "$40"
+  },
+  "svc_painting_workshop": {
+    "name": "Painting Workshop",
+    "duration": "2 hrs",
+    "price": "$55"
+  },
+  "svc_drawing_class": {
+    "name": "Drawing Class",
+    "duration": "1.5 hrs",
+    "price": "$45"
+  },
+  "svc_private_studio_session": {
+    "name": "Private Studio Session",
+    "duration": "1.5 hrs",
+    "price": "$90"
+  },
+  "svc_mixed_media_class": {
+    "name": "Mixed Media Class",
+    "duration": "2 hrs",
+    "price": "$60"
+  },
+  "svc_watercolor_workshop": {
+    "name": "Watercolor Workshop",
+    "duration": "2 hrs",
+    "price": "$50"
+  },
+  "svc_kids_art_class": {
+    "name": "Kids Art Class",
+    "duration": "1 hr",
+    "price": "$30"
+  },
+  "svc_signature_facial": {
+    "name": "Signature Facial",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_spa_day_package_2": {
+    "name": "Spa Day Package",
+    "duration": "3 hrs",
+    "price": "$250"
+  },
+  "svc_manicure_pedicure": {
+    "name": "Manicure & Pedicure",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_body_scrub": {
+    "name": "Body Scrub",
+    "duration": "45 min",
+    "price": "$80"
+  },
+  "svc_refresh_treatment": {
+    "name": "Refresh Treatment",
+    "duration": "45 min",
+    "price": "$55"
+  },
+  "svc_assessment": {
+    "name": "Assessment",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_1_on_1_lesson": {
+    "name": "1-on-1 Lesson",
+    "duration": "1 hr",
+    "price": "$70"
+  },
+  "svc_group_class": {
+    "name": "Small Group Class",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_homework_help_2": {
+    "name": "Homework Help",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_test_prep_session_2": {
+    "name": "Test Prep Session",
+    "duration": "1.5 hrs",
+    "price": "$90"
+  },
+  "svc_parent_meeting": {
+    "name": "Parent Meeting",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_piercing_consultation": {
+    "name": "Piercing Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_ear_piercing": {
+    "name": "Ear Piercing",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_cartilage_piercing": {
+    "name": "Cartilage Piercing",
+    "duration": "30 min",
+    "price": "$50"
+  },
+  "svc_nose_piercing": {
+    "name": "Nose Piercing",
+    "duration": "30 min",
+    "price": "$50"
+  },
+  "svc_navel_piercing": {
+    "name": "Navel Piercing",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_jewelry_change": {
+    "name": "Jewelry Change",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_tax_consultation": {
+    "name": "Tax Consultation",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_bookkeeping_setup": {
+    "name": "Bookkeeping Setup",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_audit_prep_session": {
+    "name": "Audit Prep Session",
+    "duration": "2 hrs",
+    "price": "$350"
+  },
+  "svc_quarterly_review": {
+    "name": "Quarterly Review",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_advisory_session": {
+    "name": "Advisory Session",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_initial_holistic_consult": {
+    "name": "Initial Holistic Consult",
+    "duration": "1.5 hrs",
+    "price": "$175"
+  },
+  "svc_follow_up_session_2": {
+    "name": "Follow-Up Session",
+    "duration": "1 hr",
+    "price": "$110"
+  },
+  "svc_wellness_assessment_2": {
+    "name": "Wellness Assessment",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_bloodwork_review": {
+    "name": "Bloodwork Review",
+    "duration": "1 hr",
+    "price": "$130"
+  },
+  "svc_estimate_visit": {
+    "name": "Estimate Visit",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_exterior_wash": {
+    "name": "Exterior Wash",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_interior_detail": {
+    "name": "Interior Detail",
+    "duration": "2 hrs",
+    "price": "$120"
+  },
+  "svc_full_detail": {
+    "name": "Full Detail",
+    "duration": "3 hrs",
+    "price": "$200"
+  },
+  "svc_wax_polish": {
+    "name": "Wax & Polish",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_ceramic_coating": {
+    "name": "Ceramic Coating",
+    "duration": "4 hrs",
+    "price": "$600"
+  },
+  "svc_wellness_consultation": {
+    "name": "Wellness Consultation",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_relaxing_massage": {
+    "name": "Relaxing Massage",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_holistic_therapy": {
+    "name": "Holistic Therapy",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_breathwork_session": {
+    "name": "Breathwork Session",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_wellness_assessment_3": {
+    "name": "Wellness Assessment",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_group_wellness_class": {
+    "name": "Small Group Wellness Class",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_cake_tasting": {
+    "name": "Cake Tasting",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_custom_cake_consultation": {
+    "name": "Custom Cake Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wedding_cake_tasting": {
+    "name": "Wedding Cake Tasting",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_dessert_table_consult": {
+    "name": "Dessert Table Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_order_pickup": {
+    "name": "Order Pickup",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_baking_class": {
+    "name": "Baking Class",
+    "duration": "2 hrs",
+    "price": "$65"
+  },
+  "svc_planning_session": {
+    "name": "Planning Session",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_venue_walkthrough": {
+    "name": "Venue Walkthrough",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_design_meeting": {
+    "name": "Design Meeting",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_timeline_review": {
+    "name": "Timeline Review",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_vendor_meeting": {
+    "name": "Vendor Meeting",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_hair_removal_consult": {
+    "name": "Hair Removal Consult",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_brazilian_wax": {
+    "name": "Brazilian Wax",
+    "duration": "45 min",
+    "price": "$65"
+  },
+  "svc_full_leg_wax": {
+    "name": "Full Leg Wax",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_underarm_wax": {
+    "name": "Underarm Wax",
+    "duration": "20 min",
+    "price": "$25"
+  },
+  "svc_laser_hair_removal_2": {
+    "name": "Laser Hair Removal",
+    "duration": "45 min",
+    "price": "$150"
+  },
+  "svc_facial_wax": {
+    "name": "Facial Wax",
+    "duration": "20 min",
+    "price": "$30"
+  },
+  "svc_fitness_consultation": {
+    "name": "Fitness Consultation",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_1_on_1_training": {
+    "name": "1-on-1 Training",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_group_fitness_class_2": {
+    "name": "Small Group Fitness Class",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_movement_assessment": {
+    "name": "Movement Assessment",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_trial_session": {
+    "name": "Trial Session",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_program_review": {
+    "name": "Program Review",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_skin_consultation": {
+    "name": "Skin Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_deep_cleanse_facial": {
+    "name": "Deep Cleanse Facial",
+    "duration": "1.5 hrs",
+    "price": "$130"
+  },
+  "svc_eye_exam": {
+    "name": "Eye Exam",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_contact_lens_fitting": {
+    "name": "Contact Lens Fitting",
+    "duration": "45 min",
+    "price": "$80"
+  },
+  "svc_frame_fitting": {
+    "name": "Frame Fitting",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_kids_eye_exam": {
+    "name": "Kids Eye Exam",
+    "duration": "45 min",
+    "price": "$100"
+  },
+  "svc_adjustment": {
+    "name": "Adjustment",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_glasses_pickup": {
+    "name": "Glasses Pickup",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_pastoral_counseling": {
+    "name": "Pastoral Counseling",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_spiritual_direction": {
+    "name": "Spiritual Direction",
+    "duration": "1 hr",
+    "price": "$60"
+  },
+  "svc_wedding_officiant_meeting": {
+    "name": "Wedding Officiant Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_baptism_preparation": {
+    "name": "Baptism Preparation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_new_member_meeting": {
+    "name": "New Member Meeting",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_prayer_session": {
+    "name": "Prayer Session",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_braiding_consultation": {
+    "name": "Braiding Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_box_braids": {
+    "name": "Box Braids",
+    "duration": "5 hrs",
+    "price": "$220"
+  },
+  "svc_knotless_braids": {
+    "name": "Knotless Braids",
+    "duration": "6 hrs",
+    "price": "$260"
+  },
+  "svc_cornrows": {
+    "name": "Cornrows",
+    "duration": "2 hrs",
+    "price": "$95"
+  },
+  "svc_twist_out": {
+    "name": "Twist Out",
+    "duration": "2 hrs",
+    "price": "$110"
+  },
+  "svc_braid_takedown": {
+    "name": "Braid Takedown",
+    "duration": "1.5 hrs",
+    "price": "$60"
+  },
+  "svc_florist_consultation": {
+    "name": "Florist Consultation",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_wedding_consultation": {
+    "name": "Wedding Consultation",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_event_florals_meeting": {
+    "name": "Event Florals Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_custom_arrangement_order": {
+    "name": "Custom Arrangement Order",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_bridal_bouquet_design": {
+    "name": "Bridal Bouquet Design",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_pickup_appointment": {
+    "name": "Pickup Appointment",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_jewelry_consultation": {
+    "name": "Jewelry Consultation",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_custom_design_consult": {
+    "name": "Custom Design Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_engagement_ring_consult": {
+    "name": "Engagement Ring Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_jewelry_repair": {
+    "name": "Jewelry Repair",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_appraisal": {
+    "name": "Appraisal",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_ring_sizing": {
+    "name": "Ring Sizing",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_meet_greet": {
+    "name": "Meet & Greet",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_evening_sitter": {
+    "name": "Evening Sitter",
+    "duration": "4 hrs",
+    "price": "$100"
+  },
+  "svc_date_night_sitting": {
+    "name": "Date Night Sitting",
+    "duration": "5 hrs",
+    "price": "$125"
+  },
+  "svc_full_day_care": {
+    "name": "Full-Day Care",
+    "duration": "8 hrs",
+    "price": "$180"
+  },
+  "svc_overnight_care": {
+    "name": "Overnight Care",
+    "duration": "12 hrs",
+    "price": "$250"
+  },
+  "svc_after_school_care": {
+    "name": "After-School Care",
+    "duration": "3 hrs",
+    "price": "$75"
+  },
+  "svc_buyer_consultation": {
+    "name": "Buyer Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_seller_consultation": {
+    "name": "Seller Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_home_showing": {
+    "name": "Home Showing",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_listing_meeting": {
+    "name": "Listing Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_closing_meeting": {
+    "name": "Closing Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_trial_lesson_3": {
+    "name": "Trial Lesson",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_golf_lesson": {
+    "name": "Golf Lesson",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_playing_lesson": {
+    "name": "Playing Lesson",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_swing_analysis": {
+    "name": "Swing Analysis",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_club_fitting": {
+    "name": "Club Fitting",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_junior_golf_lesson": {
+    "name": "Junior Golf Lesson",
+    "duration": "45 min",
+    "price": "$65"
+  },
+  "svc_style_consultation": {
+    "name": "Style Consultation",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_personal_styling_session": {
+    "name": "Personal Styling Session",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_closet_audit": {
+    "name": "Closet Audit",
+    "duration": "3 hrs",
+    "price": "$300"
+  },
+  "svc_shopping_session": {
+    "name": "Shopping Session",
+    "duration": "3 hrs",
+    "price": "$275"
+  },
+  "svc_color_analysis": {
+    "name": "Color Analysis",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_virtual_styling": {
+    "name": "Virtual Styling",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_pool_cleaning": {
+    "name": "Pool Cleaning",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_chemical_balance_service": {
+    "name": "Chemical Balance Service",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_pool_opening": {
+    "name": "Pool Opening",
+    "duration": "2 hrs",
+    "price": "$225"
+  },
+  "svc_repair_visit": {
+    "name": "Repair Visit",
+    "duration": "1.5 hrs",
+    "price": "$135"
+  },
+  "svc_new_patient_visit": {
+    "name": "New Patient Visit",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_annual_physical": {
+    "name": "Annual Physical",
+    "duration": "45 min",
+    "price": "$175"
+  },
+  "svc_sick_visit": {
+    "name": "Sick Visit",
+    "duration": "30 min",
+    "price": "$125"
+  },
+  "svc_follow_up_visit": {
+    "name": "Follow-Up Visit",
+    "duration": "20 min",
+    "price": "$100"
+  },
+  "svc_telehealth_visit": {
+    "name": "Telehealth Visit",
+    "duration": "20 min",
+    "price": "$85"
+  },
+  "svc_lab_review": {
+    "name": "Lab Review",
+    "duration": "20 min",
+    "price": "$75"
+  },
+  "svc_tarot_reading": {
+    "name": "Tarot Reading",
+    "duration": "45 min",
+    "price": "$85"
+  },
+  "svc_psychic_reading": {
+    "name": "Psychic Reading",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_astrology_birth_chart": {
+    "name": "Astrology Birth Chart",
+    "duration": "1 hr",
+    "price": "$135"
+  },
+  "svc_palm_reading": {
+    "name": "Palm Reading",
+    "duration": "30 min",
+    "price": "$55"
+  },
+  "svc_mediumship_session": {
+    "name": "Mediumship Session",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_aura_reading": {
+    "name": "Aura Reading",
+    "duration": "45 min",
+    "price": "$95"
+  },
+  "svc_intro_consultation": {
+    "name": "Intro Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_project_review": {
+    "name": "Project Review",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_working_session": {
+    "name": "Working Session",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_follow_up_meeting": {
+    "name": "Follow-Up Meeting",
+    "duration": "45 min",
+    "price": "$100"
+  },
+  "svc_studio_consultation": {
+    "name": "Studio Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_recording_session": {
+    "name": "Recording Session",
+    "duration": "3 hrs",
+    "price": "$225"
+  },
+  "svc_half_day_session": {
+    "name": "Half-Day Session",
+    "duration": "4 hrs",
+    "price": "$300"
+  },
+  "svc_full_day_session": {
+    "name": "Full-Day Session",
+    "duration": "8 hrs",
+    "price": "$550"
+  },
+  "svc_mixing_session": {
+    "name": "Mixing Session",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_mastering_session": {
+    "name": "Mastering Session",
+    "duration": "1.5 hrs",
+    "price": "$175"
+  },
+  "svc_trip_planning_session": {
+    "name": "Trip Planning Session",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_itinerary_review": {
+    "name": "Itinerary Review",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_honeymoon_planning": {
+    "name": "Honeymoon Planning",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_group_travel_planning": {
+    "name": "Group Travel Planning",
+    "duration": "1.5 hrs",
+    "price": "$175"
+  },
+  "svc_cruise_planning": {
+    "name": "Cruise Planning",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_trial_class": {
+    "name": "Trial Class",
+    "duration": "1 hr",
+    "price": "$25"
+  },
+  "svc_art_class": {
+    "name": "Art Class",
+    "duration": "2 hrs",
+    "price": "$55"
+  },
+  "svc_private_art_lesson": {
+    "name": "Private Art Lesson",
+    "duration": "1.5 hrs",
+    "price": "$90"
+  },
+  "svc_portfolio_review_2": {
+    "name": "Portfolio Review",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_custom_commission_consult": {
+    "name": "Custom Commission Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_trial_class_2": {
+    "name": "Trial Class",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_private_coaching": {
+    "name": "Private Coaching",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_scene_study": {
+    "name": "Scene Study",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_bath_brush": {
+    "name": "Bath & Brush",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_full_groom": {
+    "name": "Full Groom",
+    "duration": "2 hrs",
+    "price": "$85"
+  },
+  "svc_puppy_s_first_groom": {
+    "name": "Puppy's First Groom",
+    "duration": "1.5 hrs",
+    "price": "$65"
+  },
+  "svc_nail_trim": {
+    "name": "Nail Trim",
+    "duration": "20 min",
+    "price": "$20"
+  },
+  "svc_de_shedding_treatment": {
+    "name": "De-Shedding Treatment",
+    "duration": "1.5 hrs",
+    "price": "$70"
+  },
+  "svc_breed_specific_cut": {
+    "name": "Breed-Specific Cut",
+    "duration": "2 hrs",
+    "price": "$95"
+  },
+  "svc_30_minute_walk": {
+    "name": "30-Minute Walk",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_1_hour_walk": {
+    "name": "1-Hour Walk",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_group_walk": {
+    "name": "Group Walk",
+    "duration": "1 hr",
+    "price": "$25"
+  },
+  "svc_puppy_walk": {
+    "name": "Puppy Walk",
+    "duration": "30 min",
+    "price": "$30"
+  },
+  "svc_weekend_adventure_walk": {
+    "name": "Weekend Adventure Walk",
+    "duration": "1.5 hrs",
+    "price": "$55"
+  },
+  "svc_venue_inquiry_call": {
+    "name": "Venue Inquiry Call",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_venue_tour": {
+    "name": "Venue Tour",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wedding_venue_tour": {
+    "name": "Wedding Venue Tour",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_corporate_event_tour": {
+    "name": "Corporate Event Tour",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_vendor_walkthrough": {
+    "name": "Vendor Walkthrough",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_booking_meeting": {
+    "name": "Booking Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_skincare_consultation": {
+    "name": "Skincare Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_body_treatment": {
+    "name": "Body Treatment",
+    "duration": "1 hr",
+    "price": "$135"
+  },
+  "svc_body_scrub_2": {
+    "name": "Body Scrub",
+    "duration": "45 min",
+    "price": "$85"
+  },
+  "svc_body_wrap": {
+    "name": "Body Wrap",
+    "duration": "1 hr",
+    "price": "$120"
+  },
+  "svc_led_therapy": {
+    "name": "LED Therapy",
+    "duration": "30 min",
+    "price": "$65"
+  },
+  "svc_new_patient_exam": {
+    "name": "New Patient Exam",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_cleaning": {
+    "name": "Cleaning",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_check_up": {
+    "name": "Check-Up",
+    "duration": "30 min",
+    "price": "$90"
+  },
+  "svc_filling": {
+    "name": "Filling",
+    "duration": "1 hr",
+    "price": "$225"
+  },
+  "svc_teeth_whitening": {
+    "name": "Teeth Whitening",
+    "duration": "1 hr",
+    "price": "$300"
+  },
+  "svc_kids_cleaning": {
+    "name": "Kids Cleaning",
+    "duration": "45 min",
+    "price": "$100"
+  },
+  "svc_reservation_inquiry": {
+    "name": "Reservation Inquiry",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_chef_s_table": {
+    "name": "Chef's Table",
+    "duration": "2.5 hrs",
+    "price": "$250"
+  },
+  "svc_private_dining_consult": {
+    "name": "Private Dining Consult",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_menu_tasting": {
+    "name": "Menu Tasting",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_wine_tasting": {
+    "name": "Wine Tasting",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_private_event_booking": {
+    "name": "Private Event Booking",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_videography_consultation": {
+    "name": "Videography Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_brand_video_shoot": {
+    "name": "Brand Video Shoot",
+    "duration": "3 hrs",
+    "price": "$650"
+  },
+  "svc_interview_shoot": {
+    "name": "Interview Shoot",
+    "duration": "2 hrs",
+    "price": "$450"
+  },
+  "svc_wedding_videography": {
+    "name": "Wedding Videography",
+    "duration": "8 hrs",
+    "price": "$1800"
+  },
+  "svc_new_patient_visit_2": {
+    "name": "New Patient Visit",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_annual_checkup": {
+    "name": "Annual Checkup",
+    "duration": "30 min",
+    "price": "$85"
+  },
+  "svc_vaccination_appointment": {
+    "name": "Vaccination Appointment",
+    "duration": "20 min",
+    "price": "$65"
+  },
+  "svc_sick_pet_visit": {
+    "name": "Sick Pet Visit",
+    "duration": "30 min",
+    "price": "$110"
+  },
+  "svc_dental_cleaning": {
+    "name": "Dental Cleaning",
+    "duration": "1.5 hrs",
+    "price": "$275"
+  },
+  "svc_telehealth_visit_2": {
+    "name": "Telehealth Visit",
+    "duration": "20 min",
+    "price": "$55"
+  },
+  "svc_catering_consultation": {
+    "name": "Catering Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_menu_tasting_2": {
+    "name": "Menu Tasting",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_wedding_tasting": {
+    "name": "Wedding Tasting",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_event_site_visit": {
+    "name": "Event Site Visit",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_setup_meeting": {
+    "name": "Setup Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_design_consultation_2": {
+    "name": "Design Consultation",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_brand_design_kickoff": {
+    "name": "Brand Design Kickoff",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_logo_design_session": {
+    "name": "Logo Design Session",
+    "duration": "2 hrs",
+    "price": "$300"
+  },
+  "svc_design_review": {
+    "name": "Design Review",
+    "duration": "45 min",
+    "price": "$125"
+  },
+  "svc_delivery_meeting": {
+    "name": "Delivery Meeting",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_walking_tour": {
+    "name": "Walking Tour",
+    "duration": "2 hrs",
+    "price": "$45"
+  },
+  "svc_private_tour": {
+    "name": "Private Tour",
+    "duration": "3 hrs",
+    "price": "$300"
+  },
+  "svc_food_tour": {
+    "name": "Food Tour",
+    "duration": "3 hrs",
+    "price": "$85"
+  },
+  "svc_historic_tour": {
+    "name": "Historic Tour",
+    "duration": "2 hrs",
+    "price": "$50"
+  },
+  "svc_bike_tour": {
+    "name": "Bike Tour",
+    "duration": "3 hrs",
+    "price": "$65"
+  },
+  "svc_sunset_tour": {
+    "name": "Sunset Tour",
+    "duration": "2 hrs",
+    "price": "$60"
+  },
+  "svc_in_home_consultation": {
+    "name": "In-Home Consultation",
+    "duration": "2 hrs",
+    "price": "$250"
+  },
+  "svc_design_session": {
+    "name": "Design Session",
+    "duration": "2 hrs",
+    "price": "$300"
+  },
+  "svc_room_refresh_meeting": {
+    "name": "Room Refresh Meeting",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_color_consultation": {
+    "name": "Color Consultation",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_space_planning": {
+    "name": "Space Planning",
+    "duration": "1.5 hrs",
+    "price": "$225"
+  },
+  "svc_retreat_consultation": {
+    "name": "Retreat Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wellness_program_intake": {
+    "name": "Wellness Program Intake",
+    "duration": "1.5 hrs",
+    "price": "$100"
+  },
+  "svc_group_booking_call": {
+    "name": "Group Booking Call",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_custom_retreat_planning": {
+    "name": "Custom Retreat Planning",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_pre_retreat_q_a": {
+    "name": "Pre-Retreat Q&A",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_tennis_lesson": {
+    "name": "Tennis Lesson",
+    "duration": "1 hr",
+    "price": "$90"
+  },
+  "svc_pickleball_lesson": {
+    "name": "Pickleball Lesson",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_group_clinic": {
+    "name": "Group Clinic",
+    "duration": "1.5 hrs",
+    "price": "$50"
+  },
+  "svc_junior_lesson": {
+    "name": "Junior Lesson",
+    "duration": "45 min",
+    "price": "$65"
+  },
+  "svc_match_play_coaching": {
+    "name": "Match Play Coaching",
+    "duration": "1.5 hrs",
+    "price": "$140"
+  },
+  "svc_individual_tax_prep": {
+    "name": "Individual Tax Prep",
+    "duration": "1.5 hrs",
+    "price": "$275"
+  },
+  "svc_business_tax_prep": {
+    "name": "Business Tax Prep",
+    "duration": "2 hrs",
+    "price": "$450"
+  },
+  "svc_quarterly_filing": {
+    "name": "Quarterly Filing",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_audit_support": {
+    "name": "Audit Support",
+    "duration": "1.5 hrs",
+    "price": "$300"
+  },
+  "svc_booking_inquiry": {
+    "name": "Booking Inquiry",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_property_tour": {
+    "name": "Property Tour",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wedding_site_visit": {
+    "name": "Wedding Site Visit",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_group_booking_consultation": {
+    "name": "Group Booking Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_concierge_planning": {
+    "name": "Concierge Planning",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_corporate_rate_meeting": {
+    "name": "Corporate Rate Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wedding_planning_session": {
+    "name": "Wedding Planning Session",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_design_session_2": {
+    "name": "Design Session",
+    "duration": "2 hrs",
+    "price": "$250"
+  },
+  "svc_vendor_meeting_2": {
+    "name": "Vendor Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_rehearsal": {
+    "name": "Rehearsal",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_trial_swim_lesson": {
+    "name": "Trial Swim Lesson",
+    "duration": "30 min",
+    "price": "$30"
+  },
+  "svc_private_swim_lesson": {
+    "name": "Private Swim Lesson",
+    "duration": "30 min",
+    "price": "$55"
+  },
+  "svc_kids_group_class": {
+    "name": "Kids Small Group Class",
+    "duration": "45 min",
+    "price": "$30"
+  },
+  "svc_adult_swim_lesson": {
+    "name": "Adult Swim Lesson",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_stroke_analysis": {
+    "name": "Stroke Analysis",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_parent_tot_class": {
+    "name": "Parent-Tot Class",
+    "duration": "30 min",
+    "price": "$35"
+  },
+  "svc_info_session": {
+    "name": "Info Session",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_certification_course": {
+    "name": "Certification Course",
+    "duration": "4 hrs",
+    "price": "$275"
+  },
+  "svc_practice_exam": {
+    "name": "Practice Exam",
+    "duration": "2 hrs",
+    "price": "$95"
+  },
+  "svc_skills_assessment": {
+    "name": "Skills Assessment",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_private_coaching_2": {
+    "name": "Private Coaching",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_group_training": {
+    "name": "Group Training",
+    "duration": "3 hrs",
+    "price": "$175"
+  },
+  "svc_craft_workshop": {
+    "name": "Craft Workshop",
+    "duration": "2 hrs",
+    "price": "$55"
+  },
+  "svc_private_craft_lesson": {
+    "name": "Private Craft Lesson",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_kids_craft_class": {
+    "name": "Kids Craft Class",
+    "duration": "1 hr",
+    "price": "$30"
+  },
+  "svc_custom_project_consult": {
+    "name": "Custom Project Consult",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_studio_time": {
+    "name": "Studio Time",
+    "duration": "2 hrs",
+    "price": "$35"
+  },
+  "svc_group_workshop": {
+    "name": "Group Workshop",
+    "duration": "2 hrs",
+    "price": "$65"
+  },
+  "svc_private_lesson": {
+    "name": "Private Lesson",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_kids_class": {
+    "name": "Kids Class",
+    "duration": "1 hr",
+    "price": "$30"
+  },
+  "svc_corporate_workshop": {
+    "name": "Corporate Workshop",
+    "duration": "2 hrs",
+    "price": "$400"
+  },
+  "svc_training_consultation": {
+    "name": "Training Consultation",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_private_training_session": {
+    "name": "Private Training Session",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_puppy_class": {
+    "name": "Puppy Class",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_group_obedience_class": {
+    "name": "Group Obedience Class",
+    "duration": "1 hr",
+    "price": "$35"
+  },
+  "svc_in_home_training": {
+    "name": "In-Home Training",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_behavior_assessment": {
+    "name": "Behavior Assessment",
+    "duration": "1.5 hrs",
+    "price": "$175"
+  },
+  "svc_tattoo_consultation": {
+    "name": "Tattoo Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_small_tattoo": {
+    "name": "Small Tattoo",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_medium_tattoo": {
+    "name": "Medium Tattoo",
+    "duration": "2 hrs",
+    "price": "$300"
+  },
+  "svc_half_day_session_2": {
+    "name": "Half-Day Session",
+    "duration": "4 hrs",
+    "price": "$600"
+  },
+  "svc_full_day_session_2": {
+    "name": "Full-Day Session",
+    "duration": "7 hrs",
+    "price": "$1000"
+  },
+  "svc_touch_up": {
+    "name": "Touch-Up",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_new_patient_exam_2": {
+    "name": "New Patient Exam",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_chiropractic_adjustment": {
+    "name": "Chiropractic Adjustment",
+    "duration": "20 min",
+    "price": "$65"
+  },
+  "svc_follow_up_adjustment": {
+    "name": "Follow-Up Adjustment",
+    "duration": "20 min",
+    "price": "$55"
+  },
+  "svc_sports_injury_eval": {
+    "name": "Sports Injury Eval",
+    "duration": "45 min",
+    "price": "$120"
+  },
+  "svc_prenatal_adjustment": {
+    "name": "Prenatal Adjustment",
+    "duration": "30 min",
+    "price": "$75"
+  },
+  "svc_x_ray_review": {
+    "name": "X-Ray Review",
+    "duration": "30 min",
+    "price": "$85"
+  },
+  "svc_cooking_class": {
+    "name": "Cooking Class",
+    "duration": "2 hrs",
+    "price": "$85"
+  },
+  "svc_private_chef_service": {
+    "name": "Private Chef Service",
+    "duration": "4 hrs",
+    "price": "$450"
+  },
+  "svc_couples_cooking_class": {
+    "name": "Couples Cooking Class",
+    "duration": "2.5 hrs",
+    "price": "$175"
+  },
+  "svc_kids_cooking_class": {
+    "name": "Kids Cooking Class",
+    "duration": "1.5 hrs",
+    "price": "$55"
+  },
+  "svc_meal_prep_session": {
+    "name": "Meal Prep Session",
+    "duration": "3 hrs",
+    "price": "$225"
+  },
+  "svc_menu_consultation": {
+    "name": "Menu Consultation",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_care_consultation": {
+    "name": "Care Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_home_health_assessment": {
+    "name": "Home Health Assessment",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_in_home_nursing_visit": {
+    "name": "In-Home Nursing Visit",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_wound_care_visit": {
+    "name": "Wound Care Visit",
+    "duration": "45 min",
+    "price": "$110"
+  },
+  "svc_medication_management": {
+    "name": "Medication Management",
+    "duration": "30 min",
+    "price": "$85"
+  },
+  "svc_care_plan_review": {
+    "name": "Care Plan Review",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_cosmetic_consultation": {
+    "name": "Cosmetic Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_botox_treatment": {
+    "name": "Botox Treatment",
+    "duration": "45 min",
+    "price": "$400"
+  },
+  "svc_prp_facial": {
+    "name": "PRP Facial",
+    "duration": "1.5 hrs",
+    "price": "$650"
+  },
+  "svc_laser_treatment": {
+    "name": "Laser Treatment",
+    "duration": "45 min",
+    "price": "$275"
+  },
+  "svc_meet_greet_2": {
+    "name": "Meet & Greet",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_doula_consultation": {
+    "name": "Doula Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_prenatal_visit": {
+    "name": "Prenatal Visit",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_postpartum_visit": {
+    "name": "Postpartum Visit",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_sibling_prep_session": {
+    "name": "Sibling Prep Session",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_lactation_support": {
+    "name": "Lactation Support",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_insurance_consultation": {
+    "name": "Insurance Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_policy_review": {
+    "name": "Policy Review",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_enrollment_meeting": {
+    "name": "Enrollment Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_medicare_consultation": {
+    "name": "Medicare Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_claims_assistance": {
+    "name": "Claims Assistance",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_trial_riding_lesson": {
+    "name": "Trial Riding Lesson",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_private_riding_lesson": {
+    "name": "Private Riding Lesson",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_group_riding_lesson": {
+    "name": "Group Riding Lesson",
+    "duration": "1 hr",
+    "price": "$55"
+  },
+  "svc_beginner_kids_lesson": {
+    "name": "Beginner Kids Lesson",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_jumping_lesson": {
+    "name": "Jumping Lesson",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_horse_evaluation": {
+    "name": "Horse Evaluation",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_in_home_moving_estimate": {
+    "name": "In-Home Moving Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_packing_consultation": {
+    "name": "Packing Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_move_planning_session": {
+    "name": "Move Planning Session",
+    "duration": "1.5 hrs",
+    "price": "$100"
+  },
+  "svc_corporate_relocation_consult": {
+    "name": "Corporate Relocation Consult",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_storage_consultation": {
+    "name": "Storage Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_space_tour": {
+    "name": "Space Tour",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_virtual_office_consultation": {
+    "name": "Virtual Office Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_coworking_trial_day": {
+    "name": "Coworking Trial Day",
+    "duration": "8 hrs",
+    "price": "$50"
+  },
+  "svc_meeting_room_booking": {
+    "name": "Meeting Room Booking",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_membership_consult": {
+    "name": "Membership Consult",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_mail_setup_meeting": {
+    "name": "Mail Setup Meeting",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_whitening_consultation": {
+    "name": "Whitening Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_whitening_session": {
+    "name": "Whitening Session",
+    "duration": "1 hr",
+    "price": "$225"
+  },
+  "svc_premium_whitening": {
+    "name": "Premium Whitening",
+    "duration": "1.5 hrs",
+    "price": "$350"
+  },
+  "svc_custom_tray_fitting": {
+    "name": "Custom Tray Fitting",
+    "duration": "45 min",
+    "price": "$150"
+  },
+  "svc_touch_up_session": {
+    "name": "Touch-Up Session",
+    "duration": "45 min",
+    "price": "$150"
+  },
+  "svc_bridal_whitening_package": {
+    "name": "Bridal Whitening Package",
+    "duration": "1.5 hrs",
+    "price": "$400"
+  },
+  "svc_discovery_session_2": {
+    "name": "Discovery Session",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_goal_setting_session": {
+    "name": "Goal Setting Session",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_life_transition_session": {
+    "name": "Life Transition Session",
+    "duration": "1 hr",
+    "price": "$160"
+  },
+  "svc_group_coaching": {
+    "name": "Group Coaching",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_trial_class_3": {
+    "name": "Trial Class",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_group_martial_arts_class": {
+    "name": "Group Martial Arts Class",
+    "duration": "1 hr",
+    "price": "$25"
+  },
+  "svc_kids_martial_arts_class": {
+    "name": "Kids Martial Arts Class",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_private_martial_arts_lesson": {
+    "name": "Private Martial Arts Lesson",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_belt_test": {
+    "name": "Belt Test",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_sparring_session": {
+    "name": "Sparring Session",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_trial_surf_lesson": {
+    "name": "Trial Surf Lesson",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_private_surf_lesson": {
+    "name": "Private Surf Lesson",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_group_surf_class": {
+    "name": "Group Surf Class",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_kids_surf_lesson": {
+    "name": "Kids Surf Lesson",
+    "duration": "1 hr",
+    "price": "$65"
+  },
+  "svc_paddleboard_lesson": {
+    "name": "Paddleboard Lesson",
+    "duration": "1.5 hrs",
+    "price": "$85"
+  },
+  "svc_snorkel_tour": {
+    "name": "Snorkel Tour",
+    "duration": "2 hrs",
+    "price": "$95"
+  },
+  "svc_bookkeeping_consultation": {
+    "name": "Bookkeeping Consultation",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_quickbooks_setup": {
+    "name": "QuickBooks Setup",
+    "duration": "2 hrs",
+    "price": "$275"
+  },
+  "svc_monthly_bookkeeping_review": {
+    "name": "Monthly Bookkeeping Review",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_cleanup_project_consult": {
+    "name": "Cleanup Project Consult",
+    "duration": "1.5 hrs",
+    "price": "$175"
+  },
+  "svc_year_end_review": {
+    "name": "Year-End Review",
+    "duration": "1.5 hrs",
+    "price": "$225"
+  },
+  "svc_roof_inspection": {
+    "name": "Roof Inspection",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_free_estimate": {
+    "name": "Free Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_repair_estimate": {
+    "name": "Repair Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_storm_damage_assessment": {
+    "name": "Storm Damage Assessment",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_gutter_cleaning": {
+    "name": "Gutter Cleaning",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_replacement_consultation": {
+    "name": "Replacement Consultation",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_free_estimate_2": {
+    "name": "Free Estimate",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_lawn_care_consultation_2": {
+    "name": "Lawn Care Consultation",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_seasonal_cleanup": {
+    "name": "Seasonal Cleanup",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_tree_trimming": {
+    "name": "Tree Trimming",
+    "duration": "1.5 hrs",
+    "price": "$225"
+  },
+  "svc_leaf_removal": {
+    "name": "Leaf Removal",
+    "duration": "1.5 hrs",
+    "price": "$125"
+  },
+  "svc_aeration_service": {
+    "name": "Aeration Service",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_intake_session": {
+    "name": "Intake Session",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_individual_session_2": {
+    "name": "Individual Session",
+    "duration": "50 min",
+    "price": "$150"
+  },
+  "svc_couples_session": {
+    "name": "Couples Session",
+    "duration": "1 hr",
+    "price": "$185"
+  },
+  "svc_education_session": {
+    "name": "Education Session",
+    "duration": "1 hr",
+    "price": "$140"
+  },
+  "svc_group_workshop_2": {
+    "name": "Group Workshop",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_new_patient_visit_3": {
+    "name": "New Patient Visit",
+    "duration": "1 hr",
+    "price": "$225"
+  },
+  "svc_annual_wellness_visit": {
+    "name": "Annual Wellness Visit",
+    "duration": "45 min",
+    "price": "$175"
+  },
+  "svc_prenatal_visit_2": {
+    "name": "Prenatal Visit",
+    "duration": "45 min",
+    "price": "$180"
+  },
+  "svc_family_planning_consult": {
+    "name": "Family Planning Consult",
+    "duration": "45 min",
+    "price": "$150"
+  },
+  "svc_menopause_consultation": {
+    "name": "Menopause Consultation",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_telehealth_visit_3": {
+    "name": "Telehealth Visit",
+    "duration": "20 min",
+    "price": "$100"
+  },
+  "svc_driving_assessment": {
+    "name": "Driving Assessment",
+    "duration": "1 hr",
+    "price": "$65"
+  },
+  "svc_driving_lesson": {
+    "name": "Driving Lesson",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_behind_the_wheel_session": {
+    "name": "Behind-the-Wheel Session",
+    "duration": "1.5 hrs",
+    "price": "$125"
+  },
+  "svc_road_test_prep": {
+    "name": "Road Test Prep",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_highway_lesson": {
+    "name": "Highway Lesson",
+    "duration": "1.5 hrs",
+    "price": "$110"
+  },
+  "svc_refresher_lesson": {
+    "name": "Refresher Lesson",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_notary_appointment": {
+    "name": "Notary Appointment",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_mobile_notary_visit": {
+    "name": "Mobile Notary Visit",
+    "duration": "45 min",
+    "price": "$75"
+  },
+  "svc_loan_signing_appointment": {
+    "name": "Loan Signing Appointment",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_real_estate_signing": {
+    "name": "Real Estate Signing",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_apostille_service": {
+    "name": "Apostille Service",
+    "duration": "30 min",
+    "price": "$85"
+  },
+  "svc_rush_notary": {
+    "name": "Rush Notary",
+    "duration": "30 min",
+    "price": "$65"
+  },
+  "svc_dj_consultation": {
+    "name": "DJ Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_wedding_dj_consultation": {
+    "name": "Wedding DJ Consultation",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_music_planning_meeting": {
+    "name": "Music Planning Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_site_visit_sound_check": {
+    "name": "Site Visit & Sound Check",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_package_consult": {
+    "name": "Package Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_half_day_charter": {
+    "name": "Half-Day Charter",
+    "duration": "4 hrs",
+    "price": "$450"
+  },
+  "svc_full_day_charter": {
+    "name": "Full-Day Charter",
+    "duration": "8 hrs",
+    "price": "$800"
+  },
+  "svc_deep_sea_charter": {
+    "name": "Deep Sea Charter",
+    "duration": "8 hrs",
+    "price": "$1000"
+  },
+  "svc_inshore_fishing_trip": {
+    "name": "Inshore Fishing Trip",
+    "duration": "5 hrs",
+    "price": "$500"
+  },
+  "svc_fly_fishing_guide": {
+    "name": "Fly Fishing Guide",
+    "duration": "6 hrs",
+    "price": "$450"
+  },
+  "svc_annual_exam": {
+    "name": "Annual Exam",
+    "duration": "45 min",
+    "price": "$180"
+  },
+  "svc_prenatal_visit_3": {
+    "name": "Prenatal Visit",
+    "duration": "30 min",
+    "price": "$150"
+  },
+  "svc_postpartum_visit_2": {
+    "name": "Postpartum Visit",
+    "duration": "45 min",
+    "price": "$175"
+  },
+  "svc_ultrasound": {
+    "name": "Ultrasound",
+    "duration": "45 min",
+    "price": "$225"
+  },
+  "svc_fertility_consultation": {
+    "name": "Fertility Consultation",
+    "duration": "1 hr",
+    "price": "$300"
+  },
+  "svc_well_child_visit": {
+    "name": "Well Child Visit",
+    "duration": "45 min",
+    "price": "$175"
+  },
+  "svc_sick_child_visit": {
+    "name": "Sick Child Visit",
+    "duration": "30 min",
+    "price": "$125"
+  },
+  "svc_newborn_visit": {
+    "name": "Newborn Visit",
+    "duration": "45 min",
+    "price": "$200"
+  },
+  "svc_vaccination_visit": {
+    "name": "Vaccination Visit",
+    "duration": "20 min",
+    "price": "$85"
+  },
+  "svc_sports_physical": {
+    "name": "Sports Physical",
+    "duration": "30 min",
+    "price": "$100"
+  },
+  "svc_home_inspection": {
+    "name": "Home Inspection",
+    "duration": "3 hrs",
+    "price": "$450"
+  },
+  "svc_pre_listing_inspection": {
+    "name": "Pre-Listing Inspection",
+    "duration": "3 hrs",
+    "price": "$400"
+  },
+  "svc_new_construction_inspection": {
+    "name": "New Construction Inspection",
+    "duration": "3 hrs",
+    "price": "$500"
+  },
+  "svc_radon_test": {
+    "name": "Radon Test",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_mold_inspection": {
+    "name": "Mold Inspection",
+    "duration": "2 hrs",
+    "price": "$275"
+  },
+  "svc_intake_meeting": {
+    "name": "Intake Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_case_management_meeting": {
+    "name": "Case Management Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_family_meeting": {
+    "name": "Family Meeting",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_home_visit": {
+    "name": "Home Visit",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_program_enrollment": {
+    "name": "Program Enrollment",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_support_group_session": {
+    "name": "Support Group Session",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_immigration_consultation": {
+    "name": "Immigration Consultation",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_visa_consultation": {
+    "name": "Visa Consultation",
+    "duration": "1 hr",
+    "price": "$225"
+  },
+  "svc_green_card_consultation": {
+    "name": "Green Card Consultation",
+    "duration": "1.5 hrs",
+    "price": "$275"
+  },
+  "svc_citizenship_application_review": {
+    "name": "Citizenship Application Review",
+    "duration": "1 hr",
+    "price": "$250"
+  },
+  "svc_case_review": {
+    "name": "Case Review",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_website_consultation": {
+    "name": "Website Consultation",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_project_kickoff": {
+    "name": "Project Kickoff",
+    "duration": "1.5 hrs",
+    "price": "$200"
+  },
+  "svc_design_review_2": {
+    "name": "Design Review",
+    "duration": "1 hr",
+    "price": "$125"
+  },
+  "svc_site_audit": {
+    "name": "Site Audit",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_seo_consultation": {
+    "name": "SEO Consultation",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_school_tour": {
+    "name": "School Tour",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_trial_day": {
+    "name": "Trial Day",
+    "duration": "3 hrs",
+    "price": "$50"
+  },
+  "svc_parent_consultation": {
+    "name": "Parent Consultation",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_parent_teacher_meeting": {
+    "name": "Parent-Teacher Meeting",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_alterations_consultation": {
+    "name": "Alterations Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_initial_fitting": {
+    "name": "Initial Fitting",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_bridal_fitting": {
+    "name": "Bridal Fitting",
+    "duration": "1.5 hrs",
+    "price": "$100"
+  },
+  "svc_suit_fitting": {
+    "name": "Suit Fitting",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_custom_tailoring_consult": {
+    "name": "Custom Tailoring Consult",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_rush_alterations": {
+    "name": "Rush Alterations",
+    "duration": "45 min",
+    "price": "$65"
+  },
+  "svc_free_paint_estimate": {
+    "name": "Free Paint Estimate",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_color_consultation_2": {
+    "name": "Color Consultation",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_interior_painting_consult": {
+    "name": "Interior Painting Consult",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_exterior_painting_consult": {
+    "name": "Exterior Painting Consult",
+    "duration": "1.5 hrs",
+    "price": "$0"
+  },
+  "svc_sample_application": {
+    "name": "Sample Application",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_30_minute_drop_in": {
+    "name": "30-Minute Drop-In",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_1_hour_drop_in": {
+    "name": "1-Hour Drop-In",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_overnight_pet_sit": {
+    "name": "Overnight Pet Sit",
+    "duration": "12 hrs",
+    "price": "$85"
+  },
+  "svc_in_home_sitting_day": {
+    "name": "In-Home Sitting Day",
+    "duration": "8 hrs",
+    "price": "$75"
+  },
+  "svc_vacation_care_consult": {
+    "name": "Vacation Care Consult",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_consultation": {
+    "name": "Consultation",
+    "duration": "1 hr",
+    "price": "$150"
+  },
+  "svc_working_session_2": {
+    "name": "Working Session",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_trial_session_2": {
+    "name": "Trial Session",
+    "duration": "30 min",
+    "price": "$25"
+  },
+  "svc_private_lesson_2": {
+    "name": "Private Lesson",
+    "duration": "1 hr",
+    "price": "$70"
+  },
+  "svc_small_group_session": {
+    "name": "Small Group Session",
+    "duration": "1 hr",
+    "price": "$40"
+  },
+  "svc_group_session": {
+    "name": "Group Session",
+    "duration": "1 hr",
+    "price": "$30"
+  },
+  "svc_assessment_2": {
+    "name": "Assessment",
+    "duration": "45 min",
+    "price": "$50"
+  },
+  "svc_package_session": {
+    "name": "Package Session",
+    "duration": "1 hr",
+    "price": "$65"
+  },
+  "svc_new_patient_visit_4": {
+    "name": "New Patient Visit",
+    "duration": "1 hr",
+    "price": "$200"
+  },
+  "svc_follow_up_visit_2": {
+    "name": "Follow-Up Visit",
+    "duration": "30 min",
+    "price": "$120"
+  },
+  "svc_consultation_2": {
+    "name": "Consultation",
+    "duration": "30 min",
+    "price": "$150"
+  },
+  "svc_annual_visit": {
+    "name": "Annual Visit",
+    "duration": "45 min",
+    "price": "$175"
+  },
+  "svc_screening": {
+    "name": "Screening",
+    "duration": "30 min",
+    "price": "$100"
+  },
+  "svc_free_estimate_3": {
+    "name": "Free Estimate",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_site_visit": {
+    "name": "Site Visit",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_service_call": {
+    "name": "Service Call",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_installation": {
+    "name": "Installation",
+    "duration": "2 hrs",
+    "price": "$200"
+  },
+  "svc_inspection": {
+    "name": "Inspection",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_emergency_call": {
+    "name": "Emergency Call",
+    "duration": "1 hr",
+    "price": "$175"
+  },
+  "svc_diagnostic": {
+    "name": "Diagnostic",
+    "duration": "30 min",
+    "price": "$40"
+  },
+  "svc_repair_intake": {
+    "name": "Repair Intake",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_estimate": {
+    "name": "Estimate",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_standard_repair": {
+    "name": "Standard Repair",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_express_repair": {
+    "name": "Express Repair",
+    "duration": "45 min",
+    "price": "$90"
+  },
+  "svc_pickup": {
+    "name": "Pickup",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_consultation_3": {
+    "name": "Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_single_session": {
+    "name": "Single Session",
+    "duration": "1 hr",
+    "price": "$95"
+  },
+  "svc_package_session_2": {
+    "name": "Package Session",
+    "duration": "1 hr",
+    "price": "$85"
+  },
+  "svc_intro_session": {
+    "name": "Intro Session",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_assessment_3": {
+    "name": "Assessment",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_follow_up": {
+    "name": "Follow-Up",
+    "duration": "45 min",
+    "price": "$70"
+  },
+  "svc_guided_tour": {
+    "name": "Guided Tour",
+    "duration": "2 hrs",
+    "price": "$45"
+  },
+  "svc_private_tour_2": {
+    "name": "Private Tour",
+    "duration": "3 hrs",
+    "price": "$250"
+  },
+  "svc_group_tour": {
+    "name": "Group Tour",
+    "duration": "2 hrs",
+    "price": "$40"
+  },
+  "svc_tasting_experience": {
+    "name": "Tasting Experience",
+    "duration": "1.5 hrs",
+    "price": "$65"
+  },
+  "svc_vip_experience": {
+    "name": "VIP Experience",
+    "duration": "3 hrs",
+    "price": "$300"
+  },
+  "svc_planning_session_2": {
+    "name": "Planning Session",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_group_planning": {
+    "name": "Group Planning",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_custom_trip_planning": {
+    "name": "Custom Trip Planning",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_pre_trip_q_a": {
+    "name": "Pre-Trip Q&A",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_inquiry_call": {
+    "name": "Inquiry Call",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_event_consultation": {
+    "name": "Event Consultation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_planning_meeting": {
+    "name": "Planning Meeting",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_package_consult_2": {
+    "name": "Package Consult",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_walkthrough": {
+    "name": "Walkthrough",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_rental_inquiry": {
+    "name": "Rental Inquiry",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_reservation": {
+    "name": "Reservation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_pickup_appointment_2": {
+    "name": "Pickup Appointment",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_return_appointment": {
+    "name": "Return Appointment",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_delivery_slot": {
+    "name": "Delivery Slot",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_damage_check": {
+    "name": "Damage Check",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_fitting_appointment": {
+    "name": "Fitting Appointment",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_custom_order_consult": {
+    "name": "Custom Order Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_styling_session": {
+    "name": "Styling Session",
+    "duration": "1.5 hrs",
+    "price": "$150"
+  },
+  "svc_alteration_fitting": {
+    "name": "Alteration Fitting",
+    "duration": "45 min",
+    "price": "$40"
+  },
+  "svc_follow_up_fitting": {
+    "name": "Follow-Up Fitting",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_product_consultation": {
+    "name": "Product Consultation",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_showroom_visit": {
+    "name": "Showroom Visit",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_personal_shopping": {
+    "name": "Personal Shopping",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_product_demo": {
+    "name": "Product Demo",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_test_drive": {
+    "name": "Test Drive",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_trial_session_3": {
+    "name": "Trial Session",
+    "duration": "30 min",
+    "price": "$30"
+  },
+  "svc_skills_assessment_2": {
+    "name": "Skills Assessment",
+    "duration": "1 hr",
+    "price": "$60"
+  },
+  "svc_private_coaching_3": {
+    "name": "Private Coaching",
+    "duration": "1 hr",
+    "price": "$80"
+  },
+  "svc_small_group_session_2": {
+    "name": "Small Group Session",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_skills_clinic": {
+    "name": "Skills Clinic",
+    "duration": "1.5 hrs",
+    "price": "$50"
+  },
+  "svc_video_review": {
+    "name": "Video Review",
+    "duration": "45 min",
+    "price": "$70"
+  },
+  "svc_reservation_2": {
+    "name": "Reservation",
+    "duration": "15 min",
+    "price": "$0"
+  },
+  "svc_private_dining": {
+    "name": "Private Dining",
+    "duration": "2.5 hrs",
+    "price": "$0"
+  },
+  "svc_chef_s_table_2": {
+    "name": "Chef's Table",
+    "duration": "2.5 hrs",
+    "price": "$150"
+  },
+  "svc_tasting_menu": {
+    "name": "Tasting Menu",
+    "duration": "2 hrs",
+    "price": "$95"
+  },
+  "svc_private_event_consult": {
+    "name": "Private Event Consult",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_group_booking_2": {
+    "name": "Group Booking",
+    "duration": "30 min",
+    "price": "$0"
+  },
+  "svc_booking": {
+    "name": "Booking",
+    "duration": "1 hr",
+    "price": "$45"
+  },
+  "svc_group_booking_3": {
+    "name": "Group Booking",
+    "duration": "2 hrs",
+    "price": "$150"
+  },
+  "svc_intro_session_2": {
+    "name": "Intro Session",
+    "duration": "1 hr",
+    "price": "$55"
+  },
+  "svc_beginner_session": {
+    "name": "Beginner Session",
+    "duration": "1.5 hrs",
+    "price": "$75"
+  },
+  "svc_private_session": {
+    "name": "Private Session",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_party_booking": {
+    "name": "Party Booking",
+    "duration": "2 hrs",
+    "price": "$250"
+  },
+  "svc_group_session_2": {
+    "name": "Group Session",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_intro_meeting": {
+    "name": "Intro Meeting",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_membership_meeting": {
+    "name": "Membership Meeting",
+    "duration": "45 min",
+    "price": "$0"
+  },
+  "svc_info_session_2": {
+    "name": "Info Session",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_orientation": {
+    "name": "Orientation",
+    "duration": "1 hr",
+    "price": "$0"
+  },
+  "svc_tune_up": {
+    "name": "Tune-Up",
+    "duration": "1 hr",
+    "price": "$75"
+  },
+  "svc_service_appointment": {
+    "name": "Service Appointment",
+    "duration": "1.5 hrs",
+    "price": "$120"
+  },
+  "svc_diagnostic_2": {
+    "name": "Diagnostic",
+    "duration": "45 min",
+    "price": "$60"
+  },
+  "svc_consultation_4": {
+    "name": "Consultation",
+    "duration": "30 min",
+    "price": "$50"
+  },
+  "svc_virtual_session": {
+    "name": "Virtual Session",
+    "duration": "1 hr",
+    "price": "$50"
+  },
+  "svc_standard_service": {
+    "name": "Standard Service",
+    "duration": "1 hr",
+    "price": "$100"
+  },
+  "svc_follow_up_2": {
+    "name": "Follow-Up",
+    "duration": "45 min",
+    "price": "$25"
+  },
+  "svc_strategy_call": {
+    "name": "Strategy Call",
+    "duration": "1.5 hrs",
+    "price": "$250"
+  }
+}

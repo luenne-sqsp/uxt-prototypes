@@ -1,0 +1,167 @@
+{
+  "specialty-other-top5": {
+    "Beauty": [
+      {
+        "label": "Beauty Spas",
+        "brandCategoryID": "BEAUTY_SPAS",
+        "template_set": "beauty_services_spas"
+      },
+      {
+        "label": "Body Piercings",
+        "brandCategoryID": "BODY_PIERCINGS",
+        "template_set": "piercings"
+      },
+      {
+        "label": "Hair Removal",
+        "brandCategoryID": "HAIR_REMOVAL",
+        "template_set": "hair_removal"
+      },
+      {
+        "label": "Braiding",
+        "brandCategoryID": "BRAIDING_SERVICES",
+        "template_set": "braiding_protective_styles"
+      },
+      {
+        "label": "Tattoo Artists",
+        "brandCategoryID": "TATTOO_ARTISTS_STUDIOS",
+        "template_set": "tattoo_artists_studios"
+      }
+    ],
+    "Wellness": [
+      {
+        "label": "Reflexology",
+        "brandCategoryID": "REFLEXOLOGY",
+        "template_set": "arch_wellness_session"
+      },
+      {
+        "label": "Eyewear",
+        "brandCategoryID": "EYEWEAR",
+        "template_set": "optometry"
+      },
+      {
+        "label": "Holistic Wellness",
+        "brandCategoryID": "HOLISTIC_HEALTH",
+        "template_set": "holistic_health_medicine"
+      },
+      {
+        "label": "Reiki & Energy Healing",
+        "brandCategoryID": "REIKI_ENERGY_HEALING",
+        "template_set": "arch_wellness_session"
+      },
+      {
+        "label": "Oral & Dental Care",
+        "brandCategoryID": "ORAL_DENTAL_CARE",
+        "template_set": "oral_dental_care"
+      }
+    ],
+    "Fitness": [
+      
+      {
+        "label": "Martial Arts",
+        "brandCategoryID": "MARTIAL_ARTS",
+        "template_set": "martial_arts"
+      },
+      {
+        "label": "Swimming Sports",
+        "brandCategoryID": "SWIMMING_SPORTS",
+        "template_set": "swimming_sports"
+      },
+      {
+        "label": "Gymnastics",
+        "brandCategoryID": "GYMNASTICS",
+        "template_set": "arch_sports_practice"
+      },
+      {
+        "label": "Equestrian Training & Riding Lessons",
+        "brandCategoryID": "RIDING_LESSONS",
+        "template_set": "equestrian_sports"
+      },
+      {
+        "label": "Sports Coaching",
+        "brandCategoryID": "SPORTS_COACHING",
+        "template_set": "sports_practice"
+      }
+    ],
+    "Business Services": [
+      {
+        "label": "Accounting",
+        "brandCategoryID": "ACCOUNTING_AUDITING",
+        "template_set": "accounting_auditing"
+      },
+      {
+        "label": "Real Estate",
+        "brandCategoryID": "REAL_ESTATE",
+        "template_set": "real_estate"
+      },
+      {
+        "label": "Video Services",
+        "brandCategoryID": "VIDEO_SERVICES",
+        "template_set": "video_services"
+      },
+      {
+        "label": "Graphic Design",
+        "brandCategoryID": "GRAPHIC_DESIGN",
+        "template_set": "graphic_design"
+      },
+      {
+        "label": "IT Support & Managed Services",
+        "brandCategoryID": "IT_SUPPORT_SERVICES",
+        "template_set": "arch_consultation"
+      }
+    ],
+    "Home Services": [
+      {
+        "label": "Roofing",
+        "brandCategoryID": "ROOFING",
+        "template_set": "roofing"
+      },
+      {
+        "label": "Moving Services",
+        "brandCategoryID": "MOVING_SERVICES",
+        "template_set": "moving_relocation"
+      },
+      {
+        "label": "Property Inspections",
+        "brandCategoryID": "PROPERTY_INSPECTIONS",
+        "template_set": "property_inspections"
+      },
+      {
+        "label": "House Painting",
+        "brandCategoryID": "HOUSE_PAINTING",
+        "template_set": "house_painting"
+      },
+      {
+        "label": "Appliance Repair Services",
+        "brandCategoryID": "APPLIANCE_REPAIR",
+        "template_set": "arch_repair_dropoff"
+      }
+    ],
+    "Arts & Education": [
+      {
+        "label": "Crafts",
+        "brandCategoryID": "CRAFTS",
+        "template_set": "crafts"
+      },
+      {
+        "label": "Cooking",
+        "brandCategoryID": "COOKING",
+        "template_set": "cooking"
+      },
+      {
+        "label": "Performing Arts",
+        "brandCategoryID": "PERFORMING_ARTS",
+        "template_set": "performing_arts"
+      },
+      {
+        "label": "Training & Certification",
+        "brandCategoryID": "TRAINING_CERTIFICATION",
+        "template_set": "training_certification"
+      },
+      {
+        "label": "Creative Classes & Workshops",
+        "brandCategoryID": "CREATIVE_WORKSHOPS",
+        "template_set": "creative_classes_workshops"
+      }
+    ]
+  }
+}

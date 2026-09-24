@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-brand-palette="neutral" data-brand-font="source-sans-pro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acuity — Design System Preview</title>
+  <link rel="stylesheet" href="./font.css">
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./tokens.dark.css">
+  <link rel="stylesheet" href="./brand-fonts.css">
+  <link rel="stylesheet" href="./brand-palettes.css">
+  <link rel="stylesheet" href="./components.css">
+  <style>
+    body {
+      margin: 0;
+      padding: var(--acuity-spacing-32);
+      background: var(--acuity-bg-inset);
+      color: var(--acuity-fg-default);
+      font-family: var(--acuity-font-family-sans);
+    }
+    .toolbar {
+      display: flex;
+      gap: var(--acuity-spacing-12);
+      align-items: center;
+      flex-wrap: wrap;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-16);
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      margin-bottom: var(--acuity-spacing-24);
+      position: sticky;
+      top: var(--acuity-spacing-16);
+      z-index: var(--acuity-z-sticky);
+    }
+    .toolbar select {
+      padding: var(--acuity-spacing-4) var(--acuity-spacing-8);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-sm);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 13px;
+    }
+    section {
+      background: var(--acuity-bg-base);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-lg);
+      padding: var(--acuity-spacing-24);
+      margin-bottom: var(--acuity-spacing-24);
+    }
+    section h2 {
+      margin: 0 0 var(--acuity-spacing-16);
+      font-family: var(--acuity-font-family-sans);
+      font-size: 18px;
+      font-weight: var(--acuity-font-weight-semibold);
+      color: var(--acuity-fg-default);
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--acuity-spacing-12);
+      align-items: center;
+      margin-bottom: var(--acuity-spacing-16);
+    }
+    .row:last-child { margin-bottom: 0; }
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-12);
+    }
+    .swatch-row {
+      display: flex;
+      gap: var(--acuity-spacing-8);
+    }
+    .swatch {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--acuity-border-radius-md);
+      border: var(--acuity-border-width-default) solid var(--acuity-border-default);
+    }
+    .brand-content {
+      padding: var(--acuity-spacing-16);
+      border-radius: var(--acuity-border-radius-lg);
+      background: var(--brand-palette-1);
+      color: var(--brand-palette-5);
+      font-family: var(--brand-font-family);
+    }
+    .brand-content .swatch-row .swatch { border: none; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--acuity-spacing-12);
+    }
+    .label {
+      font-size: 12px;
+      color: var(--acuity-fg-muted);
+      min-width: 96px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <label class="label">Theme</label>
+    <select onchange="document.documentElement.setAttribute('data-theme', this.value)">
+      <option value="light">light</option>
+      <option value="dark">dark</option>
+    </select>
+    <label class="label">Brand palette</label>
+    <select onchange="document.documentElement.setAttribute('data-brand-palette', this.value)">
+      <option>neutral</option>
+      <option>orchid</option>
+      <option>desert</option>
+      <option>meadow</option>
+      <option>sunset</option>
+      <option>lime</option>
+      <option>forest</option>
+      <option>violet</option>
+    </select>
+    <label class="label">Brand font</label>
+    <select onchange="document.documentElement.setAttribute('data-brand-font', this.value)">
+      <option value="source-sans-pro">Source Sans Pro (default)</option>
+      <option value="poppins">Poppins</option>
+      <option value="raleway">Raleway</option>
+      <option value="quicksand">Quicksand</option>
+      <option value="oswald">Oswald</option>
+      <option value="playfair-display">Playfair Display</option>
+      <option value="concert-one">Concert One</option>
+      <option value="ibm-plex-mono">IBM Plex Mono</option>
+      <option value="antonio">Antonio</option>
+      <option value="lora">Lora</option>
+      <option value="montserrat">Montserrat</option>
+      <option value="noto-serif">Noto Serif</option>
+      <option value="nunito">Nunito</option>
+      <option value="ubuntu">Ubuntu</option>
+    </select>
+  </div>
+
+  <section>
+    <h2>Icon library</h2>
+    <p class="text-caption" style="margin: 0 0 var(--acuity-spacing-16); color: var(--acuity-fg-muted);">
+      A sample of <code>ds/icons/</code>. SVGs are normalized to <code>currentColor</code>; tint via the parent's <code>color</code> using <code>.acuity-icon</code>.
+      The full Rosetta set is too large to list here — browse and search all of it in <a href="./icons.html">icons.html</a>.
+    </p>
+    <div class="row" style="gap: var(--acuity-spacing-16); flex-wrap: wrap;">
+      <span title="icon-plus"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-plus.svg')"></span></span>
+      <span title="icon-plus-filled"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-plus-filled.svg')"></span></span>
+      <span title="icon-minus"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-minus.svg')"></span></span>
+      <span title="icon-cross-sm"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-cross-sm.svg')"></span></span>
+      <span title="icon-cross-lg"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-cross-lg.svg')"></span></span>
+      <span title="icon-check"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-check.svg')"></span></span>
+      <span title="icon-chevron-left"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-chevron-left.svg')"></span></span>
+      <span title="icon-chevron-right"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-chevron-right.svg')"></span></span>
+      <span title="icon-chevron-up"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-chevron-up.svg')"></span></span>
+      <span title="icon-chevron-down"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-chevron-down.svg')"></span></span>
+      <span title="icon-ellipsis"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-ellipsis.svg')"></span></span>
+      <span title="icon-edit"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-edit.svg')"></span></span>
+      <span title="icon-duplicate"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-duplicate.svg')"></span></span>
+      <span title="icon-trash-bin"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-trash-bin.svg')"></span></span>
+      <span title="icon-external"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-external.svg')"></span></span>
+      <span title="icon-link"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-link.svg')"></span></span>
+      <span title="icon-share"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-share.svg')"></span></span>
+      <span title="icon-image-plus"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-image-plus.svg')"></span></span>
+      <span title="icon-calendar"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-calendar.svg')"></span></span>
+      <span title="icon-sparkles"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg')"></span></span>
+      <span title="icon-contrast"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-contrast.svg')"></span></span>
+      <span title="icon-comment"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-comment.svg')"></span></span>
+      <span title="icon-download"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-download.svg')"></span></span>
+    </div>
+    <p class="text-caption" style="margin: var(--acuity-spacing-16) 0 var(--acuity-spacing-8); color: var(--acuity-fg-muted);">Industry icons:</p>
+    <div class="row" style="gap: var(--acuity-spacing-16);">
+      <span title="icon-industry-beauty"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-beauty.svg')"></span></span>
+      <span title="icon-industry-business"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-business.svg')"></span></span>
+      <span title="icon-industry-education"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-education.svg')"></span></span>
+      <span title="icon-industry-fitness"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-fitness.svg')"></span></span>
+      <span title="icon-industry-utility"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-utility.svg')"></span></span>
+      <span title="icon-industry-wellness"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-wellness.svg')"></span></span>
+    </div>
+    <p class="text-caption" style="margin: var(--acuity-spacing-16) 0 var(--acuity-spacing-8); color: var(--acuity-fg-muted);">Inherits color from parent — same icons inside semantic-colored containers:</p>
+    <div class="row">
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-default);"></span>
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-brand);"></span>
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-success);"></span>
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-danger);"></span>
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-warning);"></span>
+      <span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-sparkles.svg'); color: var(--acuity-fg-info);"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Typography utility classes</h2>
+    <div class="stack">
+      <span class="text-label">Label — uppercase tracked</span>
+      <span class="text-caption">Caption — small body text</span>
+      <span class="text-action">Action — button caps</span>
+      <span class="text-body-book">Body book — paragraph text 14/22</span>
+      <span class="text-body-medium">Body medium — 14/22 weight 500</span>
+      <span class="text-body-semibold">Body semibold — 14/22 weight 600</span>
+      <span class="text-subtitle-medium">Subtitle medium — 18/1.4</span>
+      <span class="text-section-title-lg">Section title lg — 26/1.3</span>
+      <span class="text-title-sm">Title sm — serif 20/1.4</span>
+      <span class="text-title-lg">Title lg — serif 28/1.35</span>
+      <span class="text-display-title">Display title — 36/1.2</span>
+      <span class="text-hero-figure">Hero 52</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Button</h2>
+    <div class="row">
+      <button class="acuity-button acuity-button--primary acuity-button--md">Primary</button>
+      <button class="acuity-button acuity-button--secondary acuity-button--md">Secondary</button>
+      <button class="acuity-button acuity-button--tertiary acuity-button--md">Tertiary</button>
+      <button class="acuity-button acuity-button--destructive acuity-button--md">Destructive</button>
+      <button class="acuity-button acuity-button--ghost acuity-button--md">Ghost</button>
+      <button class="acuity-button acuity-button--primary acuity-button--md" disabled>Disabled</button>
+    </div>
+    <div class="row">
+      <button class="acuity-button acuity-button--primary acuity-button--sm">Small</button>
+      <button class="acuity-button acuity-button--primary acuity-button--md">Medium</button>
+      <button class="acuity-button acuity-button--primary acuity-button--lg">Large</button>
+      <button class="acuity-button acuity-button--primary acuity-button--md acuity-button--loading"><span class="acuity-button__label">Loading</span></button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon button</h2>
+    <div class="row">
+      <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--xs" aria-label="Edit"><span class="acuity-icon acuity-icon--xs" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm" aria-label="Edit"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--md" aria-label="Edit"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--lg" aria-label="Edit"><span class="acuity-icon acuity-icon--lg" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--primary acuity-icon-button--md" aria-label="Add"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-plus.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--secondary acuity-icon-button--md" aria-label="Duplicate"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-duplicate.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--destructive acuity-icon-button--md" aria-label="Delete"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-trash-bin.svg')"></span></button>
+    </div>
+    <div class="row">
+      <button class="acuity-icon-button acuity-icon-button--strong acuity-icon-button--md" aria-label="Add"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-plus.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--default acuity-icon-button--md" aria-label="Add"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-plus.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--alt acuity-icon-button--md" aria-label="Edit"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+      <button class="acuity-icon-button acuity-icon-button--subtle acuity-icon-button--md" aria-label="Edit"><span class="acuity-icon acuity-icon--md" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Card</h2>
+    <div class="grid-2">
+      <div class="acuity-card acuity-card--padding-md acuity-card--shadow-sm">
+        <strong class="text-body-semibold">Default card</strong>
+        <p class="text-body-book" style="margin: var(--acuity-spacing-4) 0 0;">padding-md, shadow-sm.</p>
+      </div>
+      <div class="acuity-card acuity-card--padding-lg acuity-card--shadow-md acuity-card--interactive">
+        <strong class="text-body-semibold">Interactive card</strong>
+        <p class="text-body-book" style="margin: var(--acuity-spacing-4) 0 0;">Hovers and clicks.</p>
+      </div>
+      <div class="acuity-card acuity-card--padding-sm acuity-card--borderless">
+        <strong class="text-body-semibold">Borderless</strong>
+      </div>
+      <div class="acuity-card acuity-card--padding-md acuity-card--shadow-lg">
+        <strong class="text-body-semibold">Shadow lg</strong>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Chip</h2>
+    <div class="row">
+      <span class="acuity-chip acuity-chip--neutral acuity-chip--md">Neutral</span>
+      <span class="acuity-chip acuity-chip--brand acuity-chip--md">Brand</span>
+      <span class="acuity-chip acuity-chip--success acuity-chip--md">Success</span>
+      <span class="acuity-chip acuity-chip--danger acuity-chip--md">Danger</span>
+      <span class="acuity-chip acuity-chip--warning acuity-chip--md">Warning</span>
+      <span class="acuity-chip acuity-chip--info acuity-chip--md">Info</span>
+    </div>
+    <div class="row">
+      <button class="acuity-chip acuity-chip--neutral acuity-chip--md acuity-chip--interactive">Interactive</button>
+      <button class="acuity-chip acuity-chip--neutral acuity-chip--md acuity-chip--interactive acuity-chip--selected">Selected</button>
+      <span class="acuity-chip acuity-chip--brand acuity-chip--sm">Small</span>
+      <span class="acuity-chip acuity-chip--neutral acuity-chip--md">Removable<button class="acuity-chip__remove" aria-label="Remove"><span class="acuity-icon acuity-icon--xs" style="--icon: url('./icons/icon-cross-sm.svg')"></span></button></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input / Textarea</h2>
+    <div class="grid-2">
+      <label class="acuity-input acuity-input--md">
+        <span class="acuity-input__label">Label</span>
+        <span class="acuity-input__wrapper">
+          <input class="acuity-input__field" placeholder="Placeholder">
+        </span>
+        <span class="acuity-input__helper">Helper text</span>
+      </label>
+      <label class="acuity-input acuity-input--md acuity-input--has-leading-icon">
+        <span class="acuity-input__label">With leading icon</span>
+        <span class="acuity-input__wrapper">
+          <span class="acuity-input__icon-leading"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-calendar.svg')"></span></span>
+          <input class="acuity-input__field" placeholder="Pick a date">
+        </span>
+      </label>
+      <label class="acuity-input acuity-input--md acuity-input--error">
+        <span class="acuity-input__label">Error state</span>
+        <span class="acuity-input__wrapper">
+          <input class="acuity-input__field" value="Invalid value">
+        </span>
+        <span class="acuity-input__error">This field is required.</span>
+      </label>
+      <label class="acuity-input acuity-input--md acuity-input--disabled">
+        <span class="acuity-input__label">Disabled</span>
+        <span class="acuity-input__wrapper">
+          <input class="acuity-input__field" placeholder="Disabled" disabled>
+        </span>
+      </label>
+      <label class="acuity-input acuity-input--md" style="grid-column: span 2;">
+        <span class="acuity-input__label">Textarea</span>
+        <span class="acuity-input__wrapper">
+          <textarea class="acuity-input__field acuity-textarea" rows="3" placeholder="Describe your service"></textarea>
+        </span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Radio card</h2>
+    <div class="grid-2">
+      <label class="acuity-radio-card">
+        <input type="radio" name="example" class="acuity-radio-card__input" checked>
+        <span class="acuity-radio-card__card">
+          <span class="acuity-radio-card__icon"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-beauty.svg')"></span></span>
+          <span class="acuity-radio-card__content">
+            <span class="acuity-radio-card__title">Beauty &amp; wellness</span>
+            <span class="acuity-radio-card__description">Salons, spas, makeup artists.</span>
+          </span>
+        </span>
+      </label>
+      <label class="acuity-radio-card">
+        <input type="radio" name="example" class="acuity-radio-card__input">
+        <span class="acuity-radio-card__card">
+          <span class="acuity-radio-card__icon"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-fitness.svg')"></span></span>
+          <span class="acuity-radio-card__content">
+            <span class="acuity-radio-card__title">Fitness</span>
+            <span class="acuity-radio-card__description">Personal training, yoga, classes.</span>
+          </span>
+        </span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Radio card — tile</h2>
+    <div class="grid-2">
+      <label class="acuity-radio-card acuity-radio-card--tile">
+        <input type="radio" name="example-tile" class="acuity-radio-card__input" checked>
+        <span class="acuity-radio-card__card">
+          <span class="acuity-radio-card__icon"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-beauty.svg')"></span></span>
+          <span class="acuity-radio-card__content">
+            <span class="acuity-radio-card__title">Beauty</span>
+          </span>
+        </span>
+      </label>
+      <label class="acuity-radio-card acuity-radio-card--tile">
+        <input type="radio" name="example-tile" class="acuity-radio-card__input">
+        <span class="acuity-radio-card__card">
+          <span class="acuity-radio-card__icon"><span class="acuity-icon acuity-icon--xl" style="--icon: url('./icons/icon-industry-fitness.svg')"></span></span>
+          <span class="acuity-radio-card__content">
+            <span class="acuity-radio-card__title">Fitness</span>
+          </span>
+        </span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Toggle switch</h2>
+    <div class="row">
+      <label class="acuity-toggle-switch">
+        <input type="checkbox" class="acuity-toggle-switch__input">
+        <span class="acuity-toggle-switch__track"><span class="acuity-toggle-switch__thumb"></span></span>
+      </label>
+      <label class="acuity-toggle-switch">
+        <input type="checkbox" class="acuity-toggle-switch__input" checked>
+        <span class="acuity-toggle-switch__track"><span class="acuity-toggle-switch__thumb"></span></span>
+      </label>
+      <label class="acuity-toggle-switch">
+        <input type="checkbox" class="acuity-toggle-switch__input" disabled>
+        <span class="acuity-toggle-switch__track"><span class="acuity-toggle-switch__thumb"></span></span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spinner</h2>
+    <div class="row" style="color: var(--acuity-fg-brand);">
+      <span class="acuity-spinner acuity-spinner--xs"></span>
+      <span class="acuity-spinner acuity-spinner--sm"></span>
+      <span class="acuity-spinner acuity-spinner--md"></span>
+      <span class="acuity-spinner acuity-spinner--lg"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stepper</h2>
+    <div class="row">
+      <div class="acuity-stepper">
+        <span class="acuity-stepper__step acuity-stepper__step--complete"></span>
+        <span class="acuity-stepper__step acuity-stepper__step--complete"></span>
+        <span class="acuity-stepper__step acuity-stepper__step--current"></span>
+        <span class="acuity-stepper__step"></span>
+        <span class="acuity-stepper__step"></span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Appointment card</h2>
+    <div class="stack">
+      <div class="acuity-appointment-card">
+        <div class="acuity-appointment-card__thumb"></div>
+        <div class="acuity-appointment-card__body">
+          <span class="acuity-appointment-card__name">60-min consultation</span>
+          <span class="acuity-appointment-card__meta">60 min · $120</span>
+        </div>
+        <div class="acuity-appointment-card__actions">
+          <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm" aria-label="Edit"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-edit.svg')"></span></button>
+          <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm" aria-label="Delete"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-trash-bin.svg')"></span></button>
+        </div>
+      </div>
+      <div class="acuity-appointment-card acuity-appointment-card--ai">
+        <div class="acuity-appointment-card__body">
+          <span class="acuity-appointment-card__name">Suggested by AI</span>
+          <span class="acuity-appointment-card__description">A 45-minute deep-tissue massage tailored for athletes.</span>
+        </div>
+      </div>
+      <div class="acuity-appointment-card acuity-appointment-card--selected-item">
+        <div class="acuity-appointment-card__body">
+          <span class="acuity-appointment-card__name">Selected service</span>
+          <span class="acuity-appointment-card__meta">30 min · $60</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Top nav + Bottom nav</h2>
+    <div style="border: var(--acuity-border-width-default) solid var(--acuity-border-default); border-radius: var(--acuity-border-radius-lg); overflow: hidden;">
+      <div class="acuity-top-nav">
+        <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm acuity-top-nav__back" aria-label="Back"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-chevron-left.svg')"></span></button>
+        <div class="acuity-top-nav__title">Title</div>
+        <button class="acuity-button acuity-button--tertiary acuity-button--sm acuity-top-nav__action">Skip</button>
+      </div>
+      <div style="padding: var(--acuity-spacing-24); min-height: 80px;">
+        <span class="acuity-top-nav__step-label">Step 2 of 5</span>
+      </div>
+      <div class="acuity-bottom-nav">
+        <button class="acuity-button acuity-button--primary acuity-button--md acuity-button--full-width">Continue</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wizard header</h2>
+    <div class="acuity-wizard-header">
+      <h2 class="acuity-wizard-header__heading">Let's set up your business</h2>
+      <p class="acuity-wizard-header__subheading">A few quick questions and we'll get you booking.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mini row</h2>
+    <div style="border: var(--acuity-border-width-default) solid var(--acuity-border-default); border-radius: var(--acuity-border-radius-md); overflow: hidden;">
+      <div class="acuity-mini-row"><span class="acuity-mini-row__label">Haircut</span><span class="acuity-mini-row__meta">30 min · $45</span></div>
+      <div class="acuity-mini-row"><span class="acuity-mini-row__label">Color</span><span class="acuity-mini-row__meta">90 min · $120</span></div>
+      <div class="acuity-mini-row"><span class="acuity-mini-row__label">Style</span><span class="acuity-mini-row__meta">45 min · $60</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Big input</h2>
+    <input class="acuity-big-input" placeholder="Name your service">
+  </section>
+
+  <section>
+    <h2>Character counter</h2>
+    <div class="stack" style="max-width: 320px;">
+      <div class="acuity-char-counter">
+        <span class="acuity-char-counter__error">Max. character limit reached</span>
+        <span class="acuity-char-counter__count">42 / 512</span>
+      </div>
+      <div class="acuity-char-counter acuity-char-counter--is-maxed">
+        <span class="acuity-char-counter__error">Max. character limit reached</span>
+        <span class="acuity-char-counter__count">512 / 512</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>AI badge</h2>
+    <div class="row">
+      <span class="acuity-ai-badge">
+        <span class="acuity-ai-badge__icon"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-sparkles.svg')"></span></span>
+        For your business
+      </span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dialog + Sheet (static visual previews)</h2>
+    <div class="grid-2">
+      <div style="position: relative; height: 320px; border: var(--acuity-border-width-default) dashed var(--acuity-border-default); border-radius: var(--acuity-border-radius-md);">
+        <div class="acuity-dialog-backdrop acuity-dialog-backdrop--visible" style="position: absolute;">
+          <div class="acuity-dialog acuity-dialog--sm">
+            <div class="acuity-dialog__header">
+              <div>
+                <h3 class="acuity-dialog__title">Centered dialog</h3>
+                <p class="acuity-dialog__description">--sm size.</p>
+              </div>
+              <button class="acuity-icon-button acuity-icon-button--ghost acuity-icon-button--sm" aria-label="Close"><span class="acuity-icon acuity-icon--sm" style="--icon: url('./icons/icon-cross-sm.svg')"></span></button>
+            </div>
+            <div class="acuity-dialog__body">Body content goes here.</div>
+            <div class="acuity-dialog__footer">
+              <button class="acuity-button acuity-button--tertiary acuity-button--sm">Cancel</button>
+              <button class="acuity-button acuity-button--primary acuity-button--sm">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position: relative; height: 320px; border: var(--acuity-border-width-default) dashed var(--acuity-border-default); border-radius: var(--acuity-border-radius-md); overflow: hidden;">
+        <div class="acuity-dialog-backdrop acuity-dialog-backdrop--bottom acuity-dialog-backdrop--visible" style="position: absolute;">
+          <div class="acuity-dialog">
+            <div class="acuity-dialog__header">
+              <h3 class="acuity-dialog__title">Bottom sheet</h3>
+            </div>
+            <div class="acuity-dialog__body">--bottom variant: slides up from the bottom.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Brand content (user's page using --brand-* tokens)</h2>
+    <div class="brand-content">
+      <h3 style="margin: 0 0 var(--acuity-spacing-8); font-family: var(--brand-font-family);">Acme Salon</h3>
+      <p style="margin: 0 0 var(--acuity-spacing-12); font-family: var(--brand-font-family);">Book your appointment using the styles below. Change the brand palette / font in the toolbar above.</p>
+      <div class="swatch-row">
+        <div class="swatch" style="background: var(--brand-palette-1)"></div>
+        <div class="swatch" style="background: var(--brand-palette-2)"></div>
+        <div class="swatch" style="background: var(--brand-palette-3)"></div>
+        <div class="swatch" style="background: var(--brand-palette-4)"></div>
+        <div class="swatch" style="background: var(--brand-palette-5)"></div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

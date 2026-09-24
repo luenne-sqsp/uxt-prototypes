@@ -1,0 +1,76 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+ * Brand fonts — the typeface the user picks for the page they're building.
+ *
+ * Not Acuity-native. `--brand-font-family` defaults to Source Sans Pro (the
+ * out-of-the-box font on a fresh site) and can be swapped by setting
+ * `data-brand-font="<name>"` on <html> or any ancestor of the content you want
+ * to re-typeface. Acuity chrome keeps using `--acuity-font-family-*`.
+ *
+ * Add new fonts by:
+ *   1) extending the Google Fonts <link> in the consumer HTML (or @import here)
+ *   2) adding a `[data-brand-font="..."]` rule below
+ * ────────────────────────────────────────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Concert+One&family=IBM+Plex+Mono:wght@400;500;600;700&family=Antonio:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Noto+Serif:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
+
+:root {
+  /* Default brand font. Source Sans 3 is the modern variable successor to
+     Source Sans Pro; both names render the same family via Google Fonts. */
+  --brand-font-family: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="source-sans-pro"] {
+  --brand-font-family: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="poppins"] {
+  --brand-font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="raleway"] {
+  --brand-font-family: "Raleway", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="quicksand"] {
+  --brand-font-family: "Quicksand", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="oswald"] {
+  --brand-font-family: "Oswald", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="playfair-display"] {
+  --brand-font-family: "Playfair Display", "Times New Roman", serif;
+}
+
+[data-brand-font="concert-one"] {
+  --brand-font-family: "Concert One", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="ibm-plex-mono"] {
+  --brand-font-family: "IBM Plex Mono", "SF Mono", monospace;
+}
+
+[data-brand-font="antonio"] {
+  --brand-font-family: "Antonio", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="lora"] {
+  --brand-font-family: "Lora", "Times New Roman", serif;
+}
+
+[data-brand-font="montserrat"] {
+  --brand-font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="noto-serif"] {
+  --brand-font-family: "Noto Serif", "Times New Roman", serif;
+}
+
+[data-brand-font="nunito"] {
+  --brand-font-family: "Nunito", "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-brand-font="ubuntu"] {
+  --brand-font-family: "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+}

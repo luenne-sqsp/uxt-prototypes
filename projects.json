@@ -1,0 +1,55 @@
+{
+  "projects": [
+    {
+      "id": "acuity-scheduling",
+      "name": "Acuity Scheduling",
+      "description": "Onboarding and booking-page setup concepts.",
+      "concepts": [
+        {
+          "id": "c5",
+          "name": "C05: Guided setup",
+          "description": "Variant-aware Vue port of C03-C1 — branch screens and components without duplicating the whole prototype.",
+          "kind": "vue",
+          "devUrl": "http://localhost:5180/",
+          "devCommand": "npm run dev:c5"
+        },
+        {
+          "id": "c3_c1",
+          "name": "C03-C1: Hybrid (guided industry/specialty selection)",
+          "kind": "static",
+          "href": "c3_c1/index.html"
+        },
+        {
+          "id": "c3_c2",
+          "name": "C03-C2: Hybrid (free-text industry input)",
+          "kind": "static",
+          "href": "c3_c2/index.html"
+        },
+        {
+          "id": "c3_a",
+          "name": "C03-A: Immerse",
+          "kind": "static",
+          "href": "c3_a/index.html"
+        },
+        {
+          "id": "c3_b",
+          "name": "C03-B: Compact",
+          "kind": "static",
+          "href": "c3_b/index.html"
+        },
+        {
+          "id": "c4_a",
+          "name": "C04-A: Description to Booking Page",
+          "kind": "static",
+          "href": "c4_a/index.html"
+        },
+        {
+          "id": "c4_b",
+          "name": "C04-B",
+          "kind": "static",
+          "href": "c4_b/index.html"
+        }
+      ]
+    }
+  ]
+}

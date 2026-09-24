@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S2–S3 Industry &amp; Specialty · Explorations</title>
+  <link rel="stylesheet" href="../../ds/tokens.css">
+  <link rel="stylesheet" href="../../ds/font.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--acuity-font-family-sans);
+      background: var(--acuity-bg-base);
+      color: var(--acuity-fg-default);
+      padding: var(--acuity-spacing-48) var(--acuity-spacing-32);
+      max-width: 640px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--acuity-fg-muted);
+      margin-bottom: var(--acuity-spacing-8);
+    }
+    h1 {
+      font-family: var(--acuity-font-family-display);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: var(--acuity-spacing-8);
+    }
+    .desc {
+      font-size: 14px;
+      color: var(--acuity-fg-muted);
+      line-height: 1.55;
+      margin-bottom: var(--acuity-spacing-40);
+    }
+    .variation-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--acuity-spacing-12);
+    }
+    .variation {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--acuity-spacing-16);
+      padding: var(--acuity-spacing-20) var(--acuity-spacing-24);
+      border: 1px solid var(--acuity-border-default);
+      border-radius: var(--acuity-border-radius-md);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 140ms, background 140ms;
+    }
+    .variation:hover {
+      border-color: var(--acuity-border-strong);
+      background: var(--acuity-bg-inset);
+    }
+    .variation-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--acuity-fg-disabled);
+      padding-top: 2px;
+      flex-shrink: 0;
+      width: 20px;
+    }
+    .variation-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: var(--acuity-spacing-4);
+    }
+    .variation-desc {
+      font-size: 13px;
+      color: var(--acuity-fg-muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <p class="eyebrow">S2–S3 Explorations · Desktop</p>
+  <h1>Industry &amp; Specialty picker</h1>
+  <p class="desc">Variations around how S2 (industry) and S3 (specialty) behave in the desktop onboarding flow.</p>
+
+  <div class="variation-list">
+
+    <a class="variation" href="v1-explicit-next.html">
+      <span class="variation-num">V1</span>
+      <div>
+        <p class="variation-title">Explicit Next / Inline Expand</p>
+        <p class="variation-desc">
+          S2 requires a selection before Next enables — no auto-advance.
+          S3 "Something else" morphs inline into a textarea.
+          "Other" industry routes to a freeform ghost-input with suggestion chips.
+        </p>
+      </div>
+    </a>
+
+    <!-- Add new variations below as they are built -->
+
+  </div>
+</body>
+</html>

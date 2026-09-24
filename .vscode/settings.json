@@ -1,0 +1,5 @@
+{
+  "livePreview.serverRoot": "${workspaceFolder}",
+  "livePreview.defaultPreviewPath": "/",
+  "livePreview.autoRefreshPreview": "OnChangesToPreviewedSourceFiles"
+}

@@ -1,6 +1,5 @@
 {
   "Beauty": {
-    "s3_placeholder": "e.g. Hair Salon",
     "s3_chips": [
       "Hair",
       "Nails",
@@ -9,18 +8,6 @@
       "Skincare",
       "Makeup",
       "Other"
-    ],
-    "create_name_chips": [
-      "Color Treatment",
-      "Styling Service",
-      "Skin Treatment",
-      "Nail Service",
-      "Lash Service",
-      "Brow Service",
-      "Grooming Session",
-      "Body Treatment",
-      "Hair Removal",
-      "Makeup Service"
     ],
     "fallback_appointments": [
       {
@@ -47,7 +34,7 @@
     "industries": {
       "Hair": {
         "create_name_placeholder": "e.g. Women's Cut",
-        "create_desc_ghost": "A personalized styling experience tailored to your hair type and goals.",
+        "create_desc_ghost": "e.g. A personalized styling experience tailored to your hair type and goals.",
         "appointments": [
           {
             "name": "Haircut & Style",
@@ -69,19 +56,11 @@
             "duration": "45 min",
             "price": "$50"
           }
-        ],
-        "create_name_chips": [
-          "Women's Haircut",
-          "Men's Haircut",
-          "Children's Cut",
-          "Single Process Color",
-          "Root Touch-Up",
-          "Scalp Treatment"
         ]
       },
       "Nails": {
         "create_name_placeholder": "e.g. Gel Manicure with Nail Art",
-        "create_desc_ghost": "A relaxing nail service designed to leave your hands looking and feeling their best.",
+        "create_desc_ghost": "e.g. A relaxing nail service designed to leave your hands looking and feeling their best.",
         "appointments": [
           {
             "name": "Classic Manicure",
@@ -103,19 +82,11 @@
             "duration": "1 hr",
             "price": "$40"
           }
-        ],
-        "create_name_chips": [
-          "Classic Pedicure",
-          "Dip Powder Nails",
-          "Nail Repair",
-          "Gel Removal",
-          "Press-On Application",
-          "Paraffin Treatment"
         ]
       },
       "Lash & Brows": {
         "create_name_placeholder": "e.g. Classic Full Set",
-        "create_desc_ghost": "Precision lash or brow work designed to enhance your natural features.",
+        "create_desc_ghost": "e.g. Precision lash or brow work designed to enhance your natural features.",
         "appointments": [
           {
             "name": "Classic Lash Set",
@@ -137,19 +108,11 @@
             "duration": "30 min",
             "price": "$45"
           }
-        ],
-        "create_name_chips": [
-          "Hybrid Lash Set",
-          "Lash Removal",
-          "Brow Lamination",
-          "Henna Brows",
-          "Lash Lift & Tint",
-          "Mega Volume Set"
         ]
       },
       "Barber": {
         "create_name_placeholder": "e.g. Fade & Beard Combo",
-        "create_desc_ghost": "A clean, precise cut and grooming service for the modern gentleman.",
+        "create_desc_ghost": "e.g. A clean, precise cut and grooming service for the modern gentleman.",
         "appointments": [
           {
             "name": "Haircut",
@@ -171,19 +134,11 @@
             "duration": "1 hr",
             "price": "$55"
           }
-        ],
-        "create_name_chips": [
-          "Kids' Haircut",
-          "Line-Up & Edge",
-          "Full Head Shave",
-          "Mustache Trim",
-          "Color & Gray Blend",
-          "Scalp Massage"
         ]
       },
       "Skincare": {
         "create_name_placeholder": "e.g. Hydrating Facial",
-        "create_desc_ghost": "A professional skin treatment customized to your skin type and concerns.",
+        "create_desc_ghost": "e.g. A professional skin treatment customized to your skin type and concerns.",
         "appointments": [
           {
             "name": "European Facial",
@@ -205,19 +160,11 @@
             "duration": "1 hr",
             "price": "$45"
           }
-        ],
-        "create_name_chips": [
-          "Anti-Aging Facial",
-          "Back Facial",
-          "Dermaplaning",
-          "LED Light Therapy",
-          "Eyebrow Wax",
-          "Brightening Treatment"
         ]
       },
       "Makeup": {
         "create_name_placeholder": "e.g. Event Makeup",
-        "create_desc_ghost": "Professional makeup application for any occasion, tailored to your style.",
+        "create_desc_ghost": "e.g. Professional makeup application for any occasion, tailored to your style.",
         "appointments": [
           {
             "name": "Bridal Makeup",
@@ -239,27 +186,11 @@
             "duration": "1.5 hrs",
             "price": "$150"
           }
-        ],
-        "create_name_chips": [
-          "Trial Run Makeup",
-          "Natural Glam Look",
-          "Editorial Makeup",
-          "Prom Makeup",
-          "Makeup Touch-Up",
-          "Brow Styling"
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Beauty Service",
-        "create_desc_ghost": "A professional beauty service tailored to your clients' needs.",
-        "create_name_chips": [
-          "Color Treatment",
-          "Styling Service",
-          "Nail Service",
-          "Skin Treatment",
-          "Body Treatment",
-          "Grooming Session"
-        ],
+        "create_desc_ghost": "e.g. A professional beauty service tailored to your clients' needs.",
         "appointments": [
           {
             "name": "Beauty Consultation",
@@ -286,7 +217,6 @@
     }
   },
   "Wellness": {
-    "s3_placeholder": "e.g. Spa, Nutrition",
     "s3_chips": [
       "Massage",
       "Acupuncture",
@@ -294,19 +224,8 @@
       "Med Spa",
       "Physical Therapy",
       "Mental Health",
+      "Nutrition",
       "Other"
-    ],
-    "create_name_chips": [
-      "Therapy Session",
-      "Healing Session",
-      "Wellness Check-In",
-      "Relaxation Treatment",
-      "Body Treatment",
-      "Mind-Body Session",
-      "Assessment & Intake",
-      "Follow-Up Session",
-      "Group Session",
-      "Energy Work"
     ],
     "fallback_appointments": [
       {
@@ -333,7 +252,7 @@
     "industries": {
       "Massage": {
         "create_name_placeholder": "e.g. Shiatsu Massage",
-        "create_desc_ghost": "A therapeutic massage experience tailored to your body's needs and tension points.",
+        "create_desc_ghost": "e.g. A therapeutic massage experience tailored to your body's needs and tension points.",
         "appointments": [
           {
             "name": "Swedish Massage",
@@ -355,19 +274,11 @@
             "duration": "1.5 hrs",
             "price": "$130"
           }
-        ],
-        "create_name_chips": [
-          "Prenatal Massage",
-          "Lymphatic Drainage",
-          "Trigger Point Therapy",
-          "Chair Massage",
-          "Couples Massage",
-          "Reflexology Session"
         ]
       },
       "Acupuncture": {
         "create_name_placeholder": "e.g. Cupping Session",
-        "create_desc_ghost": "Traditional Chinese medicine techniques to restore balance and support natural healing.",
+        "create_desc_ghost": "e.g. Traditional Chinese medicine techniques to restore balance and support natural healing.",
         "appointments": [
           {
             "name": "Initial Acupuncture Visit",
@@ -389,19 +300,11 @@
             "duration": "45 min",
             "price": "$90"
           }
-        ],
-        "create_name_chips": [
-          "Facial Acupuncture",
-          "Moxibustion Session",
-          "Gua Sha Treatment",
-          "Tui Na Massage",
-          "Electroacupuncture",
-          "Acupressure Session"
         ]
       },
       "Day Spa": {
         "create_name_placeholder": "e.g. Spa Day",
-        "create_desc_ghost": "A restorative spa experience designed to relax, rejuvenate, and recharge.",
+        "create_desc_ghost": "e.g. A restorative spa experience designed to relax, rejuvenate, and recharge.",
         "appointments": [
           {
             "name": "Spa Day Package",
@@ -423,19 +326,11 @@
             "duration": "1 hr",
             "price": "$90"
           }
-        ],
-        "create_name_chips": [
-          "Couples Spa Package",
-          "Infrared Sauna Session",
-          "Cold Plunge Session",
-          "Contrast Therapy",
-          "Body Wrap Treatment",
-          "Mineral Bath Soak"
         ]
       },
       "Med Spa": {
         "create_name_placeholder": "e.g. HydraFacial",
-        "create_desc_ghost": "Advanced aesthetic treatments performed by licensed professionals in a clinical setting.",
+        "create_desc_ghost": "e.g. Advanced aesthetic treatments performed by licensed professionals in a clinical setting.",
         "appointments": [
           {
             "name": "Botox Consultation",
@@ -457,19 +352,11 @@
             "duration": "1 hr",
             "price": "$200"
           }
-        ],
-        "create_name_chips": [
-          "PRP Treatment",
-          "Laser Skin Resurfacing",
-          "Body Contouring",
-          "IV Therapy",
-          "Lip Filler",
-          "Skin Tag Removal"
         ]
       },
       "Physical Therapy": {
         "create_name_placeholder": "e.g. Initial Evaluation",
-        "create_desc_ghost": "Science-backed physical therapy to restore movement, reduce pain, and rebuild strength.",
+        "create_desc_ghost": "e.g. Science-backed physical therapy to restore movement, reduce pain, and rebuild strength.",
         "appointments": [
           {
             "name": "Initial Evaluation",
@@ -491,19 +378,11 @@
             "duration": "1 hr",
             "price": "$130"
           }
-        ],
-        "create_name_chips": [
-          "Post-Surgery Rehab",
-          "Balance & Coordination",
-          "Aquatic Therapy",
-          "Vestibular Rehab",
-          "Pelvic Floor Therapy",
-          "Work Injury Evaluation"
         ]
       },
       "Mental Health": {
         "create_name_placeholder": "e.g. Therapy Session",
-        "create_desc_ghost": "Evidence-based mental health support in a safe, non-judgmental environment.",
+        "create_desc_ghost": "e.g. Evidence-based mental health support in a safe, non-judgmental environment.",
         "appointments": [
           {
             "name": "Intake Assessment",
@@ -525,27 +404,37 @@
             "duration": "30 min",
             "price": "$100"
           }
-        ],
-        "create_name_chips": [
-          "EMDR Session",
-          "CBT Session",
-          "Exposure Therapy",
-          "Mindfulness-Based Session",
-          "Psychiatric Evaluation",
-          "Telehealth Check-In"
+        ]
+      },
+      "Nutrition": {
+        "create_name_placeholder": "e.g. Nutrition Consultation",
+        "create_desc_ghost": "e.g. A personalized nutrition session to help clients build sustainable, healthy habits.",
+        "appointments": [
+          {
+            "name": "Initial Nutrition Consultation",
+            "duration": "1 hr",
+            "price": "$120"
+          },
+          {
+            "name": "Follow-Up Session",
+            "duration": "45 min",
+            "price": "$85"
+          },
+          {
+            "name": "Meal Plan Review",
+            "duration": "45 min",
+            "price": "$90"
+          },
+          {
+            "name": "Body Composition Assessment",
+            "duration": "30 min",
+            "price": "$60"
+          }
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Wellness Service",
-        "create_desc_ghost": "A holistic wellness experience designed around your clients' wellbeing.",
-        "create_name_chips": [
-          "Therapy Session",
-          "Healing Session",
-          "Relaxation Treatment",
-          "Body Treatment",
-          "Mind-Body Session",
-          "Energy Work"
-        ],
+        "create_desc_ghost": "e.g. A holistic wellness experience designed around your clients' wellbeing.",
         "appointments": [
           {
             "name": "Wellness Consultation",
@@ -572,7 +461,6 @@
     }
   },
   "Fitness": {
-    "s3_placeholder": "e.g. Personal Training",
     "s3_chips": [
       "Personal Training",
       "Yoga",
@@ -581,18 +469,6 @@
       "Dance Lessons",
       "Gym",
       "Other"
-    ],
-    "create_name_chips": [
-      "Training Session",
-      "Assessment",
-      "Group Class",
-      "Skills Session",
-      "Performance Review",
-      "Coaching Call",
-      "Mobility Session",
-      "Conditioning Class",
-      "Recovery Session",
-      "Intro Session"
     ],
     "fallback_appointments": [
       {
@@ -619,7 +495,7 @@
     "industries": {
       "Personal Training": {
         "create_name_placeholder": "e.g. 1-on-1 Assessment",
-        "create_desc_ghost": "A customized training session built around your fitness level, goals, and schedule.",
+        "create_desc_ghost": "e.g. A customized training session built around your fitness level, goals, and schedule.",
         "appointments": [
           {
             "name": "1-on-1 Training Session",
@@ -641,19 +517,11 @@
             "duration": "30 min",
             "price": "$40"
           }
-        ],
-        "create_name_chips": [
-          "HIIT Training Session",
-          "Strength & Conditioning",
-          "Weight Loss Check-In",
-          "Flexibility & Mobility",
-          "Functional Movement Session",
-          "Transformation Check-In"
         ]
       },
       "Yoga": {
         "create_name_placeholder": "e.g. Private Yoga Session",
-        "create_desc_ghost": "A mindful yoga session tailored to your experience level and wellness goals.",
+        "create_desc_ghost": "e.g. A mindful yoga session tailored to your experience level and wellness goals.",
         "appointments": [
           {
             "name": "Private Yoga Session",
@@ -675,19 +543,11 @@
             "duration": "1 hr",
             "price": "$85"
           }
-        ],
-        "create_name_chips": [
-          "Restorative Yoga",
-          "Hot Yoga Session",
-          "Vinyasa Flow",
-          "Yoga Nidra",
-          "Ashtanga Session",
-          "Breathwork & Meditation"
         ]
       },
       "Sports Coaching": {
         "create_name_placeholder": "e.g. Athlete Assessment",
-        "create_desc_ghost": "Targeted sports coaching to sharpen your performance and competitive edge.",
+        "create_desc_ghost": "e.g. Targeted sports coaching to sharpen your performance and competitive edge.",
         "appointments": [
           {
             "name": "Athlete Assessment",
@@ -709,19 +569,11 @@
             "duration": "1.5 hrs",
             "price": "$150"
           }
-        ],
-        "create_name_chips": [
-          "Game Film Review",
-          "Plyometric Training",
-          "Mental Performance Session",
-          "Injury Prevention Session",
-          "Position-Specific Drill",
-          "Combine Prep Session"
         ]
       },
       "Pilates": {
         "create_name_placeholder": "e.g. Private Reformer",
-        "create_desc_ghost": "A focused Pilates session to build core strength, flexibility, and body awareness.",
+        "create_desc_ghost": "e.g. A focused Pilates session to build core strength, flexibility, and body awareness.",
         "appointments": [
           {
             "name": "Private Reformer Session",
@@ -743,27 +595,11 @@
             "duration": "1 hr",
             "price": "$80"
           }
-        ],
-        "create_name_chips": [
-          "Prenatal Pilates",
-          "Clinical Pilates",
-          "Tower Session",
-          "Chair Pilates",
-          "Barre Fusion",
-          "Stretch & Recovery"
         ]
       },
       "Dance Lessons": {
         "create_name_placeholder": "e.g. Private or Group Dance Lesson",
-        "create_desc_ghost": "An energetic dance lesson tailored to your style and skill level.",
-        "create_name_chips": [
-          "Beginner Dance Class",
-          "Private Dance Lesson",
-          "Couples Dance Class",
-          "Kids Dance Class",
-          "Performance Prep",
-          "Style Workshop"
-        ],
+        "create_desc_ghost": "e.g. An energetic dance lesson tailored to your style and skill level.",
         "appointments": [
           {
             "name": "Private Dance Lesson",
@@ -789,7 +625,7 @@
       },
       "Gym": {
         "create_name_placeholder": "e.g. Member Orientation",
-        "create_desc_ghost": "A guided session to get you started and making the most of your membership.",
+        "create_desc_ghost": "e.g. A guided session to get you started and making the most of your membership.",
         "appointments": [
           {
             "name": "New Member Orientation",
@@ -811,27 +647,11 @@
             "duration": "1 hr",
             "price": "$60"
           }
-        ],
-        "create_name_chips": [
-          "Strength Program Design",
-          "Goal Check-In",
-          "Locker Room Tour",
-          "Nutrition Add-On",
-          "Functional Movement Screen",
-          "Equipment Orientation"
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Fitness Service",
-        "create_desc_ghost": "A fitness session designed to challenge and progress your clients.",
-        "create_name_chips": [
-          "Training Session",
-          "Group Class",
-          "Assessment",
-          "Skills Session",
-          "Recovery Session",
-          "Intro Session"
-        ],
+        "create_desc_ghost": "e.g. A fitness session designed to challenge and progress your clients.",
         "appointments": [
           {
             "name": "Fitness Consultation",
@@ -858,27 +678,15 @@
     }
   },
   "Business Services": {
-    "s3_placeholder": "e.g. Photography",
     "s3_chips": [
       "Consulting",
+      "Professional Coaching",
       "Legal",
       "Photography",
       "Marketing",
       "Finance",
       "Nonprofit",
       "Other"
-    ],
-    "create_name_chips": [
-      "Strategy Session",
-      "Consultation Call",
-      "Project Review",
-      "Onboarding Session",
-      "Planning Meeting",
-      "Advisory Session",
-      "Audit & Review",
-      "Kickoff Meeting",
-      "Check-In Call",
-      "Proposal Review"
     ],
     "fallback_appointments": [
       {
@@ -905,7 +713,7 @@
     "industries": {
       "Consulting": {
         "create_name_placeholder": "e.g. Business Strategy Session",
-        "create_desc_ghost": "A focused session to assess your goals and map out a clear path forward.",
+        "create_desc_ghost": "e.g. A focused session to assess your goals and map out a clear path forward.",
         "appointments": [
           {
             "name": "Strategy Session",
@@ -927,19 +735,37 @@
             "duration": "30 min",
             "price": "$0"
           }
-        ],
-        "create_name_chips": [
-          "Executive Coaching",
-          "Market Research Review",
-          "Competitive Analysis",
-          "Pitch Deck Review",
-          "Growth Strategy Call",
-          "Quarterly Business Review"
+        ]
+      },
+      "Professional Coaching": {
+        "create_name_placeholder": "e.g. Executive Coaching Session",
+        "create_desc_ghost": "e.g. A goal-driven coaching session to unlock leadership potential and professional clarity.",
+        "appointments": [
+          {
+            "name": "Discovery Session",
+            "duration": "1 hr",
+            "price": "$150"
+          },
+          {
+            "name": "Executive Coaching Session",
+            "duration": "1 hr",
+            "price": "$175"
+          },
+          {
+            "name": "Career Strategy Session",
+            "duration": "1 hr",
+            "price": "$130"
+          },
+          {
+            "name": "Accountability Check-in",
+            "duration": "30 min",
+            "price": "$75"
+          }
         ]
       },
       "Legal": {
         "create_name_placeholder": "e.g. Contract Review",
-        "create_desc_ghost": "Professional legal guidance tailored to your specific needs and situation.",
+        "create_desc_ghost": "e.g. Professional legal guidance tailored to your specific needs and situation.",
         "appointments": [
           {
             "name": "Initial Consultation",
@@ -961,19 +787,11 @@
             "duration": "30 min",
             "price": "$50"
           }
-        ],
-        "create_name_chips": [
-          "Business Formation Consult",
-          "Trademark Consultation",
-          "Employment Law Review",
-          "Lease Agreement Review",
-          "Demand Letter Review",
-          "Estate Planning Consult"
         ]
       },
       "Photography": {
         "create_name_placeholder": "e.g. Headshot Session",
-        "create_desc_ghost": "A professional photography experience tailored to capture your brand at its best.",
+        "create_desc_ghost": "e.g. A professional photography experience tailored to capture your brand at its best.",
         "appointments": [
           {
             "name": "Headshot Session",
@@ -995,19 +813,11 @@
             "duration": "4 hrs",
             "price": "$800"
           }
-        ],
-        "create_name_chips": [
-          "Family Portrait Session",
-          "Lifestyle Shoot",
-          "Real Estate Photography",
-          "Social Media Content Shoot",
-          "Maternity Session",
-          "Behind-the-Scenes Shoot"
         ]
       },
       "Marketing": {
         "create_name_placeholder": "e.g. Strategy Session ",
-        "create_desc_ghost": "A focused marketing session to sharpen your brand message and grow your audience.",
+        "create_desc_ghost": "e.g. A focused marketing session to sharpen your brand message and grow your audience.",
         "appointments": [
           {
             "name": "Marketing Strategy Session",
@@ -1029,19 +839,11 @@
             "duration": "45 min",
             "price": "$120"
           }
-        ],
-        "create_name_chips": [
-          "Brand Positioning Session",
-          "Competitor Analysis Review",
-          "PR Strategy Meeting",
-          "Launch Planning Call",
-          "Influencer Strategy Session",
-          "Quarterly Campaign Review"
         ]
       },
       "Finance": {
         "create_name_placeholder": "e.g. Retirement Planning",
-        "create_desc_ghost": "A personalized financial planning session to help you reach your long-term goals.",
+        "create_desc_ghost": "e.g. A personalized financial planning session to help you reach your long-term goals.",
         "appointments": [
           {
             "name": "Financial Planning Session",
@@ -1063,19 +865,11 @@
             "duration": "45 min",
             "price": "$150"
           }
-        ],
-        "create_name_chips": [
-          "Tax Planning Session",
-          "Estate Planning Consult",
-          "College Savings Planning",
-          "Insurance Review",
-          "Debt Management Session",
-          "Quarterly Financial Review"
         ]
       },
       "Nonprofit": {
         "create_name_placeholder": "e.g. Volunteer Orientation",
-        "create_desc_ghost": "A structured meeting to connect, onboard, or align stakeholders with our mission.",
+        "create_desc_ghost": "e.g. A structured meeting to connect, onboard, or align stakeholders with our mission.",
         "appointments": [
           {
             "name": "Volunteer Orientation",
@@ -1097,27 +891,11 @@
             "duration": "1 hr",
             "price": "$0"
           }
-        ],
-        "create_name_chips": [
-          "Board Strategy Meeting",
-          "Community Outreach Planning",
-          "Fundraising Consult",
-          "Impact Reporting Session",
-          "Partnership Meeting",
-          "Volunteer Coordination Call"
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Business Service",
-        "create_desc_ghost": "A professional service session tailored to your clients' business needs.",
-        "create_name_chips": [
-          "Strategy Session",
-          "Consultation Call",
-          "Planning Meeting",
-          "Advisory Session",
-          "Kickoff Meeting",
-          "Check-In Call"
-        ],
+        "create_desc_ghost": "e.g. A professional service session tailored to your clients' business needs.",
         "appointments": [
           {
             "name": "Intro Consultation",
@@ -1143,8 +921,7 @@
       }
     }
   },
-  "Utility": {
-    "s3_placeholder": "e.g. Cleaning",
+  "Home Services": {
     "s3_chips": [
       "Cleaning",
       "Home Repair",
@@ -1153,18 +930,6 @@
       "Construction",
       "Landscaping",
       "Other"
-    ],
-    "create_name_chips": [
-      "Service Appointment",
-      "On-Site Visit",
-      "Assessment & Estimate",
-      "Repair Session",
-      "Maintenance Visit",
-      "Installation Appointment",
-      "Inspection",
-      "Consultation",
-      "Follow-Up Visit",
-      "Emergency Service"
     ],
     "fallback_appointments": [
       {
@@ -1191,7 +956,7 @@
     "industries": {
       "Cleaning": {
         "create_name_placeholder": "e.g. Deep Clean",
-        "create_desc_ghost": "Thorough, reliable cleaning services to keep your space spotless and fresh.",
+        "create_desc_ghost": "e.g. Thorough, reliable cleaning services to keep your space spotless and fresh.",
         "appointments": [
           {
             "name": "Standard Home Cleaning",
@@ -1213,19 +978,11 @@
             "duration": "3 hrs",
             "price": "$200"
           }
-        ],
-        "create_name_chips": [
-          "Post-Construction Clean",
-          "Appliance Cleaning",
-          "Window Washing",
-          "Carpet Cleaning",
-          "Pressure Washing",
-          "Organizing Add-On"
         ]
       },
       "Home Repair": {
         "create_name_placeholder": "e.g. Repair Consult",
-        "create_desc_ghost": "Professional home repair and maintenance services delivered with quality and care.",
+        "create_desc_ghost": "e.g. Professional home repair and maintenance services delivered with quality and care.",
         "appointments": [
           {
             "name": "Home Assessment",
@@ -1247,19 +1004,11 @@
             "duration": "1 hr",
             "price": "$75"
           }
-        ],
-        "create_name_chips": [
-          "Drywall Repair",
-          "Flooring Consult",
-          "Painting Estimate",
-          "Deck Inspection",
-          "Window Replacement Consult",
-          "Insulation Assessment"
         ]
       },
       "Auto Care": {
         "create_name_placeholder": "e.g. Oil Change",
-        "create_desc_ghost": "Reliable auto service and maintenance to keep your vehicle safe and running its best.",
+        "create_desc_ghost": "e.g. Reliable auto service and maintenance to keep your vehicle safe and running its best.",
         "appointments": [
           {
             "name": "Oil Change & Inspection",
@@ -1281,27 +1030,11 @@
             "duration": "1 hr",
             "price": "$90"
           }
-        ],
-        "create_name_chips": [
-          "Transmission Service",
-          "AC Recharge",
-          "Battery Replacement",
-          "Alignment Check",
-          "Pre-Purchase Inspection",
-          "Fluid Flush"
         ]
       },
       "Plumbing & HVAC": {
         "create_name_placeholder": "e.g. Plumbing Inspection or HVAC Tune-Up",
-        "create_desc_ghost": "Reliable plumbing and HVAC services to keep your home running smoothly.",
-        "create_name_chips": [
-          "Pipe Inspection",
-          "Leak Repair",
-          "AC Tune-Up",
-          "Furnace Service",
-          "Drain Cleaning",
-          "Water Heater Service"
-        ],
+        "create_desc_ghost": "e.g. Reliable plumbing and HVAC services to keep your home running smoothly.",
         "appointments": [
           {
             "name": "Plumbing Inspection",
@@ -1327,7 +1060,7 @@
       },
       "Construction": {
         "create_name_placeholder": "e.g. Repair Consult",
-        "create_desc_ghost": "Professional home repair and maintenance services delivered with quality and care.",
+        "create_desc_ghost": "e.g. Professional home repair and maintenance services delivered with quality and care.",
         "appointments": [
           {
             "name": "Home Assessment",
@@ -1349,19 +1082,11 @@
             "duration": "1 hr",
             "price": "$75"
           }
-        ],
-        "create_name_chips": [
-          "Drywall Repair",
-          "Flooring Consult",
-          "Painting Estimate",
-          "Deck Inspection",
-          "Window Replacement Consult",
-          "Insulation Assessment"
         ]
       },
       "Landscaping": {
         "create_name_placeholder": "e.g. Garden Design",
-        "create_desc_ghost": "Outdoor services designed to enhance your property's curb appeal and landscape.",
+        "create_desc_ghost": "e.g. Outdoor services designed to enhance your property's curb appeal and landscape.",
         "appointments": [
           {
             "name": "Lawn Care Consultation",
@@ -1383,27 +1108,11 @@
             "duration": "1 hr",
             "price": "$100"
           }
-        ],
-        "create_name_chips": [
-          "Seasonal Cleanup",
-          "Mulching & Edging",
-          "Sprinkler Repair",
-          "Outdoor Lighting Consult",
-          "Hardscape Estimate",
-          "Tree Removal Consult"
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Home Service",
-        "create_desc_ghost": "A professional home or utility service to keep your property in great shape.",
-        "create_name_chips": [
-          "Service Appointment",
-          "On-Site Visit",
-          "Assessment & Estimate",
-          "Repair Session",
-          "Maintenance Visit",
-          "Inspection"
-        ],
+        "create_desc_ghost": "e.g. A professional home or utility service to keep your property in great shape.",
         "appointments": [
           {
             "name": "Service Consultation",
@@ -1429,27 +1138,15 @@
       }
     }
   },
-  "Education": {
-    "s3_placeholder": "e.g. Music lessons, coaching, art classes...",
+  "Arts & Education": {
     "s3_chips": [
       "Music",
-      "Coaching",
+      "Tutoring",
       "Dance",
       "Theater",
-      "Art Craft & Ceramics Studios",
+      "Ceramics",
+      "Visual Arts",
       "Other"
-    ],
-    "create_name_chips": [
-      "Tutoring Session",
-      "Coaching Session",
-      "Workshop",
-      "Skills Class",
-      "Assessment Session",
-      "Study Session",
-      "Group Class",
-      "Practice Session",
-      "Review Meeting",
-      "Intro Lesson"
     ],
     "fallback_appointments": [
       {
@@ -1476,7 +1173,7 @@
     "industries": {
       "Music": {
         "create_name_placeholder": "e.g. Vocal Lesson",
-        "create_desc_ghost": "One-on-one music instruction tailored to your skill level and musical goals.",
+        "create_desc_ghost": "e.g. One-on-one music instruction tailored to your skill level and musical goals.",
         "appointments": [
           {
             "name": "Guitar Lesson",
@@ -1498,61 +1195,37 @@
             "duration": "30 min",
             "price": "$45"
           }
-        ],
-        "create_name_chips": [
-          "Music Theory Lesson",
-          "Songwriting Session",
-          "Bass Guitar Lesson",
-          "Violin Lesson",
-          "Music Production Intro",
-          "Ear Training Session"
         ]
       },
-      "Coaching": {
-        "create_name_placeholder": "e.g. Strategy Session",
-        "create_desc_ghost": "A goal-driven coaching session to unlock your professional potential and clarity.",
+      "Tutoring": {
+        "create_name_placeholder": "e.g. Math Tutoring Session",
+        "create_desc_ghost": "e.g. A focused tutoring session designed to build understanding and confidence in any subject.",
         "appointments": [
           {
-            "name": "Discovery Session",
+            "name": "1-on-1 Tutoring Session",
             "duration": "1 hr",
-            "price": "$150"
+            "price": "$60"
           },
           {
-            "name": "Career Strategy Session",
-            "duration": "1 hr",
-            "price": "$130"
+            "name": "Test Prep Session",
+            "duration": "1.5 hrs",
+            "price": "$85"
           },
           {
-            "name": "Leadership Coaching",
-            "duration": "1 hr",
-            "price": "$175"
+            "name": "Homework Help",
+            "duration": "45 min",
+            "price": "$45"
           },
           {
-            "name": "Accountability Check-in",
-            "duration": "30 min",
+            "name": "Academic Assessment",
+            "duration": "1 hr",
             "price": "$75"
           }
-        ],
-        "create_name_chips": [
-          "Executive Presence Session",
-          "Conflict Resolution Coaching",
-          "Promotion Prep Session",
-          "Negotiation Skills Workshop",
-          "Interview Coaching",
-          "Public Speaking Session"
         ]
       },
       "Dance": {
         "create_name_placeholder": "e.g. Ballet, Hip-Hop, or Contemporary Class",
-        "create_desc_ghost": "A structured dance class designed to build technique, expression, and confidence.",
-        "create_name_chips": [
-          "Ballet Class",
-          "Hip-Hop Class",
-          "Contemporary Dance",
-          "Ballroom Lesson",
-          "Jazz Dance",
-          "Movement Workshop"
-        ],
+        "create_desc_ghost": "e.g. A structured dance class designed to build technique, expression, and confidence.",
         "appointments": [
           {
             "name": "Private Dance Lesson",
@@ -1578,15 +1251,7 @@
       },
       "Theater": {
         "create_name_placeholder": "e.g. Acting Class or Audition Prep",
-        "create_desc_ghost": "A dynamic theater session to develop performance skills and stage presence.",
-        "create_name_chips": [
-          "Acting Class",
-          "Audition Prep",
-          "Voice & Diction",
-          "Improv Workshop",
-          "Scene Study",
-          "Musical Theater"
-        ],
+        "create_desc_ghost": "e.g. A dynamic theater session to develop performance skills and stage presence.",
         "appointments": [
           {
             "name": "Acting Class",
@@ -1610,27 +1275,45 @@
           }
         ]
       },
-      "Art Craft & Ceramics Studios": {
-        "create_name_placeholder": "e.g. Pottery Class or Painting Workshop",
-        "create_desc_ghost": "A hands-on creative studio session to explore art, craft, and making.",
-        "create_name_chips": [
-          "Pottery Class",
-          "Painting Workshop",
-          "Drawing Class",
-          "Ceramics Studio",
-          "Jewelry Making",
-          "Mixed Media Class"
-        ],
+      "Ceramics": {
+        "create_name_placeholder": "e.g. Pottery Wheel Class",
+        "create_desc_ghost": "e.g. A hands-on ceramics session to shape, throw, and glaze your own creations.",
         "appointments": [
           {
-            "name": "Pottery Class",
+            "name": "Pottery Wheel Class",
             "duration": "2 hrs",
             "price": "$65"
           },
           {
+            "name": "Hand-Building Workshop",
+            "duration": "2 hrs",
+            "price": "$55"
+          },
+          {
+            "name": "Open Studio Session",
+            "duration": "2 hrs",
+            "price": "$35"
+          },
+          {
+            "name": "Glazing & Finishing",
+            "duration": "1.5 hrs",
+            "price": "$45"
+          }
+        ]
+      },
+      "Visual Arts": {
+        "create_name_placeholder": "e.g. Painting Workshop",
+        "create_desc_ghost": "e.g. A creative studio session to explore painting, drawing, and mixed media techniques.",
+        "appointments": [
+          {
             "name": "Painting Workshop",
             "duration": "2 hrs",
             "price": "$55"
+          },
+          {
+            "name": "Drawing Class",
+            "duration": "1.5 hrs",
+            "price": "$45"
           },
           {
             "name": "Private Studio Session",
@@ -1638,23 +1321,15 @@
             "price": "$90"
           },
           {
-            "name": "Kids Art Class",
-            "duration": "1 hr",
-            "price": "$40"
+            "name": "Mixed Media Class",
+            "duration": "2 hrs",
+            "price": "$60"
           }
         ]
       },
       "Other": {
         "create_name_placeholder": "e.g. My Class or Workshop",
-        "create_desc_ghost": "An engaging learning session designed to develop skills and inspire curiosity.",
-        "create_name_chips": [
-          "Tutoring Session",
-          "Workshop",
-          "Skills Class",
-          "Group Class",
-          "Practice Session",
-          "Intro Lesson"
-        ],
+        "create_desc_ghost": "e.g. An engaging learning session designed to develop skills and inspire curiosity.",
         "appointments": [
           {
             "name": "Intro Consultation",
@@ -1680,18 +1355,66 @@
       }
     }
   },
-  "_generic": {
-    "create_name_chips": [
-      "Consultation",
-      "Standard Session",
-      "Introduction Call",
-      "Personal Assessment",
-      "Working Session",
-      "Follow-Up",
-      "Group Session",
-      "Workshop",
-      "Discovery Call",
-      "Custom Appointment"
-    ]
+  "Other": {
+    "fallback_appointments": [
+      {
+        "name": "Consultation",
+        "duration": "30 min",
+        "price": "$50"
+      },
+      {
+        "name": "Virtual Lesson",
+        "duration": "60 min",
+        "price": "$50"
+      },
+      {
+        "name": "Standard Service",
+        "duration": "60 min",
+        "price": "$100"
+      },
+      {
+        "name": "Follow-up",
+        "duration": "45 min",
+        "price": "$25"
+      },
+      {
+        "name": "Strategy Call",
+        "duration": "90 min",
+        "price": "$250"
+      }
+    ],
+    "industries": {
+      "Other": {
+        "create_name_placeholder": "e.g. My Service",
+        "create_desc_ghost": "e.g. A professional service tailored to your clients' needs.",
+        "appointments": [
+          {
+            "name": "Consultation",
+            "duration": "30 min",
+            "price": "$50"
+          },
+          {
+            "name": "Virtual Lesson",
+            "duration": "60 min",
+            "price": "$50"
+          },
+          {
+            "name": "Standard Service",
+            "duration": "60 min",
+            "price": "$100"
+          },
+          {
+            "name": "Follow-up",
+            "duration": "45 min",
+            "price": "$25"
+          },
+          {
+            "name": "Strategy Call",
+            "duration": "90 min",
+            "price": "$250"
+          }
+        ]
+      }
+    }
   }
 }

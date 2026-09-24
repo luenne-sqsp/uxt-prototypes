@@ -1,0 +1,170 @@
+{
+  "App.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/DesktopTopNav.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/PreviewPane.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/StyleWidget.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/TopNav/TopNav.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/VariantMenu.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "components/VariantSlot.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/ScreenHost.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s1/S1Intro.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s10/BookingWidgetPreview.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 6,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s10/S10Ready.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s10/StylePickerRow.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 1,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s2/S2Industry.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 2,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s3/S3Specialty.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 2,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s3/S3Specialty.b.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 2,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s4/S4Loading.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s5/AppointmentCard.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s5/AppointmentSheet.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s5/S5Catalog.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s9/AvailabilityCard.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s9/AvailabilitySheet.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s9/S9Availability.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s_home/SHomeA_Default.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 2,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  },
+  "screens/s_loading_home/SLoadingHome.a.vue": {
+    "rawHex": 0,
+    "rawRgba": 0,
+    "rawFontSize": 0,
+    "offScaleSpacing": 0,
+    "bespokeClasses": 0
+  }
+}
