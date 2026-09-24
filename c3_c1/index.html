@@ -146,22 +146,26 @@
     .btn-primary:active { opacity: 0.85; }
     .btn-ghost:active   { opacity: 0.6; }
 
+    /* Padding/font-weight normalized to match .acuity-button--primary --md
+       (D-116) — width:100% and the dawn-purple fill stay as local
+       overrides (full-width bottom-nav context; color already matched the
+       DS token after D-116's --acuity-bg-brand-strong recolor). */
     .btn-primary {
-      padding: var(--acuity-spacing-16) 20px;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-24);
       background: var(--acuity-color-dawn-purple-100);
       color: var(--acuity-color-neutral-gray-base);
       font-size: 16px;
-      font-weight: 400;
+      font-weight: var(--acuity-font-weight-book);
       line-height: 1.4;
       gap: var(--acuity-spacing-8);
     }
 
     .btn-ghost {
-      padding: 12px 20px;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-24);
       background: transparent;
       color: var(--acuity-color-dawn-purple-100);
       font-size: 16px;
-      font-weight: 400;
+      font-weight: var(--acuity-font-weight-book);
       line-height: 1.5;
     }
 
@@ -499,6 +503,10 @@
     }
     .chips-row::-webkit-scrollbar { display: none; }
 
+    /* Applied dynamically via JS (_appendS3Chips()'s btn.className='chip'),
+       not present in any static markup — this is why an earlier audit's
+       static grep missed it as "0 usages"; restored after being wrongly
+       removed. See D-116. */
     .chip {
       flex-shrink: 0;
       display: inline-flex;
@@ -1382,32 +1390,35 @@
     .btn-sheet-close {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 4px;
+      gap: var(--acuity-spacing-8);
+      padding: var(--acuity-spacing-8) var(--acuity-spacing-4);
       background: none;
       border: none;
       color: var(--acuity-fg-default);
       font-family: var(--acuity-font-family-sans);
       font-size: 14px;
-      font-weight: 400;
+      font-weight: var(--acuity-font-weight-book);
       line-height: 1.5;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
     .btn-sheet-close:active { opacity: 0.6; }
 
+    /* Padding/color/font-weight normalized to tokens (D-116) — same "Button
+       Special" 14px geometry as .btn-next, just not flex-constrained since
+       it's a standalone sheet-footer button rather than a paired nav. */
     .btn-sheet-save {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 20px;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-24);
       background: var(--acuity-color-dawn-purple-100);
-      color: white;
+      color: var(--acuity-color-neutral-gray-base);
       border: none;
       border-radius: var(--acuity-border-radius-md);
       font-family: var(--acuity-font-family-sans);
       font-size: 14px;
-      font-weight: 400;
+      font-weight: var(--acuity-font-weight-book);
       line-height: 1.5;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
@@ -1439,18 +1450,6 @@
       font-weight: 400;
       color: var(--acuity-fg-default);
     }
-    .back-link {
-      margin-top: var(--acuity-spacing-8);
-      font-size: 12px;
-      color: var(--acuity-fg-muted);
-      text-decoration: underline;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: var(--acuity-font-family-sans);
-    }
-
-
     /* ══════════════════════════════════════════════════════════════════════
        Create sub-flow — s_c1 through s_c5
        Triggered from "+ New appointment type" on S5
@@ -1542,7 +1541,10 @@
       gap: var(--acuity-spacing-12);
     }
 
-    /* Shared Button Special geometry (Figma "Button Special", 14px label) */
+    /* Shared Button Special geometry (Figma "Button Special", 14px label).
+       Padding/font-weight normalized to spacing/type tokens (D-116) — the
+       flex:1/max-width:160px layout constraint is a local need (Figma's
+       dual-button nav) with no .acuity-button equivalent, so kept as-is. */
     .btn-prev,
     .btn-next {
       flex: 1;
@@ -1551,11 +1553,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--acuity-spacing-12) 20px;
+      padding: var(--acuity-spacing-12) var(--acuity-spacing-24);
       border-radius: var(--acuity-border-radius-md);
       font-family: var(--acuity-font-family-sans);
       font-size: 14px;
-      font-weight: 400;
+      font-weight: var(--acuity-font-weight-book);
       line-height: 1.5;
       white-space: nowrap;
       cursor: pointer;
@@ -2467,22 +2469,6 @@
       color: var(--acuity-fg-muted);
     }
 
-    /* "Set different hours for different appointments" link */
-    .avail-link {
-      font-family: var(--acuity-font-family-sans);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--acuity-fg-muted);
-      text-decoration: underline;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .avail-link:active { opacity: 0.6; }
 
     /* Per-appointment sections (shown when multiple services) */
     .avail-per-appt {
@@ -3577,9 +3563,11 @@
       color: #6e6e6e;
       margin: 0;
     }
-    .home-plan-cta {
-      margin-top: 22px;
-      align-self: flex-start;
+    /* Shared outline-CTA visual recipe (D-116) — .home-plan-cta and
+       .home-book-btn were the exact same colors/typography under two
+       names, differing only in layout (inline-fit-content vs. fill-
+       width). Merged into one base + two layout modifiers. */
+    .home-outline-cta {
       padding: 11px var(--acuity-spacing-16);
       background: none;
       border: 1px solid #e7e7e7;
@@ -3591,6 +3579,8 @@
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
+    .home-outline-cta--inline { margin-top: 22px; align-self: flex-start; }
+    .home-outline-cta--full-width { width: 100%; padding: 11px; text-align: center; box-sizing: border-box; }
     .home-promo-desc {
       font-size: 14px;
       font-family: var(--acuity-font-family-sans);
@@ -3714,22 +3704,6 @@
       font-family: var(--acuity-font-family-sans);
       margin: 0;
     }
-    .home-book-btn {
-      width: 100%;
-      padding: 11px;
-      background: none;
-      border: 1px solid #e7e7e7;
-      font-size: 12px;
-      font-weight: 500;
-      font-family: var(--acuity-font-family-sans);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      -webkit-tap-highlight-color: transparent;
-      box-sizing: border-box;
-    }
-
     /* ─── Ready state: booking card body + check rows ──────────────────── */
     .home-card-body {
       padding: 22px;
@@ -3942,21 +3916,6 @@
       line-height: 22px;
       color: var(--acuity-fg-muted);
     }
-    .avail-link {
-      font-family: var(--acuity-font-family-sans);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--acuity-fg-muted);
-      text-decoration: underline;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .avail-link:active { opacity: 0.6; }
     .avail-per-appt {
       display: flex;
       flex-direction: column;
@@ -8052,7 +8011,7 @@
           <div class="home-card">
             <div class="home-appts-inner">
               <p class="home-appts-heading">Appointments this week (0)</p>
-              <button class="home-book-btn" onclick="showProtoTooltip()">BOOK APPOINTMENT</button>
+              <button class="home-outline-cta home-outline-cta--full-width" onclick="showProtoTooltip()">BOOK APPOINTMENT</button>
             </div>
           </div>
 
@@ -8062,7 +8021,7 @@
               <span class="home-plan-label">YOUR PLAN</span>
               <p class="home-plan-name">Free Trial (Emerging)</p>
               <p class="home-plan-days">7 days left</p>
-              <button class="home-plan-cta" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
+              <button class="home-outline-cta home-outline-cta--inline" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
             </div>
           </div>
 
@@ -8071,7 +8030,7 @@
             <div class="home-plan-inner">
               <p class="home-plan-name">Get 50% any plan before July 28</p>
               <p class="home-promo-desc">Use code 50OFF at checkout. <a class="home-promo-terms" href="#" onclick="showProtoTooltip();return false;">View terms</a></p>
-              <button class="home-plan-cta" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
+              <button class="home-outline-cta home-outline-cta--inline" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
             </div>
           </div>
 
@@ -8160,7 +8119,7 @@
               <span class="home-plan-label">YOUR PLAN</span>
               <p class="home-plan-name">Free Trial (Emerging)</p>
               <p class="home-plan-days">7 days left</p>
-              <button class="home-plan-cta" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
+              <button class="home-outline-cta home-outline-cta--inline" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
             </div>
           </div>
 
@@ -8169,7 +8128,7 @@
             <div class="home-plan-inner">
               <p class="home-plan-name">Get 50% any plan before July 28</p>
               <p class="home-plan-days">Use code 50OFF at checkout. New accounts only.</p>
-              <button class="home-plan-cta" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
+              <button class="home-outline-cta home-outline-cta--inline" onclick="showProtoTooltip()">CHOOSE A PLAN</button>
             </div>
           </div>
 

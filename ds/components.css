@@ -233,30 +233,30 @@
   background: var(--acuity-bg-brand-strong);
   color: var(--acuity-bg-brand-on-strong);
 }
-.acuity-button--primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-evening-dark-blue-90); }
-.acuity-button--primary:active:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-evening-dark-blue-90); }
+.acuity-button--primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-dawn-purple-90); }
+.acuity-button--primary:active:not(:disabled):not([aria-disabled="true"]) { background: var(--acuity-color-dawn-purple-90); }
 
 .acuity-button--secondary {
   background: transparent;
-  color: var(--acuity-color-evening-dark-blue-100);
-  border-color: var(--acuity-color-evening-dark-blue-100);
+  color: var(--acuity-color-dawn-purple-100);
+  border-color: var(--acuity-color-dawn-purple-100);
 }
 .acuity-button--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--acuity-bg-brand-subtle);
-  border-color: var(--acuity-color-evening-dark-blue-90);
+  border-color: var(--acuity-color-dawn-purple-90);
 }
 .acuity-button--secondary:active:not(:disabled):not([aria-disabled="true"]) {
   background: var(--acuity-bg-brand-default);
-  border-color: var(--acuity-color-evening-dark-blue-90);
+  border-color: var(--acuity-color-dawn-purple-90);
 }
 
 .acuity-button--tertiary {
   background: transparent;
-  color: var(--acuity-color-evening-dark-blue-100);
+  color: var(--acuity-color-dawn-purple-100);
 }
 .acuity-button--tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
   text-decoration: underline;
-  color: var(--acuity-color-evening-dark-blue-90);
+  color: var(--acuity-color-dawn-purple-90);
 }
 
 .acuity-button--destructive {
@@ -337,9 +337,9 @@
 .acuity-icon-button--ghost:hover:not(:disabled) { background: var(--acuity-bg-default); color: var(--acuity-fg-default); }
 
 .acuity-icon-button--primary { background: var(--acuity-bg-brand-strong); color: var(--acuity-bg-brand-on-strong); }
-.acuity-icon-button--primary:hover:not(:disabled) { background: var(--acuity-color-evening-dark-blue-90); }
+.acuity-icon-button--primary:hover:not(:disabled) { background: var(--acuity-color-dawn-purple-90); }
 
-.acuity-icon-button--secondary { color: var(--acuity-color-evening-dark-blue-100); border-color: var(--acuity-color-evening-dark-blue-100); }
+.acuity-icon-button--secondary { color: var(--acuity-color-dawn-purple-100); border-color: var(--acuity-color-dawn-purple-100); }
 .acuity-icon-button--secondary:hover:not(:disabled) { background: var(--acuity-bg-brand-subtle); }
 
 .acuity-icon-button--destructive { color: var(--acuity-fg-danger); }
@@ -779,7 +779,7 @@
   background: var(--acuity-bg-brand-strong);
   transform: scale(1.35);
 }
-.acuity-stepper__step--complete { background: var(--acuity-color-evening-dark-blue-80); }
+.acuity-stepper__step--complete { background: var(--acuity-color-dawn-purple-80); }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════

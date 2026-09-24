@@ -503,7 +503,7 @@ Clarkson, sans-serif
   --acuity-bg-accent-strong: #3c5794;
   --acuity-bg-brand-subtle: #fafdff;
   --acuity-bg-brand-default: #eaf4ff;
-  --acuity-bg-brand-strong: #253848;
+  --acuity-bg-brand-strong: var(--acuity-color-dawn-purple-100);
   --acuity-bg-brand-on-strong: #ffffff;
   --acuity-border-default: #e7e7e7;
   --acuity-border-muted: #f2f2f2;
